@@ -1,4 +1,4 @@
-# 🌐 WireGuard VPN Client con Antivirus Integrato
+# 🌐 WireShield
 
 **Titolo del Progetto:** Client VPN in Java per connessioni WireGuard con scansione antivirus integrata per una navigazione sicura
 
@@ -12,12 +12,12 @@ Siamo **Davide Bonsembiante**, **Lorenzo Gallizioli** e **Thomas Paganelli**, st
 
 ## 📝 Descrizione del Progetto
 
-Il nostro progetto consiste in un'applicazione **client Java** progettata per connettersi a una VPN tramite il protocollo **WireGuard** e integrare un sistema di **scansione antivirus** che protegga i file scaricati o trasferiti attraverso la rete. 
+Il nostro progetto consiste in un'applicazione **client Java** progettata per connettersi a una VPN tramite il protocollo **WireGuard** e integrare un sistema di **scansione antivirus** che analizzi i file scaricati o trasferiti attraverso la rete. 
 
 Con questo strumento, vogliamo offrire una soluzione che combini:
 
 - **Privacy**: Una connessione sicura tramite **WireGuard**, un protocollo di VPN moderno e sicuro.
-- **Sicurezza**: Un sistema di scansione antivirus per proteggere i file da malware utilizzando **ClamAV** e **VirusTotal**.
+- **Sicurezza**: Un sistema di scansione antivirus per analizzare i file da malware che possono infettare i sistemi informatici utilizzando **ClamAV** e **VirusTotal**.
 - **Open Source**: Una soluzione completamente open-source, liberamente utilizzabile da chiunque.
 
 ---
@@ -28,11 +28,10 @@ Con questo strumento, vogliamo offrire una soluzione che combini:
 L’applicazione permette la configurazione e la gestione di una connessione VPN attraverso WireGuard. Le funzionalità principali sono:
    - **Configurazione con chiavi**: l'utente può configurare la connessione tramite chiavi pubbliche e private.
    - **Caricamento file di configurazione**: supporto per file `.conf` di WireGuard, che semplifica il setup della connessione.
-   - **Gestione da riga di comando**: l'applicazione invoca comandi di sistema per interagire con WireGuard tramite `wg` e `wg-quick`.
 
 ### 2. Scansione Antivirus Integrata
 Per proteggere i file scaricati durante l’utilizzo della VPN, il client offre una doppia opzione per la scansione antivirus:
-   - **Integrazione con ClamAV**: scansione antivirus open-source con ClamAV, utilizzando i comandi `clamscan` per analizzare i file trasferiti.
+   - **Integrazione con ClamAV**: scansione antivirus open-source con ClamAV.
    - **Integrazione con VirusTotal API**: verifica degli hash dei file (MD5/SHA256) tramite chiamate all’API di VirusTotal, che permette di esaminare file sospetti senza inviarli completamente, riducendo così il rischio di trasmissioni non sicure.
 
 ### 3. Interfaccia Utente (UI)
@@ -54,27 +53,10 @@ L’applicazione tiene traccia di tutte le operazioni e fornisce notifiche in te
 
 1. **WireGuard**: Deve essere installato sulla macchina. Assicurati di avere i comandi `wg` e `wg-quick` disponibili.
 2. **ClamAV**: Necessario per la scansione antivirus tramite `clamscan`.
-3. **Java 11** o versione successiva: L’applicazione è sviluppata in Java e utilizza funzionalità moderne come il client HTTP e JavaFX.
+3. **Java 11** o versione successiva: L’applicazione è sviluppata in Java e utilizza funzionalità moderne come JavaFX.
 4. **API Key di VirusTotal** (opzionale): Per integrare le scansioni tramite l'API di VirusTotal, è necessaria una chiave API.
 
 > ⚠️ **Permessi Amministrativi**: Poiché l’applicazione interagisce con WireGuard, è necessario eseguire il programma con privilegi elevati (root/sudo) per gestire le connessioni di rete.
-
-### Struttura del Progetto
-La struttura del progetto è organizzata come segue:
-WireGuardClient/ 
-├── src/ 
-│ ├── Main.java # Entry point dell'applicazione 
-│ ├── WireGuardConnector.java # Gestione della connessione VPN WireGuard 
-│ ├── ClamAVScanner.java # Scansione antivirus con ClamAV 
-│ ├── VirusTotalScanner.java # Scansione antivirus tramite API di VirusTotal 
-│ ├── UI/ 
-│ │ ├── MainUI.java # Interfaccia principale per configurazione e visualizzazione 
-│ │ └── SettingsUI.java # Interfaccia per impostazioni aggiuntive 
-├── resources/ 
-│ ├── config/ # Cartella per i file di configurazione 
-│ └── api_keys.properties # Chiave API per VirusTotal 
-├── logs/ # Directory per i log di sistema 
-└── README.md
 
 ---
 
