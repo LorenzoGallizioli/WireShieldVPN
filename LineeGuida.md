@@ -7,8 +7,8 @@
 ### 1. **Project Plan**
 
 - **Tempistiche:**
-  - **1 mese prima dell’esame:** Definizione del progetto e approvazione del piano da parte del professore.
-  - **5 giorni prima:** Presentazione del progetto finale.
+  - **1 mese prima dell’esame:** Definizione del progetto e approvazione del project plan da parte del professore.
+  - **5 giorni prima:** Consegna Lavoro.
   
 - **Gestione del progetto su GitHub:**
   - Creazione di **Issue** per tracciare i task.
@@ -23,6 +23,7 @@
 
 #### 2.1 **Project Plan**
 Il piano del progetto sarà descritto in questa sezione, indicando le fasi principali e i tempi di completamento. Il piano dovrà essere approvato dal professore prima dell'inizio dello sviluppo.
+
 
 ---
 
