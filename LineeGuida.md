@@ -1,150 +1,154 @@
 # 📝 Linee Guida del Progetto
 
-## Ingegneria del Software
+## 🔧 Ingegneria del Software
 
-**Github:** Garganti, silviabonfanti
+- **GitHub:** [Garganti](https://github.com/Garganti), [silviabonfanti](https://github.com/silviabonfanti)
 
-### 1. **Project Plan**
+---
+
+### 1. 🗓 **Project Plan**
 
 - **Tempistiche:**
-  - **1 mese prima dell’esame:** Definizione del progetto e approvazione del project plan da parte del professore.
-  - **5 giorni prima:** Consegna Lavoro.
-  
-- **Gestione del progetto su GitHub:**
-  - Creazione di **Issue** per tracciare i task.
-  - Utilizzo di **Branch** per separare i vari sviluppi e funzionalità.
-  - **Pull request** per integrare le modifiche nel ramo principale.
-  - Revisione del codice tramite **Code review**.
-  - Gestione delle attività tramite **Kanban board**.
+  - 🕐 **1 mese prima dell’esame**: Definizione del progetto e approvazione del project plan da parte del professore.
+  - 🗓 **5 giorni prima**: Completamento del lavoro.
+
+- **Gestione del progetto su GitHub**:
+  - Creazione di **📌 Issue** per tracciare i task.
+  - Utilizzo di **🌿 Branch** per separare i vari sviluppi e funzionalità.
+  - **🔄 Pull request** per integrare le modifiche nel ramo principale.
+  - **👀 Code review** per garantire la qualità del codice.
+  - Organizzazione delle attività tramite **🗂️ Kanban board**.
 
 ---
 
-### 2. **Software Engineering Management**
+### 2. 🛠 **Software Engineering Management**
 
 #### 2.1 **Project Plan**
-Il piano del progetto sarà descritto in questa sezione, indicando le fasi principali e i tempi di completamento. Il piano dovrà essere approvato dal professore prima dell'inizio dello sviluppo.
-
+Il piano del progetto sarà descritto in questa sezione, evidenziando i 14 punti come indicato in sezione 2.1 del libro.. Questo piano sarà sottoposto all'approvazione del professore prima dell'inizio dello sviluppo.
 
 ---
 
-### 3. **Software Life Cycle**
+### 3. 🔄 **Software Life Cycle**
 
 #### 3.1 **Tipo di Processo di Sviluppo**
-- Il processo di sviluppo seguito sarà quello **Iterativo e Incrementale**, dove il progetto sarà sviluppato in piccoli cicli di sviluppo (sprint) con revisioni frequenti e miglioramenti.
+- Il progetto adotta un **processo di sviluppo Iterativo e Incrementale** per garantire una progressione graduale e continua delle funzionalità. Questo approccio prevede lo sviluppo in cicli (sprint), permettendo di incorporare frequenti feedback e adattamenti lungo il percorso.
+
+Questa struttura ci consente di adattarci ai cambiamenti e di migliorare continuamente le funzionalità del software, offrendo la massima flessibilità.
 
 #### 3.2 **Approccio MDA (Model-Driven Architecture)**
-- L'approccio MDA sarà utilizzato con **Papyrus UML** per la progettazione e generazione di codice da modelli UML.
+- Utilizzeremo l'approccio **MDA** con **Papyrus UML** per progettare e generare codice direttamente dai modelli UML, garantendo coerenza tra modello e implementazione.
 
-#### 3.3 **Sprint**
-- Il progetto sarà suddiviso in **sprint** di 1 settimana, con il completamento di specifici task e obiettivi definiti prima di ogni sprint.
+#### 3.3 **Sprint - Metodologia Scrum**
+- Lo sviluppo seguirà la metodologia **Scrum**, strutturato in **sprint settimanali**. Ogni sprint avrà obiettivi e task specifici, pianificati e rivisti ad ogni ciclo, per rispondere agilmente a nuovi requisiti e migliorare progressivamente il software.
 
 ---
 
-### 4. **Configuration Management**
+### 4. ⚙️ **Configuration Management**
 
 #### 4.1 **GitHub**
-- **Versionamento del codice**: Utilizzo di **GitHub** per il controllo versione e la gestione del repository.
+- **Versionamento del codice**: Utilizzo di **GitHub** per il controllo versione.
 - **Branching**: Creazione di rami separati per ogni nuova funzionalità o task.
-- **Pull Requests**: Per integrare le modifiche nel ramo principale (`main`).
-  
+- **Pull Requests**: Per integrare le modifiche nel ramo principale (`main`), previa revisione del codice.
+
 #### 4.2 **Kanban**
-- Gestione delle attività tramite **Kanban board** per visualizzare il progresso e l'assegnazione dei task.
+- Gestione delle attività tramite **Kanban board** per visualizzare il progresso e monitorare i task assegnati.
 
 ---
 
-### 5. **People Management**
+### 5. 👥 **People Management**
 
 #### 5.1 **Organizzazione del Lavoro**
-- Il lavoro sarà distribuito tra i membri del team, assegnando specifici compiti e monitorando il progresso tramite la **Kanban board**.
-- I membri del team: **Davide Bonsembiante**, **Lorenzo Gallizioli**, e **Thomas Paganelli** si occuperanno delle seguenti aree:
-  - **Davide Bonsembiante**: Responsabile dell'implementazione della connessione VPN.
-  - **Lorenzo Gallizioli**: Gestione dell'integrazione della scansione antivirus.
-  - **Thomas Paganelli**: Supervisione e gestione dell'interfaccia grafica (UI).
-
+- Il lavoro sarà distribuito tra i membri del team, con monitoraggio del progresso tramite la **Kanban board**.
+- Useremo come ORGANIZZAZIONE DEL TEAM la squadra AGILE un po' adattato in base al nostro caso. Quindi La struttura di base del nostro team Scrum è:
+- Scrum Master: è il facilitatore del processo SCRUM, il suo compito è assicurarsi che il team segua le pratiche Scrum correttamente, risolva eventuali impedimenti che ostacolano il progresso del team e promuova una cultura collaborativa ed autodisciplinata.
+Si precisa che lo Scrum Master verrà fatto a turnazione di un mese in modo tale che tutti i componenti del gruppo provino questo ruolo.
+- Developement Team: professionisti cross-funzionali che lavorano insieme per consegnare le funzionalità del prodotto. Il team ha l’obiettivo di organizzare il lavoro autonomamente durante lo sprint per raggiungere gli
+obiettivi definiti nello Sprint Backlog.
 ---
 
-### 6. **Software Quality**
+### 6. 🔍 **Software Quality**
 
-#### 6.1 **Qualità Importanti per il Progetto**
+#### 6.1 **Qualità Fondamentali per il Progetto**
 Le seguenti qualità sono fondamentali per il successo del progetto:
-- **Affidabilità**: Garantire che l'applicazione sia stabile e senza crash.
-- **Usabilità**: Interfaccia utente chiara e intuitiva.
-- **Performance**: La connessione VPN deve essere veloce e senza interruzioni.
-- **Sicurezza**: Protezione dai malware tramite scansioni antivirus.
-- **Manutenibilità**: Il codice deve essere ben strutturato per future modifiche e miglioramenti.
+- **Affidabilità**: Stabilità dell’applicazione senza crash.
+- **Usabilità**: Interfaccia chiara e intuitiva.
+- **Performance**: Connessione VPN veloce e stabile.
+- **Sicurezza**: Protezione contro malware tramite scansioni antivirus.
+- **Manutenibilità**: Codice ben strutturato e facilmente modificabile.
 
 ---
 
-### 7. **Requirements Engineering**
+### 7. 📋 **Requirements Engineering**
 
 #### 7.1 **Elicitation dei Requisiti**
-I requisiti sono stati ricavati mediante interviste con il committente e analisi delle necessità per la connessione VPN sicura e la protezione contro i malware.
+- I requisiti sono stati raccolti tramite interviste con il committente e un’analisi dei bisogni per la connessione VPN sicura e protezione malware.
 
 #### 7.2 **Specifica dei Requisiti (IEEE 830)**
-La documentazione dei requisiti segue lo standard **IEEE 830** per la definizione dei requisiti funzionali e non funzionali.
+- La documentazione dei requisiti segue lo standard **IEEE 830** per definire requisiti funzionali e non funzionali.
 
-Esempio di specifica dei requisiti:
-[Mechanical Lung Ventilator - Example Requirements Specification](https://github.com/foselab/abz2024_casestudy_MLV/blob/main/Mechanical_Lung_Ventilator%201_5.pdf)
+- **Esempio di specifica dei requisiti**: [Mechanical Lung Ventilator - Example Requirements Specification](https://github.com/foselab/abz2024_casestudy_MLV/blob/main/Mechanical_Lung_Ventilator%201_5.pdf)
 
 ---
 
-### 8. **Modeling**
+### 8. 🖋️ **Modeling**
 
-#### 8.1 **UML Visti a Lezione**
+#### 8.1 **Diagrammi UML**
 I seguenti diagrammi UML sono stati utilizzati per progettare il sistema:
-
-- **Use Case Diagram**
-- **Class Diagram**
-- **State Machine Diagram**
-- **Sequence Diagram**
-- **Communication Diagram**
-- **Activity Diagram**
-- **Component Diagram**
+- **Diagramma dei Casi d’Uso**
+- **Diagramma delle Classi**
+- **Diagramma delle Macchine a Stati**
+- **Diagramma di Sequenza**
+- **Diagramma di Comunicazione**
+- **Diagramma di Attività**
+- **Diagramma dei Componenti**
 
 ---
 
-### 9. **Software Architecture**
+### 9. 🏛️ **Software Architecture**
 
 #### 9.1 **Descrizione dell'Architettura**
-L'architettura del software è basata su un modello a **strati**, con una separazione tra la logica di business, l'interfaccia utente e l'integrazione con i sistemi esterni (WireGuard e il sistema antivirus).
-
-Le principali viste architetturali includono:
-- **Vista funzionale**: Descrizione delle funzionalità principali.
-- **Vista strutturale**: Come le componenti del sistema sono organizzate.
-- **Vista comportamentale**: Come il sistema risponde agli eventi.
+- **Architettura a strati**: Separazione tra logica di business, interfaccia utente e integrazione con sistemi esterni (VPN e antivirus).
+  
+- **Principali viste architetturali**:
+  - **Vista funzionale**: Descrizione delle funzionalità principali.
+  - **Vista strutturale**: Struttura delle componenti del sistema.
+  - **Vista comportamentale**: Risposta del sistema agli eventi.
 
 ---
 
-### 10. **Software Design**
+### 10. 🖌️ **Software Design**
 
 #### 10.1 **Progettazione Mediante UML**
-La progettazione è stata realizzata utilizzando diagrammi UML per rappresentare in modo chiaro la struttura e il comportamento del sistema.
+- Progettazione mediante diagrammi UML per rappresentare la struttura e il comportamento del sistema.
 
-#### 10.2 **Misurazione del Codice**
-Le metriche di qualità del codice sono state calcolate per misurare la complessità del sistema e identificare aree di miglioramento.
+#### 10.2 **Metriche di Qualità**
+- Calcolo della complessità del codice e misurazione delle metriche di qualità per monitorare la manutenibilità e individuare miglioramenti.
 
 #### 10.3 **Calcolo della Complessità**
-La **complessità ciclomatica** del codice è stata analizzata per garantire che il sistema sia facilmente testabile e manutenibile.
+- **Complessità ciclomatica** per garantire che il sistema sia facilmente testabile e manutenibile.
 
 ---
 
-### 11. **Software Testing**
+### 11. 🔍 **Software Testing**
 
 #### 11.1 **Piano per Attività di Test**
-Il piano di test include test funzionali, di integrazione e di regressione per garantire che tutte le funzionalità del sistema siano operative.
+- Il piano di test include test **funzionali**, **di integrazione**, e **di regressione** per assicurare il corretto funzionamento delle funzionalità.
 
 #### 11.2 **Casi di Test Implementati**
-I test sono stati implementati utilizzando **JUnit**, per verificare il corretto funzionamento delle classi e dei metodi principali, come la connessione VPN e la scansione dei file.
+- Test implementati con **JUnit** per verificare la funzionalità principale (connessione VPN, scansione antivirus).
 
 ---
 
-### 12. **Software Maintenance**
+### 12. 🔧 **Software Maintenance**
 
 #### 12.1 **Reverse Engineering**
-Nel caso di necessità, verranno utilizzate tecniche di **reverse engineering** per comprendere meglio il funzionamento di componenti esterni o legati a tecnologie di terze parti.
+- Tecniche di **reverse engineering** saranno utilizzate per comprendere meglio componenti esterni e tecnologie di terze parti.
 
 #### 12.2 **Refactoring**
-Il codice verrà regolarmente sottoposto a **refactoring** per migliorarne la leggibilità, la manutenibilità e per ottimizzare le performance.
+- **Refactoring regolare** del codice per migliorarne leggibilità e performance.
 
 ---
+
+> **Nota:** Questo documento deve essere aggiornato regolarmente per riflettere eventuali modifiche o miglioramenti nel processo di sviluppo.
+
 
