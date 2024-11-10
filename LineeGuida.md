@@ -2,7 +2,9 @@
 
 ## 🔧 Ingegneria del Software
 
-- **GitHub:** [Garganti](https://github.com/Garganti), [silviabonfanti](https://github.com/silviabonfanti)
+**GitHub:** 
+- [Garganti](https://github.com/Garganti)
+- [silviabonfanti](https://github.com/silviabonfanti)
 
 ---
 
@@ -24,69 +26,85 @@
 ### 2. 🛠 **Software Engineering Management**
 
 #### 2.1 **Project Plan**
-Il piano del progetto sarà descritto in questa sezione, evidenziando i 14 punti come indicato in sezione 2.1 del libro.. Questo piano sarà sottoposto all'approvazione del professore prima dell'inizio dello sviluppo.
+Il piano del progetto sarà descritto in questa sezione, evidenziando i 14 punti come indicato in sezione 2.1 del libro. Questo piano sarà sottoposto all'approvazione del professore prima dell'inizio dello sviluppo.
 
 ---
 
 ### 3. 🔄 **Software Life Cycle**
 
 #### 3.1 **Tipo di Processo di Sviluppo**
-- Il progetto adotta un **processo di sviluppo Iterativo e Incrementale** per garantire una progressione graduale e continua delle funzionalità. Questo approccio prevede lo sviluppo in cicli (sprint), permettendo di incorporare frequenti feedback e adattamenti lungo il percorso.
+Il progetto adotta un **processo di sviluppo Iterativo e Incrementale** per garantire una progressione graduale e continua delle funzionalità. Questo approccio prevede lo sviluppo in cicli (sprint), permettendo di incorporare frequenti feedback e adattamenti lungo il percorso.
 
 Questa struttura ci consente di adattarci ai cambiamenti e di migliorare continuamente le funzionalità del software, offrendo la massima flessibilità.
 
 #### 3.2 **Approccio MDA (Model-Driven Architecture)**
-- Utilizzeremo l'approccio **MDA** con **Papyrus UML** per progettare e generare codice direttamente dai modelli UML, garantendo coerenza tra modello e implementazione.
+Utilizzeremo l'approccio **MDA** con **Papyrus UML** per progettare e generare codice direttamente dai modelli UML, garantendo coerenza tra modello e implementazione.
 
 #### 3.3 **Sprint - Metodologia Scrum**
-- Lo sviluppo seguirà la metodologia **Scrum**, strutturato in **sprint settimanali**. Ogni sprint avrà obiettivi e task specifici, pianificati e rivisti ad ogni ciclo, per rispondere agilmente a nuovi requisiti e migliorare progressivamente il software.
+Lo sviluppo seguirà la metodologia **Scrum**, strutturato in **sprint settimanali**. Ogni sprint avrà obiettivi e task specifici, pianificati e rivisti ad ogni ciclo, per rispondere agilmente a nuovi requisiti e migliorare progressivamente il software.
 
 ---
 
 ### 4. ⚙️ **Configuration Management**
 
 #### 4.1 **GitHub**
-- **Versionamento del codice**: Utilizzo di **GitHub** per il controllo versione.
-- **Branching**: Creazione di rami separati per ogni nuova funzionalità o task.
-- **Pull Requests**: Per integrare le modifiche nel ramo principale (`main`), previa revisione del codice.
+
+- **Versionamento del codice**: Utilizzo di GitHub per il controllo versione, con comandi come:
+  - `git add .` per aggiungere modifiche.
+  - `git commit -m "messaggio"` per registrare le modifiche.
+  - `git push origin nome-ramo` per caricare le modifiche nel repository remoto.
+
+- **Branching**: Ogni nuova funzionalità o task viene sviluppata su un ramo separato. Creazione del ramo con:
+  - `git checkout -b nome-ramo`.
+
+- **Pull Requests (PR)**: Le modifiche vengono integrate nel ramo principale (`main`) tramite una **Pull Request** su GitHub, seguita da una **code review**.
+
+- **Code Review**: Ogni PR viene esaminata da un membro del team per verificarne qualità e funzionalità.
+
+- **Issue Tracking**: Le **Issue** vengono utilizzate per tracciare task e bug. Le Issue sono collegate ai commit tramite il formato `#numero-issue`.
+
+- **Kanban Board**: Le attività vengono monitorate e organizzate su una Kanban board di GitHub.
 
 #### 4.2 **Kanban**
-- Gestione delle attività tramite **Kanban board** per visualizzare il progresso e monitorare i task assegnati.
+Gestione delle attività tramite **Kanban board** per visualizzare il progresso e monitorare i task assegnati.
 
 ---
 
 ### 5. 👥 **People Management**
 
 #### 5.1 **Organizzazione del Lavoro**
-- Il lavoro sarà distribuito tra i membri del team, con monitoraggio del progresso tramite la **Kanban board**.
-- Useremo come ORGANIZZAZIONE DEL TEAM la squadra AGILE un po' adattato in base al nostro caso. Quindi La struttura di base del nostro team Scrum è:
-- Scrum Master: è il facilitatore del processo SCRUM, il suo compito è assicurarsi che il team segua le pratiche Scrum correttamente, risolva eventuali impedimenti che ostacolano il progresso del team e promuova una cultura collaborativa ed autodisciplinata.
-Si precisa che lo Scrum Master verrà fatto a turnazione di un mese in modo tale che tutti i componenti del gruppo provino questo ruolo.
-- Developement Team: professionisti cross-funzionali che lavorano insieme per consegnare le funzionalità del prodotto. Il team ha l’obiettivo di organizzare il lavoro autonomamente durante lo sprint per raggiungere gli
-obiettivi definiti nello Sprint Backlog.
+Il lavoro sarà distribuito tra i membri del team, con monitoraggio del progresso tramite la **Kanban board**.
+
+La struttura di base del nostro team **Scrum** è la seguente:
+- **Scrum Master**: Facilitatore del processo SCRUM, il cui compito è garantire che il team segua le pratiche Scrum correttamente, risolvere eventuali impedimenti che ostacolano il progresso e promuovere una cultura collaborativa e autodisciplinata. Lo Scrum Master sarà ruotato ogni mese, in modo che tutti i membri del team possano ricoprire questo ruolo.
+- **Development Team**: Team di professionisti cross-funzionali che lavorano insieme per consegnare le funzionalità del prodotto. Il team ha l’obiettivo di organizzare autonomamente il lavoro durante lo sprint per raggiungere gli obiettivi definiti nello Sprint Backlog.
+
 ---
 
 ### 6. 🔍 **Software Quality**
 
 #### 6.1 **Qualità Fondamentali per il Progetto**
-Le seguenti qualità sono fondamentali per il successo del progetto:
-- **Affidabilità**: Stabilità dell’applicazione senza crash.
-- **Usabilità**: Interfaccia chiara e intuitiva.
-- **Performance**: Connessione VPN veloce e stabile.
-- **Sicurezza**: Protezione contro malware tramite scansioni antivirus.
-- **Manutenibilità**: Codice ben strutturato e facilmente modificabile.
+Le seguenti qualità, ispirate alla norma **ISO/IEC 9126** per la qualità del software, sono fondamentali per il successo del progetto:
+
+- **Affidabilità**: Garantire la stabilità dell'applicazione, evitando crash e comportamenti inaspettati. La qualità del software in termini di affidabilità è cruciale per garantire una connessione VPN robusta e continuativa.
+- **Usabilità**: Progettazione di un'interfaccia utente chiara, intuitiva e facilmente navigabile per migliorare l'esperienza dell'utente. La qualità dell’usabilità è centrale per rendere il software accessibile e semplice da usare per tutti gli utenti.
+- **Performance**: Ottimizzazione della connessione VPN per garantire velocità e stabilità, riducendo al minimo i tempi di risposta. L’efficienza del sistema deve permettere un utilizzo fluido, senza rallentamenti significativi.
+- **Sicurezza**: Implementazione di misure di protezione contro malware e minacce esterne tramite scansioni antivirus. La sicurezza è essenziale per proteggere i dati degli utenti e garantire un ambiente di lavoro sicuro.
+- **Manutenibilità**: Strutturare il codice in modo chiaro e modulare, facilitando modifiche future e interventi di correzione. La manutenibilità permette al team di effettuare aggiornamenti o miglioramenti con facilità, garantendo un software flessibile nel tempo.
+
+L’adozione di questi criteri di qualità, in linea con lo standard **ISO/IEC 9126**, assicura che il prodotto finale risponda ai requisiti di stabilità, facilità d'uso, velocità, sicurezza e manutenibilità.
 
 ---
 
 ### 7. 📋 **Requirements Engineering**
 
 #### 7.1 **Elicitation dei Requisiti**
-- I requisiti sono stati raccolti tramite interviste con il committente e un’analisi dei bisogni per la connessione VPN sicura e protezione malware.
+I requisiti sono stati raccolti tramite interviste con il committente e un’analisi dei bisogni per la connessione VPN sicura e protezione malware.
 
 #### 7.2 **Specifica dei Requisiti (IEEE 830)**
-- La documentazione dei requisiti segue lo standard **IEEE 830** per definire requisiti funzionali e non funzionali.
+La documentazione dei requisiti segue lo standard **IEEE 830** per definire requisiti funzionali e non funzionali.
 
-- **Esempio di specifica dei requisiti**: [Mechanical Lung Ventilator - Example Requirements Specification](https://github.com/foselab/abz2024_casestudy_MLV/blob/main/Mechanical_Lung_Ventilator%201_5.pdf)
+Esempio di specifica dei requisiti: [Mechanical Lung Ventilator - Example Requirements Specification](https://github.com/foselab/abz2024_casestudy_MLV/blob/main/Mechanical_Lung_Ventilator%201_5.pdf)
 
 ---
 
@@ -119,36 +137,34 @@ I seguenti diagrammi UML sono stati utilizzati per progettare il sistema:
 ### 10. 🖌️ **Software Design**
 
 #### 10.1 **Progettazione Mediante UML**
-- Progettazione mediante diagrammi UML per rappresentare la struttura e il comportamento del sistema.
+Progettazione mediante diagrammi UML per rappresentare la struttura e il comportamento del sistema.
 
 #### 10.2 **Metriche di Qualità**
-- Calcolo della complessità del codice e misurazione delle metriche di qualità per monitorare la manutenibilità e individuare miglioramenti.
+Calcolo della complessità del codice e misurazione delle metriche di qualità per monitorare la manutenibilità e individuare miglioramenti.
 
 #### 10.3 **Calcolo della Complessità**
-- **Complessità ciclomatica** per garantire che il sistema sia facilmente testabile e manutenibile.
+Utilizzo della **complessità ciclomatica** per garantire che il sistema sia facilmente testabile e manutenibile.
 
 ---
 
 ### 11. 🔍 **Software Testing**
 
 #### 11.1 **Piano per Attività di Test**
-- Il piano di test include test **funzionali**, **di integrazione**, e **di regressione** per assicurare il corretto funzionamento delle funzionalità.
+Il piano di test include test **funzionali**, **di integrazione**, e **di regressione** per assicurare il corretto funzionamento delle funzionalità.
 
 #### 11.2 **Casi di Test Implementati**
-- Test implementati con **JUnit** per verificare la funzionalità principale (connessione VPN, scansione antivirus).
+Test implementati con **JUnit** per verificare la funzionalità principale (connessione VPN, scansione antivirus).
 
 ---
 
 ### 12. 🔧 **Software Maintenance**
 
 #### 12.1 **Reverse Engineering**
-- Tecniche di **reverse engineering** saranno utilizzate per comprendere meglio componenti esterni e tecnologie di terze parti.
+Tecniche di **reverse engineering** saranno utilizzate per comprendere meglio componenti esterni e tecnologie di terze parti.
 
 #### 12.2 **Refactoring**
-- **Refactoring regolare** del codice per migliorarne leggibilità e performance.
+**Refactoring regolare** del codice per migliorarne leggibilità e performance.
 
 ---
 
 > **Nota:** Questo documento deve essere aggiornato regolarmente per riflettere eventuali modifiche o miglioramenti nel processo di sviluppo.
-
-
