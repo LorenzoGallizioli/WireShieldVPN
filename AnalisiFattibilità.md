@@ -30,7 +30,7 @@ Veniamo al vero obbiettivo di questo documento, ovvero l'analisi della fattibili
 
 **Interazione con WireGuard tramite comandi di sistema:**
 WireGuard viene tipicamente gestito tramite comandi di sistema, come ```wg``` per mostrare lo stato della connessione e ```wg-quick``` per avviare o interrompere un tunnel. Java, tuttavia, non ha accesso nativo ai processi di sistema, quindi dobbiamo utilizzare chiamate esterne tramite la classe ProcessBuilder o librerie come JNA (Java Native Access) per invocare questi comandi.
-Di seguito riporto un esempio che rappresenta come sarebbe per noi possibile eseguire una chiamata di sistema al servizio WireGuard, con l'obbiettivo di stampare lo stato delle connessioni su shell:
+Di seguito riportiamo un esempio che rappresenta come sarebbe per noi possibile eseguire una chiamata di sistema al servizio WireGuard, con l'obbiettivo di stampare lo stato delle connessioni su shell:
 ```
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -93,7 +93,7 @@ Documentazione: [JNA Documentation](https://github.com/java-native-access/jna)
 
 **Monitoraggio dei file scaricati e analisi con ClamAV e VirusTotal:**
 La parte di monitoraggio dei file scaricati potrà essere implementata utilizzando le funzionalità di Java per osservare i cambiamenti nel file system (WatchService). Quando un nuovo file viene rilevato nella cartella di download, il software lo sottoporrà a scansione utilizzando ClamAV. Se il risultato della scansione è positivo (ovvero, viene rilevata una minaccia), il file può essere bloccato o eliminato, in base alle preferenze dell’utente. Se invece il file risulta sospetto ma non chiaramente pericoloso, sarà possibile inviarlo a VirusTotal per una scansione più approfondita.
-Di questa implementazione non fornisco alcun esempio per via della maggiore difficoltà di programmazione, tuttavia sono sicuro che ChatGTP o simili saranno in grado di fornire esempi esplicativi sufficentemente validi allo scopo di questa analisi.
+Di questa implementazione non fornisco alcun esempio per via della maggiore difficoltà di programmazione, tuttavia sono sicuro che ChatGPT o simili saranno in grado di fornire esempi esplicativi sufficientemente validi allo scopo di questa analisi.
 
 Documentazione: 
 - [WatchService](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/WatchService.html)
@@ -103,7 +103,7 @@ Documentazione:
 ## Rischi e Sfide
 
 **Interazione con WireGuard:**
-Il progetto presenta alcune sfide tecniche significative. La prima riguarda la gestione dei processi di sistema, che può variare a seconda del sistema operativo. Mentre su Linux la gestione di WireGuard è abbastanza semplice tramite comandi shell, su Windows e macOS potrebbe essere necessario adattare il codice per funzionare correttamente. A tal riguardo mi viene in mente la necessità di gestione delle PATH, per permettere il riconoscimento delle chiamate shell da perte del sistema windows.
+Il progetto presenta alcune sfide tecniche significative. La prima riguarda la gestione dei processi di sistema, che può variare a seconda del sistema operativo. Mentre su Linux la gestione di WireGuard è abbastanza semplice tramite comandi shell, su Windows e macOS potrebbe essere necessario adattare il codice per funzionare correttamente. A tal riguardo ci viene in mente la necessità di gestione delle PATH, per permettere il riconoscimento delle chiamate shell da perte del sistema windows.
 Inoltre, utilizzare JNA per invocare funzioni di sistema può introdurre vulnerabilità, soprattutto se non viene eseguita una corretta validazione degli input. È importante evitare comandi shell che potrebbero essere soggetti a injection attack.
 
 **Monitoraggio dei File Scaricati e Scansione Antivirus:**
@@ -118,7 +118,7 @@ Inoltre, l’uso di servizi online come VirusTotal introduce problemi di privacy
 - Fornire all'utente opzioni configurabili per gestire i falsi positivi (ad esempio, spostare i file in quarantena anziché eliminarli immediatamente).
 - Utilizzare un sistema di caching per evitare di inviare più volte lo stesso file a VirusTotal, riducendo il numero di richieste API.
 - Chiedere il consenso esplicito all'utente prima di inviare file a VirusTotal e informarlo delle implicazioni sulla privacy.
-- Eseguire controlli di sicurezza sull’input del percorso file prima di eseguire clamscan per prevenire attacchi di iniezione.
+- Eseguire controlli di sicurezza sull’input del percorso file prima di eseguire ```clamscan``` per prevenire attacchi di iniezione.
   
 ## Conclusioni
 
