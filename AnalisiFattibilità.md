@@ -1,6 +1,5 @@
 # Analisi di Fattibilità - Software di Gestione WireGuard in Java
 
----
 
 ## Introduzione
 
@@ -29,7 +28,7 @@ Il progetto si concentra su due funzionalità principali:
 ## Aspetti Tecnici e Implementazione
 Veniamo al vero obbiettivo di questo documento, ovvero l'analisi della fattibilita' tecnica del progetto, che tenga conto sia delle tempische di sviluppo che delle tecnologie a noi disponibili.
 
-**Interazione con WireGuard tramite comandi di sistema**
+**Interazione con WireGuard tramite comandi di sistema:**
 WireGuard viene tipicamente gestito tramite comandi di sistema, come ```wg``` per mostrare lo stato della connessione e ```wg-quick``` per avviare o interrompere un tunnel. Java, tuttavia, non ha accesso nativo ai processi di sistema, quindi dobbiamo utilizzare chiamate esterne tramite la classe ProcessBuilder o librerie come JNA (Java Native Access) per invocare questi comandi.
 Di seguito riporto un esempio che rappresenta come sarebbe per noi possibile eseguire una chiamata di sistema al servizio WireGuard, con l'obbiettivo di stampare lo stato delle connessioni su shell:
 ```
@@ -92,7 +91,7 @@ public class JNASystemCall {
 ```
 Documentazione: [JNA Documentation](https://github.com/java-native-access/jna)
 
-**Monitoraggio dei file scaricati e analisi con ClamAV e VirusTotal**
+**Monitoraggio dei file scaricati e analisi con ClamAV e VirusTotal:**
 La parte di monitoraggio dei file scaricati potrà essere implementata utilizzando le funzionalità di Java per osservare i cambiamenti nel file system (WatchService). Quando un nuovo file viene rilevato nella cartella di download, il software lo sottoporrà a scansione utilizzando ClamAV. Se il risultato della scansione è positivo (ovvero, viene rilevata una minaccia), il file può essere bloccato o eliminato, in base alle preferenze dell’utente. Se invece il file risulta sospetto ma non chiaramente pericoloso, sarà possibile inviarlo a VirusTotal per una scansione più approfondita.
 Di questa implementazione non fornisco alcun esempio per via della maggiore difficoltà di programmazione, tuttavia sono sicuro che ChatGTP o simili saranno in grado di fornire esempi esplicativi sufficentemente validi allo scopo di questa analisi.
 
@@ -103,11 +102,11 @@ Documentazione:
 
 ## Rischi e Sfide
 
-**Interazione con WireGuard**
+**Interazione con WireGuard:**
 Il progetto presenta alcune sfide tecniche significative. La prima riguarda la gestione dei processi di sistema, che può variare a seconda del sistema operativo. Mentre su Linux la gestione di WireGuard è abbastanza semplice tramite comandi shell, su Windows e macOS potrebbe essere necessario adattare il codice per funzionare correttamente. A tal riguardo mi viene in mente la necessità di gestione delle PATH, per permettere il riconoscimento delle chiamate shell da perte del sistema windows.
 Inoltre, utilizzare JNA per invocare funzioni di sistema può introdurre vulnerabilità, soprattutto se non viene eseguita una corretta validazione degli input. È importante evitare comandi shell che potrebbero essere soggetti a injection attack.
 
-**Monitoraggio dei File Scaricati e Scansione Antivirus**
+**Monitoraggio dei File Scaricati e Scansione Antivirus:**
 Un’altra sfida è rappresentata dal monitoraggio in tempo reale dei file scaricati. Questa funzionalità potrebbe influire sulle prestazioni del sistema, soprattutto se vengono scaricati molti file contemporaneamente o se i file sono di grandi dimensioni.
 Non solo, quando un file viene scaricato da un browser, spesso viene creato come file temporaneo (ad esempio .part in Firefox) e rinominato una volta completato il download. Se il monitoraggio avviene troppo presto, potremmo scansionare file incompleti o in uso, causando errori.
 
