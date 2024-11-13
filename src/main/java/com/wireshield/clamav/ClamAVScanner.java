@@ -1,4 +1,4 @@
-package com.wireshield;
+package com.wireshield.clamav;
 
 /**
  * Scansione antivirus con ClamAV.
