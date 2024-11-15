@@ -96,7 +96,7 @@ L’adozione di questi criteri di qualità, in linea con lo standard **ISO/IEC 9
 ### 7. 📋 **Requirements Engineering**
 
 #### 7.1 **Elicitation dei Requisiti**
-I requisiti sono stati raccolti tramite interviste con il committente e un’analisi dei bisogni per la connessione VPN sicura e protezione malware.
+I requisiti sono stati raccolti tramite un’analisi dei bisogni per la connessione VPN sicura e protezione malware.
 
 #### 7.2 **Specifica dei Requisiti (IEEE 830)**
 La documentazione dei requisiti segue lo standard **IEEE 830** per definire requisiti funzionali e non funzionali.
