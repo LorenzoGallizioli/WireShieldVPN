@@ -37,10 +37,7 @@ Il progetto adotta un **processo di sviluppo Iterativo e Incrementale** per gara
 
 Questa struttura ci consente di adattarci ai cambiamenti e di migliorare continuamente le funzionalità del software, offrendo la massima flessibilità.
 
-#### 3.2 **Approccio MDA (Model-Driven Architecture)**
-Utilizzeremo l'approccio **MDA** con **Papyrus UML** per progettare e generare codice direttamente dai modelli UML, garantendo coerenza tra modello e implementazione.
-
-#### 3.3 **Sprint - Metodologia Scrum**
+#### 3.2 **Sprint - Metodologia Scrum**
 Lo sviluppo seguirà la metodologia **Scrum**, strutturato in **sprint settimanali**. Ogni sprint avrà obiettivi e task specifici, pianificati e rivisti ad ogni ciclo, per rispondere agilmente a nuovi requisiti e migliorare progressivamente il software.
 
 ---
