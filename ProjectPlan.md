@@ -1,51 +1,86 @@
 # Project Plan
-In questo documento spieghiamo il ProjectPlan che intenderemo utilizzare  nello sviluppo del progetto, le linee guida qui fornite saranno utili per interprtare il nostro metodo di lavoro e di implementazione.
+
+In questo documento illustriamo il **Project Plan** che guiderà lo sviluppo del progetto. Le linee guida fornite serviranno a chiarire il nostro approccio metodologico e le strategie di implementazione, garantendo coerenza e organizzazione durante tutte le fasi del lavoro.
 
 ### Introduzione
-Il progetto "WireShield" mira a sviluppare una soluzione di accesso remoto sicuro, combinando un client VPN basato su WireGuard con funzionalità avanzate di scansione antivirus e analisi automatica tramite VirusTotal e ClamAV. L'obiettivo principale è offrire agli utenti un client VPN che non solo gestisca la connessione e garantisca la riservatezza dei dati mediante protocollo WireGuard, ma che includa anche una protezione attiva contro le minacce informatiche, come malware e virus.
 
-L'integrazione di ClamAV permette di eseguire scansioni antivirus locali, mentre l'API di VirusTotal consentirà un'ulteriore analisi dei file sospetti per l'identificazione dei falsi positivi. Questa combinazione crea un ambiente di lavoro remoto sicuro e resiliente, rispondendo alle crescenti esigenze di sicurezza delle organizzazioni moderne.
+Il progetto **"WireShield"** si propone di sviluppare una soluzione innovativa per l’accesso remoto sicuro, combinando un client VPN basato sul protocollo WireGuard con funzionalità avanzate di scansione antivirus e analisi automatica tramite **VirusTotal** e **ClamAV**. L’obiettivo principale è offrire un client VPN che non solo assicuri la riservatezza dei dati e la gestione efficiente delle connessioni, ma che integri anche strumenti per la protezione attiva contro minacce come malware e virus.
 
-L'obbiettivo del progetto sara' mettere a disposizione degli utenti una UI che permetta la gestione della connessione VPN con relative statistiche, oltre che un report dettagliato basato sull'analisi dei file e notifiche in tempo reale.
+L’integrazione di **ClamAV** permetterà di eseguire scansioni antivirus a livello locale, mentre l’API di **VirusTotal** offrirà un ulteriore livello di analisi per i file sospetti, riducendo il rischio di falsi positivi e garantendo un ambiente di lavoro remoto più sicuro e resiliente.
 
-Prima di procedere con la pianificazione, abbiamo condotto un'analisi di fattibilità per valutare la possibilità di integrazione delle componenti VPN, ClamAV e VirusTotal, modellando i processi mediante linguaggio Java. Questa analisi ha considerato aspetti tecnici, confermando la realizzabilità del progetto e identificando i principali rischi e le soluzioni potenziali.
+L’applicazione fornirà agli utenti un’interfaccia grafica (UI) intuitiva per gestire la connessione VPN, visualizzare statistiche in tempo reale e accedere a report dettagliati sull’analisi dei file. Saranno incluse notifiche tempestive per avvisare l’utente in caso di rilevamento di minacce informatiche.
 
-- [Analaisi di fattibilita'](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/AnalisiFattibilit%C3%A0.md)
+Prima di avviare la pianificazione, è stata condotta un’analisi di fattibilità per valutare l’integrazione delle componenti VPN, ClamAV e VirusTotal, verificando la compatibilità tecnica con l’uso del linguaggio **Java**. Questa analisi ha confermato la realizzabilità del progetto, evidenziando i principali rischi e proponendo soluzioni pratiche.
 
-### Modello di processo
-Per lo sviluppo del progetto è stato scelto un approccio AGILE, basato sul framework SCRUM, ma adattato per rispondere alle esigenze specifiche del team. Il modello di sviluppo scelto è iterativo e incrementale, garantendo un processo flessibile e la possibilità di rilasciare progressivamente nuove funzionalità.
+- [Analisi di fattibilità](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/AnalisiFattibilit%C3%A0.md)
 
-Dettagli del Processo:
-- **Durata degli sprint**: Gli sprint avranno una durata di 3 settimane, un compromesso ideale per gestire il lavoro senza compromettere la qualità, tenendo conto degli impegni dei membri del team.
-- **Riunioni settimanali**: È prevista una riunione di sincronizzazione settimanale, della durata di circa un'ora, per monitorare l'avanzamento del lavoro e risolvere eventuali impedimenti.
+### **Modello di Processo**
 
-Nota: analizzare la possibilita' di implementazione della programmazione a coppie nel processo di sviluppo codice, da affiancare al metodo base SCRUM.
+Per lo sviluppo del progetto, abbiamo adottato un approccio **AGILE** basato sul framework **SCRUM**, opportunamente adattato per soddisfare le esigenze specifiche del team. Questo modello iterativo e incrementale ci consente di mantenere flessibilità durante il processo di sviluppo, rilasciando progressivamente nuove funzionalità e incorporando feedback in tempo reale.
+
+#### **Dettagli del Processo**
+
+#### **MODELLO SCRUM**
+
+- **Durata degli sprint**:  
+  Gli sprint avranno una durata di **3 settimane**, un compromesso ideale per bilanciare la produttività con gli impegni accademici del team. Questo intervallo di tempo permette di completare obiettivi significativi senza compromettere la qualità del lavoro.
+
+- **Riunioni settimanali**:  
+  È prevista una **riunione settimanale di sincronizzazione** della durata di circa un’ora. Questi incontri saranno dedicati a:  
+  - Monitorare l’avanzamento del lavoro.  
+  - Identificare e risolvere eventuali impedimenti.  
+  - Pianificare e riorganizzare i task in base alle priorità emergenti.  
+
+- **Ruoli del team**:  
+  - **Scrum Master**: Supervisione del processo e facilitazione delle riunioni.  
+  - **Product Owner**: Definizione delle priorità e gestione del Product Backlog.  
+  - **Team di sviluppo**: Implementazione delle funzionalità e gestione tecnica.  
+
+#### **Programmazione a coppie**
+
+La **programmazione a coppie** (Pair Programming) sarà integrata nel processo di sviluppo come parte integrante del framework SCRUM. Questo approccio verrà utilizzato per:  
+- Ridurre gli errori attraverso revisioni in tempo reale.  
+- Favorire una maggiore condivisione della conoscenza tra i membri del team.  
+- Migliorare la qualità complessiva del codice.  
+
+La programmazione a coppie sarà applicata principalmente nelle seguenti attività:  
+- **Sviluppo di moduli complessi**  
+- **Revisione e debugging del codice**
 
 ### Organizzazione del progetto
 
-Struttara base del team SCRUM:
-- **Scrum Master a rotazione**: Il ruolo di Scrum Master sarà ricoperto a rotazione da ogni membro del team, permettendo a tutti di acquisire competenze di gestione e facilitazione del processo.
-- **Product Owner condiviso**: Invece di assegnare un singolo Product Owner, il team ha scelto di condividere questo ruolo tra tutti i membri, in modo che ciascuno possa contribuire attivamente alla definizione e alla priorità delle funzionalità da sviluppare.
-- **Team di sviluppo**: Tutti i componenti del team si occupano attivamente dello sviluppo del codice.
-- **Tester**: I membri del team svolgeranno anche il ruolo di tester, eseguendo test funzionali per garantire la qualità del software; Saranno previsti test sia manuali che automatizzati, con particolare attenzione alla scansione antivirus e all’analisi dei file. 
+La struttura del team SCRUM è stata pensata per promuovere la collaborazione e l'efficienza, consentendo a ciascun membro di acquisire competenze in diverse aree del processo di sviluppo.
 
-il progetto non prevede la presenza di clienti al di furi dei membri stessi del team, i quali saranno chiamati a verificare quindi di volta in volta la presenza e la qualita' delle funzionalita' introdotte, oltre che a fornire feedback per il miglioramento di eventuali fragilita'.
+#### **RUOLI e RESPONSABILITÀ**
+
+- **Scrum Master a rotazione**:  Il ruolo di Scrum Master sarà ricoperto a rotazione da ciascun membro del team. Questo approccio consente a tutti i membri di sviluppare competenze nella gestione e facilitazione del processo SCRUM, oltre a garantire che tutti abbiano una comprensione completa delle dinamiche del team.
+
+- **Product Owner condiviso**: Il ruolo di Product Owner non sarà assegnato a una sola persona, ma sarà condiviso tra tutti i membri del team. Ogni membro avrà l'opportunità di partecipare attivamente alla definizione delle funzionalità da sviluppare e alla prioritizzazione degli obiettivi, in modo da favorire un approccio collettivo nella gestione del backlog e delle decisioni strategiche.
+
+- **Team di sviluppo**: Ogni membro del team avrà un ruolo attivo nello sviluppo del codice. Non ci sono divisioni rigide nei ruoli di sviluppo, favorendo così un approccio collaborativo e dinamico.
+
+- **Tester**: I membri del team svolgeranno anche il ruolo di tester, eseguendo test funzionali per garantire la qualità del software. Saranno previsti test sia manuali che automatizzati, con particolare attenzione alla scansione antivirus e all’analisi dei file.
+
+Poiché il progetto non prevede la presenza di clienti esterni, i membri del team assumeranno il ruolo di 'clienti', testando il prodotto e valutando le funzionalità come se fossero utenti finali. In questo modo, si garantirà un feedback continuo e un miglioramento costante delle funzionalità, assicurando che il prodotto risponda alle aspettative e alle necessità degli utenti.
 
 ### Standard, linee guida, procedure
-Ispiransoci alla norma ISO/IEC 9126 per la qualità del software, abbiamo elaborato le seguanti qualita' importanti per il successo del nostro progetto:
 
-- **Affidabilità**: Garantire la stabilità dell'applicazione, evitando crash e comportamenti inaspettati. La qualità del software in termini di affidabilità è cruciale per garantire la stabilita' e l'efficienza del sistema.
-- **Usabilità**: Progettazione di un'interfaccia utente chiara, intuitiva e facilmente navigabile per migliorare l'esperienza dell'utente. La qualità dell’usabilità è centrale per rendere il software accessibile e semplice da usare per tutti gli utenti.
-- **Performance**: L’efficienza del sistema deve permettere un utilizzo fluido, senza rallentamenti significativi; Tuttavia puntiamo alla realizzazione di un sistema quanto piu leggero ed efficiente possibile, in linea con la filosofia del protocollo WireGuard.
-- **Manutenibilità**: Strutturare il codice in modo chiaro e modulare, facilitando modifiche future e interventi di correzione; La manutenibilità permette al team di effettuare aggiornamenti o miglioramenti con facilità, garantendo un software flessibile nel tempo.
+Ispirandoci alla norma **ISO/IEC 9126** per la qualità del software, abbiamo elaborato le seguenti qualità utili per il successo del nostro progetto:
 
-La documentazione dei requisiti segue lo standard IEEE 830 per definire requisiti funzionali e non funzionali.
+- **Affidabilità**: Garantire la stabilità dell'applicazione, minimizzando il rischio di crash o comportamenti imprevisti. Un software affidabile è essenziale per assicurare la continuità del servizio e la soddisfazione dell'utente.
+  
+- **Usabilità**: Creare un'interfaccia utente chiara, intuitiva e facilmente navigabile, in modo da offrire un'esperienza utente fluida e senza frizioni. La qualità dell'usabilità è cruciale per assicurare che gli utenti possano utilizzare il sistema in modo semplice e immediato.
+
+- **Performance**: Ottimizzare l'efficienza del sistema per garantire che l'applicazione funzioni in modo rapido e senza rallentamenti significativi. Il nostro obiettivo è realizzare un sistema leggero e performante, in linea con la filosofia del protocollo WireGuard.
+
+- **Manutenibilità**: Strutturare il codice in modo chiaro e modulare, facilitando interventi di modifica o correzione nel tempo. Una buona manutenibilità permette di evolvere il software in modo agile e senza complicazioni.
+
+La documentazione dei requisiti segue lo standard **IEEE 830**, che fornisce una guida dettagliata per la specifica e la documentazione dei requisiti di sistema. Questo standard aiuta a definire in modo chiaro e strutturato sia i requisiti funzionali, che descrivono le azioni e le operazioni che il sistema deve eseguire, sia i requisiti non funzionali, che stabiliscono le caratteristiche di qualità del sistema, come le prestazioni, la sicurezza e la manutenibilità. Adottando IEEE 830, il nostro obiettivo è garantire che i requisiti siano ben definiti, comprensibili e misurabili, fornendo così una base solida per tutte le fasi del ciclo di vita del software, dallo sviluppo al testing.
 
 ### Attività di gestione
-Allo scopo di persentare un lavoro quanto piu completo e dettagliato, il team si impegna costantemente nella realizzazione di nuova documentazione relativa alle nuove funzionalità aggiunte durante le vari fasi di sviluppo; pur non venendo meno all'aggiornamento della documentazione gia esistente.
+
+Per garantire un lavoro completo e dettagliato, il team si impegna costantemente nella creazione di nuova documentazione per le funzionalità aggiunte nelle diverse fasi di sviluppo, senza trascurare l'aggiornamento continuo della documentazione già esistente. Questo approccio assicura che ogni aspetto del progetto sia ben documentato e facilmente comprensibile, facilitando sia lo sviluppo che la manutenzione a lungo termine del software.
 
 ### Rischi
-abbiamo individuato alcuni rischi, anche se di livello puramente tecnico, all'interno della [seguente analisi di fattibilita'](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/AnalisiFattibilit%C3%A0.md).
 
-
-### 
+Sono stati individuati alcuni rischi, principalmente di natura tecnica, che potrebbero influenzare lo sviluppo del progetto. Questi rischi sono stati analizzati in dettaglio nella [seguente analisi di fattibilità](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/AnalisiFattibilit%C3%A0.md), che fornisce una panoramica completa delle possibili problematiche e delle relative soluzioni proposte per mitigare tali rischi.
