@@ -1,4 +1,4 @@
-package com.wireshield;
+package com.wireshield.wireguard;
 
 /**
  * Gestione della connessione VPN WireGuard.
