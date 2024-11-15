@@ -83,9 +83,9 @@ La struttura di base del nostro team **Scrum** è la seguente:
 #### 6.1 **Qualità Fondamentali per il Progetto**
 Le seguenti qualità, ispirate alla norma **ISO/IEC 9126** per la qualità del software, sono utili per il successo del progetto:
 
-- **Affidabilità**: Garantire la stabilità dell'applicazione, evitando crash e comportamenti inaspettati. La qualità del software in termini di affidabilità è cruciale per garantire una connessione VPN robusta e continuativa.
+- **Affidabilità**: Garantire la stabilità dell'applicazione, evitando crash e comportamenti inaspettati. La qualità del software in termini di affidabilità è cruciale per garantire il sistema funzionale e stabile.
 - **Usabilità**: Progettazione di un'interfaccia utente chiara, intuitiva e facilmente navigabile per migliorare l'esperienza dell'utente. La qualità dell’usabilità è centrale per rendere il software accessibile e semplice da usare per tutti gli utenti.
-- **Performance**: Ottimizzazione della connessione VPN per garantire velocità e stabilità, riducendo al minimo i tempi di risposta. L’efficienza del sistema deve permettere un utilizzo fluido, senza rallentamenti significativi.
+- **Performance**: L’efficienza del sistema deve permettere un utilizzo fluido, senza rallentamenti significativi.
 - **Sicurezza**: Implementazione di misure di protezione contro malware e minacce esterne tramite scansioni antivirus. La sicurezza è essenziale per proteggere i dati degli utenti e garantire un ambiente di lavoro sicuro.
 - **Manutenibilità**: Strutturare il codice in modo chiaro e modulare, facilitando modifiche future e interventi di correzione. La manutenibilità permette al team di effettuare aggiornamenti o miglioramenti con facilità, garantendo un software flessibile nel tempo.
 
