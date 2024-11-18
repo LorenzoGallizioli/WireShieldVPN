@@ -1,8 +1,7 @@
 # **Project Plan**
-
 In questo documento illustriamo il **Project Plan** che guiderà lo sviluppo del progetto. Le linee guida fornite serviranno a chiarire il nostro approccio metodologico e le strategie di implementazione, garantendo coerenza e organizzazione durante tutte le fasi del lavoro.
 
-## Indice 
+# Indice 
 - [**Project Plan**](#project-plan)
   - [Indice](#indice)
   - [1. Introduzione](#1-introduzione)
@@ -43,7 +42,7 @@ In questo documento illustriamo il **Project Plan** che guiderà lo sviluppo del
   - [13. Cambiamenti](#13-cambiamenti)
   - [14. Consegna](#14-consegna)
     
-
+&nbsp;
 ## 1. Introduzione
 
 Il progetto **"WireShield"** si propone di sviluppare una soluzione per l’accesso remoto sicuro, combinando un client VPN basato sul protocollo **WireGuard** con funzionalità avanzate di scansione antivirus e analisi automatica tramite **VirusTotal** e **ClamAV**. L’obiettivo principale è offrire un client VPN che non solo assicuri la riservatezza dei dati e la gestione efficiente delle connessioni, ma che integri anche strumenti per la protezione attiva contro minacce come malware e virus.
@@ -56,7 +55,7 @@ Prima di avviare la pianificazione, è stata condotta un’analisi di fattibilit
 
 - [Analisi di fattibilità](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/AnalisiFattibilit%C3%A0.md)
 
-
+&nbsp;
 ## 2. Modello di Processo
 
 Per lo sviluppo del progetto, abbiamo adottato un approccio **AGILE** basato sul framework **SCRUM**, opportunamente adattato per soddisfare le esigenze specifiche del team. Questo modello iterativo e incrementale ci consente di mantenere flessibilità durante il processo di sviluppo, rilasciando progressivamente nuove funzionalità e incorporando feedback in tempo reale.
@@ -76,6 +75,7 @@ Per lo sviluppo del progetto, abbiamo adottato un approccio **AGILE** basato sul
 
 La **programmazione a coppie** (Pair Programming) sarà integrata nel processo di sviluppo come parte integrante del framework SCRUM. La programmazione a coppie sarà applicata principalmente nelle attività legate alla riscrittura del codice, in corrispondenza di bug o funzioni complesse.
 
+&nbsp;
 ## 3. Organizzazione del progetto
 
 La struttura del team SCRUM è stata pensata per promuovere la collaborazione e l'efficienza, consentendo a ciascun membro di acquisire competenze in diverse aree del processo di sviluppo.
@@ -92,7 +92,7 @@ La struttura del team SCRUM è stata pensata per promuovere la collaborazione e 
 
 Poiché il progetto non prevede la presenza di clienti esterni, i membri del team assumeranno il ruolo di 'clienti', testando il prodotto e valutando le funzionalità come se fossero utenti finali. In questo modo, si garantirà un feedback continuo e un miglioramento costante delle funzionalità, assicurando che il prodotto risponda alle aspettative e alle necessità degli utenti.
 
-
+&nbsp;
 ## 4. Standard, linee guida, procedure
 
 Ispirandoci alla norma **ISO/IEC 9126** per la qualità del software, abbiamo elaborato le seguenti qualità utili per il successo del nostro progetto:
@@ -107,17 +107,17 @@ Ispirandoci alla norma **ISO/IEC 9126** per la qualità del software, abbiamo el
 
 La documentazione dei requisiti segue lo standard **IEEE 830**, che fornisce una guida dettagliata per la specifica e la documentazione dei requisiti di sistema. Questo standard aiuta a definire in modo chiaro e strutturato sia i requisiti funzionali, che descrivono le azioni e le operazioni che il sistema deve eseguire, sia i requisiti non funzionali, che stabiliscono le caratteristiche di qualità del sistema, come le prestazioni, la sicurezza e la manutenibilità. Adottando IEEE 830, il nostro obiettivo è garantire che i requisiti siano ben definiti, comprensibili e misurabili, fornendo così una base solida per tutte le fasi del ciclo di vita del software, dallo sviluppo al testing.
 
-
+&nbsp;
 ## 5. Attività di gestione
 
 Per garantire un lavoro completo e dettagliato, il team si impegna costantemente nella creazione di nuova documentazione per le funzionalità aggiunte nelle diverse fasi di sviluppo, senza trascurare l'aggiornamento continuo della documentazione già esistente. Questo approccio assicura che ogni aspetto del progetto sia ben documentato e facilmente comprensibile, facilitando sia lo sviluppo che la manutenzione a lungo termine del software.
 
-
+&nbsp;
 ## 6. Rischi
 
 Sono stati individuati alcuni rischi, principalmente di natura tecnica, che potrebbero influenzare lo sviluppo del progetto. Questi rischi sono stati analizzati in dettaglio nella seguente [analisi di fattibilità](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/AnalisiFattibilit%C3%A0.md), che fornisce una panoramica completa delle possibili problematiche e delle relative soluzioni proposte per mitigare tali rischi.
 
-
+&nbsp;
 ## 7. Personale
 
 Il progetto **WireShield** sarà gestito da un team di tre membri, che si occuperanno dell'intero ciclo di vita del progetto, dalle fasi di sviluppo alla gestione dei test e della documentazione. I membri del team collaboreranno in modo sinergico per garantire il successo del progetto. Di seguito sono riportati i dettagli dei membri del team:
@@ -130,7 +130,7 @@ Il progetto **WireShield** sarà gestito da un team di tre membri, che si occupe
 
 Tutti i task relativi al progetto saranno suddivisi equamente tra i membri del team. Ogni attività, dalla definizione dei requisiti alla progettazione e sviluppo, sarà affrontata in modo collaborativo. I membri del team garantiranno che tutti gli aspetti del progetto siano trattati in modo bilanciato, favorendo un flusso di lavoro coeso e una gestione ottimale del tempo e delle risorse. Inoltre, la continua interazione tra i membri durante le **riunioni settimanali** e gli **sprint** permetterà di monitorare costantemente l'avanzamento e di adattare le priorità in base all’evoluzione del progetto.
 
-
+&nbsp;
 ## 8. Metodi e Tecniche
 
 ### 8.1 Controllo della Versione e Configurazione
@@ -201,7 +201,7 @@ Le fasi di test seguiranno un ordine logico, progettato per garantire che tutte 
 - Test sull’interfaccia utente con focus sull’esperienza dell’utente finale, per raccogliere **feedback utili** a migliorare la navigabilità e l’intuitività.
 - Analisi dell’efficacia delle **notifiche di sicurezza** e dei report generati dall’applicazione, per assicurarsi che gli utenti siano ben informati sui rischi rilevati.
 
-
+&nbsp;
 ## 9. Garanzia di Qualità
 
 La **Garanzia di Qualità** del progetto rappresenta un aspetto fondamentale per assicurare che il software sviluppato risponda pienamente ai requisiti funzionali, prestazionali e di sicurezza richiesti. Per raggiungere questo obiettivo, abbiamo adottato un approccio strutturato basato sul **McCall's Quality Model**, che ci consente di analizzare, monitorare e migliorare costantemente le caratteristiche qualitative del sistema durante tutte le fasi di sviluppo, garantendo la consegna di un prodotto affidabile, efficiente e altamente utilizzabile.
@@ -239,6 +239,7 @@ Si occupa della capacità del software di operare in nuovi contesti:
 #### Valutazione continua e miglioramento
 Durante tutto il ciclo di sviluppo, verranno condotte valutazioni periodiche per identificare eventuali aree di miglioramento. Gli aggiornamenti e le modifiche verranno gestiti seguendo un processo di test regressivo, per la convalida delle nuove implementazioni e per garantire che le funzionalità esistenti non vengano compromesse.
 
+&nbsp;
 ## 10. Pacchetti di Lavoro
 
 Il progetto sarà **suddiviso in diversi macro-argomenti**, corrispondenti a pacchetti di lavoro ben definiti, che rappresentano le principali aree di sviluppo. Ogni macro-argomento sarà ulteriormente suddiviso in attività specifiche, che potranno essere allocate ai singoli membri del team Scrum in base alle competenze e alla disponibilità.
@@ -247,6 +248,7 @@ Per garantire una gestione efficace e una suddivisione equa del lavoro, **ogni m
 
 Prima di ogni **Scrum Week** (incontro settimanale), il **codice** prodotto da ogni sviluppatore dovrà essere **pushato** su un proprio branch e successivamente integrato **nel branch principale** previa revisione da parte di tutti i membri del team. Questa **revisione collettiva**, che include l'assegnazione di una valutazione qualitativa, permetterà di identificare eventuali problemi e di risolverli tempestivamente, garantendo un'integrazione continua e incrementale delle parti di codice.
 
+&nbsp;
 ## 11. Risorse
 
 Il progetto prevede l'utilizzo delle seguenti risorse hardware e software:
@@ -255,7 +257,7 @@ Il progetto prevede l'utilizzo delle seguenti risorse hardware e software:
 - **Workstation per il Testing**: poiché il software sarà inizialmente sviluppato solo per Windows, i membri del team utilizzeranno workstation Windows per testare l’applicazione e garantirne la compatibilità.
 - **Ottimizzazione delle Risorse**: uno degli obiettivi del progetto è garantire che il software sia il più leggero possibile in termini di consumo di CPU e memoria. Grazie al protocollo WireGuard, noto per la sua efficienza, prevediamo che l’applicazione avrà un impatto minimo sulle risorse di sistema.
 
-
+&nbsp;
 ## 12. Budget
 
 Il budget per il progetto sarà contenuto grazie all’adozione di software open source e a strumenti gratuiti. Tuttavia, saranno previsti costi per l'hosting del servizio WireGuard:
@@ -263,6 +265,7 @@ Il budget per il progetto sarà contenuto grazie all’adozione di software open
 - **Utilizzo di Codice Open Source**: gran parte del codice e degli strumenti utilizzati saranno open source, riducendo significativamente i costi di licenza.
 - **Costi di Hosting**: l'unico costo previsto sarà quello per l’hosting del servizio WireGuard, che verrà installato su una macchina cloud per garantire alta disponibilità e prestazioni.
 
+&nbsp;
 ## 13. Cambiamenti
 
 Le modifiche al progetto verranno gestite mediante una breve **analisi di gruppo**, durante la quale si valuteranno le implicazioni tecniche e le tempistiche necessarie. Tutte le decisioni prese verranno documentate accuratamente nello **storico del progetto**, garantendo tracciabilità e trasparenza.
@@ -271,6 +274,7 @@ Le modifiche al progetto verranno gestite mediante una breve **analisi di gruppo
 - **Documentazione delle Scelte**: Ogni cambiamento approvato sarà registrato nello storico del progetto, includendo motivazioni e valutazioni tecniche.
 - **Tracciabilità e Adattabilità**: La gestione ordinata delle modifiche ci permetterà di mantenere una traccia chiara e di adattarci in modo flessibile alle nuove esigenze.
 
+&nbsp;
 ## 14. Consegna
 La consegna del progetto seguirà una serie di procedure definite per garantire il corretto funzionamento e la soddisfazione del cliente. Di seguito i principali passaggi:
 

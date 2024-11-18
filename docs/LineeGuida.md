@@ -37,7 +37,7 @@
     - [Reverse Engineering](#reverse-engineering)
     - [Refactoring](#refactoring)
 
-
+&nbsp;
 ## 🔧 Ingegneria del Software
 
 **GitHub:** 
@@ -45,7 +45,7 @@
 - [silviabonfanti](https://github.com/silviabonfanti)
 
 ---
-
+&nbsp;
 ### 1. 🗓 **Project Plan**
 
 - **Tempistiche:**
@@ -59,15 +59,13 @@
   - ***👀 Code review** per garantire la qualità del codice.*
   - *Organizzazione delle attività tramite **🗂️ Kanban board**.*
 
----
-
+&nbsp;
 ### 2. 🛠 **Software Engineering Management**
 
 #### 2.1 **Project Plan**
 Il piano del progetto sarà descritto in questa sezione, evidenziando i 14 punti come indicato in sezione 2.1 del libro. Questo piano sarà sottoposto all'approvazione del professore prima dell'inizio dello sviluppo.
 
----
-
+&nbsp;
 ### 3. 🔄 **Software Life Cycle**
 
 #### 3.1 **Tipo di Processo di Sviluppo**
@@ -78,14 +76,14 @@ Questa struttura ci consente di adattarci ai cambiamenti e di migliorare continu
 #### 3.2 **Sprint - Metodologia Scrum**
 Lo sviluppo seguirà la metodologia **Scrum**, strutturato in **sprint settimanali**. Ogni sprint avrà obiettivi e task specifici, pianificati e rivisti ad ogni ciclo, per rispondere agilmente a nuovi requisiti e migliorare progressivamente il software.
 
----
-
+&nbsp;
 ### 4. ⚙️ **Configuration Management**
 
 #### 4.1 **GitHub**
 
 - **Versionamento del codice**: Utilizzo di GitHub per il controllo versione, con comandi come:
   - `git add .` per aggiungere modifiche.
+
   - `git commit -m "messaggio"` per registrare le modifiche.
   - `git push origin nome-ramo` per caricare le modifiche nel repository remoto.
 
@@ -103,8 +101,7 @@ Lo sviluppo seguirà la metodologia **Scrum**, strutturato in **sprint settimana
 #### 4.2 **Kanban**
 Gestione delle attività tramite **Kanban board** per visualizzare il progresso e monitorare i task assegnati.
 
----
-
+&nbsp;
 ### 5. 👥 **People Management**
 
 #### 5.1 **Organizzazione del Lavoro**
@@ -114,8 +111,8 @@ La struttura di base del nostro team **Scrum** è la seguente:
 - **Scrum Master**: Facilitatore del processo SCRUM, il cui compito è garantire che il team segua le pratiche Scrum correttamente, risolvere eventuali impedimenti che ostacolano il progresso e promuovere una cultura collaborativa e autodisciplinata. Lo Scrum Master sarà ruotato ogni mese, in modo che tutti i membri del team possano ricoprire questo ruolo.
 - **Development Team**: Team di professionisti cross-funzionali che lavorano insieme per consegnare le funzionalità del prodotto. Il team ha l’obiettivo di organizzare autonomamente il lavoro durante lo sprint per raggiungere gli obiettivi definiti nello Sprint Backlog.
 
----
 
+&nbsp;
 ### 6. 🔍 **Software Quality**
 
 #### 6.1 **Qualità Fondamentali per il Progetto**
@@ -129,8 +126,8 @@ Le seguenti qualità, ispirate alla norma **ISO/IEC 9126** per la qualità del s
 
 L’adozione di questi criteri di qualità, in linea con lo standard **ISO/IEC 9126**, assicura che il prodotto finale risponda ai requisiti di stabilità, facilità d'uso, velocità, sicurezza e manutenibilità.
 
----
 
+&nbsp;
 ### 7. 📋 **Requirements Engineering**
 
 #### 7.1 **Elicitation dei Requisiti**
@@ -141,8 +138,7 @@ La documentazione dei requisiti segue lo standard **IEEE 830** per definire requ
 
 Esempio di specifica dei requisiti: [Mechanical Lung Ventilator - Example Requirements Specification](https://github.com/foselab/abz2024_casestudy_MLV/blob/main/Mechanical_Lung_Ventilator%201_5.pdf)
 
----
-
+&nbsp;
 ### 8. 🖋️ **Modeling**
 
 #### 8.1 **Diagrammi UML**
@@ -155,8 +151,8 @@ I seguenti diagrammi UML sono stati utilizzati per progettare il sistema:
 - ***Diagramma di Attività***
 - ***Diagramma dei Componenti***
 
----
 
+&nbsp;
 ### 9. 🏛️ **Software Architecture**
 
 #### 9.1 **Descrizione dell'Architettura**
@@ -164,11 +160,11 @@ I seguenti diagrammi UML sono stati utilizzati per progettare il sistema:
   
 - **Principali viste architetturali**:
   - **Vista funzionale**: Descrizione delle funzionalità principali.
+
   - **Vista strutturale**: Struttura delle componenti del sistema.
   - **Vista comportamentale**: Risposta del sistema agli eventi.
 
----
-
+&nbsp;
 ### 10. 🖌️ **Software Design**
 
 #### 10.1 **Progettazione Mediante UML**
@@ -180,8 +176,7 @@ Calcolo della complessità del codice e misurazione delle metriche di qualità p
 #### 10.3 **Calcolo della Complessità**
 Utilizzo della **complessità ciclomatica** per garantire che il sistema sia facilmente testabile e manutenibile.
 
----
-
+&nbsp;
 ### 11. 🔍 **Software Testing**
 
 #### 11.1 **Piano per Attività di Test**
@@ -190,8 +185,7 @@ Il piano di test include test **funzionali**, **di integrazione**, e **di regres
 #### 11.2 **Casi di Test Implementati**
 Test implementati con **JUnit** per verificare la funzionalità principale (connessione VPN, scansione antivirus).
 
----
-
+&nbsp;
 ### 12. 🔧 **Software Maintenance**
 
 #### 12.1 **Reverse Engineering**
@@ -200,6 +194,7 @@ Tecniche di **reverse engineering** saranno utilizzate per comprendere meglio co
 #### 12.2 **Refactoring**
 **Refactoring regolare** del codice per migliorarne leggibilità e performance.
 
+&nbsp;
 ---
 
 > **Nota:** Questo documento deve essere aggiornato regolarmente per riflettere eventuali modifiche o miglioramenti nel processo di sviluppo.

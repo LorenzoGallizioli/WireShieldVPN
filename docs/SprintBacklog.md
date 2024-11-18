@@ -1,12 +1,12 @@
 # **Organizzazione Progetto - Modello SCRUM**
 ## **Indice**
-2. [Ruoli del Team](#ruoli-del-team)
-3. [Backlog del Prodotto](#backlog-del-prodotto)
-4. [Sprint Planning](#sprint-planning)
-5. [Sprint Overview](#sprint-overview)
-6. [Sprint Dettagliati](#sprint-dettagliati)
-7. [Retrospettive](#retrospettive)
-8. [Strumenti e Documentazione](#strumenti-e-documentazione)
+1. [Ruoli del Team](#ruoli-del-team)
+2. [Backlog del Prodotto](#backlog-del-prodotto)
+3. [Sprint Planning](#sprint-planning)
+4. [Sprint Overview](#sprint-overview)
+5. [Sprint Dettagliati](#sprint-dettagliati)
+6. [Retrospettive](#retrospettive)
+7. [Strumenti e Documentazione](#strumenti-e-documentazione)
 
 &nbsp;
 
@@ -31,6 +31,7 @@
 | 3      | Funzionalità C            | Descrizione breve della funzionalità | Bassa        | 2 giorni  |
 
 &nbsp;
+
 ---
 # Sprint n°1: &nbsp;&nbsp; 18/11/2024 - 9/12/2024
 &nbsp;

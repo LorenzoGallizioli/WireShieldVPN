@@ -1,12 +1,31 @@
 # Analisi di Fattibilità - Software di Gestione WireGuard in Java
 
+# Indice
+
+1. [Introduzione](#introduzione)  
+2. [Obiettivi del Progetto](#obiettivi-del-progetto)  
+3. [Requisiti Funzionali](#requisiti-funzionali)  
+   - [Gestione della Connessione WireGuard](#gestione-della-connessione-wireguard)  
+   - [Monitoraggio e Analisi dei File Scaricati](#monitoraggio-e-analisi-dei-file-scaricati)  
+4. [Aspetti Tecnici e Implementazione](#aspetti-tecnici-e-implementazione)  
+   - [Interazione con WireGuard](#interazione-con-wireguard)  
+   - [Monitoraggio e Analisi Antivirus](#monitoraggio-e-analisi-antivirus)  
+5. [Rischi e Sfide](#rischi-e-sfide)  
+   - [Interazione con WireGuard](#interazione-con-wireguard-1)  
+   - [Monitoraggio dei File e Scansione Antivirus](#monitoraggio-dei-file-e-scansione-antivirus)  
+   - [Soluzioni e Mitigazioni](#soluzioni-e-mitigazioni)  
+6. [Conclusioni](#conclusioni)  
+
+
+
+&nbsp;
 ## Introduzione
 
 Questo progetto nasce con l’idea di realizzare un software in Java che permetta di gestire e monitorare le connessioni VPN utilizzando WireGuard. WireGuard è noto per essere un protocollo VPN molto efficiente e sicuro, ma manca di un’interfaccia utente completa e intuitiva, soprattutto su sistemi desktop. L’obiettivo principale è quindi quello di creare una dashboard grafica che consenta di visualizzare lo stato della connessione e tutte le informazioni rilevanti per l’utente.
 
 Inoltre, per migliorare la sicurezza, il software sarà in grado di monitorare i file scaricati durante l’uso della VPN e di analizzarli automaticamente alla ricerca di minacce, utilizzando strumenti antivirus come ClamAV o servizi di analisi online come VirusTotal.
 
-
+&nbsp;
 ## Obiettivi del Progetto
 
 L’idea alla base di questo software è offrire un’esperienza semplice e intuitiva per chi utilizza WireGuard, fornendo un controllo completo sulla connessione e migliorando la sicurezza. Gli obiettivi principali includono:
@@ -14,7 +33,7 @@ L’idea alla base di questo software è offrire un’esperienza semplice e intu
 2. *Integrare un sistema di monitoraggio dei file scaricati mentre la VPN è attiva, in modo da identificare eventuali minacce in tempo reale.*
 3. *Offrire agli utenti un’ulteriore protezione, analizzando i file con ClamAV o, se necessario, inviandoli a VirusTotal per una scansione più approfondita.*
 
-
+&nbsp;
 ## Requisiti Funzionali
 
 Il progetto si concentra su due funzionalità principali:
@@ -23,7 +42,7 @@ Il progetto si concentra su due funzionalità principali:
 
 2. **Monitoraggio e analisi dei file scaricati:** Quando la connessione VPN è attiva, il software monitorerà la cartella di download predefinita dell’utente. Ogni file scaricato sarà automaticamente analizzato per individuare possibili minacce. Verrà effettuata una scansione con ClamAV o, per una verifica più approfondita, il file potrà essere inviato a VirusTotal.
 
-
+&nbsp;
 ## Aspetti Tecnici e Implementazione
 Veniamo al vero obbiettivo di questo documento, ovvero l'analisi della fattibilita' tecnica del progetto, che tenga conto sia delle tempische di sviluppo che delle tecnologie a noi disponibili.
 
@@ -98,7 +117,7 @@ Documentazione:
 - [WatchService](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/WatchService.html)
 - [clamscan](https://docs.clamav.net/manual/Usage/Scanning.html)
 
-
+&nbsp;
 ## Rischi e Sfide
 
 **Interazione con WireGuard:**
@@ -119,6 +138,7 @@ Inoltre, l’uso di servizi online come VirusTotal introduce problemi di privacy
 - *Chiedere il consenso esplicito all'utente prima di inviare file a VirusTotal e informarlo delle implicazioni sulla privacy.*
 - *Eseguire controlli di sicurezza sull’input del percorso file prima di eseguire* ```clamscan``` *per prevenire attacchi di iniezione.*
   
+&nbsp;
 ## Conclusioni
 
 Sebbene il progetto presenti delle complessità, la sua realizzazione è tecnicamente fattibile. L’applicazione risponderebbe a una necessità reale, combinando la gestione intuitiva di WireGuard con una protezione avanzata contro le minacce informatiche. L'utilizzo di Java come linguaggio porta con se il beneficio di mantenere il software portabile su diverse piattaforme, mentre l’integrazione con strumenti come ClamAV e VirusTotal garantisce un elevato livello di sicurezza.
