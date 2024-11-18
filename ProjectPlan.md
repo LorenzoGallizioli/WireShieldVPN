@@ -27,21 +27,13 @@ Per lo sviluppo del progetto, abbiamo adottato un approccio **AGILE** basato sul
 
 - **Riunioni settimanali**:  
   È prevista una **riunione settimanale di sincronizzazione** della durata di circa un’ora. Questi incontri saranno dedicati a:
-  - Monitorare l’avanzamento del lavoro.
-  - Identificare e risolvere eventuali impedimenti.  
-  - Pianificare e riorganizzare i task in base alle priorità emergenti.
+  - *Monitorare l’avanzamento del lavoro.*
+  - *Identificare e risolvere eventuali impedimenti.* 
+  - *Pianificare e riorganizzare i task in base alle priorità emergenti.*
 
 ### Programmazione a coppie
 
-La **programmazione a coppie** (Pair Programming) sarà integrata nel processo di sviluppo come parte integrante del framework SCRUM. Questo approccio verrà utilizzato per:
-- *Ridurre gli errori attraverso revisioni in tempo reale.*  
-- *Favorire una maggiore condivisione della conoscenza tra i membri del team.*  
-- *Migliorare la qualità complessiva del codice.*
-
-La programmazione a coppie sarà applicata principalmente nelle seguenti attività: 
-- *Sviluppo di moduli complessi* 
-- *Revisione e debugging del codice*
-
+La **programmazione a coppie** (Pair Programming) sarà integrata nel processo di sviluppo come parte integrante del framework SCRUM. La programmazione a coppie sarà applicata principalmente nelle attività legate alla riscrittura del codice, in corrispondenza di bug o funzioni complesse.
 
 ## 3. Organizzazione del progetto
 
@@ -131,10 +123,6 @@ L’ambiente di test sarà configurato su **Windows 10** e **Windows 11** , in q
 - **JUnit**: Per test unitari delle singole componenti del codice, come la gestione delle connessioni VPN e la scansione dei file.
 - **TestFX** o **JaCoCo**: Per test funzionali sull'interfaccia utente (UI), garantendo che il design e le funzionalità siano intuitive e facili da usare.
 
-
-NOTA: @paganello CONTROLLA STRUMENTI DI TEST soprattutto per GUI
-
-
 ### Apparecchiature
 L’ambiente di test richiederà:
 - **Server** per ospitare le configurazioni VPN e dispositivi client (PC, laptop, dispositivi mobili) per simulare l’accesso remoto da diverse postazioni.
@@ -208,6 +196,51 @@ Si occupa della capacità del software di operare in nuovi contesti:
 - **Interoperabilità**: Assicura che il sistema interagisca efficacemente con altri software o sistemi.
 
 ### Valutazione continua e miglioramento
-Durante tutto il ciclo di sviluppo, verranno condotte valutazioni periodiche per identificare eventuali aree di miglioramento. Gli aggiornamenti e le modifiche verranno gestiti seguendo un processo di **regressione test** per garantire che le funzionalità esistenti non vengano compromesse.
+Durante tutto il ciclo di sviluppo, verranno condotte valutazioni periodiche per identificare eventuali aree di miglioramento. Gli aggiornamenti e le modifiche verranno gestiti seguendo un processo di test regressivo, per la convalida delle nuove implementazioni e per garantire che le funzionalità esistenti non vengano compromesse.
+
+## 10. Pacchetti di Lavoro
+
+Il progetto sarà **suddiviso in diversi macro-argomenti**, corrispondenti a pacchetti di lavoro ben definiti, che rappresentano le principali aree di sviluppo. Ogni macro-argomento sarà ulteriormente suddiviso in attività specifiche, che potranno essere allocate ai singoli membri del team Scrum in base alle competenze e alla disponibilità.
+
+Per garantire una gestione efficace e una suddivisione equa del lavoro, **ogni membro** del team avrà un **set di attività assegnate** da completare nel corso della sprint.
+
+Prima di ogni **Scrum Week** (incontro settimanale), il **codice** prodotto da ogni sviluppatore dovrà essere **pushato** su un proprio branch e successivamente integrato **nel branch principale** previa revisione da parte di tutti i membri del team. Questa **revisione collettiva**, che include l'assegnazione di una valutazione qualitativa, permetterà di identificare eventuali problemi e di risolverli tempestivamente, garantendo un'integrazione continua e incrementale delle parti di codice.
+
+## 11. Risorse
+
+Il progetto prevede l'utilizzo delle seguenti risorse hardware e software:
+
+- **Server di Test**: sarà necessario un server per testare il funzionamento del tunnel WireGuard in un ambiente controllato. Questa macchina verrà utilizzata per verificare l'affidabilità e le prestazioni del servizio.
+- **Workstation per il Testing**: poiché il software sarà inizialmente sviluppato solo per Windows, i membri del team utilizzeranno workstation Windows per testare l’applicazione e garantirne la compatibilità.
+- **Ottimizzazione delle Risorse**: uno degli obiettivi del progetto è garantire che il software sia il più leggero possibile in termini di consumo di CPU e memoria. Grazie al protocollo WireGuard, noto per la sua efficienza, prevediamo che l’applicazione avrà un impatto minimo sulle risorse di sistema.
+
+
+## 12. Budget
+
+Il budget per il progetto sarà contenuto grazie all’adozione di software open source e a strumenti gratuiti. Tuttavia, saranno previsti costi per l'hosting del servizio WireGuard:
+
+- **Utilizzo di Codice Open Source**: gran parte del codice e degli strumenti utilizzati saranno open source, riducendo significativamente i costi di licenza.
+- **Costi di Hosting**: l'unico costo previsto sarà quello per l’hosting del servizio WireGuard, che verrà installato su una macchina cloud per garantire alta disponibilità e prestazioni.
+
+## 13. Cambiamenti
+
+Le modifiche al progetto verranno gestite mediante una breve **analisi di gruppo**, durante la quale si valuteranno le implicazioni tecniche e le tempistiche necessarie. Tutte le decisioni prese verranno documentate accuratamente nello **storico del progetto**, garantendo tracciabilità e trasparenza.
+
+- **Analisi di Gruppo**: Ogni richiesta di modifica sarà esaminata dal team per identificare eventuali impatti sul progetto.
+- **Documentazione delle Scelte**: Ogni cambiamento approvato sarà registrato nello storico del progetto, includendo motivazioni e valutazioni tecniche.
+- **Tracciabilità e Adattabilità**: La gestione ordinata delle modifiche ci permetterà di mantenere una traccia chiara e di adattarci in modo flessibile alle nuove esigenze.
+
+## 14. Consegna
+La consegna del progetto seguirà una serie di procedure definite per garantire il corretto funzionamento e la soddisfazione del cliente. Di seguito i principali passaggi:
+
+1. **Verifica Finale**: Tutte le funzionalità saranno testate e validate internamente dal team, assicurando che il software risponda ai requisiti iniziali.
+2. **README per Installazione e Testing**: Un file `README` dettagliato verrà fornito al cliente per descrivere:
+   - *Le istruzioni per l'installazione del software sulla sua macchina.*
+   - *Le modalità per eseguire i test del software, garantendo che tutte le funzionalità siano correttamente configurate.*
+3. **Supporto durante l'Installazione**: In caso di difficoltà durante l'installazione o i test, sarà fornito un supporto remoto per assistere il cliente in tempo reale.
+4. **Documentazione di Consegna**: Il cliente riceverà anche:
+   - *Una panoramica delle funzionalità principali del software.*
+   - *Eventuali configurazioni avanzate necessarie per l'ottimizzazione delle prestazioni.*
+5. **Supporto Post-Consegna**: Sarà garantito un periodo di supporto per risolvere eventuali problemi o richieste di assistenza dopo la consegna.
 
 
