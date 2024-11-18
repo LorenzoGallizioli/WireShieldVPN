@@ -2,6 +2,47 @@
 
 In questo documento illustriamo il **Project Plan** che guiderà lo sviluppo del progetto. Le linee guida fornite serviranno a chiarire il nostro approccio metodologico e le strategie di implementazione, garantendo coerenza e organizzazione durante tutte le fasi del lavoro.
 
+## Indice 
+- [**Project Plan**](#project-plan)
+  - [Indice](#indice)
+  - [**1. Introduzione**](#1-introduzione)
+  - [**2. Modello di Processo**](#2-modello-di-processo)
+      - [Modello SCRUM](#modello-scrum)
+      - [Programmazione a coppie](#programmazione-a-coppie)
+  - [3. Organizzazione del progetto](#3-organizzazione-del-progetto)
+      - [Ruoli e Responsabilità](#ruoli-e-responsabilità)
+  - [4. Standard, linee guida, procedure](#4-standard-linee-guida-procedure)
+  - [5. Attività di gestione](#5-attività-di-gestione)
+  - [6. Rischi](#6-rischi)
+  - [7. Personale](#7-personale)
+      - [Gestione dei Task](#gestione-dei-task)
+  - [8. Metodi e Tecniche](#8-metodi-e-tecniche)
+    - [8.1 Controllo della Versione e Configurazione](#81-controllo-della-versione-e-configurazione)
+    - [8.2 Ambiente di Test e Apparecchiature di Test](#82-ambiente-di-test-e-apparecchiature-di-test)
+      - [Sistemi Operativi](#sistemi-operativi)
+      - [Strumenti di Test](#strumenti-di-test)
+      - [Apparecchiature](#apparecchiature)
+      - [Ordine e Procedure di Test](#ordine-e-procedure-di-test)
+    - [Fasi di test principali](#fasi-di-test-principali)
+      - [1. Preparazione dell’Ambiente di Test](#1-preparazione-dellambiente-di-test)
+      - [2. Test Funzionali](#2-test-funzionali)
+      - [3. Test di Prestazioni](#3-test-di-prestazioni)
+      - [4. Test di Sicurezza](#4-test-di-sicurezza)
+      - [5. Test di Regressione](#5-test-di-regressione)
+      - [6. Test di Usabilità](#6-test-di-usabilità)
+  - [9. Garanzia di Qualità](#9-garanzia-di-qualità)
+      - [Obiettivi della Garanzia di Qualità](#obiettivi-della-garanzia-di-qualità)
+    - [McCall's Quality Model: Attributi di Qualità](#mccalls-quality-model-attributi-di-qualità)
+      - [**1. Qualità del Prodotto (Product Operation)**](#1-qualità-del-prodotto-product-operation)
+      - [**2. Qualità del Comportamento durante i Cambiamenti (Product Revision)**](#2-qualità-del-comportamento-durante-i-cambiamenti-product-revision)
+      - [**3. Qualità di Transizione (Product Transition)**](#3-qualità-di-transizione-product-transition)
+      - [Valutazione continua e miglioramento](#valutazione-continua-e-miglioramento)
+  - [10. Pacchetti di Lavoro](#10-pacchetti-di-lavoro)
+  - [11. Risorse](#11-risorse)
+  - [12. Budget](#12-budget)
+  - [13. Cambiamenti](#13-cambiamenti)
+  - [14. Consegna](#14-consegna)
+    
 
 ## **1. Introduzione**
 
@@ -20,7 +61,7 @@ Prima di avviare la pianificazione, è stata condotta un’analisi di fattibilit
 
 Per lo sviluppo del progetto, abbiamo adottato un approccio **AGILE** basato sul framework **SCRUM**, opportunamente adattato per soddisfare le esigenze specifiche del team. Questo modello iterativo e incrementale ci consente di mantenere flessibilità durante il processo di sviluppo, rilasciando progressivamente nuove funzionalità e incorporando feedback in tempo reale.
 
-### Modello SCRUM
+#### Modello SCRUM
 
 - **Durata degli sprint**:  
   Gli sprint avranno una durata di **3 settimane**, un compromesso ideale per bilanciare la produttività con gli impegni accademici del team. Questo intervallo di tempo permette di completare obiettivi significativi senza compromettere la qualità del lavoro.
@@ -31,7 +72,7 @@ Per lo sviluppo del progetto, abbiamo adottato un approccio **AGILE** basato sul
   - *Identificare e risolvere eventuali impedimenti.* 
   - *Pianificare e riorganizzare i task in base alle priorità emergenti.*
 
-### Programmazione a coppie
+#### Programmazione a coppie
 
 La **programmazione a coppie** (Pair Programming) sarà integrata nel processo di sviluppo come parte integrante del framework SCRUM. La programmazione a coppie sarà applicata principalmente nelle attività legate alla riscrittura del codice, in corrispondenza di bug o funzioni complesse.
 
@@ -39,7 +80,7 @@ La **programmazione a coppie** (Pair Programming) sarà integrata nel processo d
 
 La struttura del team SCRUM è stata pensata per promuovere la collaborazione e l'efficienza, consentendo a ciascun membro di acquisire competenze in diverse aree del processo di sviluppo.
 
-### Ruoli e Responsabilità
+#### Ruoli e Responsabilità
 
 - **Scrum Master a rotazione**: Il ruolo di Scrum Master sarà ricoperto a rotazione da ciascun membro del team. Questo approccio consente a tutti i membri di sviluppare competenze nella gestione e facilitazione del processo SCRUM, oltre a garantire che tutti abbiano una comprensione completa delle dinamiche del team.
 
@@ -85,7 +126,7 @@ Il progetto **WireShield** sarà gestito da un team di tre membri, che si occupe
 - **Lorenzo Gallizioli** – [GitHub](https://github.com/LorenzoGallizioli)
 - **Thomas Paganelli** – [GitHub](https://github.com/paganello)
 
-### Gestione dei Task
+#### Gestione dei Task
 
 Tutti i task relativi al progetto saranno suddivisi equamente tra i membri del team. Ogni attività, dalla definizione dei requisiti alla progettazione e sviluppo, sarà affrontata in modo collaborativo. I membri del team garantiranno che tutti gli aspetti del progetto siano trattati in modo bilanciato, favorendo un flusso di lavoro coeso e una gestione ottimale del tempo e delle risorse. Inoltre, la continua interazione tra i membri durante le **riunioni settimanali** e gli **sprint** permetterà di monitorare costantemente l'avanzamento e di adattare le priorità in base all’evoluzione del progetto.
 
@@ -114,22 +155,22 @@ In parallelo, tutte le configurazioni del sistema saranno versionate per garanti
 
 L’ambiente di test sarà progettato per simulare l’uso reale della soluzione **WireShield** con l’integrazione di scansione antivirus, garantendo che tutti i componenti software, inclusi **WireGuard**, **ClamAV**, e **VirusTotal**, funzionino correttamente in un ambiente di produzione simulato.
 
-### 8.3 Caratteristiche principali dell’ambiente di test
 
-### Sistemi Operativi
+
+#### Sistemi Operativi
 L’ambiente di test sarà configurato su **Windows 10** e **Windows 11** , in quanto il protocollo **WireGuard** è compatibile con sistemi Windows e le tecnologie di scansione antivirus **ClamAV** e l’integrazione con **VirusTotal** sono anch'esse supportate su piattaforme Windows. Saranno inclusi anche altri sistemi operativi compatibili con la tecnologia utilizzata, come **Linux** per specifici test di rete e sicurezza.
 
-### Strumenti di Test
+#### Strumenti di Test
 - **JUnit**: Per test unitari delle singole componenti del codice, come la gestione delle connessioni VPN e la scansione dei file.
 - **TestFX** o **JaCoCo**: Per test funzionali sull'interfaccia utente (UI), garantendo che il design e le funzionalità siano intuitive e facili da usare.
 
-### Apparecchiature
+#### Apparecchiature
 L’ambiente di test richiederà:
 - **Server** per ospitare le configurazioni VPN e dispositivi client (PC, laptop, dispositivi mobili) per simulare l’accesso remoto da diverse postazioni.
 - **Personal Computer e Mobile Phone**
 - **Macchine virtuali** per eseguire test in ambienti isolati, garantendo che il sistema funzioni correttamente senza interferire con altre configurazioni o applicazioni.
 
-### Ordine e Procedure di Test
+#### Ordine e Procedure di Test
 Le fasi di test seguiranno un ordine logico, progettato per garantire che tutte le funzionalità del sistema siano verificate in modo completo e accurato, minimizzando il rischio di errori in fase di produzione.
 
 ### Fasi di test principali
@@ -165,7 +206,7 @@ Le fasi di test seguiranno un ordine logico, progettato per garantire che tutte 
 
 La **Garanzia di Qualità** del progetto rappresenta un aspetto fondamentale per assicurare che il software sviluppato risponda pienamente ai requisiti funzionali, prestazionali e di sicurezza richiesti. Per raggiungere questo obiettivo, abbiamo adottato un approccio strutturato basato sul **McCall's Quality Model**, che ci consente di analizzare, monitorare e migliorare costantemente le caratteristiche qualitative del sistema durante tutte le fasi di sviluppo, garantendo la consegna di un prodotto affidabile, efficiente e altamente utilizzabile.
 
-### Obiettivi della Garanzia di Qualità
+#### Obiettivi della Garanzia di Qualità
 
 - **Soddisfare i requisiti specificati**: Garantire che il software sia conforme alle necessità operative e alle aspettative degli utenti finali.
 - **Migliorare l'affidabilità e la sicurezza**: Ridurre al minimo gli errori, i malfunzionamenti e i rischi associati all'uso del sistema.
@@ -195,7 +236,7 @@ Si occupa della capacità del software di operare in nuovi contesti:
 - **Riutilizzabilità**: Consente il riutilizzo di componenti software in progetti futuri.
 - **Interoperabilità**: Assicura che il sistema interagisca efficacemente con altri software o sistemi.
 
-### Valutazione continua e miglioramento
+#### Valutazione continua e miglioramento
 Durante tutto il ciclo di sviluppo, verranno condotte valutazioni periodiche per identificare eventuali aree di miglioramento. Gli aggiornamenti e le modifiche verranno gestiti seguendo un processo di test regressivo, per la convalida delle nuove implementazioni e per garantire che le funzionalità esistenti non vengano compromesse.
 
 ## 10. Pacchetti di Lavoro
