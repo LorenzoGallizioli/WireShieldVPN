@@ -5,8 +5,8 @@ In questo documento illustriamo il **Project Plan** che guiderà lo sviluppo del
 ## Indice 
 - [**Project Plan**](#project-plan)
   - [Indice](#indice)
-  - [**1. Introduzione**](#1-introduzione)
-  - [**2. Modello di Processo**](#2-modello-di-processo)
+  - [1. Introduzione](#1-introduzione)
+  - [2. Modello di Processo](#2-modello-di-processo)
       - [Modello SCRUM](#modello-scrum)
       - [Programmazione a coppie](#programmazione-a-coppie)
   - [3. Organizzazione del progetto](#3-organizzazione-del-progetto)
@@ -33,9 +33,9 @@ In questo documento illustriamo il **Project Plan** che guiderà lo sviluppo del
   - [9. Garanzia di Qualità](#9-garanzia-di-qualità)
       - [Obiettivi della Garanzia di Qualità](#obiettivi-della-garanzia-di-qualità)
     - [McCall's Quality Model: Attributi di Qualità](#mccalls-quality-model-attributi-di-qualità)
-      - [**1. Qualità del Prodotto (Product Operation)**](#1-qualità-del-prodotto-product-operation)
-      - [**2. Qualità del Comportamento durante i Cambiamenti (Product Revision)**](#2-qualità-del-comportamento-durante-i-cambiamenti-product-revision)
-      - [**3. Qualità di Transizione (Product Transition)**](#3-qualità-di-transizione-product-transition)
+      - [1. Qualità del Prodotto (Product Operation)](#1-qualità-del-prodotto-product-operation)
+      - [2. Qualità del Comportamento durante i Cambiamenti (Product Revision)](#2-qualità-del-comportamento-durante-i-cambiamenti-product-revision)
+      - [3. Qualità di Transizione (Product Transition)](#3-qualità-di-transizione-product-transition)
       - [Valutazione continua e miglioramento](#valutazione-continua-e-miglioramento)
   - [10. Pacchetti di Lavoro](#10-pacchetti-di-lavoro)
   - [11. Risorse](#11-risorse)
@@ -44,7 +44,7 @@ In questo documento illustriamo il **Project Plan** che guiderà lo sviluppo del
   - [14. Consegna](#14-consegna)
     
 
-## **1. Introduzione**
+## 1. Introduzione
 
 Il progetto **"WireShield"** si propone di sviluppare una soluzione per l’accesso remoto sicuro, combinando un client VPN basato sul protocollo **WireGuard** con funzionalità avanzate di scansione antivirus e analisi automatica tramite **VirusTotal** e **ClamAV**. L’obiettivo principale è offrire un client VPN che non solo assicuri la riservatezza dei dati e la gestione efficiente delle connessioni, ma che integri anche strumenti per la protezione attiva contro minacce come malware e virus.
 
@@ -57,7 +57,7 @@ Prima di avviare la pianificazione, è stata condotta un’analisi di fattibilit
 - [Analisi di fattibilità](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/AnalisiFattibilit%C3%A0.md)
 
 
-## **2. Modello di Processo**
+## 2. Modello di Processo
 
 Per lo sviluppo del progetto, abbiamo adottato un approccio **AGILE** basato sul framework **SCRUM**, opportunamente adattato per soddisfare le esigenze specifiche del team. Questo modello iterativo e incrementale ci consente di mantenere flessibilità durante il processo di sviluppo, rilasciando progressivamente nuove funzionalità e incorporando feedback in tempo reale.
 
@@ -216,7 +216,7 @@ La **Garanzia di Qualità** del progetto rappresenta un aspetto fondamentale per
 ### McCall's Quality Model: Attributi di Qualità
 Il modello McCall ci ha guidato nell'identificazione di specifici attributi di qualità, suddivisi in tre categorie principali:
 
-#### **1. Qualità del Prodotto (Product Operation)**
+#### 1. Qualità del Prodotto (Product Operation)
 Riguarda l’esperienza dell’utente finale e include:
 - **Correttezza**: Verifica che il software soddisfi i requisiti e fornisca risultati accurati.
 - **Affidabilità**: Garantisce che il sistema funzioni in modo stabile e tollerante agli errori.
@@ -224,13 +224,13 @@ Riguarda l’esperienza dell’utente finale e include:
 - **Integrità**: Protezione dei dati e delle operazioni contro accessi non autorizzati.
 - **Usabilità**: Creazione di un’interfaccia intuitiva e accessibile per migliorare l’esperienza dell’utente.
 
-#### **2. Qualità del Comportamento durante i Cambiamenti (Product Revision)**
+#### 2. Qualità del Comportamento durante i Cambiamenti (Product Revision)
 Si focalizza sulla capacità del sistema di adattarsi a modifiche e miglioramenti:
 - **Manutenibilità**: Assicura che le modifiche al codice o al design siano semplici e veloci da implementare.
 - **Testabilità**: Facilita l'identificazione e la risoluzione di problemi.
 - **Flessibilità**: Permette di adattare il software a nuovi requisiti o ambienti operativi.
 
-#### **3. Qualità di Transizione (Product Transition)**
+#### 3. Qualità di Transizione (Product Transition)
 Si occupa della capacità del software di operare in nuovi contesti:
 - **Portabilità**: Garantisce che il software possa essere eseguito su diverse piattaforme.
 - **Riutilizzabilità**: Consente il riutilizzo di componenti software in progetti futuri.
