@@ -1,5 +1,43 @@
 # 📝 Linee Guida del Progetto
 
+# **Indice**
+
+1. [📝 Linee Guida del Progetto](#-linee-guida-del-progetto)
+2. [🔧 Ingegneria del Software](#-ingegneria-del-software)
+3. [🗓 Project Plan](#-project-plan)
+   - [Tempistiche](#tempistiche)
+   - [Gestione del progetto su GitHub](#gestione-del-progetto-su-github)
+4. [🛠 Software Engineering Management](#-software-engineering-management)
+   - [Project Plan](#project-plan-1)
+5. [🔄 Software Life Cycle](#-software-life-cycle)
+   - [Tipo di Processo di Sviluppo](#tipo-di-processo-di-sviluppo)
+   - [Sprint - Metodologia Scrum](#sprint---metodologia-scrum)
+6. [⚙️ Configuration Management](#️-configuration-management)
+   - [GitHub](#github)
+   - [Kanban](#kanban)
+7. [👥 People Management](#-people-management)
+   - [Organizzazione del Lavoro](#organizzazione-del-lavoro)
+8. [🔍 Software Quality](#-software-quality)
+   - [Qualità Fondamentali per il Progetto](#qualità-fondamentali-per-il-progetto)
+9. [📋 Requirements Engineering](#-requirements-engineering)
+   - [Elicitation dei Requisiti](#elicitation-dei-requisiti)
+   - [Specifica dei Requisiti (IEEE 830)](#specifica-dei-requisiti-ieee-830)
+10. [🖋️ Modeling](#️-modeling)
+    - [Diagrammi UML](#diagrammi-uml)
+11. [🏛️ Software Architecture](#️-software-architecture)
+    - [Descrizione dell'Architettura](#descrizione-dellarchitettura)
+12. [🖌️ Software Design](#️-software-design)
+    - [Progettazione Mediante UML](#progettazione-mediante-uml)
+    - [Metriche di Qualità](#metriche-di-qualità)
+    - [Calcolo della Complessità](#calcolo-della-complessità)
+13. [🔍 Software Testing](#-software-testing)
+    - [Piano per Attività di Test](#piano-per-attività-di-test)
+    - [Casi di Test Implementati](#casi-di-test-implementati)
+14. [🔧 Software Maintenance](#-software-maintenance)
+    - [Reverse Engineering](#reverse-engineering)
+    - [Refactoring](#refactoring)
+
+
 ## 🔧 Ingegneria del Software
 
 **GitHub:** 

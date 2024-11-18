@@ -1,6 +1,5 @@
 # Analisi di Fattibilità - Software di Gestione WireGuard in Java
 
-
 ## Introduzione
 
 Questo progetto nasce con l’idea di realizzare un software in Java che permetta di gestire e monitorare le connessioni VPN utilizzando WireGuard. WireGuard è noto per essere un protocollo VPN molto efficiente e sicuro, ma manca di un’interfaccia utente completa e intuitiva, soprattutto su sistemi desktop. L’obiettivo principale è quindi quello di creare una dashboard grafica che consenta di visualizzare lo stato della connessione e tutte le informazioni rilevanti per l’utente.
