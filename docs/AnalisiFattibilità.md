@@ -20,17 +20,17 @@ L’idea alla base di questo software è offrire un’esperienza semplice e intu
 
 Il progetto si concentra su due funzionalità principali:
 
-1. **Gestione della connessione WireGuard:** *L'utente potrà avviare e fermare la connessione VPN direttamente dal software. La dashboard mostrerà in tempo reale lo stato del tunnel (attivo o inattivo), la quantità di traffico inviato e ricevuto, e informazioni dettagliate sui peer connessi.*
+1. **Gestione della connessione WireGuard:** L'utente potrà avviare e fermare la connessione VPN direttamente dal software. La dashboard mostrerà in tempo reale lo stato del tunnel (attivo o inattivo), la quantità di traffico inviato e ricevuto, e informazioni dettagliate sui peer connessi.
 
-2. **Monitoraggio e analisi dei file scaricati:** *Quando la connessione VPN è attiva, il software monitorerà la cartella di download predefinita dell’utente. Ogni file scaricato sarà automaticamente analizzato per individuare possibili minacce. Verrà effettuata una scansione con ClamAV o, per una verifica più approfondita, il file potrà essere inviato a VirusTotal.*
+2. **Monitoraggio e analisi dei file scaricati:** Quando la connessione VPN è attiva, il software monitorerà la cartella di download predefinita dell’utente. Ogni file scaricato sarà automaticamente analizzato per individuare possibili minacce. Verrà effettuata una scansione con ClamAV o, per una verifica più approfondita, il file potrà essere inviato a VirusTotal.
 
 
 ## Aspetti Tecnici e Implementazione
 Veniamo al vero obbiettivo di questo documento, ovvero l'analisi della fattibilita' tecnica del progetto, che tenga conto sia delle tempische di sviluppo che delle tecnologie a noi disponibili.
 
 **Interazione con WireGuard tramite comandi di sistema:**
-*WireGuard viene tipicamente gestito tramite comandi di sistema, come* ```wg``` *per mostrare lo stato della connessione e* ```wg-quick``` *per avviare o interrompere un tunnel. Java, tuttavia, non ha accesso nativo ai processi di sistema, quindi dobbiamo utilizzare chiamate esterne tramite la classe ProcessBuilder o librerie come JNA (Java Native Access) per invocare questi comandi.*
-*Di seguito riportiamo un esempio che rappresenta come sarebbe per noi possibile eseguire una chiamata di sistema al servizio WireGuard, con l'obbiettivo di stampare lo stato delle connessioni su shell:*
+WireGuard viene tipicamente gestito tramite comandi di sistema, come ```wg``` per mostrare lo stato della connessione e ```wg-quick``` per avviare o interrompere un tunnel. Java, tuttavia, non ha accesso nativo ai processi di sistema, quindi dobbiamo utilizzare chiamate esterne tramite la classe ProcessBuilder o librerie come JNA (Java Native Access) per invocare questi comandi.
+Di seguito riportiamo un esempio che rappresenta come sarebbe per noi possibile eseguire una chiamata di sistema al servizio WireGuard, con l'obbiettivo di stampare lo stato delle connessioni su shell:
 ```
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -68,7 +68,7 @@ public class WireGuardManager {
 ```
 Documentazione: [ProcessBuilder](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ProcessBuilder.html)
 
-*In alternativa, Se si preferisce un’interazione più diretta con le librerie di sistema (ad esempio per invocare funzioni C direttamente), potremmo usare JNA.*
+In alternativa, Se si preferisce un’interazione più diretta con le librerie di sistema (ad esempio per invocare funzioni C direttamente), potremmo usare JNA.
 
 ```
 import com.sun.jna.Library;
@@ -92,8 +92,8 @@ public class JNASystemCall {
 Documentazione: [JNA Documentation](https://github.com/java-native-access/jna)
 
 **Monitoraggio dei file scaricati e analisi con ClamAV e VirusTotal:**
-*La parte di monitoraggio dei file scaricati potrà essere implementata utilizzando le funzionalità di Java per osservare i cambiamenti nel file system (WatchService). Quando un nuovo file viene rilevato nella cartella di download, il software lo sottoporrà a scansione utilizzando ClamAV. Se il risultato della scansione è positivo (ovvero, viene rilevata una minaccia), il file può essere bloccato o eliminato, in base alle preferenze dell’utente. Se invece il file risulta sospetto ma non chiaramente pericoloso, sarà possibile inviarlo a VirusTotal per una scansione più approfondita.
-Di questa implementazione non fornisco alcun esempio per via della maggiore difficoltà di programmazione, tuttavia sono sicuro che ChatGPT o simili saranno in grado di fornire esempi esplicativi sufficientemente validi allo scopo di questa analisi.*
+La parte di monitoraggio dei file scaricati potrà essere implementata utilizzando le funzionalità di Java per osservare i cambiamenti nel file system (WatchService). Quando un nuovo file viene rilevato nella cartella di download, il software lo sottoporrà a scansione utilizzando ClamAV. Se il risultato della scansione è positivo (ovvero, viene rilevata una minaccia), il file può essere bloccato o eliminato, in base alle preferenze dell’utente. Se invece il file risulta sospetto ma non chiaramente pericoloso, sarà possibile inviarlo a VirusTotal per una scansione più approfondita.
+Di questa implementazione non fornisco alcun esempio per via della maggiore difficoltà di programmazione, tuttavia sono sicuro che ChatGPT o simili saranno in grado di fornire esempi esplicativi sufficientemente validi allo scopo di questa analisi.
 
 Documentazione: 
 - [WatchService](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/WatchService.html)
@@ -103,12 +103,12 @@ Documentazione:
 ## Rischi e Sfide
 
 **Interazione con WireGuard:**
-*Il progetto presenta alcune sfide tecniche significative. La prima riguarda la gestione dei processi di sistema, che può variare a seconda del sistema operativo. Mentre su Linux la gestione di WireGuard è abbastanza semplice tramite comandi shell, su Windows e macOS potrebbe essere necessario adattare il codice per funzionare correttamente. A tal riguardo ci viene in mente la necessità di gestione delle PATH, per permettere il riconoscimento delle chiamate shell da perte del sistema windows.
-Inoltre, utilizzare JNA per invocare funzioni di sistema può introdurre vulnerabilità, soprattutto se non viene eseguita una corretta validazione degli input. È importante evitare comandi shell che potrebbero essere soggetti a injection attack.*
+Il progetto presenta alcune sfide tecniche significative. La prima riguarda la gestione dei processi di sistema, che può variare a seconda del sistema operativo. Mentre su Linux la gestione di WireGuard è abbastanza semplice tramite comandi shell, su Windows e macOS potrebbe essere necessario adattare il codice per funzionare correttamente. A tal riguardo ci viene in mente la necessità di gestione delle PATH, per permettere il riconoscimento delle chiamate shell da perte del sistema windows.
+Inoltre, utilizzare JNA per invocare funzioni di sistema può introdurre vulnerabilità, soprattutto se non viene eseguita una corretta validazione degli input. È importante evitare comandi shell che potrebbero essere soggetti a injection attack.
 
 **Monitoraggio dei File Scaricati e Scansione Antivirus:**
-*Un’altra sfida è rappresentata dal monitoraggio in tempo reale dei file scaricati. Questa funzionalità potrebbe influire sulle prestazioni del sistema, soprattutto se vengono scaricati molti file contemporaneamente o se i file sono di grandi dimensioni.
-Non solo, quando un file viene scaricato da un browser, spesso viene creato come file temporaneo (ad esempio .part in Firefox) e rinominato una volta completato il download. Se il monitoraggio avviene troppo presto, potremmo scansionare file incompleti o in uso, causando errori.*
+Un’altra sfida è rappresentata dal monitoraggio in tempo reale dei file scaricati. Questa funzionalità potrebbe influire sulle prestazioni del sistema, soprattutto se vengono scaricati molti file contemporaneamente o se i file sono di grandi dimensioni.
+Non solo, quando un file viene scaricato da un browser, spesso viene creato come file temporaneo (ad esempio .part in Firefox) e rinominato una volta completato il download. Se il monitoraggio avviene troppo presto, potremmo scansionare file incompleti o in uso, causando errori.
 
 Un'altra sfida alla quale saremo sottoposti sarebbe la corretta gestione dei falsi positivi generati da ClamAV, una cattiva gestione può portare a cancellazioni o blocchi inappropriati, causando insoddisfazione dell'utente.
 Inoltre, l’uso di servizi online come VirusTotal introduce problemi di privacy e di gestione delle chiavi, poiché i file devono essere codificati in SHA256 per l'invio a un server esterno.

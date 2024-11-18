@@ -11,8 +11,8 @@
 ### 1. 🗓 **Project Plan**
 
 - **Tempistiche:**
-  - 🕐 **1 mese prima dell’esame**: *Definizione del progetto e approvazione del project plan da parte del professore.*
-  - 🗓 **5 giorni prima**: *Completamento del lavoro.*
+  - 🕐 **1 mese prima dell’esame**: Definizione del progetto e approvazione del project plan da parte del professore.
+  - 🗓 **5 giorni prima**: Completamento del lavoro.
 
 - **Gestione del progetto su GitHub**:
   - *Creazione di **📌 Issue** per tracciare i task.*
@@ -46,21 +46,21 @@ Lo sviluppo seguirà la metodologia **Scrum**, strutturato in **sprint settimana
 
 #### 4.1 **GitHub**
 
-- **Versionamento del codice**: *Utilizzo di GitHub per il controllo versione, con comandi come:*
-  - `git add .` *per aggiungere modifiche.*
-  - `git commit -m "messaggio"` *per registrare le modifiche.*
-  - `git push origin nome-ramo` *per caricare le modifiche nel repository remoto.*
+- **Versionamento del codice**: Utilizzo di GitHub per il controllo versione, con comandi come:
+  - `git add .` per aggiungere modifiche.
+  - `git commit -m "messaggio"` per registrare le modifiche.
+  - `git push origin nome-ramo` per caricare le modifiche nel repository remoto.
 
-- **Branching**: *Ogni nuova funzionalità o task viene sviluppata su un ramo separato. Creazione del ramo con:*
+- **Branching**: Ogni nuova funzionalità o task viene sviluppata su un ramo separato. Creazione del ramo con:
   - `git checkout -b nome-ramo`.
 
-- **Pull Requests (PR)**: *Le modifiche vengono integrate nel ramo principale (`main`) tramite una **Pull Request** su GitHub, seguita da una **code review**.*
+- **Pull Requests (PR)**: Le modifiche vengono integrate nel ramo principale (`main`) tramite una **Pull Request** su GitHub, seguita da una **code review**.
 
-- **Code Review**: *Ogni PR viene esaminata da un membro del team per verificarne qualità e funzionalità.*
+- **Code Review**: Ogni PR viene esaminata da un membro del team per verificarne qualità e funzionalità.
 
-- **Issue Tracking**: *Le **Issue** vengono utilizzate per tracciare task e bug. Le Issue sono collegate ai commit tramite il formato* `#numero-issue`.
+- **Issue Tracking**: Le **Issue** vengono utilizzate per tracciare task e bug. Le Issue sono collegate ai commit tramite il formato `#numero-issue`.
 
-- **Kanban Board**: *Le attività vengono monitorate e organizzate su una Kanban board di GitHub.*
+- **Kanban Board**: Le attività vengono monitorate e organizzate su una Kanban board di GitHub.
 
 #### 4.2 **Kanban**
 Gestione delle attività tramite **Kanban board** per visualizzare il progresso e monitorare i task assegnati.
@@ -73,8 +73,8 @@ Gestione delle attività tramite **Kanban board** per visualizzare il progresso 
 Il lavoro sarà distribuito tra i membri del team, con monitoraggio del progresso tramite la **Kanban board**.
 
 La struttura di base del nostro team **Scrum** è la seguente:
-- **Scrum Master**: *Facilitatore del processo SCRUM, il cui compito è garantire che il team segua le pratiche Scrum correttamente, risolvere eventuali impedimenti che ostacolano il progresso e promuovere una cultura collaborativa e autodisciplinata. Lo Scrum Master sarà ruotato ogni mese, in modo che tutti i membri del team possano ricoprire questo ruolo.*
-- **Development Team**: *Team di professionisti cross-funzionali che lavorano insieme per consegnare le funzionalità del prodotto. Il team ha l’obiettivo di organizzare autonomamente il lavoro durante lo sprint per raggiungere gli obiettivi definiti nello Sprint Backlog.*
+- **Scrum Master**: Facilitatore del processo SCRUM, il cui compito è garantire che il team segua le pratiche Scrum correttamente, risolvere eventuali impedimenti che ostacolano il progresso e promuovere una cultura collaborativa e autodisciplinata. Lo Scrum Master sarà ruotato ogni mese, in modo che tutti i membri del team possano ricoprire questo ruolo.
+- **Development Team**: Team di professionisti cross-funzionali che lavorano insieme per consegnare le funzionalità del prodotto. Il team ha l’obiettivo di organizzare autonomamente il lavoro durante lo sprint per raggiungere gli obiettivi definiti nello Sprint Backlog.
 
 ---
 
@@ -83,11 +83,11 @@ La struttura di base del nostro team **Scrum** è la seguente:
 #### 6.1 **Qualità Fondamentali per il Progetto**
 Le seguenti qualità, ispirate alla norma **ISO/IEC 9126** per la qualità del software, sono utili per il successo del progetto:
 
-- **Affidabilità**: *Garantire la stabilità dell'applicazione, evitando crash e comportamenti inaspettati. La qualità del software in termini di affidabilità è cruciale per garantire il sistema funzionale e stabile.*
-- **Usabilità**: *Progettazione di un'interfaccia utente chiara, intuitiva e facilmente navigabile per migliorare l'esperienza dell'utente. La qualità dell’usabilità è centrale per rendere il software accessibile e semplice da usare per tutti gli utenti.*
-- **Performance**: *L’efficienza del sistema deve permettere un utilizzo fluido, senza rallentamenti significativi.*
-- **Sicurezza**: *Implementazione di misure di protezione contro malware e minacce esterne tramite scansioni antivirus. La sicurezza è essenziale per proteggere i dati degli utenti e garantire un ambiente di lavoro sicuro.*
-- **Manutenibilità**: *Strutturare il codice in modo chiaro e modulare, facilitando modifiche future e interventi di correzione. La manutenibilità permette al team di effettuare aggiornamenti o miglioramenti con facilità, garantendo un software flessibile nel tempo.*
+- **Affidabilità**: Garantire la stabilità dell'applicazione, evitando crash e comportamenti inaspettati. La qualità del software in termini di affidabilità è cruciale per garantire il sistema funzionale e stabile.
+- **Usabilità**: Progettazione di un'interfaccia utente chiara, intuitiva e facilmente navigabile per migliorare l'esperienza dell'utente. La qualità dell’usabilità è centrale per rendere il software accessibile e semplice da usare per tutti gli utenti.
+- **Performance**: L’efficienza del sistema deve permettere un utilizzo fluido, senza rallentamenti significativi.
+- **Sicurezza**: Implementazione di misure di protezione contro malware e minacce esterne tramite scansioni antivirus. La sicurezza è essenziale per proteggere i dati degli utenti e garantire un ambiente di lavoro sicuro.
+- **Manutenibilità**: Strutturare il codice in modo chiaro e modulare, facilitando modifiche future e interventi di correzione. La manutenibilità permette al team di effettuare aggiornamenti o miglioramenti con facilità, garantendo un software flessibile nel tempo.
 
 L’adozione di questi criteri di qualità, in linea con lo standard **ISO/IEC 9126**, assicura che il prodotto finale risponda ai requisiti di stabilità, facilità d'uso, velocità, sicurezza e manutenibilità.
 
@@ -122,12 +122,12 @@ I seguenti diagrammi UML sono stati utilizzati per progettare il sistema:
 ### 9. 🏛️ **Software Architecture**
 
 #### 9.1 **Descrizione dell'Architettura**
-- **Architettura a strati**: *Separazione tra logica di business, interfaccia utente e integrazione con sistemi esterni (VPN e antivirus).*
+- **Architettura a strati**: Separazione tra logica di business, interfaccia utente e integrazione con sistemi esterni (VPN e antivirus).
   
 - **Principali viste architetturali**:
-  - **Vista funzionale**: *Descrizione delle funzionalità principali.*
-  - **Vista strutturale**: *Struttura delle componenti del sistema.*
-  - **Vista comportamentale**: *Risposta del sistema agli eventi.*
+  - **Vista funzionale**: Descrizione delle funzionalità principali.
+  - **Vista strutturale**: Struttura delle componenti del sistema.
+  - **Vista comportamentale**: Risposta del sistema agli eventi.
 
 ---
 
