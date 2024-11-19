@@ -13,22 +13,25 @@
 ## **Sprint Planning**
 *Pianificazione generale delle attività.*
 
-- **Sprint Totali**: [Calcolare numero sprint fino alla consegna di gennaio]
+- **Sprint Totali**: ??
 
-- **Durata di uno Sprint**: 3 settimane
+- **Durata di uno Sprint**: 2 settimane
 
-- **Obiettivo Globale**: [Inserire obiettivo generale del progetto]
+- **Obiettivo Globale**: realizzare il progetto funzionante e curato nei minimi dettagli
 
 &nbsp;
 
 ## **Backlog del Prodotto**
 *Lista prioritaria delle funzionalità da implementare.*
 
-| **ID** | **Titolo**                | **Descrizione**                     | **Priorità** | **Stima** |
-|--------|---------------------------|-------------------------------------|--------------|-----------|
-| 1      | Funzionalità A            | Descrizione breve della funzionalità | Alta         | 5 giorni  |
-| 2      | Funzionalità B            | Descrizione breve della funzionalità | Media        | 3 giorni  |
-| 3      | Funzionalità C            | Descrizione breve della funzionalità | Bassa        | 2 giorni  |
+| **ID** | **Titolo**             | **Descrizione**                                                                 | **Priorità** |
+|--------|------------------------|-------------------------------------------------------------------------------|--------------|
+| 1      | Gestore VPN            | Implementazione della comunicazione con servizio WireGuard                    | Alta         |
+| 2      | Gestione dei peer      | Gestione dell'archivio dei peer WireGuard e la modifica degli stessi           | Media        |
+| 3      | Gestione Antivirus     | Implementazione del controllo dei file scaricati mediante ClamAV e poi VirusTotal come ulteriore controllo | Alta        |
+| 4      | Implementazione UI/UX  | Implementazione di una dashboard funzionante che permetta l'utilizzo user-friendly del sistema e creazione di una sezione statistica per visualizzare i dettagli della connessione | Media        |
+| 5      | Controllo della cartella Download | Implementazione di un sistema che permetta di effettuare un controllo continuo e costante della cartella Download | Media         |
+
 
 &nbsp;
 
@@ -37,29 +40,33 @@
 &nbsp;
 
 ## **Ruoli del Team**
-*Definizione dei ruoli e delle responsabilità.*
 
-- **Product Owner**: [Nome] - Responsabile del backlog del prodotto.
+- **Product Owner**: 
+  - Lorenzo Gallizioli
+  - Davide Bonsembiante
+  - Thomas Paganelli 
 
-- **Scrum Master**: [Nome] - Facilitatore dei processi SCRUM.
+- **Scrum Master**: Lorenzo Gallizioli - Facilitatore dei processi SCRUM.
 
 - **Team di Sviluppo**: 
-  - [Nome 1]
-  - [Nome 2]
-  - [Nome 3]
+  - Lorenzo Gallizioli
+  - Davide Bonsembiante
+  - Thomas Paganelli 
 
 &nbsp;
 
 ## **Sprint Overview**
 *Riepilogo di tutti gli sprint.*
 
-| **Sprint N°** | **Periodo**          | **Obiettivo Principale**           | **Risultati Attesi**               |
-|---------------|----------------------|-------------------------------------|-------------------------------------|
-| Sprint 1      | [Inserire date]      | Obiettivo Sprint 1                 | [Descrivere i risultati attesi]    |
-| Sprint 2      | [Inserire date]      | Obiettivo Sprint 2                 | [Descrivere i risultati attesi]    |
-| Sprint 3      | [Inserire date]      | Obiettivo Sprint 3                 | [Descrivere i risultati attesi]    |
-| Sprint 4      | [Inserire date]      | Obiettivo Sprint 4                 | [Descrivere i risultati attesi]    |
-| Sprint 5      | [Inserire date]      | Obiettivo Sprint 5 (finalizzazione)| [Descrivere i risultati attesi]    |
+| **Titolo**                      | **Compiti**                                                                                       | **Sviluppatore**         |
+|----------------------------------|--------------------------------------------------------------------------------------------------|--------------------------|
+| Diagramma dei casi d'uso         | Implementazione del diagramma dei casi d'uso                                                     | Lorenzo Gallizioli       |
+| Diagramma delle macchine a stati| Implementazione del diagramma delle macchine a stati                                              | Lorenzo Gallizioli       |
+| Diagramma di sequenza           | Implementazione del diagramma di sequenza                                                       | Davide Bonsembiante      |
+| Linee Guida -> Documento Ufficiale | Conversione e modifica del documento "Linee Guida" in Documento Ufficiale del progetto con relative aggiunte e approfondimenti per ogni capitolo | Davide Bonsembiante      |
+| Diagramma delle classi          | Implementazione del diagramma delle classi                                                        | Thomas Paganelli         |
+| UML -> Struttura del progetto   | Conversione del diagramma delle classi in codice per implementare la struttura del progetto       | Thomas Paganelli         |
+
 
 &nbsp;
 
