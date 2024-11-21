@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_na5xUKgrEe-McMlm-12L7g" name="StateMachineWireShield">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_nbHMsKgrEe-McMlm-12L7g">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_pv6g4KgrEe-McMlm-12L7g" name="StateMachine">
+    <region xmi:type="uml:Region" xmi:id="_rHibIKgrEe-McMlm-12L7g" name="Region1">
+      <transition xmi:type="uml:Transition" xmi:id="__Ji7cKgsEe-McMlm-12L7g" name="Avvio" source="_ij2tYKgsEe-McMlm-12L7g" target="_kzd_kKgsEe-McMlm-12L7g"/>
+      <transition xmi:type="uml:Transition" xmi:id="_5xn_EKgtEe-McMlm-12L7g" name="Peer configurato" source="_kzd_kKgsEe-McMlm-12L7g" target="_X4I8IKgtEe-McMlm-12L7g"/>
+      <transition xmi:type="uml:Transition" xmi:id="_YIX7EKguEe-McMlm-12L7g" name="No" source="_X4I8IKgtEe-McMlm-12L7g" target="_97sLwKgtEe-McMlm-12L7g"/>
+      <transition xmi:type="uml:Transition" xmi:id="_3ElXwKgyEe-McMlm-12L7g" name="Si [clicca avvia]" source="_X4I8IKgtEe-McMlm-12L7g" target="_5TcmkKgzEe-McMlm-12L7g"/>
+      <transition xmi:type="uml:Transition" xmi:id="_86ZfIKgzEe-McMlm-12L7g" source="_5TcmkKgzEe-McMlm-12L7g" target="_QeEFUKgvEe-McMlm-12L7g"/>
+      <transition xmi:type="uml:Transition" xmi:id="_EnOA4Kg0Ee-McMlm-12L7g" source="_5TcmkKgzEe-McMlm-12L7g" target="__H-J8KgzEe-McMlm-12L7g"/>
+      <subvertex xmi:type="uml:Pseudostate" xmi:id="_ij2tYKgsEe-McMlm-12L7g" name="Start"/>
+      <subvertex xmi:type="uml:State" xmi:id="_kzd_kKgsEe-McMlm-12L7g" name="WireShield aperto"/>
+      <subvertex xmi:type="uml:Pseudostate" xmi:id="_X4I8IKgtEe-McMlm-12L7g" kind="choice"/>
+      <subvertex xmi:type="uml:State" xmi:id="_97sLwKgtEe-McMlm-12L7g" name="Configurazione peer">
+        <doActivity xmi:type="uml:Activity" xmi:id="_TmedMKguEe-McMlm-12L7g" name="Imposta parametri peer"/>
+        <exit xmi:type="uml:StateMachine" xmi:id="_MjnecKguEe-McMlm-12L7g" name="Peer configurato"/>
+      </subvertex>
+      <subvertex xmi:type="uml:State" xmi:id="_h26c8KguEe-McMlm-12L7g" name="VPN attiva">
+        <doActivity xmi:type="uml:Activity" xmi:id="_cg3I0KgvEe-McMlm-12L7g" name="Canale VPN"/>
+        <entry xmi:type="uml:StateMachine" xmi:id="_IdjLgKgvEe-McMlm-12L7g" name="Connessione instaurata"/>
+        <exit xmi:type="uml:StateMachine" xmi:id="_K5fpgKgvEe-McMlm-12L7g" name="Connessione terminata"/>
+        <region xmi:type="uml:Region" xmi:id="_YdCKMKgzEe-McMlm-12L7g" name="Region4">
+          <transition xmi:type="uml:Transition" xmi:id="_JX8P0KgyEe-McMlm-12L7g" source="_6jgdEKgvEe-McMlm-12L7g" target="_QeEFUKgvEe-McMlm-12L7g"/>
+          <transition xmi:type="uml:Transition" xmi:id="_swC3wKgwEe-McMlm-12L7g" name="[File trovato]" source="_QeEFUKgvEe-McMlm-12L7g" target="_6jgdEKgvEe-McMlm-12L7g"/>
+          <subvertex xmi:type="uml:State" xmi:id="_QeEFUKgvEe-McMlm-12L7g" name="Controllo download">
+            <doActivity xmi:type="uml:Activity" xmi:id="_4jUG8KgvEe-McMlm-12L7g" name="Scansione cartella"/>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_6jgdEKgvEe-McMlm-12L7g" name="Gestione file">
+            <entry xmi:type="uml:Activity" xmi:id="_bFZwEKgyEe-McMlm-12L7g" name="Scansione antivirus"/>
+            <exit xmi:type="uml:StateMachine" xmi:id="_kKyAMKgyEe-McMlm-12L7g" name="File eliminato o mantenuto"/>
+          </subvertex>
+        </region>
+        <region xmi:type="uml:Region" xmi:id="_nr3E0KgzEe-McMlm-12L7g" name="Region5">
+          <subvertex xmi:type="uml:State" xmi:id="__H-J8KgzEe-McMlm-12L7g" name="Visualizzazione dashboard"/>
+        </region>
+      </subvertex>
+      <subvertex xmi:type="uml:Pseudostate" xmi:id="_TCyZ8KgxEe-McMlm-12L7g" name="" kind="terminate"/>
+      <subvertex xmi:type="uml:Pseudostate" xmi:id="_5TcmkKgzEe-McMlm-12L7g" name="" kind="fork"/>
+    </region>
+  </packagedElement>
+  <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_mxcvMKgsEe-McMlm-12L7g">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_mxfLcKgsEe-McMlm-12L7g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ"/>
+    </eAnnotations>
+    <appliedProfile xmi:type="uml:Profile" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#ActionLanguage"/>
+  </profileApplication>
+</uml:Model>
