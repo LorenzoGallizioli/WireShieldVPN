@@ -56,7 +56,7 @@
 &nbsp;
 
 ## **Sprint Overview**
-*Riepilogo di tutti gli sprint.*
+**Meeting**: ogni martedì, orario da definirsi sul gruppo whatsapp.
 
 | **Titolo**                      | **Compiti**                                                                                       | **Sviluppatore**         |
 |----------------------------------|--------------------------------------------------------------------------------------------------|--------------------------|
