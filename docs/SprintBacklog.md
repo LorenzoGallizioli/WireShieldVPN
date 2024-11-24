@@ -1,12 +1,12 @@
 # **Organizzazione Progetto - Modello SCRUM**
 ## **Indice**
-1. [Ruoli del Team](#ruoli-del-team)
-2. [Backlog del Prodotto](#backlog-del-prodotto)
-3. [Sprint Planning](#sprint-planning)
-4. [Sprint Overview](#sprint-overview)
-5. [Sprint Dettagliati](#sprint-dettagliati)
-6. [Retrospettive](#retrospettive)
-7. [Strumenti e Documentazione](#strumenti-e-documentazione)
+1. [**Sprint Planning**](#sprint-planning)
+2. [**Backlog del Prodotto**](#backlog-del-prodotto)
+3. [**Sprint n°1**](#sprint-n1--18112024---9122024)
+   - [Ruoli del team](#ruoli-del-team)
+   - [Sprint Overview](#sprint-overview)
+4. [**Retrospettive**](#retrospettive)
+5. [**Sprint n°1**](#sprint-n2--18112024---9122024)
 
 &nbsp;
 

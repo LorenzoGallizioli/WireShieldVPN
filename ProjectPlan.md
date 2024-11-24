@@ -2,45 +2,43 @@
 In questo documento illustriamo il **Project Plan** che guiderà lo sviluppo del progetto. Le linee guida fornite serviranno a chiarire il nostro approccio metodologico e le strategie di implementazione, garantendo coerenza e organizzazione durante tutte le fasi del lavoro.
 
 # Indice 
-- [**Project Plan**](#project-plan)
-  - [Indice](#indice)
-  - [1. Introduzione](#1-introduzione)
-  - [2. Modello di Processo](#2-modello-di-processo)
-      - [Modello SCRUM](#modello-scrum)
-      - [Programmazione a coppie](#programmazione-a-coppie)
-  - [3. Organizzazione del progetto](#3-organizzazione-del-progetto)
-      - [Ruoli e Responsabilità](#ruoli-e-responsabilità)
-  - [4. Standard, linee guida, procedure](#4-standard-linee-guida-procedure)
-  - [5. Attività di gestione](#5-attività-di-gestione)
-  - [6. Rischi](#6-rischi)
-  - [7. Personale](#7-personale)
-      - [Gestione dei Task](#gestione-dei-task)
-  - [8. Metodi e Tecniche](#8-metodi-e-tecniche)
-    - [8.1 Controllo della Versione e Configurazione](#81-controllo-della-versione-e-configurazione)
-    - [8.2 Ambiente di Test e Apparecchiature di Test](#82-ambiente-di-test-e-apparecchiature-di-test)
-      - [Sistemi Operativi](#sistemi-operativi)
-      - [Strumenti di Test](#strumenti-di-test)
-      - [Apparecchiature](#apparecchiature)
-      - [Ordine e Procedure di Test](#ordine-e-procedure-di-test)
-    - [Fasi di test principali](#fasi-di-test-principali)
-      - [1. Preparazione dell’Ambiente di Test](#1-preparazione-dellambiente-di-test)
-      - [2. Test Funzionali](#2-test-funzionali)
-      - [3. Test di Prestazioni](#3-test-di-prestazioni)
-      - [4. Test di Sicurezza](#4-test-di-sicurezza)
-      - [5. Test di Regressione](#5-test-di-regressione)
-      - [6. Test di Usabilità](#6-test-di-usabilità)
-  - [9. Garanzia di Qualità](#9-garanzia-di-qualità)
-      - [Obiettivi della Garanzia di Qualità](#obiettivi-della-garanzia-di-qualità)
-    - [McCall's Quality Model: Attributi di Qualità](#mccalls-quality-model-attributi-di-qualità)
-      - [1. Qualità del Prodotto (Product Operation)](#1-qualità-del-prodotto-product-operation)
-      - [2. Qualità del Comportamento durante i Cambiamenti (Product Revision)](#2-qualità-del-comportamento-durante-i-cambiamenti-product-revision)
-      - [3. Qualità di Transizione (Product Transition)](#3-qualità-di-transizione-product-transition)
-      - [Valutazione continua e miglioramento](#valutazione-continua-e-miglioramento)
-  - [10. Pacchetti di Lavoro](#10-pacchetti-di-lavoro)
-  - [11. Risorse](#11-risorse)
-  - [12. Budget](#12-budget)
-  - [13. Cambiamenti](#13-cambiamenti)
-  - [14. Consegna](#14-consegna)
+
+[**1. Introduzione**](#1-introduzione)
+
+[**2. Modello di Processo**](#2-modello-di-processo)
+ - [Modello SCRUM](#21-modello-scrum)
+ - [Programmazione a coppie](#22-programmazione-a-coppie)
+
+[**3. Organizzazione del progetto**](#3-organizzazione-del-progetto)
+  - [Ruoli e Responsabilità](#ruoli-e-responsabilità)
+
+[**4. Standard, linee guida, procedure**](#4-standard-linee-guida-procedure)
+
+[**5. Attività di gestione**](#5-attività-di-gestione)
+
+[**6. Rischi**](#6-rischi)
+
+[**7. Personale**](#7-personale)
+    - [Gestione dei Task](#gestione-dei-task)
+
+[**8. Metodi e Tecniche**](#8-metodi-e-tecniche)
+  - [8.1 Controllo della Versione e Configurazione](#81-controllo-della-versione-e-configurazione)
+  - [8.2 Ambiente di Test e Apparecchiature di Test](#82-ambiente-di-test-e-apparecchiature-di-test)
+  - [8.3 Fasi di test principali](#83-fasi-di-test-principali)
+
+[**9. Garanzia di Qualità**](#9-garanzia-di-qualità)
+  - [9.1 Obiettivi della Garanzia di Qualità](#91-obiettivi-della-garanzia-di-qualità)
+  - [9.2 McCall's Quality Model: Attributi di Qualità](#92-mccalls-quality-model-attributi-di-qualità)
+
+[**10. Pacchetti di Lavoro**](#10-pacchetti-di-lavoro)
+
+[**11. Risorse**](#11-risorse)
+
+[**12. Budget**](#12-budget)
+
+[**13. Cambiamenti**](#13-cambiamenti)
+
+[**14. Consegna**](#14-consegna)
     
 &nbsp;
 ## 1. Introduzione
@@ -60,10 +58,10 @@ Prima di avviare la pianificazione, è stata condotta un’analisi di fattibilit
 
 Per lo sviluppo del progetto, abbiamo adottato un approccio **AGILE** basato sul framework **SCRUM**, opportunamente adattato per soddisfare le esigenze specifiche del team. Questo modello iterativo e incrementale ci consente di mantenere flessibilità durante il processo di sviluppo, rilasciando progressivamente nuove funzionalità e incorporando feedback in tempo reale.
 
-#### Modello SCRUM
+### 2.1 **Modello SCRUM**
 
 - **Durata degli sprint**:  
-  Gli sprint avranno una durata di **3 settimane**, un compromesso ideale per bilanciare la produttività con gli impegni accademici del team. Questo intervallo di tempo permette di completare obiettivi significativi senza compromettere la qualità del lavoro.
+Gli sprint avranno una durata di **2 settimane**, un compromesso ideale per bilanciare la produttività con gli impegni accademici del team. Questo intervallo di tempo permette di completare obiettivi significativi senza compromettere la qualità del lavoro.
 
 - **Riunioni settimanali**:  
   È prevista una **riunione settimanale di sincronizzazione** della durata di circa un’ora. Questi incontri saranno dedicati a:
@@ -71,7 +69,7 @@ Per lo sviluppo del progetto, abbiamo adottato un approccio **AGILE** basato sul
   - *Identificare e risolvere eventuali impedimenti.* 
   - *Pianificare e riorganizzare i task in base alle priorità emergenti.*
 
-#### Programmazione a coppie
+### 2.2 **Programmazione a coppie**
 
 La **programmazione a coppie** (Pair Programming) sarà integrata nel processo di sviluppo come parte integrante del framework SCRUM. La programmazione a coppie sarà applicata principalmente nelle attività legate alla riscrittura del codice, in corrispondenza di bug o funzioni complesse.
 
@@ -80,7 +78,7 @@ La **programmazione a coppie** (Pair Programming) sarà integrata nel processo d
 
 La struttura del team SCRUM è stata pensata per promuovere la collaborazione e l'efficienza, consentendo a ciascun membro di acquisire competenze in diverse aree del processo di sviluppo.
 
-#### Ruoli e Responsabilità
+### Ruoli e Responsabilità
 
 - **Scrum Master a rotazione**: Il ruolo di Scrum Master sarà ricoperto a rotazione da ciascun membro del team. Questo approccio consente a tutti i membri di sviluppare competenze nella gestione e facilitazione del processo SCRUM, oltre a garantire che tutti abbiano una comprensione completa delle dinamiche del team.
 
@@ -126,7 +124,7 @@ Il progetto **WireShield** sarà gestito da un team di tre membri, che si occupe
 - **Lorenzo Gallizioli** – [GitHub](https://github.com/LorenzoGallizioli)
 - **Thomas Paganelli** – [GitHub](https://github.com/paganello)
 
-#### Gestione dei Task
+### Gestione dei Task
 
 Tutti i task relativi al progetto saranno suddivisi equamente tra i membri del team. Ogni attività, dalla definizione dei requisiti alla progettazione e sviluppo, sarà affrontata in modo collaborativo. I membri del team garantiranno che tutti gli aspetti del progetto siano trattati in modo bilanciato, favorendo un flusso di lavoro coeso e una gestione ottimale del tempo e delle risorse. Inoltre, la continua interazione tra i membri durante le **riunioni settimanali** e gli **sprint** permetterà di monitorare costantemente l'avanzamento e di adattare le priorità in base all’evoluzione del progetto.
 
@@ -155,89 +153,95 @@ In parallelo, tutte le configurazioni del sistema saranno versionate per garanti
 
 L’ambiente di test sarà progettato per simulare l’uso reale della soluzione **WireShield** con l’integrazione di scansione antivirus, garantendo che tutti i componenti software, inclusi **WireGuard**, **ClamAV**, e **VirusTotal**, funzionino correttamente in un ambiente di produzione simulato.
 
+1. **Sistemi Operativi**
 
+    L’ambiente di test sarà configurato su **Windows 10** e **Windows 11** , in quanto il protocollo **WireGuard** è compatibile con sistemi Windows e le tecnologie di scansione antivirus **ClamAV** e l’integrazione con **VirusTotal** sono anch'esse supportate su piattaforme Windows. Saranno inclusi anche altri sistemi operativi compatibili con la tecnologia utilizzata, come **Linux** per specifici test di rete e sicurezza.
+  
 
-#### Sistemi Operativi
-L’ambiente di test sarà configurato su **Windows 10** e **Windows 11** , in quanto il protocollo **WireGuard** è compatibile con sistemi Windows e le tecnologie di scansione antivirus **ClamAV** e l’integrazione con **VirusTotal** sono anch'esse supportate su piattaforme Windows. Saranno inclusi anche altri sistemi operativi compatibili con la tecnologia utilizzata, come **Linux** per specifici test di rete e sicurezza.
+2. **Strumenti di Test**
+   - **JUnit**: Per test unitari delle singole componenti del codice, come la gestione delle connessioni VPN e la scansione dei file.
+   - **TestFX** o **JaCoCo**: Per test funzionali sull'interfaccia utente (UI), garantendo che il design e le funzionalità siano intuitive e facili da usare.
 
-#### Strumenti di Test
-- **JUnit**: Per test unitari delle singole componenti del codice, come la gestione delle connessioni VPN e la scansione dei file.
-- **TestFX** o **JaCoCo**: Per test funzionali sull'interfaccia utente (UI), garantendo che il design e le funzionalità siano intuitive e facili da usare.
+3. **Apparecchiature**
+   L’ambiente di test richiederà:
+   - **Server** per ospitare le configurazioni VPN e dispositivi client (PC, laptop, dispositivi mobili) per simulare l’accesso remoto da diverse postazioni.
+   - **Personal Computer e Mobile Phone**
+   - **Macchine virtuali** per eseguire test in ambienti isolati, garantendo che il sistema funzioni correttamente senza interferire con altre configurazioni o applicazioni.
 
-#### Apparecchiature
-L’ambiente di test richiederà:
-- **Server** per ospitare le configurazioni VPN e dispositivi client (PC, laptop, dispositivi mobili) per simulare l’accesso remoto da diverse postazioni.
-- **Personal Computer e Mobile Phone**
-- **Macchine virtuali** per eseguire test in ambienti isolati, garantendo che il sistema funzioni correttamente senza interferire con altre configurazioni o applicazioni.
+4. **Ordine e Procedure di Test**
 
-#### Ordine e Procedure di Test
 Le fasi di test seguiranno un ordine logico, progettato per garantire che tutte le funzionalità del sistema siano verificate in modo completo e accurato, minimizzando il rischio di errori in fase di produzione.
 
-### Fasi di test principali
 
-#### 1. Preparazione dell’Ambiente di Test
-- Configurazione dei **server VPN** e dei **client** per testare la connessione e la gestione della rete.
-- Installazione e configurazione di **ClamAV** e l’integrazione con **VirusTotal API**.
-- Verifica della configurazione di rete per simulare correttamente l’accesso remoto sicuro tramite la VPN.
+### 8.3 Fasi di test principali
 
-#### 2. Test Funzionali
-- **Connessione VPN**: Test della stabilità e affidabilità della connessione VPN tra client e server, per garantire che non ci siano interruzioni durante l’utilizzo del sistema.
-- **Scansione Antivirus**: Verifica della funzionalità di **ClamAV** nel rilevare malware, e test dell’analisi avanzata tramite **VirusTotal** per assicurarsi che i file sospetti vengano identificati correttamente.
-- **Interfaccia Utente**: Test dell’usabilità dell’interfaccia grafica (UI), garantendo che l’esperienza dell’utente sia fluida e che tutte le funzionalità siano facilmente accessibili.
+1. **Preparazione dell’Ambiente di Test**
+   - Configurazione dei **server VPN** e dei **client** per testare la connessione e la gestione della rete.
+   - Installazione e configurazione di **ClamAV** e l’integrazione con **VirusTotal API**.
+   - Verifica della configurazione di rete per simulare correttamente l’accesso remoto sicuro tramite la VPN.
 
-#### 3. Test di Prestazioni
-- **Verifica** delle **prestazioni** della connessione VPN, inclusi i tempi di latenza e la velocità sotto carico, per garantire che il sistema non rallenti in condizioni di traffico intenso.
-- **Monitoraggio** delle **risorse** di sistema (CPU, RAM, larghezza di banda) durante l’utilizzo della VPN per verificare l’efficienza e l’impatto sulle risorse del sistema.
-- **Stress test** per simulare scenari di carico elevato, testando la stabilità del sistema sotto condizioni estreme.
+2. **Test Funzionali**
+   - **Connessione VPN**: Test della stabilità e affidabilità della connessione VPN tra client e server, per garantire che non ci siano interruzioni durante l’utilizzo del sistema.
+   - **Scansione Antivirus**: Verifica della funzionalità di **ClamAV** nel rilevare malware, e test dell’analisi avanzata tramite **VirusTotal** per assicurarsi che i file sospetti vengano identificati correttamente.
+   - **Interfaccia Utente**: Test dell’usabilità dell’interfaccia grafica (UI), garantendo che l’esperienza dell’utente sia fluida e che tutte le funzionalità siano facilmente accessibili.
 
-#### 4. Test di Sicurezza
-- Verifica che **ClamAV** e l'integrazione con **VirusTotal** rilevino correttamente i malware, anche in presenza di file criptati o compressi.
+3. **Test di Prestazioni**
+   - **Verifica** delle **prestazioni** della connessione VPN, inclusi i tempi di latenza e la velocità sotto carico, per garantire che il sistema non rallenti in condizioni di traffico intenso.
+   - **Monitoraggio** delle **risorse** di sistema (CPU, RAM, larghezza di banda) durante l’utilizzo della VPN per verificare l’efficienza e l’impatto sulle risorse del sistema.
+   - **Stress test** per simulare scenari di carico elevato, testando la stabilità del sistema sotto condizioni estreme.
 
-#### 5. Test di Regressione
-- Dopo ogni aggiornamento del codice, verranno eseguiti **test di regressione** per garantire che le funzionalità esistenti non siano compromesse dalle nuove modifiche.
-- Verifica che le modifiche o le nuove funzionalità introdotte non causino il verificarsi di nuovi bug o problemi nelle parti già testate.
+4. **Test di Sicurezza**
+   - Verifica che **ClamAV** e l'integrazione con **VirusTotal** rilevino correttamente i malware, anche in presenza di file criptati o compressi.
 
-#### 6. Test di Usabilità
-- Test sull’interfaccia utente con focus sull’esperienza dell’utente finale, per raccogliere **feedback utili** a migliorare la navigabilità e l’intuitività.
-- Analisi dell’efficacia delle **notifiche di sicurezza** e dei report generati dall’applicazione, per assicurarsi che gli utenti siano ben informati sui rischi rilevati.
+5. **Test di Regressione**
+   - Dopo ogni aggiornamento del codice, verranno eseguiti **test di regressione** per garantire che le funzionalità esistenti non siano compromesse dalle nuove modifiche.
+   - Verifica che le modifiche o le nuove funzionalità introdotte non causino il verificarsi di nuovi bug o problemi nelle parti già testate.
+
+6. **Test di Usabilità**
+   - Test sull’interfaccia utente con focus sull’esperienza dell’utente finale, per raccogliere **feedback utili** a migliorare la navigabilità e l’intuitività.
+   - Analisi dell’efficacia delle **notifiche di sicurezza** e dei report generati dall’applicazione, per assicurarsi che gli utenti siano ben informati sui rischi rilevati.
 
 &nbsp;
+
 ## 9. Garanzia di Qualità
 
 La **Garanzia di Qualità** del progetto rappresenta un aspetto fondamentale per assicurare che il software sviluppato risponda pienamente ai requisiti funzionali, prestazionali e di sicurezza richiesti. Per raggiungere questo obiettivo, abbiamo adottato un approccio strutturato basato sul **McCall's Quality Model**, che ci consente di analizzare, monitorare e migliorare costantemente le caratteristiche qualitative del sistema durante tutte le fasi di sviluppo, garantendo la consegna di un prodotto affidabile, efficiente e altamente utilizzabile.
 
-#### Obiettivi della Garanzia di Qualità
+### **9.1 Obiettivi della Garanzia di Qualità**
 
 - **Soddisfare i requisiti specificati**: Garantire che il software sia conforme alle necessità operative e alle aspettative degli utenti finali.
 - **Migliorare l'affidabilità e la sicurezza**: Ridurre al minimo gli errori, i malfunzionamenti e i rischi associati all'uso del sistema.
 - **Ottimizzare le prestazioni**: Assicurare un utilizzo efficiente delle risorse hardware e software.
 - **Facilitare l'evoluzione e la manutenzione**: Rendere il sistema facilmente aggiornabile e adattabile a nuovi contesti.
 
-### McCall's Quality Model: Attributi di Qualità
+### **9.2 McCall's Quality Model: Attributi di Qualità**
 Il modello McCall ci ha guidato nell'identificazione di specifici attributi di qualità, suddivisi in tre categorie principali:
 
-#### 1. Qualità del Prodotto (Product Operation)
-Riguarda l’esperienza dell’utente finale e include:
-- **Correttezza**: Verifica che il software soddisfi i requisiti e fornisca risultati accurati.
-- **Affidabilità**: Garantisce che il sistema funzioni in modo stabile e tollerante agli errori.
-- **Efficienza**: Ottimizzazione dell’uso delle risorse per garantire prestazioni elevate.
-- **Integrità**: Protezione dei dati e delle operazioni contro accessi non autorizzati.
-- **Usabilità**: Creazione di un’interfaccia intuitiva e accessibile per migliorare l’esperienza dell’utente.
+1. **Qualità del Prodotto (Product Operation)**
 
-#### 2. Qualità del Comportamento durante i Cambiamenti (Product Revision)
-Si focalizza sulla capacità del sistema di adattarsi a modifiche e miglioramenti:
-- **Manutenibilità**: Assicura che le modifiche al codice o al design siano semplici e veloci da implementare.
-- **Testabilità**: Facilita l'identificazione e la risoluzione di problemi.
-- **Flessibilità**: Permette di adattare il software a nuovi requisiti o ambienti operativi.
+   Riguarda l’esperienza dell’utente finale e include:
+   - **Correttezza**: Verifica che il software soddisfi i requisiti e fornisca risultati accurati.
+   - **Affidabilità**: Garantisce che il sistema funzioni in modo stabile e tollerante agli errori.
+   - **Efficienza**: Ottimizzazione dell’uso delle risorse per garantire prestazioni elevate.
+   - **Integrità**: Protezione dei dati e delle operazioni contro accessi non autorizzati.
+   - **Usabilità**: Creazione di un’interfaccia intuitiva e accessibile per migliorare l’esperienza dell’utente.
 
-#### 3. Qualità di Transizione (Product Transition)
-Si occupa della capacità del software di operare in nuovi contesti:
-- **Portabilità**: Garantisce che il software possa essere eseguito su diverse piattaforme.
-- **Riutilizzabilità**: Consente il riutilizzo di componenti software in progetti futuri.
-- **Interoperabilità**: Assicura che il sistema interagisca efficacemente con altri software o sistemi.
+2. **Qualità del Comportamento durante i Cambiamenti (Product Revision)**
+ 
+   Si focalizza sulla capacità del sistema di adattarsi a modifiche e miglioramenti:
+   - **Manutenibilità**: Assicura che le modifiche al codice o al design siano semplici e veloci da implementare.
+   - **Testabilità**: Facilita l'identificazione e la risoluzione di problemi.
+   - **Flessibilità**: Permette di adattare il software a nuovi requisiti o ambienti operativi.
 
-#### Valutazione continua e miglioramento
-Durante tutto il ciclo di sviluppo, verranno condotte valutazioni periodiche per identificare eventuali aree di miglioramento. Gli aggiornamenti e le modifiche verranno gestiti seguendo un processo di test regressivo, per la convalida delle nuove implementazioni e per garantire che le funzionalità esistenti non vengano compromesse.
+3. **Qualità di Transizione (Product Transition)**
+   Si occupa della capacità del software di operare in nuovi contesti:
+   - **Portabilità**: Garantisce che il software possa essere eseguito su diverse piattaforme.
+   - **Riutilizzabilità**: Consente il riutilizzo di componenti software in progetti futuri.
+   - **Interoperabilità**: Assicura che il sistema interagisca efficacemente con altri software o sistemi.
+
+4. **Valutazione continua e miglioramento**
+
+   Durante tutto il ciclo di sviluppo, verranno condotte valutazioni periodiche per identificare eventuali aree di miglioramento. Gli aggiornamenti e le modifiche verranno gestiti seguendo un processo di test regressivo, per la convalida delle nuove implementazioni e per garantire che le funzionalità esistenti non vengano compromesse.
 
 &nbsp;
 ## 10. Pacchetti di Lavoro
@@ -279,6 +283,7 @@ Le modifiche al progetto verranno gestite mediante una breve **analisi di gruppo
 La consegna del progetto seguirà una serie di procedure definite per garantire il corretto funzionamento e la soddisfazione del cliente. Di seguito i principali passaggi:
 
 1. **Verifica Finale**: Tutte le funzionalità saranno testate e validate internamente dal team, assicurando che il software risponda ai requisiti iniziali.
+
 2. **README per Installazione e Testing**: Un file `README` dettagliato verrà fornito al cliente per descrivere:
    - *Le istruzioni per l'installazione del software sulla sua macchina.*
    - *Le modalità per eseguire i test del software, garantendo che tutte le funzionalità siano correttamente configurate.*
