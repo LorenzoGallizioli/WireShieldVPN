@@ -56,7 +56,7 @@
 &nbsp;
 
 ## **Sprint Overview**
-**Meeting**: ogni martedì, orario da definirsi sul gruppo whatsapp.
+**Week Scrum**: ogni martedì, orario da definirsi sul gruppo whatsapp.
 
 | **Titolo**                      | **Compiti**                                                                                       | **Sviluppatore**         |
 |----------------------------------|--------------------------------------------------------------------------------------------------|--------------------------|
