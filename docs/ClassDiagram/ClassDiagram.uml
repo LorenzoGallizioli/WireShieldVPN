@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_pUPlUKwMEe-xgaz8Fc6Tmg" name="ClassDiagram" visibility="protected">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_pX26AKwMEe-xgaz8Fc6Tmg">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Package" xmi:id="_9UHa0KwREe-xgaz8Fc6Tmg" name="wireguard">
+    <packagedElement xmi:type="uml:Class" xmi:id="_eLSXEKwQEe-xgaz8Fc6Tmg" name="WireGuardManager">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_Vh70QKwTEe-xgaz8Fc6Tmg" name="connection" visibility="protected" type="_gju4UKwUEe-xgaz8Fc6Tmg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_UP3BAKwWEe-xgaz8Fc6Tmg" name="peerManager" visibility="protected" type="_l6TRMKwQEe-xgaz8Fc6Tmg"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_Mp-NsKwWEe-xgaz8Fc6Tmg" name="setInterfaceUp">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_1K6MIKweEe-xgaz8Fc6Tmg" type="_532gkKwXEe-xgaz8Fc6Tmg"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_ZqTQcKwWEe-xgaz8Fc6Tmg" name="setInterfaceDown"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_b2urwKwWEe-xgaz8Fc6Tmg" name="getConnection">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_lriUEKweEe-xgaz8Fc6Tmg" type="_gju4UKwUEe-xgaz8Fc6Tmg" direction="return"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_l6TRMKwQEe-xgaz8Fc6Tmg" name="PeerManager">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_V2etoKwjEe-xgaz8Fc6Tmg" name="peers" type="_532gkKwXEe-xgaz8Fc6Tmg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_gXenMKwjEe-xgaz8Fc6Tmg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_fULXIKwjEe-xgaz8Fc6Tmg" value="*"/>
+      </ownedAttribute>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_0eTykKwjEe-xgaz8Fc6Tmg" name="addPeer">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_8vFV8KwjEe-xgaz8Fc6Tmg" type="_532gkKwXEe-xgaz8Fc6Tmg"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_0v1ncKwjEe-xgaz8Fc6Tmg" name="removePeer">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_EARroKwkEe-xgaz8Fc6Tmg" name="peerName">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_1DtlsKwjEe-xgaz8Fc6Tmg" name="getPeer">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_Kfg_8KwkEe-xgaz8Fc6Tmg" type="_532gkKwXEe-xgaz8Fc6Tmg" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_NCqSIKwkEe-xgaz8Fc6Tmg" name="modifyPeer">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_Ipy_AKwlEe-xgaz8Fc6Tmg" name="id">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_rLQA4KwlEe-xgaz8Fc6Tmg" name="newName">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_U9F8oKwlEe-xgaz8Fc6Tmg" name="newPrivateKey">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_ujV-EKwlEe-xgaz8Fc6Tmg" name="newPresharedKey">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_xyPjAKwlEe-xgaz8Fc6Tmg" name="newEndpoint">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_2UBFEKwlEe-xgaz8Fc6Tmg" name="newAllowedIPs">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_gju4UKwUEe-xgaz8Fc6Tmg" name="connection" visibility="protected">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_tdrw0KwVEe-xgaz8Fc6Tmg" name="status" type="_upjjgKwUEe-xgaz8Fc6Tmg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_0UnhgKwXEe-xgaz8Fc6Tmg" name="peerParent" type="_532gkKwXEe-xgaz8Fc6Tmg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_G5NeEKwYEe-xgaz8Fc6Tmg" name="sentTraffic">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELong"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_HLQQUKwYEe-xgaz8Fc6Tmg" name="receivedTraffic">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELong"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_vAh4EKwfEe-xgaz8Fc6Tmg" name="lastHandshakeTime">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELong"/>
+      </ownedAttribute>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_BnYQsKwbEe-xgaz8Fc6Tmg" name="updateTraffic">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_qw1r4KwcEe-xgaz8Fc6Tmg" direction="out">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELong"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_e4xm0KweEe-xgaz8Fc6Tmg" direction="out">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELong"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_LeJIMKwgEe-xgaz8Fc6Tmg" name="updateHandshakeTime">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_P6ohoKwgEe-xgaz8Fc6Tmg" direction="out">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELong"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_upjjgKwUEe-xgaz8Fc6Tmg" name="connectionStates">
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_0EgJQKwUEe-xgaz8Fc6Tmg" name="Connected"/>
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_7yqHwKwUEe-xgaz8Fc6Tmg" name="Connection in progress"/>
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_5bPkcKwUEe-xgaz8Fc6Tmg" name="Disconnected"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_532gkKwXEe-xgaz8Fc6Tmg" name="Peer" visibility="protected">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_SEKZ8KwgEe-xgaz8Fc6Tmg" name="endpoint">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_STAuQKwgEe-xgaz8Fc6Tmg" name="publicKeyPath">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_Sha9sKwgEe-xgaz8Fc6Tmg" name="presharedKeyPath">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_SwpsgKwgEe-xgaz8Fc6Tmg" name="allowedIP">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_BKlGUKwjEe-xgaz8Fc6Tmg" name="name">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_K8PiwKwlEe-xgaz8Fc6Tmg" name="id">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_DGTb4KwSEe-xgaz8Fc6Tmg" name="av">
+    <packagedElement xmi:type="uml:Class" xmi:id="_hiNPkKwQEe-xgaz8Fc6Tmg" name="AntivirusManager"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_2Rp6IKwQEe-xgaz8Fc6Tmg" name="VirusTotal"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_wzVQQKwQEe-xgaz8Fc6Tmg" name="ClamAV"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_NmvUwKwSEe-xgaz8Fc6Tmg" name="main">
+    <packagedElement xmi:type="uml:Class" xmi:id="_15Yg4KwMEe-xgaz8Fc6Tmg" name="UserInterface">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_rxLdoKwTEe-xgaz8Fc6Tmg" name="wireguardManager" visibility="protected" type="_eLSXEKwQEe-xgaz8Fc6Tmg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_8LpE8KwTEe-xgaz8Fc6Tmg" name="downloadMonitor" visibility="protected" type="_gM1YEKwQEe-xgaz8Fc6Tmg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_C7BuEKwUEe-xgaz8Fc6Tmg" name="connectionStatus" visibility="protected" type="_upjjgKwUEe-xgaz8Fc6Tmg"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_HN7OAKwREe-xgaz8Fc6Tmg" name="startVPN"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_V8LLIKwREe-xgaz8Fc6Tmg" name="stopVPN"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_XM6aQKwREe-xgaz8Fc6Tmg" name="displayVPNStatus"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_cVDYwKwREe-xgaz8Fc6Tmg" name="displayActivePeer"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_iEJCgKwREe-xgaz8Fc6Tmg" name="displayTrafficStats"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_l1yIIKwREe-xgaz8Fc6Tmg" name="notifyScanResult" concurrency="concurrent"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_WN2NIKwVEe-xgaz8Fc6Tmg" name="getConnectionStatus"/>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_j-z6QKwjEe-xgaz8Fc6Tmg" name="localfileutils">
+    <packagedElement xmi:type="uml:Class" xmi:id="_gM1YEKwQEe-xgaz8Fc6Tmg" name="DownloadMonitor" visibility="package"/>
+  </packagedElement>
+</uml:Model>
