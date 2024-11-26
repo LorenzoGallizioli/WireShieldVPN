@@ -5,9 +5,16 @@
 1. [**Introduzione**](#introduzione)  
 2. [**Obiettivi del Progetto**](#obiettivi-del-progetto)  
 3. [**Requisiti Funzionali**](#requisiti-funzionali)
-4. [**Aspetti Tecnici e Implementazione**](#aspetti-tecnici-e-implementazione)  
+   - Gestione della Connessione WireGuard
+   - Monitoraggio e Analisi dei File Scaricati
+4. [**Aspetti Tecnici e Implementazione**](#aspetti-tecnici-e-implementazione)
+   - Interazione con WireGuard 
+   - Monitoraggio e Analisi Antivirus
 5. [**Rischi e Sfide**](#rischi-e-sfide)
-6. [**Conclusioni**](#conclusioni)  
+   - Interazione con WireGuard
+   - Monitoraggio dei File e Scansione Antivirus]
+   - Soluzioni e Mitigazioni
+6. [**Conclusioni**](#conclusioni)
 
 
 
