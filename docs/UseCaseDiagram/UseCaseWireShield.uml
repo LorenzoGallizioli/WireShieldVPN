@@ -29,11 +29,11 @@ Scaricamento di un file&#xD;
     </packagedElement>
     <packagedElement xmi:type="uml:UseCase" xmi:id="_CF_3wKgoEe-McMlm-12L7g" name="Avvio/Stop Peer VPN">
       <generalization xmi:type="uml:Generalization" xmi:id="_EC_v8KgoEe-McMlm-12L7g" general="_QMnRUKghEe-McMlm-12L7g"/>
+      <include xmi:type="uml:Include" xmi:id="_eGAhYKwDEe-S9JdTvRaYug" addition="_lxnKMKgpEe-McMlm-12L7g"/>
     </packagedElement>
     <packagedElement xmi:type="uml:UseCase" xmi:id="_lxnKMKgpEe-McMlm-12L7g" name="Controllo cartella &quot;Download&quot;">
       <extend xmi:type="uml:Extend" xmi:id="_rhPmgKgpEe-McMlm-12L7g" extendedCase="_KonLUKgjEe-McMlm-12L7g" extensionLocation="_rhQNkKgpEe-McMlm-12L7g"/>
       <include xmi:type="uml:Include" xmi:id="_REWmEKgrEe-McMlm-12L7g" addition="_QMnRUKghEe-McMlm-12L7g"/>
-      <include xmi:type="uml:Include" xmi:id="_Y9tvAKgrEe-McMlm-12L7g" addition="_CF_3wKgoEe-McMlm-12L7g"/>
     </packagedElement>
   </packagedElement>
   <packagedElement xmi:type="uml:Actor" xmi:id="_p4OJUKggEe-McMlm-12L7g" name="Utente"/>

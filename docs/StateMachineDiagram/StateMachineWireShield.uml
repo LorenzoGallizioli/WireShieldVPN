@@ -16,34 +16,35 @@
           <subvertex xmi:type="uml:Pseudostate" xmi:id="_87rKFqj6Ee-McMlm-12L7g"/>
           <subvertex xmi:type="uml:State" xmi:id="_IcaCUKj7Ee-McMlm-12L7g" name="Visualizzazione dashboard"/>
           <subvertex xmi:type="uml:State" xmi:id="_h26c8KguEe-McMlm-12L7g" name="VPN attiva">
-            <doActivity xmi:type="uml:Activity" xmi:id="_cg3I0KgvEe-McMlm-12L7g" name="Canale VPN"/>
+            <doActivity xmi:type="uml:Activity" xmi:id="_cg3I0KgvEe-McMlm-12L7g" name="Monitoraggio connessione" visibility="public"/>
             <entry xmi:type="uml:StateMachine" xmi:id="_IdjLgKgvEe-McMlm-12L7g" name="Connessione instaurata"/>
             <exit xmi:type="uml:StateMachine" xmi:id="_K5fpgKgvEe-McMlm-12L7g" name="Connessione terminata"/>
             <region xmi:type="uml:Region" xmi:id="_vcFDUKj4Ee-McMlm-12L7g" name="Region4">
-              <transition xmi:type="uml:Transition" xmi:id="_F3YLsKj5Ee-McMlm-12L7g" name="File scaricato" source="_zQ3jkKj4Ee-McMlm-12L7g" target="_AvnnsKj5Ee-McMlm-12L7g"/>
-              <transition xmi:type="uml:Transition" xmi:id="_LF6lwKj8Ee-McMlm-12L7g" name="Analisi effettuata" source="_AvnnsKj5Ee-McMlm-12L7g" target="_zQ3jkKj4Ee-McMlm-12L7g"/>
-              <transition xmi:type="uml:Transition" xmi:id="_D9mp0Kj9Ee-McMlm-12L7g" source="_vcGRcKj4Ee-McMlm-12L7g" target="_zQ3jkKj4Ee-McMlm-12L7g"/>
+              <transition xmi:type="uml:Transition" xmi:id="_UH9oEKv8Ee-S9JdTvRaYug" source="_vcGRcKj4Ee-McMlm-12L7g" target="_9vB3MKv7Ee-S9JdTvRaYug"/>
+              <transition xmi:type="uml:Transition" xmi:id="_pyHK4Kv9Ee-S9JdTvRaYug" name="File scaricato" source="_9vB3MKv7Ee-S9JdTvRaYug" target="_oP2G4Kv9Ee-S9JdTvRaYug"/>
+              <transition xmi:type="uml:Transition" xmi:id="_r7l_4Kv9Ee-S9JdTvRaYug" source="_oP2G4Kv9Ee-S9JdTvRaYug" target="_9vB3MKv7Ee-S9JdTvRaYug"/>
+              <transition xmi:type="uml:Transition" xmi:id="_6dRgoKv9Ee-S9JdTvRaYug" source="_oP2G4Kv9Ee-S9JdTvRaYug" target="_wm54cKv9Ee-S9JdTvRaYug"/>
+              <transition xmi:type="uml:Transition" xmi:id="_39HbkKv-Ee-S9JdTvRaYug" source="_wm54cKv9Ee-S9JdTvRaYug" target="_06IywKv-Ee-S9JdTvRaYug"/>
               <subvertex xmi:type="uml:Pseudostate" xmi:id="_vcGRcKj4Ee-McMlm-12L7g"/>
-              <subvertex xmi:type="uml:State" xmi:id="_zQ3jkKj4Ee-McMlm-12L7g" name="Monitoraggio connessione">
-                <doActivity xmi:type="uml:Activity" xmi:id="_zWOn4Kj8Ee-McMlm-12L7g" name="Controlla cartella &quot;Download&quot;"/>
+              <subvertex xmi:type="uml:State" xmi:id="_9vB3MKv7Ee-S9JdTvRaYug" name="Monitoraggio Download">
+                <doActivity xmi:type="uml:Activity" xmi:id="_DMz5EKv9Ee-S9JdTvRaYug" name="Controllo nuovi file scaricati"/>
               </subvertex>
-              <subvertex xmi:type="uml:State" xmi:id="_AvnnsKj5Ee-McMlm-12L7g" name="Scansione virus">
-                <region xmi:type="uml:Region" xmi:id="_NqEE4qj5Ee-McMlm-12L7g" name="Region1">
-                  <transition xmi:type="uml:Transition" xmi:id="_n_lAEKj5Ee-McMlm-12L7g" source="_OqgOMKj5Ee-McMlm-12L7g" target="_lsDeQKj5Ee-McMlm-12L7g"/>
-                  <transition xmi:type="uml:Transition" xmi:id="_rnor4Kj5Ee-McMlm-12L7g" source="_NqFTBKj5Ee-McMlm-12L7g" target="_OqgOMKj5Ee-McMlm-12L7g"/>
-                  <transition xmi:type="uml:Transition" xmi:id="_MdOB0Kj6Ee-McMlm-12L7g" name="Virus trovato" source="_lsDeQKj5Ee-McMlm-12L7g" target="_J01DQKj6Ee-McMlm-12L7g"/>
-                  <transition xmi:type="uml:Transition" xmi:id="_o3D6UKj8Ee-McMlm-12L7g" source="_J01DQKj6Ee-McMlm-12L7g" target="_nTqN4Kj8Ee-McMlm-12L7g"/>
-                  <transition xmi:type="uml:Transition" xmi:id="_qis8wKj8Ee-McMlm-12L7g" name="File OK" source="_lsDeQKj5Ee-McMlm-12L7g" target="_nTqN4Kj8Ee-McMlm-12L7g"/>
-                  <subvertex xmi:type="uml:Pseudostate" xmi:id="_NqFTBKj5Ee-McMlm-12L7g"/>
-                  <subvertex xmi:type="uml:State" xmi:id="_OqgOMKj5Ee-McMlm-12L7g" name="Scansione ClamAV"/>
-                  <subvertex xmi:type="uml:State" xmi:id="_lsDeQKj5Ee-McMlm-12L7g" name="Controllo VirusTotal"/>
-                  <subvertex xmi:type="uml:State" xmi:id="_J01DQKj6Ee-McMlm-12L7g" name="Eliminazione file">
-                    <doActivity xmi:type="uml:Activity" xmi:id="_WRiwsKj8Ee-McMlm-12L7g" name="Elimina File"/>
-                    <entry xmi:type="uml:Activity" xmi:id="_U0GiUKj8Ee-McMlm-12L7g" name="Notifica malware"/>
-                  </subvertex>
-                  <subvertex xmi:type="uml:FinalState" xmi:id="_nTqN4Kj8Ee-McMlm-12L7g"/>
+              <subvertex xmi:type="uml:Pseudostate" xmi:id="_oP2G4Kv9Ee-S9JdTvRaYug" kind="fork"/>
+              <subvertex xmi:type="uml:State" xmi:id="_wm54cKv9Ee-S9JdTvRaYug" name="Scansione antivirus">
+                <region xmi:type="uml:Region" xmi:id="_JLV3kKv-Ee-S9JdTvRaYug" name="Region1">
+                  <transition xmi:type="uml:Transition" xmi:id="_RVqNoKv-Ee-S9JdTvRaYug" source="_JLWeoqv-Ee-S9JdTvRaYug" target="_MVsTsKv-Ee-S9JdTvRaYug"/>
+                  <transition xmi:type="uml:Transition" xmi:id="_Sn8U4Kv-Ee-S9JdTvRaYug" source="_MVsTsKv-Ee-S9JdTvRaYug" target="_Ojyi8Kv-Ee-S9JdTvRaYug"/>
+                  <transition xmi:type="uml:Transition" xmi:id="_rUnC8Kv-Ee-S9JdTvRaYug" name="Virus trovato" source="_Ojyi8Kv-Ee-S9JdTvRaYug" target="_n6vkIKv-Ee-S9JdTvRaYug"/>
+                  <transition xmi:type="uml:Transition" xmi:id="_wqDdoKv-Ee-S9JdTvRaYug" name="File OK" source="_Ojyi8Kv-Ee-S9JdTvRaYug" target="_uLvBEKv-Ee-S9JdTvRaYug"/>
+                  <transition xmi:type="uml:Transition" xmi:id="_ySeM8Kv-Ee-S9JdTvRaYug" source="_n6vkIKv-Ee-S9JdTvRaYug" target="_uLvBEKv-Ee-S9JdTvRaYug"/>
+                  <subvertex xmi:type="uml:Pseudostate" xmi:id="_JLWeoqv-Ee-S9JdTvRaYug"/>
+                  <subvertex xmi:type="uml:State" xmi:id="_MVsTsKv-Ee-S9JdTvRaYug" name="Scansione ClamAV"/>
+                  <subvertex xmi:type="uml:State" xmi:id="_Ojyi8Kv-Ee-S9JdTvRaYug" name="Scansione VirusTotal"/>
+                  <subvertex xmi:type="uml:State" xmi:id="_n6vkIKv-Ee-S9JdTvRaYug" name="Eliminazione file"/>
+                  <subvertex xmi:type="uml:FinalState" xmi:id="_uLvBEKv-Ee-S9JdTvRaYug"/>
                 </region>
               </subvertex>
+              <subvertex xmi:type="uml:FinalState" xmi:id="_06IywKv-Ee-S9JdTvRaYug" name="Scansione Terminata"/>
             </region>
           </subvertex>
           <subvertex xmi:type="uml:FinalState" xmi:id="_pfr2AKj7Ee-McMlm-12L7g" name="VPN spenta"/>
