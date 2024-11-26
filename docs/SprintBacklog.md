@@ -65,20 +65,9 @@
 | Diagramma di sequenza           | Implementazione del diagramma di sequenza                                                       | Davide Bonsembiante      |
 | Linee Guida -> Documento Ufficiale | Conversione e modifica del documento "Linee Guida" in Documento Ufficiale del progetto con relative aggiunte e approfondimenti per ogni capitolo | Davide Bonsembiante      |
 | Diagramma delle classi          | Implementazione del diagramma delle classi                                                        | Thomas Paganelli         |
-| UML -> Struttura del progetto   | Conversione del diagramma delle classi in codice per implementare la struttura del progetto       | Thomas Paganelli         |
-
-
-&nbsp;
-
-## **Retrospettive**
-_Riflessioni finali al termine di ogni sprint._
-
-- **Cosa è andato bene**:
-  - [Lista delle cose positive]
-- **Cosa migliorare**:
-  - [Lista delle aree di miglioramento]
-- **Azioni concrete per migliorare**:
-  - [Lista delle azioni pianificate]
+| Diagramma delle classi -> Struttura del progetto   | Conversione del diagramma delle classi in codice per implementare la struttura del progetto       | Thomas Paganelli         |
+| Diagramma di comunicazione   | Implementazione del diagramma di comunicazione       | Lorenzo Gallizioli         |
+| Diagramma di attività   | Implementazione del diagramma di attività      | Davide Bonsembiante      |
 
 &nbsp;
 
