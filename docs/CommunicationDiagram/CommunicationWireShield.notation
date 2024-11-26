@@ -52,7 +52,7 @@
           <layoutConstraint xmi:type="notation:Location" xmi:id="_SEdLVKwUEe-gWuvzHvnUww" y="15"/>
         </children>
         <element xmi:type="uml:Lifeline" href="CommunicationWireShield.uml#_SEYS0KwUEe-gWuvzHvnUww"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_SEdLUawUEe-gWuvzHvnUww" x="574" y="174"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_SEdLUawUEe-gWuvzHvnUww" x="574" y="154"/>
       </children>
       <children xmi:type="notation:Shape" xmi:id="_TmRjYKwUEe-gWuvzHvnUww" type="Lifeline_Shape">
         <children xmi:type="notation:DecorationNode" xmi:id="_TmRjYqwUEe-gWuvzHvnUww" type="Lifeline_NameLabel"/>
