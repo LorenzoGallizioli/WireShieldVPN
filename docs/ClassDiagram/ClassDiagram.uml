@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_pUPlUKwMEe-xgaz8Fc6Tmg" name="ClassDiagram" visibility="protected">
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_pUPlUKwMEe-xgaz8Fc6Tmg" name="ClassDiagram" visibility="protected">
   <packageImport xmi:type="uml:PackageImport" xmi:id="_pX26AKwMEe-xgaz8Fc6Tmg">
     <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
   </packageImport>
@@ -7,10 +7,26 @@
     <packagedElement xmi:type="uml:Class" xmi:id="_eLSXEKwQEe-xgaz8Fc6Tmg" name="WireGuardManager">
       <ownedAttribute xmi:type="uml:Property" xmi:id="_Vh70QKwTEe-xgaz8Fc6Tmg" name="connection" visibility="protected" type="_gju4UKwUEe-xgaz8Fc6Tmg"/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_UP3BAKwWEe-xgaz8Fc6Tmg" name="peerManager" visibility="protected" type="_l6TRMKwQEe-xgaz8Fc6Tmg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_9HVe0KzcEe-DLrB2YWdSlA" name="peermanager" type="_l6TRMKwQEe-xgaz8Fc6Tmg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9HXUAKzcEe-DLrB2YWdSlA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9HX7EKzcEe-DLrB2YWdSlA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_Gg_84azdEe-DLrB2YWdSlA" type="_l6TRMKwQEe-xgaz8Fc6Tmg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_aX_VcazdEe-DLrB2YWdSlA" name="connection" type="_gju4UKwUEe-xgaz8Fc6Tmg" association="_aX-HUKzdEe-DLrB2YWdSlA"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_lSG5oqzdEe-DLrB2YWdSlA" name="peermanager" type="_l6TRMKwQEe-xgaz8Fc6Tmg" association="_lSGSkKzdEe-DLrB2YWdSlA"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_Mp-NsKwWEe-xgaz8Fc6Tmg" name="setInterfaceUp">
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="_1K6MIKweEe-xgaz8Fc6Tmg" type="_532gkKwXEe-xgaz8Fc6Tmg"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_B2YycKzeEe-DLrB2YWdSlA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_3liQ4KzhEe-DLrB2YWdSlA" name="peerId">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
       </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_ZqTQcKwWEe-xgaz8Fc6Tmg" name="setInterfaceDown"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_ZqTQcKwWEe-xgaz8Fc6Tmg" name="setInterfaceDown">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_FrgC0KzeEe-DLrB2YWdSlA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+      </ownedOperation>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_b2urwKwWEe-xgaz8Fc6Tmg" name="getConnection">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_lriUEKweEe-xgaz8Fc6Tmg" type="_gju4UKwUEe-xgaz8Fc6Tmg" direction="return"/>
       </ownedOperation>
@@ -20,16 +36,23 @@
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_gXenMKwjEe-xgaz8Fc6Tmg"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_fULXIKwjEe-xgaz8Fc6Tmg" value="*"/>
       </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_T2ld8KzdEe-DLrB2YWdSlA" name="peer" type="_532gkKwXEe-xgaz8Fc6Tmg" association="_T2kP0KzdEe-DLrB2YWdSlA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_T2ld8azdEe-DLrB2YWdSlA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_T2ld8qzdEe-DLrB2YWdSlA" value="1"/>
+      </ownedAttribute>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_0eTykKwjEe-xgaz8Fc6Tmg" name="addPeer">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_8vFV8KwjEe-xgaz8Fc6Tmg" type="_532gkKwXEe-xgaz8Fc6Tmg"/>
       </ownedOperation>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_0v1ncKwjEe-xgaz8Fc6Tmg" name="removePeer">
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="_EARroKwkEe-xgaz8Fc6Tmg" name="peerName">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_EARroKwkEe-xgaz8Fc6Tmg" name="id">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_1DtlsKwjEe-xgaz8Fc6Tmg" name="getPeer">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_Kfg_8KwkEe-xgaz8Fc6Tmg" type="_532gkKwXEe-xgaz8Fc6Tmg" direction="return"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_lWI6gKzcEe-DLrB2YWdSlA" name="id">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_NCqSIKwkEe-xgaz8Fc6Tmg" name="modifyPeer">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_Ipy_AKwlEe-xgaz8Fc6Tmg" name="id">
@@ -54,7 +77,6 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_gju4UKwUEe-xgaz8Fc6Tmg" name="connection" visibility="protected">
       <ownedAttribute xmi:type="uml:Property" xmi:id="_tdrw0KwVEe-xgaz8Fc6Tmg" name="status" type="_upjjgKwUEe-xgaz8Fc6Tmg"/>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_0UnhgKwXEe-xgaz8Fc6Tmg" name="peerParent" type="_532gkKwXEe-xgaz8Fc6Tmg"/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_G5NeEKwYEe-xgaz8Fc6Tmg" name="sentTraffic">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELong"/>
       </ownedAttribute>
@@ -64,7 +86,7 @@
       <ownedAttribute xmi:type="uml:Property" xmi:id="_vAh4EKwfEe-xgaz8Fc6Tmg" name="lastHandshakeTime">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELong"/>
       </ownedAttribute>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_BnYQsKwbEe-xgaz8Fc6Tmg" name="updateTraffic">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_BnYQsKwbEe-xgaz8Fc6Tmg" name="updateTraffic" concurrency="concurrent">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_qw1r4KwcEe-xgaz8Fc6Tmg" direction="out">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELong"/>
         </ownedParameter>
@@ -72,7 +94,7 @@
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELong"/>
         </ownedParameter>
       </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_LeJIMKwgEe-xgaz8Fc6Tmg" name="updateHandshakeTime">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_LeJIMKwgEe-xgaz8Fc6Tmg" name="updateHandshakeTime" concurrency="concurrent">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_P6ohoKwgEe-xgaz8Fc6Tmg" direction="out">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELong"/>
         </ownedParameter>
@@ -154,20 +176,6 @@
       </ownedAttribute>
     </packagedElement>
   </packagedElement>
-  <packagedElement xmi:type="uml:Package" xmi:id="_NmvUwKwSEe-xgaz8Fc6Tmg" name="main">
-    <packagedElement xmi:type="uml:Class" xmi:id="_15Yg4KwMEe-xgaz8Fc6Tmg" name="UserInterface">
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_rxLdoKwTEe-xgaz8Fc6Tmg" name="wireguardManager" visibility="protected" type="_eLSXEKwQEe-xgaz8Fc6Tmg"/>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_8LpE8KwTEe-xgaz8Fc6Tmg" name="downloadMonitor" visibility="protected"/>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_C7BuEKwUEe-xgaz8Fc6Tmg" name="connectionStatus" visibility="protected" type="_upjjgKwUEe-xgaz8Fc6Tmg"/>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_HN7OAKwREe-xgaz8Fc6Tmg" name="startVPN"/>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_V8LLIKwREe-xgaz8Fc6Tmg" name="stopVPN"/>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_XM6aQKwREe-xgaz8Fc6Tmg" name="displayVPNStatus"/>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_cVDYwKwREe-xgaz8Fc6Tmg" name="displayActivePeer"/>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_iEJCgKwREe-xgaz8Fc6Tmg" name="displayTrafficStats"/>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_l1yIIKwREe-xgaz8Fc6Tmg" name="notifyScanResult" concurrency="concurrent"/>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_WN2NIKwVEe-xgaz8Fc6Tmg" name="getConnectionStatus"/>
-    </packagedElement>
-  </packagedElement>
   <packagedElement xmi:type="uml:Package" xmi:id="_j-z6QKwjEe-xgaz8Fc6Tmg" name="localfileutils">
     <packagedElement xmi:type="uml:Class" xmi:id="_YqMPIKyWEe-sEdR3uXJgNg" name="DownloadMonitor">
       <ownedAttribute xmi:type="uml:Property" xmi:id="_a87t0KyWEe-sEdR3uXJgNg" name="downloadFolder">
@@ -183,7 +191,7 @@
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_qzL00KyWEe-sEdR3uXJgNg" name="File">
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_QroAoKyXEe-sEdR3uXJgNg" name="SHA265">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_QroAoKyXEe-sEdR3uXJgNg" name="SHA256">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_ToQJ0KyXEe-sEdR3uXJgNg" name="name">
@@ -195,12 +203,43 @@
       <ownedAttribute xmi:type="uml:Property" xmi:id="_a7UHwKyXEe-sEdR3uXJgNg" name="size">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELong"/>
       </ownedAttribute>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_J9n3kKyXEe-sEdR3uXJgNg" name="claculateSHA265"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_J9n3kKyXEe-sEdR3uXJgNg" name="claculateSHA256"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_fW8lkKyXEe-sEdR3uXJgNg" name="isValid">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_k0ZswKyXEe-sEdR3uXJgNg" direction="return">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         </ownedParameter>
       </ownedOperation>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_15Yg4KwMEe-xgaz8Fc6Tmg" name="UserInterface">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_rxLdoKwTEe-xgaz8Fc6Tmg" name="wireguardManager" visibility="protected" type="_eLSXEKwQEe-xgaz8Fc6Tmg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_8LpE8KwTEe-xgaz8Fc6Tmg" name="downloadMonitor" visibility="protected"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_C7BuEKwUEe-xgaz8Fc6Tmg" name="connectionStatus" visibility="protected" type="_upjjgKwUEe-xgaz8Fc6Tmg"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_HN7OAKwREe-xgaz8Fc6Tmg" name="startVPN"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_V8LLIKwREe-xgaz8Fc6Tmg" name="stopVPN"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_XM6aQKwREe-xgaz8Fc6Tmg" name="displayVPNStatus"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_cVDYwKwREe-xgaz8Fc6Tmg" name="displayActivePeer"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_iEJCgKwREe-xgaz8Fc6Tmg" name="displayTrafficStats"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_l1yIIKwREe-xgaz8Fc6Tmg" name="notifyScanResult" concurrency="concurrent"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_WN2NIKwVEe-xgaz8Fc6Tmg" name="getConnectionStatus"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="__ZmiYKyaEe-sEdR3uXJgNg" name="managePeers"/>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_T2kP0KzdEe-DLrB2YWdSlA" memberEnd="_T2ld8KzdEe-DLrB2YWdSlA _T2ld86zdEe-DLrB2YWdSlA">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_T2k24KzdEe-DLrB2YWdSlA" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_T2k24azdEe-DLrB2YWdSlA" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_T2ld86zdEe-DLrB2YWdSlA" name="peermanager" type="_l6TRMKwQEe-xgaz8Fc6Tmg" association="_T2kP0KzdEe-DLrB2YWdSlA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_aX-HUKzdEe-DLrB2YWdSlA" memberEnd="_aX_VcazdEe-DLrB2YWdSlA _aX_VdKzdEe-DLrB2YWdSlA">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_aX-uYKzdEe-DLrB2YWdSlA" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_aX_VcKzdEe-DLrB2YWdSlA" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_aX_VdKzdEe-DLrB2YWdSlA" name="wireguardmanager" type="_eLSXEKwQEe-xgaz8Fc6Tmg" association="_aX-HUKzdEe-DLrB2YWdSlA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_lSGSkKzdEe-DLrB2YWdSlA" memberEnd="_lSG5oqzdEe-DLrB2YWdSlA _lSG5pazdEe-DLrB2YWdSlA">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_lSG5oKzdEe-DLrB2YWdSlA" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_lSG5oazdEe-DLrB2YWdSlA" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_lSG5pazdEe-DLrB2YWdSlA" name="wireguardmanager" type="_eLSXEKwQEe-xgaz8Fc6Tmg" association="_lSGSkKzdEe-DLrB2YWdSlA"/>
   </packagedElement>
 </uml:Model>
