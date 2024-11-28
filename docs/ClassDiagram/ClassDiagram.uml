@@ -140,6 +140,7 @@
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_OsJDQqzmEe-DLrB2YWdSlA"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_OsJDQ6zmEe-DLrB2YWdSlA" value="1"/>
       </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_3i7Isq1YEe-iftdNUAUywg" name="file" type="_qzL00KyWEe-sEdR3uXJgNg" association="_3i6hoK1YEe-iftdNUAUywg"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_KcZo0KyYEe-sEdR3uXJgNg" name="performScan">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_VnrOcKyYEe-sEdR3uXJgNg" type="_NqeuYKyYEe-sEdR3uXJgNg" direction="return"/>
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_fur6sKyYEe-sEdR3uXJgNg" type="_qzL00KyWEe-sEdR3uXJgNg"/>
@@ -164,6 +165,7 @@
       <ownedAttribute xmi:type="uml:Property" xmi:id="_YNQ7MKyZEe-sEdR3uXJgNg" name="apiKey">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_OHvg0K1WEe-iftdNUAUywg" name="scanreport" type="_NqeuYKyYEe-sEdR3uXJgNg" association="_OHnlAK1WEe-iftdNUAUywg"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_8nNlMKyYEe-sEdR3uXJgNg" name="analyze">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_-rOrYKyYEe-sEdR3uXJgNg" type="_NqeuYKyYEe-sEdR3uXJgNg" direction="return"/>
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_IoIZYKyZEe-sEdR3uXJgNg" type="_qzL00KyWEe-sEdR3uXJgNg"/>
@@ -175,6 +177,7 @@
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_wzVQQKwQEe-xgaz8Fc6Tmg" name="ClamAV" visibility="protected">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_VXRCkK1WEe-iftdNUAUywg" name="scanreport" type="_NqeuYKyYEe-sEdR3uXJgNg" association="_VXP0cK1WEe-iftdNUAUywg"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_847nUKyYEe-sEdR3uXJgNg" name="analyze">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_OzoSUKyZEe-sEdR3uXJgNg" type="_qzL00KyWEe-sEdR3uXJgNg"/>
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_QY_toKyZEe-sEdR3uXJgNg" type="_NqeuYKyYEe-sEdR3uXJgNg" direction="return"/>
@@ -201,12 +204,15 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Package" xmi:id="_j-z6QKwjEe-xgaz8Fc6Tmg" name="localfileutils">
     <packagedElement xmi:type="uml:Class" xmi:id="_YqMPIKyWEe-sEdR3uXJgNg" name="DownloadMonitor">
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_a87t0KyWEe-sEdR3uXJgNg" name="downloadFolder">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_a87t0KyWEe-sEdR3uXJgNg" name="downloadPath">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_fgn7cKyWEe-sEdR3uXJgNg" name="downloadedFiles" type="_qzL00KyWEe-sEdR3uXJgNg">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uA1ckKyWEe-sEdR3uXJgNg"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uBVL0KyWEe-sEdR3uXJgNg" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_ssm74q1XEe-iftdNUAUywg" name="file" type="_qzL00KyWEe-sEdR3uXJgNg" association="_ssltwK1XEe-iftdNUAUywg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_MbbooK1ZEe-iftdNUAUywg"/>
       </ownedAttribute>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_v6EPEKyWEe-sEdR3uXJgNg" name="detectNewFiles" concurrency="concurrent"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_zJVAYKyWEe-sEdR3uXJgNg" name="forwaredForScan">
@@ -279,5 +285,29 @@
       <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_OsJDQKzmEe-DLrB2YWdSlA" key="nature" value="UML_Nature"/>
     </eAnnotations>
     <ownedEnd xmi:type="uml:Property" xmi:id="_OsJDRKzmEe-DLrB2YWdSlA" name="antivirusmanager" type="_hiNPkKwQEe-xgaz8Fc6Tmg" association="_OsH1IKzmEe-DLrB2YWdSlA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_OHnlAK1WEe-iftdNUAUywg" memberEnd="_OHvg0K1WEe-iftdNUAUywg _OHx9Ea1WEe-iftdNUAUywg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_OHtroK1WEe-iftdNUAUywg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_OHtroa1WEe-iftdNUAUywg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_OHx9Ea1WEe-iftdNUAUywg" name="virustotal" type="_2Rp6IKwQEe-xgaz8Fc6Tmg" association="_OHnlAK1WEe-iftdNUAUywg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_VXP0cK1WEe-iftdNUAUywg" memberEnd="_VXRCkK1WEe-iftdNUAUywg _VXRCk61WEe-iftdNUAUywg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_VXQbgK1WEe-iftdNUAUywg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_VXQbga1WEe-iftdNUAUywg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_VXRCk61WEe-iftdNUAUywg" name="clamav" type="_wzVQQKwQEe-xgaz8Fc6Tmg" association="_VXP0cK1WEe-iftdNUAUywg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_ssltwK1XEe-iftdNUAUywg" memberEnd="_ssm74q1XEe-iftdNUAUywg _ssni8a1XEe-iftdNUAUywg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_ssm74K1XEe-iftdNUAUywg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_ssm74a1XEe-iftdNUAUywg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_ssni8a1XEe-iftdNUAUywg" name="downloadmonitor" type="_YqMPIKyWEe-sEdR3uXJgNg" association="_ssltwK1XEe-iftdNUAUywg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_3i6hoK1YEe-iftdNUAUywg" memberEnd="_3i7Isq1YEe-iftdNUAUywg _3i7vwq1YEe-iftdNUAUywg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_3i7IsK1YEe-iftdNUAUywg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_3i7Isa1YEe-iftdNUAUywg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_3i7vwq1YEe-iftdNUAUywg" name="antivirusmanager" type="_hiNPkKwQEe-xgaz8Fc6Tmg" association="_3i6hoK1YEe-iftdNUAUywg"/>
   </packagedElement>
 </uml:Model>
