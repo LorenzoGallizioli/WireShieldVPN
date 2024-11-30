@@ -41,7 +41,7 @@
       </ownedAttribute>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_T2ld8KzdEe-DLrB2YWdSlA" name="peer" type="_532gkKwXEe-xgaz8Fc6Tmg" association="_T2kP0KzdEe-DLrB2YWdSlA">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_T2ld8azdEe-DLrB2YWdSlA"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_T2ld8qzdEe-DLrB2YWdSlA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_T2ld8qzdEe-DLrB2YWdSlA" value="*"/>
       </ownedAttribute>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_0eTykKwjEe-xgaz8Fc6Tmg" name="addPeer">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_8vFV8KwjEe-xgaz8Fc6Tmg" type="_532gkKwXEe-xgaz8Fc6Tmg"/>
@@ -434,7 +434,7 @@
   <packagedElement xmi:type="uml:Package" xmi:id="_c2KnAK2sEe-r0tXGBdOuIw" name="ui">
     <packagedElement xmi:type="uml:Class" xmi:id="_ghFZkK2sEe-r0tXGBdOuIw" name="UserInterface">
       <ownedAttribute xmi:type="uml:Property" xmi:id="_pDb1Iq2sEe-r0tXGBdOuIw" name="SystemOrchestrator" type="_15Yg4KwMEe-xgaz8Fc6Tmg" association="_pDbOEK2sEe-r0tXGBdOuIw"/>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_V4DTcK2uEe-r0tXGBdOuIw" name="systemOrchestrator" type="_15Yg4KwMEe-xgaz8Fc6Tmg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_V4DTcK2uEe-r0tXGBdOuIw" name="systemOrchestrator" visibility="private" type="_15Yg4KwMEe-xgaz8Fc6Tmg"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_Ih5RsK8OEe-WFOzjazvNcA" name="changeVPNState"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_ZPtS0K8OEe-WFOzjazvNcA" name="importPeer"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_-nt7AK8iEe-WFOzjazvNcA" name="showAvailablePeers"/>
