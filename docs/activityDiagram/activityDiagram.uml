@@ -3,12 +3,38 @@
   <packageImport xmi:type="uml:PackageImport" xmi:id="_H8hGMLGfEe-H3owF1Dw5KQ">
     <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
   </packageImport>
-  <packagedElement xmi:type="uml:Activity" xmi:id="_H8IEoLGfEe-H3owF1Dw5KQ" name="Activity1" group="_LO3AsLGfEe-H3owF1Dw5KQ _O-etELGfEe-H3owF1Dw5KQ _TjoTQLGfEe-H3owF1Dw5KQ _W71lMLGfEe-H3owF1Dw5KQ _aT34ALGfEe-H3owF1Dw5KQ _ffoLMLGfEe-H3owF1Dw5KQ">
-    <group xmi:type="uml:ActivityPartition" xmi:id="_LO3AsLGfEe-H3owF1Dw5KQ" name="Utente"/>
-    <group xmi:type="uml:ActivityPartition" xmi:id="_O-etELGfEe-H3owF1Dw5KQ" name="UI"/>
-    <group xmi:type="uml:ActivityPartition" xmi:id="_TjoTQLGfEe-H3owF1Dw5KQ" name="SystemOrchestrator"/>
-    <group xmi:type="uml:ActivityPartition" xmi:id="_W71lMLGfEe-H3owF1Dw5KQ" name="Wireguard Manager"/>
-    <group xmi:type="uml:ActivityPartition" xmi:id="_aT34ALGfEe-H3owF1Dw5KQ" name="Download manager"/>
-    <group xmi:type="uml:ActivityPartition" xmi:id="_ffoLMLGfEe-H3owF1Dw5KQ" name="Antivirus manager"/>
+  <packagedElement xmi:type="uml:Activity" xmi:id="_H8IEoLGfEe-H3owF1Dw5KQ" name="Activity1" node="_nS8WgLGfEe-H3owF1Dw5KQ _uy12kLGfEe-H3owF1Dw5KQ _FTs0YLGgEe-H3owF1Dw5KQ _ICgkALGgEe-H3owF1Dw5KQ _JpyD0LGgEe-H3owF1Dw5KQ _QhdGQLGgEe-H3owF1Dw5KQ _SEls8LGgEe-H3owF1Dw5KQ _UfebALGgEe-H3owF1Dw5KQ _W9ri0LGgEe-H3owF1Dw5KQ _YX43ALGgEe-H3owF1Dw5KQ _agHu0LGgEe-H3owF1Dw5KQ _cPWQwLGgEe-H3owF1Dw5KQ _fG_zULGgEe-H3owF1Dw5KQ _srhIQLGgEe-H3owF1Dw5KQ _vbJXQLGgEe-H3owF1Dw5KQ _7DO0sLGgEe-H3owF1Dw5KQ _By81ALGhEe-H3owF1Dw5KQ" group="_LO3AsLGfEe-H3owF1Dw5KQ _O-etELGfEe-H3owF1Dw5KQ _TjoTQLGfEe-H3owF1Dw5KQ _W71lMLGfEe-H3owF1Dw5KQ _aT34ALGfEe-H3owF1Dw5KQ _ffoLMLGfEe-H3owF1Dw5KQ">
+    <edge xmi:type="uml:ControlFlow" xmi:id="_o3YvULGgEe-H3owF1Dw5KQ" target="_FTs0YLGgEe-H3owF1Dw5KQ" source="_uy12kLGfEe-H3owF1Dw5KQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_pgfWsLGgEe-H3owF1Dw5KQ" target="_ICgkALGgEe-H3owF1Dw5KQ" source="_FTs0YLGgEe-H3owF1Dw5KQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_qaC04LGgEe-H3owF1Dw5KQ" target="_JpyD0LGgEe-H3owF1Dw5KQ" source="_ICgkALGgEe-H3owF1Dw5KQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_2ng3ULGgEe-H3owF1Dw5KQ" target="_vbJXQLGgEe-H3owF1Dw5KQ" source="_srhIQLGgEe-H3owF1Dw5KQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="__p4PsLGgEe-H3owF1Dw5KQ" inPartition="_LO3AsLGfEe-H3owF1Dw5KQ" target="_7DO0sLGgEe-H3owF1Dw5KQ" source="_fG_zULGgEe-H3owF1Dw5KQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_JH30ILGhEe-H3owF1Dw5KQ" inPartition="_O-etELGfEe-H3owF1Dw5KQ" target="_By81ALGhEe-H3owF1Dw5KQ" source="_vbJXQLGgEe-H3owF1Dw5KQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_MjF90LGhEe-H3owF1Dw5KQ" inPartition="_O-etELGfEe-H3owF1Dw5KQ" target="_By81ALGhEe-H3owF1Dw5KQ" source="_cPWQwLGgEe-H3owF1Dw5KQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_QbkrQLGhEe-H3owF1Dw5KQ" target="_fG_zULGgEe-H3owF1Dw5KQ" source="_By81ALGhEe-H3owF1Dw5KQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_wriLoLGhEe-H3owF1Dw5KQ" inPartition="_LO3AsLGfEe-H3owF1Dw5KQ" target="_uy12kLGfEe-H3owF1Dw5KQ" source="_nS8WgLGfEe-H3owF1Dw5KQ"/>
+    <group xmi:type="uml:ActivityPartition" xmi:id="_LO3AsLGfEe-H3owF1Dw5KQ" name="Utente" node="_nS8WgLGfEe-H3owF1Dw5KQ _uy12kLGfEe-H3owF1Dw5KQ _fG_zULGgEe-H3owF1Dw5KQ _7DO0sLGgEe-H3owF1Dw5KQ" edge="__p4PsLGgEe-H3owF1Dw5KQ _wriLoLGhEe-H3owF1Dw5KQ"/>
+    <group xmi:type="uml:ActivityPartition" xmi:id="_O-etELGfEe-H3owF1Dw5KQ" name="UI" node="_FTs0YLGgEe-H3owF1Dw5KQ _cPWQwLGgEe-H3owF1Dw5KQ _vbJXQLGgEe-H3owF1Dw5KQ _By81ALGhEe-H3owF1Dw5KQ" edge="_JH30ILGhEe-H3owF1Dw5KQ _MjF90LGhEe-H3owF1Dw5KQ"/>
+    <group xmi:type="uml:ActivityPartition" xmi:id="_TjoTQLGfEe-H3owF1Dw5KQ" name="SystemOrchestrator" node="_ICgkALGgEe-H3owF1Dw5KQ _agHu0LGgEe-H3owF1Dw5KQ _srhIQLGgEe-H3owF1Dw5KQ"/>
+    <group xmi:type="uml:ActivityPartition" xmi:id="_W71lMLGfEe-H3owF1Dw5KQ" name="Wireguard Manager" node="_JpyD0LGgEe-H3owF1Dw5KQ"/>
+    <group xmi:type="uml:ActivityPartition" xmi:id="_aT34ALGfEe-H3owF1Dw5KQ" name="Download manager" node="_QhdGQLGgEe-H3owF1Dw5KQ _SEls8LGgEe-H3owF1Dw5KQ"/>
+    <group xmi:type="uml:ActivityPartition" xmi:id="_ffoLMLGfEe-H3owF1Dw5KQ" name="Antivirus manager" node="_UfebALGgEe-H3owF1Dw5KQ _W9ri0LGgEe-H3owF1Dw5KQ _YX43ALGgEe-H3owF1Dw5KQ"/>
+    <node xmi:type="uml:InitialNode" xmi:id="_nS8WgLGfEe-H3owF1Dw5KQ" name="" outgoing="_wriLoLGhEe-H3owF1Dw5KQ" inPartition="_LO3AsLGfEe-H3owF1Dw5KQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_uy12kLGfEe-H3owF1Dw5KQ" name="Interazione UI" incoming="_wriLoLGhEe-H3owF1Dw5KQ" outgoing="_o3YvULGgEe-H3owF1Dw5KQ" inPartition="_LO3AsLGfEe-H3owF1Dw5KQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_FTs0YLGgEe-H3owF1Dw5KQ" name="Inoltra comandi" incoming="_o3YvULGgEe-H3owF1Dw5KQ" outgoing="_pgfWsLGgEe-H3owF1Dw5KQ" inPartition="_O-etELGfEe-H3owF1Dw5KQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_ICgkALGgEe-H3owF1Dw5KQ" name="Inoltra comandi" incoming="_pgfWsLGgEe-H3owF1Dw5KQ" outgoing="_qaC04LGgEe-H3owF1Dw5KQ" inPartition="_TjoTQLGfEe-H3owF1Dw5KQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_JpyD0LGgEe-H3owF1Dw5KQ" name="Avvio/Interruzione VPN" incoming="_qaC04LGgEe-H3owF1Dw5KQ" inPartition="_W71lMLGfEe-H3owF1Dw5KQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_QhdGQLGgEe-H3owF1Dw5KQ" name="Inizio download manager" inPartition="_aT34ALGfEe-H3owF1Dw5KQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_SEls8LGgEe-H3owF1Dw5KQ" name="Scanning download" inPartition="_aT34ALGfEe-H3owF1Dw5KQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_UfebALGgEe-H3owF1Dw5KQ" name="Inizio Antivirus manager" inPartition="_ffoLMLGfEe-H3owF1Dw5KQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_W9ri0LGgEe-H3owF1Dw5KQ" name="Analisi ClamAV" inPartition="_ffoLMLGfEe-H3owF1Dw5KQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_YX43ALGgEe-H3owF1Dw5KQ" name="Analisi VirusTotal" inPartition="_ffoLMLGfEe-H3owF1Dw5KQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_agHu0LGgEe-H3owF1Dw5KQ" name="Inoltro report completo" inPartition="_TjoTQLGfEe-H3owF1Dw5KQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_cPWQwLGgEe-H3owF1Dw5KQ" name="Inoltro report completo" outgoing="_MjF90LGhEe-H3owF1Dw5KQ" inPartition="_O-etELGfEe-H3owF1Dw5KQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_fG_zULGgEe-H3owF1Dw5KQ" name="Notifica utente del report" incoming="_QbkrQLGhEe-H3owF1Dw5KQ" outgoing="__p4PsLGgEe-H3owF1Dw5KQ" inPartition="_LO3AsLGfEe-H3owF1Dw5KQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_srhIQLGgEe-H3owF1Dw5KQ" name="Aggiorna stato connessione" outgoing="_2ng3ULGgEe-H3owF1Dw5KQ" inPartition="_TjoTQLGfEe-H3owF1Dw5KQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_vbJXQLGgEe-H3owF1Dw5KQ" name="Aggiorna stato connessione" incoming="_2ng3ULGgEe-H3owF1Dw5KQ" outgoing="_JH30ILGhEe-H3owF1Dw5KQ" inPartition="_O-etELGfEe-H3owF1Dw5KQ"/>
+    <node xmi:type="uml:ActivityFinalNode" xmi:id="_7DO0sLGgEe-H3owF1Dw5KQ" incoming="__p4PsLGgEe-H3owF1Dw5KQ" inPartition="_LO3AsLGfEe-H3owF1Dw5KQ"/>
+    <node xmi:type="uml:JoinNode" xmi:id="_By81ALGhEe-H3owF1Dw5KQ" name="" incoming="_JH30ILGhEe-H3owF1Dw5KQ _MjF90LGhEe-H3owF1Dw5KQ" outgoing="_QbkrQLGhEe-H3owF1Dw5KQ" inPartition="_O-etELGfEe-H3owF1Dw5KQ"/>
   </packagedElement>
 </uml:Model>
