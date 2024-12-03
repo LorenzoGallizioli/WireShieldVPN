@@ -2,19 +2,19 @@
 
 # Indice
 
-1. [Introduzione](#introduzione)  
-2. [Obiettivi del Progetto](#obiettivi-del-progetto)  
-3. [Requisiti Funzionali](#requisiti-funzionali)  
-   - [Gestione della Connessione WireGuard](#gestione-della-connessione-wireguard)  
-   - [Monitoraggio e Analisi dei File Scaricati](#monitoraggio-e-analisi-dei-file-scaricati)  
-4. [Aspetti Tecnici e Implementazione](#aspetti-tecnici-e-implementazione)  
-   - [Interazione con WireGuard](#interazione-con-wireguard)  
-   - [Monitoraggio e Analisi Antivirus](#monitoraggio-e-analisi-antivirus)  
-5. [Rischi e Sfide](#rischi-e-sfide)  
-   - [Interazione con WireGuard](#interazione-con-wireguard-1)  
-   - [Monitoraggio dei File e Scansione Antivirus](#monitoraggio-dei-file-e-scansione-antivirus)  
-   - [Soluzioni e Mitigazioni](#soluzioni-e-mitigazioni)  
-6. [Conclusioni](#conclusioni)  
+1. [**Introduzione**](#introduzione)  
+2. [**Obiettivi del Progetto**](#obiettivi-del-progetto)  
+3. [**Requisiti Funzionali**](#requisiti-funzionali)
+   - Gestione della Connessione WireGuard
+   - Monitoraggio e Analisi dei File Scaricati
+4. [**Aspetti Tecnici e Implementazione**](#aspetti-tecnici-e-implementazione)
+   - Interazione con WireGuard 
+   - Monitoraggio e Analisi Antivirus
+5. [**Rischi e Sfide**](#rischi-e-sfide)
+   - Interazione con WireGuard
+   - Monitoraggio dei File e Scansione Antivirus]
+   - Soluzioni e Mitigazioni
+6. [**Conclusioni**](#conclusioni)
 
 
 
