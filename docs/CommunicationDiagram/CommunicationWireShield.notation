@@ -44,7 +44,7 @@
           <layoutConstraint xmi:type="notation:Location" xmi:id="_QzHfQawUEe-gWuvzHvnUww" y="15"/>
         </children>
         <element xmi:type="uml:Lifeline" href="CommunicationWireShield.uml#_QzCmwKwUEe-gWuvzHvnUww"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QzG4MawUEe-gWuvzHvnUww" x="470" y="190"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QzG4MawUEe-gWuvzHvnUww" x="490" y="190" width="185" height="47"/>
       </children>
       <children xmi:type="notation:Shape" xmi:id="_SEdLUKwUEe-gWuvzHvnUww" type="Lifeline_Shape">
         <children xmi:type="notation:DecorationNode" xmi:id="_SEdLUqwUEe-gWuvzHvnUww" type="Lifeline_NameLabel"/>
@@ -137,13 +137,13 @@
     </children>
     <styles xmi:type="notation:FontStyle" xmi:id="_WVhF8awWEe-gWuvzHvnUww"/>
     <element xmi:type="uml:Message" href="CommunicationWireShield.uml#_WVbmYKwWEe-gWuvzHvnUww"/>
-    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_WVhF8qwWEe-gWuvzHvnUww" points="[2, -10, 54, -2]$[62, -10, 114, -2]$[62, -70, 114, -62]$[-15, -70, 37, -62]$[-58, -70, -6, -62]$[-58, -10, -6, -2]"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_WVhF8qwWEe-gWuvzHvnUww" points="[18, 0, 94, 16]$[57, -12, 133, 4]$[57, -60, 133, -44]$[-83, -60, -7, -44]$[-83, -20, -7, -4]"/>
     <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_WVtTMKwWEe-gWuvzHvnUww" id="(0.8909090909090909,0.4)"/>
     <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_WVtTMawWEe-gWuvzHvnUww" id="(0.41818181818181815,0.08)"/>
   </edges>
   <edges xmi:type="notation:Connector" xmi:id="_pcsyMKwWEe-gWuvzHvnUww" type="Path_Edge" source="_OGlnkKwUEe-gWuvzHvnUww" target="_QzG4MKwUEe-gWuvzHvnUww">
     <children xmi:type="notation:DecorationNode" xmi:id="_pcsyM6wWEe-gWuvzHvnUww" type="Path_MessageLabel">
-      <layoutConstraint xmi:type="notation:Location" xmi:id="_pcsyNKwWEe-gWuvzHvnUww" x="1" y="-23"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_pcsyNKwWEe-gWuvzHvnUww" x="-13" y="2"/>
     </children>
     <children xmi:type="notation:DecorationNode" xmi:id="_pcsyNawWEe-gWuvzHvnUww" type="Path_StereotypeLabel">
       <layoutConstraint xmi:type="notation:Location" xmi:id="_pctZQKwWEe-gWuvzHvnUww" x="1" y="-53"/>
