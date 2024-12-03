@@ -3,6 +3,32 @@
   <children xmi:type="notation:Shape" xmi:id="_iRV-gbGXEe-H3owF1Dw5KQ" type="Interaction_Shape">
     <children xmi:type="notation:DecorationNode" xmi:id="_iRV-grGXEe-H3owF1Dw5KQ" type="Interaction_NameLabel"/>
     <children xmi:type="notation:BasicCompartment" xmi:id="_iRV-g7GXEe-H3owF1Dw5KQ" type="Interaction_SubfragmentCompartment">
+      <children xmi:type="notation:Shape" xmi:id="_s5e6gLGaEe-H3owF1Dw5KQ" type="CombinedFragment_Shape">
+        <children xmi:type="notation:BasicCompartment" xmi:id="_s5e6grGaEe-H3owF1Dw5KQ" type="CombinedFragment_SubfragmentCompartment">
+          <children xmi:type="notation:Shape" xmi:id="_s5e6hrGaEe-H3owF1Dw5KQ" type="InteractionOperand_Shape">
+            <element xmi:type="uml:InteractionOperand" href="wireshieldSD.uml#_s5WXoLGaEe-H3owF1Dw5KQ"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_s5e6h7GaEe-H3owF1Dw5KQ" width="241" height="82"/>
+          </children>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_s5e6g7GaEe-H3owF1Dw5KQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_s5e6hLGaEe-H3owF1Dw5KQ"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_s5e6hbGaEe-H3owF1Dw5KQ"/>
+        </children>
+        <element xmi:type="uml:CombinedFragment" href="wireshieldSD.uml#_s5SGMLGaEe-H3owF1Dw5KQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_s5e6gbGaEe-H3owF1Dw5KQ" x="554" y="236" width="241" height="101"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_AzCe4LGbEe-H3owF1Dw5KQ" type="CombinedFragment_Shape">
+        <children xmi:type="notation:BasicCompartment" xmi:id="_AzCe4rGbEe-H3owF1Dw5KQ" type="CombinedFragment_SubfragmentCompartment">
+          <children xmi:type="notation:Shape" xmi:id="_AzCe5rGbEe-H3owF1Dw5KQ" type="InteractionOperand_Shape">
+            <element xmi:type="uml:InteractionOperand" href="wireshieldSD.uml#_AyEOgLGbEe-H3owF1Dw5KQ"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_AzCe57GbEe-H3owF1Dw5KQ" x="-1" y="-26" width="341" height="242"/>
+          </children>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_AzCe47GbEe-H3owF1Dw5KQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_AzCe5LGbEe-H3owF1Dw5KQ"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_AzCe5bGbEe-H3owF1Dw5KQ"/>
+        </children>
+        <element xmi:type="uml:CombinedFragment" href="wireshieldSD.uml#_AyDAYLGbEe-H3owF1Dw5KQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_AzCe4bGbEe-H3owF1Dw5KQ" x="794" y="516" width="341" height="261"/>
+      </children>
       <children xmi:type="notation:Shape" xmi:id="_nLmSALGXEe-H3owF1Dw5KQ" type="Lifeline_Shape">
         <children xmi:type="notation:DecorationNode" xmi:id="_nLmSArGXEe-H3owF1Dw5KQ" type="Lifeline_NameLabel"/>
         <element xmi:type="uml:Lifeline" href="wireshieldSD.uml#_nLj1wLGXEe-H3owF1Dw5KQ"/>
@@ -92,6 +118,16 @@
         </children>
         <element xmi:type="uml:Lifeline" href="wireshieldSD.uml#_C4MC8LGaEe-H3owF1Dw5KQ"/>
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_C4Ul0bGaEe-H3owF1Dw5KQ" x="1014" y="547" width="100" height="189"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_1QawQLGaEe-H3owF1Dw5KQ" type="Comment_Shape">
+        <children xmi:type="notation:DecorationNode" xmi:id="_1QbXULGaEe-H3owF1Dw5KQ" type="Comment_BodyLabel"/>
+        <element xmi:type="uml:Comment" href="wireshieldSD.uml#_1QRmULGaEe-H3owF1Dw5KQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_1QawQbGaEe-H3owF1Dw5KQ" x="564" y="256" width="91" height="41"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_E-QiILGbEe-H3owF1Dw5KQ" type="Comment_Shape">
+        <children xmi:type="notation:DecorationNode" xmi:id="_E-QiIrGbEe-H3owF1Dw5KQ" type="Comment_BodyLabel"/>
+        <element xmi:type="uml:Comment" href="wireshieldSD.uml#_E9V8ILGbEe-H3owF1Dw5KQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_E-QiIbGbEe-H3owF1Dw5KQ" x="814" y="536" width="101" height="41"/>
       </children>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_iRV-hLGXEe-H3owF1Dw5KQ"/>
     </children>
