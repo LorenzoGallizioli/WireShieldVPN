@@ -4,14 +4,46 @@
     <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
   </packageImport>
   <packagedElement xmi:type="uml:Interaction" xmi:id="_hbi-8LGXEe-H3owF1Dw5KQ" name="Interaction2">
-    <lifeline xmi:type="uml:Lifeline" xmi:id="_nLj1wLGXEe-H3owF1Dw5KQ" name="Utente"/>
-    <lifeline xmi:type="uml:Lifeline" xmi:id="_oC-l8LGXEe-H3owF1Dw5KQ" name="UI"/>
-    <lifeline xmi:type="uml:Lifeline" xmi:id="_pISBILGXEe-H3owF1Dw5KQ" name="System Orchestrator"/>
-    <lifeline xmi:type="uml:Lifeline" xmi:id="_rG-icLGXEe-H3owF1Dw5KQ" name="Wireguard Manager"/>
-    <lifeline xmi:type="uml:Lifeline" xmi:id="_uIucMLGXEe-H3owF1Dw5KQ" name="WireGuard"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_nLj1wLGXEe-H3owF1Dw5KQ" name="Utente" coveredBy="_p62RELGYEe-H3owF1Dw5KQ _PEgrULGZEe-H3owF1Dw5KQ"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_oC-l8LGXEe-H3owF1Dw5KQ" name="UI" coveredBy="_p62REbGYEe-H3owF1Dw5KQ _4xk0wLGYEe-H3owF1Dw5KQ _NnbCQbGZEe-H3owF1Dw5KQ _PEgEQLGZEe-H3owF1Dw5KQ _tyf4ELGYEe-H3owF1Dw5KQ _tyfRALGYEe-H3owF1Dw5KQ"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_pISBILGXEe-H3owF1Dw5KQ" name="System Orchestrator" coveredBy="_4xk0wbGYEe-H3owF1Dw5KQ _-Cq68LGYEe-H3owF1Dw5KQ _LduK0bGZEe-H3owF1Dw5KQ _NnbCQLGZEe-H3owF1Dw5KQ _6_34ULGYEe-H3owF1Dw5KQ _6_2DILGYEe-H3owF1Dw5KQ"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_rG-icLGXEe-H3owF1Dw5KQ" name="Wireguard Manager" coveredBy="_-CriALGYEe-H3owF1Dw5KQ _DVp3gLGZEe-H3owF1Dw5KQ _JFnrAbGZEe-H3owF1Dw5KQ _LduK0LGZEe-H3owF1Dw5KQ _AY9c4LGZEe-H3owF1Dw5KQ _AY810LGZEe-H3owF1Dw5KQ"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_uIucMLGXEe-H3owF1Dw5KQ" name="WireGuard" coveredBy="_DVp3gbGZEe-H3owF1Dw5KQ _JFnrALGZEe-H3owF1Dw5KQ _GDk2ULGZEe-H3owF1Dw5KQ _GDkPQLGZEe-H3owF1Dw5KQ"/>
     <lifeline xmi:type="uml:Lifeline" xmi:id="_vDTOELGXEe-H3owF1Dw5KQ" name="Download Manager"/>
     <lifeline xmi:type="uml:Lifeline" xmi:id="_w3K_cLGXEe-H3owF1Dw5KQ" name="Download folder"/>
     <lifeline xmi:type="uml:Lifeline" xmi:id="_yBxKULGXEe-H3owF1Dw5KQ" name="Antivirus manager"/>
     <lifeline xmi:type="uml:Lifeline" xmi:id="_zoTDQLGXEe-H3owF1Dw5KQ" name="ClamAV"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_p62RELGYEe-H3owF1Dw5KQ" name="Message10SendEvent" covered="_nLj1wLGXEe-H3owF1Dw5KQ" message="_p61C8LGYEe-H3owF1Dw5KQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_p62REbGYEe-H3owF1Dw5KQ" name="Message10ReceiveEvent" covered="_oC-l8LGXEe-H3owF1Dw5KQ" message="_p61C8LGYEe-H3owF1Dw5KQ"/>
+    <fragment xmi:type="uml:ActionExecutionSpecification" xmi:id="_tyfRALGYEe-H3owF1Dw5KQ" name="ActionExecutionSpecification13" covered="_oC-l8LGXEe-H3owF1Dw5KQ" finish="_tyf4ELGYEe-H3owF1Dw5KQ" start="_p62REbGYEe-H3owF1Dw5KQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_4xk0wLGYEe-H3owF1Dw5KQ" name="Message15SendEvent" covered="_oC-l8LGXEe-H3owF1Dw5KQ" message="_4xi_kLGYEe-H3owF1Dw5KQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_4xk0wbGYEe-H3owF1Dw5KQ" name="Message15ReceiveEvent" covered="_pISBILGXEe-H3owF1Dw5KQ" message="_4xi_kLGYEe-H3owF1Dw5KQ"/>
+    <fragment xmi:type="uml:ActionExecutionSpecification" xmi:id="_6_2DILGYEe-H3owF1Dw5KQ" name="ActionExecutionSpecification18" covered="_pISBILGXEe-H3owF1Dw5KQ" finish="_6_34ULGYEe-H3owF1Dw5KQ" start="_4xk0wbGYEe-H3owF1Dw5KQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_-Cq68LGYEe-H3owF1Dw5KQ" name="Message20SendEvent" covered="_pISBILGXEe-H3owF1Dw5KQ" message="_-Cps0LGYEe-H3owF1Dw5KQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_-CriALGYEe-H3owF1Dw5KQ" name="Message20ReceiveEvent" covered="_rG-icLGXEe-H3owF1Dw5KQ" message="_-Cps0LGYEe-H3owF1Dw5KQ"/>
+    <fragment xmi:type="uml:ActionExecutionSpecification" xmi:id="_AY810LGZEe-H3owF1Dw5KQ" name="ActionExecutionSpecification23" covered="_rG-icLGXEe-H3owF1Dw5KQ" finish="_AY9c4LGZEe-H3owF1Dw5KQ" start="_-CriALGYEe-H3owF1Dw5KQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_DVp3gLGZEe-H3owF1Dw5KQ" name="Message25SendEvent" covered="_rG-icLGXEe-H3owF1Dw5KQ" message="_DVoCULGZEe-H3owF1Dw5KQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_DVp3gbGZEe-H3owF1Dw5KQ" name="Message25ReceiveEvent" covered="_uIucMLGXEe-H3owF1Dw5KQ" message="_DVoCULGZEe-H3owF1Dw5KQ"/>
+    <fragment xmi:type="uml:ActionExecutionSpecification" xmi:id="_GDkPQLGZEe-H3owF1Dw5KQ" name="ActionExecutionSpecification28" covered="_uIucMLGXEe-H3owF1Dw5KQ" finish="_GDk2ULGZEe-H3owF1Dw5KQ" start="_DVp3gbGZEe-H3owF1Dw5KQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_JFnrALGZEe-H3owF1Dw5KQ" name="Message30SendEvent" covered="_uIucMLGXEe-H3owF1Dw5KQ" message="_JFmc4LGZEe-H3owF1Dw5KQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_JFnrAbGZEe-H3owF1Dw5KQ" name="Message30ReceiveEvent" covered="_rG-icLGXEe-H3owF1Dw5KQ" message="_JFmc4LGZEe-H3owF1Dw5KQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_LduK0LGZEe-H3owF1Dw5KQ" name="Message33SendEvent" covered="_rG-icLGXEe-H3owF1Dw5KQ" message="_Lds8sLGZEe-H3owF1Dw5KQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_LduK0bGZEe-H3owF1Dw5KQ" name="Message33ReceiveEvent" covered="_pISBILGXEe-H3owF1Dw5KQ" message="_Lds8sLGZEe-H3owF1Dw5KQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_NnbCQLGZEe-H3owF1Dw5KQ" name="Message36SendEvent" covered="_pISBILGXEe-H3owF1Dw5KQ" message="_NnZ0ILGZEe-H3owF1Dw5KQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_NnbCQbGZEe-H3owF1Dw5KQ" name="Message36ReceiveEvent" covered="_oC-l8LGXEe-H3owF1Dw5KQ" message="_NnZ0ILGZEe-H3owF1Dw5KQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_PEgEQLGZEe-H3owF1Dw5KQ" name="Message39SendEvent" covered="_oC-l8LGXEe-H3owF1Dw5KQ" message="_PEfdMLGZEe-H3owF1Dw5KQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_PEgrULGZEe-H3owF1Dw5KQ" name="Message39ReceiveEvent" covered="_nLj1wLGXEe-H3owF1Dw5KQ" message="_PEfdMLGZEe-H3owF1Dw5KQ"/>
+    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_tyf4ELGYEe-H3owF1Dw5KQ" name="ActionExecutionSpecification13Finish" covered="_oC-l8LGXEe-H3owF1Dw5KQ" execution="_tyfRALGYEe-H3owF1Dw5KQ"/>
+    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_6_34ULGYEe-H3owF1Dw5KQ" name="ActionExecutionSpecification18Finish" covered="_pISBILGXEe-H3owF1Dw5KQ" execution="_6_2DILGYEe-H3owF1Dw5KQ"/>
+    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_AY9c4LGZEe-H3owF1Dw5KQ" name="ActionExecutionSpecification23Finish" covered="_rG-icLGXEe-H3owF1Dw5KQ" execution="_AY810LGZEe-H3owF1Dw5KQ"/>
+    <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_GDk2ULGZEe-H3owF1Dw5KQ" name="ActionExecutionSpecification28Finish" covered="_uIucMLGXEe-H3owF1Dw5KQ" execution="_GDkPQLGZEe-H3owF1Dw5KQ"/>
+    <message xmi:type="uml:Message" xmi:id="_p61C8LGYEe-H3owF1Dw5KQ" name="Richiesta connessione" messageSort="asynchCall" receiveEvent="_p62REbGYEe-H3owF1Dw5KQ" sendEvent="_p62RELGYEe-H3owF1Dw5KQ"/>
+    <message xmi:type="uml:Message" xmi:id="_4xi_kLGYEe-H3owF1Dw5KQ" name="Inoltro richiesta" messageSort="asynchCall" receiveEvent="_4xk0wbGYEe-H3owF1Dw5KQ" sendEvent="_4xk0wLGYEe-H3owF1Dw5KQ"/>
+    <message xmi:type="uml:Message" xmi:id="_-Cps0LGYEe-H3owF1Dw5KQ" name="Richiesta connessione" messageSort="asynchCall" receiveEvent="_-CriALGYEe-H3owF1Dw5KQ" sendEvent="_-Cq68LGYEe-H3owF1Dw5KQ"/>
+    <message xmi:type="uml:Message" xmi:id="_DVoCULGZEe-H3owF1Dw5KQ" name="Avvio connessione" messageSort="asynchCall" receiveEvent="_DVp3gbGZEe-H3owF1Dw5KQ" sendEvent="_DVp3gLGZEe-H3owF1Dw5KQ"/>
+    <message xmi:type="uml:Message" xmi:id="_JFmc4LGZEe-H3owF1Dw5KQ" name="Stato connessione" messageSort="reply" receiveEvent="_JFnrAbGZEe-H3owF1Dw5KQ" sendEvent="_JFnrALGZEe-H3owF1Dw5KQ"/>
+    <message xmi:type="uml:Message" xmi:id="_Lds8sLGZEe-H3owF1Dw5KQ" name="Aggiorno stato" messageSort="asynchCall" receiveEvent="_LduK0bGZEe-H3owF1Dw5KQ" sendEvent="_LduK0LGZEe-H3owF1Dw5KQ"/>
+    <message xmi:type="uml:Message" xmi:id="_NnZ0ILGZEe-H3owF1Dw5KQ" name="Aggiorno stato" messageSort="asynchCall" receiveEvent="_NnbCQbGZEe-H3owF1Dw5KQ" sendEvent="_NnbCQLGZEe-H3owF1Dw5KQ"/>
+    <message xmi:type="uml:Message" xmi:id="_PEfdMLGZEe-H3owF1Dw5KQ" name="VPN attiva" messageSort="asynchCall" receiveEvent="_PEgrULGZEe-H3owF1Dw5KQ" sendEvent="_PEgEQLGZEe-H3owF1Dw5KQ"/>
   </packagedElement>
 </uml:Model>
