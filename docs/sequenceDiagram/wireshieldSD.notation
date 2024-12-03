@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:style="http://www.eclipse.org/papyrus/infra/gmfdiag/style" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_iRV-gLGXEe-H3owF1Dw5KQ" type="PapyrusUMLSequenceDiagram" name="wireshieldSD" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_iRV-gbGXEe-H3owF1Dw5KQ" type="Interaction_Shape">
+    <children xmi:type="notation:DecorationNode" xmi:id="_iRV-grGXEe-H3owF1Dw5KQ" type="Interaction_NameLabel"/>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_iRV-g7GXEe-H3owF1Dw5KQ" type="Interaction_SubfragmentCompartment">
+      <children xmi:type="notation:Shape" xmi:id="_nLmSALGXEe-H3owF1Dw5KQ" type="Lifeline_Shape">
+        <children xmi:type="notation:DecorationNode" xmi:id="_nLmSArGXEe-H3owF1Dw5KQ" type="Lifeline_NameLabel"/>
+        <element xmi:type="uml:Lifeline" href="wireshieldSD.uml#_nLj1wLGXEe-H3owF1Dw5KQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_nLmSAbGXEe-H3owF1Dw5KQ" x="-6" y="10"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_oC_0ELGXEe-H3owF1Dw5KQ" type="Lifeline_Shape">
+        <children xmi:type="notation:DecorationNode" xmi:id="_oC_0ErGXEe-H3owF1Dw5KQ" type="Lifeline_NameLabel"/>
+        <element xmi:type="uml:Lifeline" href="wireshieldSD.uml#_oC-l8LGXEe-H3owF1Dw5KQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_oC_0EbGXEe-H3owF1Dw5KQ" x="114" y="10" width="45"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_pIUdYLGXEe-H3owF1Dw5KQ" type="Lifeline_Shape">
+        <children xmi:type="notation:DecorationNode" xmi:id="_pIVEcLGXEe-H3owF1Dw5KQ" type="Lifeline_NameLabel"/>
+        <element xmi:type="uml:Lifeline" href="wireshieldSD.uml#_pISBILGXEe-H3owF1Dw5KQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_pIUdYbGXEe-H3owF1Dw5KQ" x="174" y="10" width="115"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_rHA-sLGXEe-H3owF1Dw5KQ" type="Lifeline_Shape">
+        <children xmi:type="notation:DecorationNode" xmi:id="_rHA-srGXEe-H3owF1Dw5KQ" type="Lifeline_NameLabel"/>
+        <element xmi:type="uml:Lifeline" href="wireshieldSD.uml#_rG-icLGXEe-H3owF1Dw5KQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_rHA-sbGXEe-H3owF1Dw5KQ" x="314" y="10" width="121"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_uIw4cLGXEe-H3owF1Dw5KQ" type="Lifeline_Shape">
+        <children xmi:type="notation:DecorationNode" xmi:id="_uIw4crGXEe-H3owF1Dw5KQ" type="Lifeline_NameLabel"/>
+        <element xmi:type="uml:Lifeline" href="wireshieldSD.uml#_uIucMLGXEe-H3owF1Dw5KQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_uIw4cbGXEe-H3owF1Dw5KQ" x="454" y="10" width="81"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_vDVqULGXEe-H3owF1Dw5KQ" type="Lifeline_Shape">
+        <children xmi:type="notation:DecorationNode" xmi:id="_vDVqUrGXEe-H3owF1Dw5KQ" type="Lifeline_NameLabel"/>
+        <element xmi:type="uml:Lifeline" href="wireshieldSD.uml#_vDTOELGXEe-H3owF1Dw5KQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_vDVqUbGXEe-H3owF1Dw5KQ" x="554" y="10" width="121"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_w3Op0LGXEe-H3owF1Dw5KQ" type="Lifeline_Shape">
+        <children xmi:type="notation:DecorationNode" xmi:id="_w3Op0rGXEe-H3owF1Dw5KQ" type="Lifeline_NameLabel"/>
+        <element xmi:type="uml:Lifeline" href="wireshieldSD.uml#_w3K_cLGXEe-H3owF1Dw5KQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_w3Op0bGXEe-H3owF1Dw5KQ" x="694" y="10"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_yBzmkLGXEe-H3owF1Dw5KQ" type="Lifeline_Shape">
+        <children xmi:type="notation:DecorationNode" xmi:id="_yBzmkrGXEe-H3owF1Dw5KQ" type="Lifeline_NameLabel"/>
+        <element xmi:type="uml:Lifeline" href="wireshieldSD.uml#_yBxKULGXEe-H3owF1Dw5KQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_yBzmkbGXEe-H3owF1Dw5KQ" x="814" y="10"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_zoWGkLGXEe-H3owF1Dw5KQ" type="Lifeline_Shape">
+        <children xmi:type="notation:DecorationNode" xmi:id="_zoWGkrGXEe-H3owF1Dw5KQ" type="Lifeline_NameLabel"/>
+        <element xmi:type="uml:Lifeline" href="wireshieldSD.uml#_zoTDQLGXEe-H3owF1Dw5KQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_zoWGkbGXEe-H3owF1Dw5KQ" x="934" y="10" width="81"/>
+      </children>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_iRV-hLGXEe-H3owF1Dw5KQ"/>
+    </children>
+    <element xmi:type="uml:Interaction" href="wireshieldSD.uml#_hbi-8LGXEe-H3owF1Dw5KQ"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_iRV-hbGXEe-H3owF1Dw5KQ"/>
+  </children>
+  <styles xmi:type="notation:StringValueStyle" xmi:id="_iRV-hrGXEe-H3owF1Dw5KQ" name="diagram_compatibility_version" stringValue="1.4.0"/>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_iRV-h7GXEe-H3owF1Dw5KQ"/>
+  <styles xmi:type="style:PapyrusDiagramStyle" xmi:id="_iRV-iLGXEe-H3owF1Dw5KQ" diagramKindId="org.eclipse.papyrus.uml.diagram.sequence">
+    <owner xmi:type="uml:Model" href="wireshieldSD.uml#_8Hgk4LGPEe-zDPPuvUecnQ"/>
+  </styles>
+  <element xmi:type="uml:Interaction" href="wireshieldSD.uml#_hbi-8LGXEe-H3owF1Dw5KQ"/>
+</notation:Diagram>

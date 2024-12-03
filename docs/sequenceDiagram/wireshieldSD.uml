@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_8Hgk4LGPEe-zDPPuvUecnQ" name="wireshieldSD">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_8I8IQLGPEe-zDPPuvUecnQ">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Interaction" xmi:id="_hbi-8LGXEe-H3owF1Dw5KQ" name="Interaction2">
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_nLj1wLGXEe-H3owF1Dw5KQ" name="Utente"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_oC-l8LGXEe-H3owF1Dw5KQ" name="UI"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_pISBILGXEe-H3owF1Dw5KQ" name="System Orchestrator"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_rG-icLGXEe-H3owF1Dw5KQ" name="Wireguard Manager"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_uIucMLGXEe-H3owF1Dw5KQ" name="WireGuard"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_vDTOELGXEe-H3owF1Dw5KQ" name="Download Manager"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_w3K_cLGXEe-H3owF1Dw5KQ" name="Download folder"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_yBxKULGXEe-H3owF1Dw5KQ" name="Antivirus manager"/>
+    <lifeline xmi:type="uml:Lifeline" xmi:id="_zoTDQLGXEe-H3owF1Dw5KQ" name="ClamAV"/>
+  </packagedElement>
+</uml:Model>
