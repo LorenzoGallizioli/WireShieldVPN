@@ -6,7 +6,11 @@
    - [Ruoli del team](#ruoli-del-team)
    - [Sprint Overview](#sprint-overview)
 4. [**Retrospettive**](#retrospettive)
-5. [**Sprint n°1**](#sprint-n2--18112024---9122024)
+5. [**Sprint n°1**](#sprint-n1--18112024---9122024)
+   - [Week Scrum n°1](#1-week-scrum-19-novembre-2024)
+   - [Week Scrum n°2](#2-week-scrum-26-novembre-2024)
+6. [**Sprint n°2**](#sprint-n2--18112024---9122024)
+   - [Week Scrum n°1](#1-week-scrum-03-dicembre-2024)
 
 &nbsp;
 
@@ -37,8 +41,6 @@
 
 ---
 # Sprint n°1: &nbsp;&nbsp; 18/11/2024 - 9/12/2024
-&nbsp;
-
 ## **Ruoli del Team**
 
 - **Product Owner**: 
@@ -51,12 +53,13 @@
 - **Team di Sviluppo**: 
   - Lorenzo Gallizioli
   - Davide Bonsembiante
-  - Thomas Paganelli 
+  - Thomas Paganelli
+
+- **Week Scrum**: ogni martedì, orario da definirsi sul gruppo whatsapp.
 
 &nbsp;
 
-## **Sprint Overview**
-**Week Scrum**: ogni martedì, orario da definirsi sul gruppo whatsapp.
+# 1° Week Scrum 19 Novembre 2024
 
 | **Titolo**                      | **Compiti**                                                                                       | **Sviluppatore**         |
 |----------------------------------|--------------------------------------------------------------------------------------------------|--------------------------|
@@ -66,12 +69,48 @@
 | Linee Guida -> Documento Ufficiale | Conversione e modifica del documento "Linee Guida" in Documento Ufficiale del progetto con relative aggiunte e approfondimenti per ogni capitolo | Davide Bonsembiante      |
 | Diagramma delle classi          | Implementazione del diagramma delle classi                                                        | Thomas Paganelli         |
 | Diagramma delle classi -> Struttura del progetto   | Conversione del diagramma delle classi in codice per implementare la struttura del progetto       | Thomas Paganelli         |
-| Diagramma di comunicazione   | Implementazione del diagramma di comunicazione       | Lorenzo Gallizioli         |
-| Diagramma di attività   | Implementazione del diagramma di attività      | Davide Bonsembiante      |
 
 &nbsp;
+
+
+
+# 2° Week Scrum 26 Novembre 2024
+
+| **Titolo**                      | **Compiti**                                                                                       | **Sviluppatore**         |
+|----------------------------------|--------------------------------------------------------------------------------------------------|--------------------------|
+| Diagramma delle classi -> Struttura del progetto   | Conversione del diagramma delle classi in codice per implementare la struttura del progetto       | Thomas Paganelli         |
+| Diagramma di comunicazione   | Implementazione del diagramma di comunicazione       | Lorenzo Gallizioli         |
+| Diagramma di attività   | Implementazione del diagramma di attività      | Davide Bonsembiante      |
+| Aggiornamento Sprint Backlog   | Aggiornamento dello Sprint Backlog con le novità nate dal Week Scrum      | Davide Bonsembiante         |
+
+
 
 &nbsp;
 ---
 # Sprint n°2: &nbsp;&nbsp; 18/11/2024 - 9/12/2024
+## **Ruoli del Team**
+
+- **Product Owner**: 
+  - Lorenzo Gallizioli
+  - Davide Bonsembiante
+  - Thomas Paganelli 
+
+- **Scrum Master**: Thomas Paganelli - Facilitatore dei processi SCRUM.
+
+- **Team di Sviluppo**: 
+  - Lorenzo Gallizioli
+  - Davide Bonsembiante
+  - Thomas Paganelli
+
+- **Week Scrum**: ogni martedì, orario da definirsi sul gruppo whatsapp.
+
 &nbsp;
+
+# 1° Week Scrum 03 Dicembre 2024
+| **Titolo**                      | **Compiti**                                                                                       | **Sviluppatore**         |
+|----------------------------------|--------------------------------------------------------------------------------------------------|--------------------------|
+|  Diagramma delle classi -> Struttura del progetto  | Conversione del diagramma delle classi in codice per implementare la struttura del progetto       | Thomas Paganelli         |
+| Aggiornamento diagramma di comunicazione e Controllo degli altri diagrammi   | Aggiornamento del diagramma di comunicazione + controllare se bisogna aggiornare anche gli altri diagrammi (ovvero aggiungere il System Orchestrator e modificare il flusso del diagramma)   | Lorenzo Gallizioli
+| Convertire diagramma di attività e diagramma di sequenza in Papyrus  | Convertire il diagramma di attività e diagramma di sequenza, creandolo su papyrus   | Lorenzo Gallizioli
+| Aggiornamento diagramma di attività + diagramma di sequenza   | Aggiornamento del diagramma di attività + diagramma di sequenza aggiungendo il System Orchestretor      | Davide Bonsembiante         |
+| Aggiornamento Sprint Backlog   | Aggiornamento dello Sprint Backlog con le novità nate dal Week Scrum      | Davide Bonsembiante         |
