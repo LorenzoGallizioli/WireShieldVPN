@@ -33,6 +33,14 @@ public class SystemOrchestrator {
     public void manageVPN(vpnOperations operation, connectionStates status) {}
 
     /**
+     * Method to manage the antivirus.
+     * 
+     * @param status
+     *   The antivirus status.
+     */
+    public void manageAV(runningStates status) {}
+
+    /**
      * Returns the connection status.
      * 
      * @return connectionStates

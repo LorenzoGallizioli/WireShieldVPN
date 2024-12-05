@@ -39,7 +39,7 @@ public class File {
      * @return long
      *   The size of the file.
      */
-    protected long getFile(){
+    protected long getSize(){
         return size;
     }
 }

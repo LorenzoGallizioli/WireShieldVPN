@@ -15,6 +15,16 @@ public class ClamAV implements AVInterface {
     public ClamAV() {}
 
     /**
+     * Returns the scan report.
+     * 
+     * @return ScanReport
+     *   The scan report.
+     */
+    public ScanReport getReport() {
+        return report;
+    }
+
+    /**
      * Performs a scan of a file using ClamAV.
      * 
      * @param file
@@ -28,13 +38,4 @@ public class ClamAV implements AVInterface {
         throw new UnsupportedOperationException("Unimplemented method 'analyze'");
     };
 
-    /**
-     * Returns the scan report.
-     * 
-     * @return ScanReport
-     *   The scan report.
-     */
-    public ScanReport getReport() {
-        return report;
-    }
 }

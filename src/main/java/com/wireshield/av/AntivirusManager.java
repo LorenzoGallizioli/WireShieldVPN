@@ -47,6 +47,12 @@ public class AntivirusManager {
         return finalReports;
     }
 
+    /**
+     * Method to get the scan status.
+     * 
+     * @return runningStates
+     *   The scan status.
+     */
     protected runningStates getStatus() {
         return scannerStatus;
     }
