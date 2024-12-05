@@ -819,7 +819,7 @@
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_zWADU65rEe-P0ILuWUiWXw"/>
     </children>
     <element xmi:type="uml:Package" href="ClassDiagram.uml#_zV3gcK5rEe-P0ILuWUiWXw"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_zV9nEa5rEe-P0ILuWUiWXw" x="420" y="-520" width="500" height="220"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_zV9nEa5rEe-P0ILuWUiWXw" x="420" y="-540" width="500" height="220"/>
   </children>
   <styles xmi:type="notation:StringValueStyle" xmi:id="_pVY00awMEe-xgaz8Fc6Tmg" name="diagram_compatibility_version" stringValue="1.4.0"/>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_pVY00qwMEe-xgaz8Fc6Tmg"/>
