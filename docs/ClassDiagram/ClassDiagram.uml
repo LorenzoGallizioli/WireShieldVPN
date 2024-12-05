@@ -262,7 +262,7 @@
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Interface" xmi:id="_ZjZ5oK8IEe-WFOzjazvNcA" name="AVInterface">
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_DqLHEK8JEe-WFOzjazvNcA" name="analyze" visibility="package" concurrency="guarded">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_DqLHEK8JEe-WFOzjazvNcA" name="analyze" visibility="public" concurrency="guarded">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_jNHJYK8JEe-WFOzjazvNcA" type="_qzL00KyWEe-sEdR3uXJgNg"/>
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_Nfc7kK80Ee-WFOzjazvNcA" type="_NqeuYKyYEe-sEdR3uXJgNg" direction="out"/>
       </ownedOperation>
