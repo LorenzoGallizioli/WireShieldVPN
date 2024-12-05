@@ -6,11 +6,11 @@ In questo documento illustriamo il **Project Plan** che guiderà lo sviluppo del
 [**1. Introduzione**](#1-introduzione)
 
 [**2. Modello di Processo**](#2-modello-di-processo)
- - [Modello SCRUM](#21-modello-scrum)
- - [Programmazione a coppie](#22-programmazione-a-coppie)
+  - [2.1 Modello SCRUM](#21-modello-scrum)
+  - [2.2 Programmazione a coppie](#22-programmazione-a-coppie)
 
 [**3. Organizzazione del progetto**](#3-organizzazione-del-progetto)
-  - [Ruoli e Responsabilità](#ruoli-e-responsabilità)
+  - [3.1 Ruoli e Responsabilità](#ruoli-e-responsabilità)
 
 [**4. Standard, linee guida, procedure**](#4-standard-linee-guida-procedure)
 
