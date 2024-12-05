@@ -6,6 +6,9 @@ import com.wireshield.enums.runningStates;
 import com.wireshield.enums.connectionStates;
 import com.wireshield.enums.vpnOperations;
 
+/**
+ * The SystemOrchestrator class is responsible for orchestrating the system.
+ */
 public class SystemOrchestrator {
     private WireguardManager wireguardManager;
     private DownloadManager downloadManager;
