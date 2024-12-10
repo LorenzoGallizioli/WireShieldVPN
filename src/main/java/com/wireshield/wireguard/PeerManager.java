@@ -1,7 +1,9 @@
 package com.wireshield.wireguard;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The PeerManager class is responsible for managing WireGuard peers.
@@ -18,12 +20,13 @@ public class PeerManager {
     }
 
     /**
+     * Retrive datas from Map, create Peer object and pass it to peerManager.
      * Adds a peer.
      * 
      * @param peer
      *   The peer to be added.
      */
-    public void addPeer(Map<String, Map<String, String>> peerData) {
+    public void addPeer(Map<String, Map<String, String>> peerData, String name) {
         String PrivateKey = peerData.get("Interface").get("PrivateKey");
         String Address = peerData.get("Interface").get("Address");
         String DNS = peerData.get("Interface").get("DNS");
@@ -33,7 +36,7 @@ public class PeerManager {
         String Endpoint = peerData.get("Peer").get("Endpoint");
         String AllowedIPs = peerData.get("Peer").get("AllowedIPs");
         
-        Peer peer = new Peer(PrivateKey, Address, DNS, MTU, PublicKey, PresharedKey, Endpoint, AllowedIPs);
+        Peer peer = new Peer(PrivateKey, Address, DNS, MTU, PublicKey, PresharedKey, Endpoint, AllowedIPs, name);
         if (peer != null) {
             peers.add(peer);
         }
@@ -82,45 +85,44 @@ public class PeerManager {
     }
     
 
+    /**
+     * Parses a configuration string into a map containing sections and their key-value pairs.
+     *
+     * @param config the configuration string to parse.
+     * @return a map where each key is the name of a section (e.g., "Interface", "Peer")
+     *         and the value is another map containing key-value pairs within that section.
+     */
     public static Map<String, Map<String, String>> parsePeerConfig(String config) {
-        // Mappa principale per memorizzare le sezioni [Interface] e [Peer]
         Map<String, Map<String, String>> configSections = new HashMap<>();
 
-        // Suddividiamo la stringa in base alle sezioni (es. [Interface], [Peer])
         String[] sections = config.split("\\[");
         for (String section : sections) {
             if (section.trim().isEmpty()) {
                 continue;
             }
 
-            // Otteniamo il nome della sezione (es. "Interface" o "Peer")
             int endOfSectionName = section.indexOf("]");
             String sectionName = section.substring(0, endOfSectionName).trim();
 
-            // Estrarre il contenuto della sezione e rimuovere spazi indesiderati
             String sectionBody = section.substring(endOfSectionName + 1).trim();
 
-            // Parsing delle coppie chiave-valore della sezione
             Map<String, String> sectionParams = new HashMap<>();
             String[] lines = sectionBody.split("\n");
             for (String line : lines) {
                 line = line.trim();
-                if (line.isEmpty() || line.startsWith("#")) { // Ignorare linee vuote o commenti
+                if (line.isEmpty() || line.startsWith("#")) {
                     continue;
                 }
 
-                // Dividere la riga in chiave e valore usando "="
                 String[] keyValue = line.split("=", 2);
                 if (keyValue.length == 2) {
                     sectionParams.put(keyValue[0].trim(), keyValue[1].trim());
                 }
             }
 
-            // Aggiungiamo la sezione alla mappa principale
             configSections.put(sectionName, sectionParams);
         }
 
         return configSections;
     }
-
 }

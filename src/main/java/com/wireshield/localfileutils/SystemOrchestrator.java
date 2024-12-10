@@ -1,5 +1,7 @@
 package com.wireshield.localfileutils;
 
+import java.util.Map;
+
 import com.wireshield.av.AntivirusManager;
 import com.wireshield.wireguard.WireguardManager;
 import com.wireshield.enums.runningStates;
@@ -76,9 +78,9 @@ public class SystemOrchestrator {
      * @param peer
      *   The peer to be created.
      */
-    public void createPeer(String peerData){
-        Map<String, Map<String, String>> peer = wireguardManager.peerManager.parsePeerConfig(peerData);
-        wireguardManager.peerManager.addPeer(peer);
+    public void createPeer(String peerData, String peerName){
+        Map<String, Map<String, String>> peer = wireguardManager.getPeerManager().parsePeerConfig(peerName);
+        wireguardManager.getPeerManager().addPeer(peer, peerName);
     }
 
     /**
