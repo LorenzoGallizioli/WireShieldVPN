@@ -76,7 +76,10 @@ public class SystemOrchestrator {
      * @param peer
      *   The peer to be created.
      */
-    public void createPeer(String peer){}
+    public void createPeer(String peerData){
+        Map<String, Map<String, String>> peer = wireguardManager.peerManager.parsePeerConfig(peerData);
+        wireguardManager.peerManager.addPeer(peer);
+    }
 
     /**
      * Gets the report info.
