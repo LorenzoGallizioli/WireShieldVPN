@@ -20,7 +20,15 @@ public class SystemOrchestrator {
     /**
      * The constructor for the SystemOrchestrator class.
      */
-    public SystemOrchestrator() {}
+    public SystemOrchestrator() {
+    	
+        // Crea una sola istanza di AntivirusManager
+        this.antivirusManager = new AntivirusManager();
+
+        // Passa questa istanza di AntivirusManager al DownloadManager
+        this.downloadManager = new DownloadManager(antivirusManager);
+    	
+    }
 
     /**
      * Method to manage the VPN connection.
@@ -32,6 +40,18 @@ public class SystemOrchestrator {
      */
     public void manageVPN(vpnOperations operation, connectionStates status) {}
 
+    
+    public void manageDownload() {
+        if (monitorStatus == runningStates.DOWN) {
+            monitorStatus = runningStates.UP;
+            System.out.println("Starting download monitoring service...");
+            new Thread(downloadManager::startMonitoring).start();
+        } else {
+            System.out.println("Download monitoring service is already running.");
+        }
+    }
+    
+    
     /**
      * Method to manage the antivirus.
      * 

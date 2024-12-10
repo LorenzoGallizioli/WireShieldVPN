@@ -1,25 +1,37 @@
 package com.wireshield.localfileutils;
 
+import com.wireshield.av.*;
+import com.wireshield.enums.runningStates;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.HashSet;
 import java.util.Set;
+import com.wireshield.enums.runningStates;
 
 public class DownloadManager {
 
     private String downloadPath;
     private final Set<String> detectedFiles = new HashSet<>();
-    public DownloadManager() {
+    private AntivirusManager antivirusManager;
+    private runningStates monitorStatus;
+    
+    public DownloadManager(AntivirusManager antivirusManager) {
         this.downloadPath = getDefaultDownloadPath();
+        this.monitorStatus = runningStates.DOWN;
+        this.antivirusManager = antivirusManager;
     }
 
     private String getDefaultDownloadPath() {
         String userHome = System.getProperty("user.home");
         String downloadFolder = "Downloads";
-        return System.getProperty("os.name").toLowerCase().contains("win")
-                ? userHome + "\\" + downloadFolder
-                : userHome + "/" + downloadFolder;
+
+        if (System.getProperty("os.name").toLowerCase().contains("win")) {
+            return userHome + "\\" + downloadFolder;
+        } else {
+            return userHome + "/" + downloadFolder;
+        }
     }
 
     public void startMonitoring() {
@@ -41,6 +53,7 @@ public class DownloadManager {
                             String fileName = newFile.getAbsolutePath();
                             if (!detectedFiles.contains(fileName)) {
                                 detectedFiles.add(fileName);
+                                antivirusManager.addFileToScanBuffer(newFile);
                                 System.out.println("New file detected: " + newFile.getName());
                             }
                         }
@@ -68,10 +81,15 @@ public class DownloadManager {
             return false;
         }
     }
-
-    // TESTING
+    
+    /* TESTING MAIN
+     * 
     public static void main(String[] args) {
         DownloadManager downloadManager = new DownloadManager();
         downloadManager.startMonitoring();
     }
+    */
+    
 }
+
+
