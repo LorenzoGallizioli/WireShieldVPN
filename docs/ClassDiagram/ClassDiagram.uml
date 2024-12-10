@@ -51,11 +51,14 @@
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </ownedParameter>
       </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_1DtlsKwjEe-xgaz8Fc6Tmg" name="getPeer" visibility="public">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_1DtlsKwjEe-xgaz8Fc6Tmg" name="getPeerById" visibility="public">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_Kfg_8KwkEe-xgaz8Fc6Tmg" type="_532gkKwXEe-xgaz8Fc6Tmg" direction="return"/>
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_lWI6gKzcEe-DLrB2YWdSlA" name="id">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_RKqs4LY2Ee-89OgtcmQhlQ" name="getPeers" visibility="public">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_bG1bELY2Ee-89OgtcmQhlQ" type="_532gkKwXEe-xgaz8Fc6Tmg" direction="return"/>
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_gju4UKwUEe-xgaz8Fc6Tmg" name="Connection" visibility="package">
@@ -478,4 +481,5 @@
       <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_5bPkcKwUEe-xgaz8Fc6Tmg" name="Disconnected"/>
     </packagedElement>
   </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_H5328LY2Ee-89OgtcmQhlQ" name="Class20"/>
 </uml:Model>
