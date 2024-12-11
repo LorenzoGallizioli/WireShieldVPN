@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import com.wireshield.enums.connectionStates;
 
+/**
+ * The WireguardManager class is responsible for managing the wireguard VPN.
+ */
 public class WireguardManager {
     private String wgPath;
     private Connection connection;
