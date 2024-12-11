@@ -2,9 +2,7 @@
 package com.wireshield.wireguard;
 
 import static org.junit.Assert.*;
-
 import java.util.Map;
-
 import org.junit.Test;
 
 public class PeerManagerTest {
@@ -89,6 +87,4 @@ public class PeerManagerTest {
 			fail("err");
 		}
 	}
-
-	
 }

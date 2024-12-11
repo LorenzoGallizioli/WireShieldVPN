@@ -40,7 +40,7 @@
 &nbsp;
 
 ---
-# Sprint n°1: &nbsp;&nbsp; 18/11/2024 - 9/12/2024
+# Sprint n°1: &nbsp;&nbsp; 19/11/2024 - 03/12/2024
 ## **Ruoli del Team**
 
 - **Product Owner**: 
@@ -87,7 +87,7 @@
 
 &nbsp;
 ---
-# Sprint n°2: &nbsp;&nbsp; 18/11/2024 - 9/12/2024
+# Sprint n°2: &nbsp;&nbsp; 03/12/2024 - 17/12/2024
 ## **Ruoli del Team**
 
 - **Product Owner**: 
@@ -114,3 +114,14 @@
 | Convertire diagramma di attività e diagramma di sequenza in Papyrus  | Convertire il diagramma di attività e diagramma di sequenza, creandolo su papyrus   | Lorenzo Gallizioli
 | Aggiornamento diagramma di attività + diagramma di sequenza   | Aggiornamento del diagramma di attività + diagramma di sequenza aggiungendo il System Orchestretor      | Davide Bonsembiante         |
 | Aggiornamento Sprint Backlog   | Aggiornamento dello Sprint Backlog con le novità nate dal Week Scrum      | Davide Bonsembiante         |
+
+&nbsp;
+
+# 2° Week Scrum 10 Dicembre 2024
+| **Titolo**                      | **Compiti**                                                                                       | **Sviluppatore**         |
+|----------------------------------|--------------------------------------------------------------------------------------------------|--------------------------|
+|  Implementazione gestione cartella Download | Implementazione del codice per monitorare la cartella download e modifica della classe System Orchestrator per gestirlo  | Davide Bonsembiante |
+| Implementazione gestione CLAMAV | Implementazione del codice per avviare CLAMAV e controllare i file scaricati e modifica della classe System Orchestrator per gestirlo   | Davide Bonsembiante
+| Implementazione Gestione PeerManager | Implementazione del codice per monitorare e gestire i peer di comunicazione | Thomas Paganelli
+| Creazione del database | Creazione di un database sqlLite per gestire i peer | Thomas Paganelli |
+| Implementazione gestione Wireguard | Implementazione del codice per avviare Wireguard e gestire le connessioni VPN | Lorenzo Gallizioli |

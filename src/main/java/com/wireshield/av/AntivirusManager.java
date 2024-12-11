@@ -1,10 +1,13 @@
 package com.wireshield.av;
 
-import com.wireshield.localfileutils.File;
+import java.io.File;
+
 import com.wireshield.enums.runningStates;
+
 /**
  * The AntivirusManager class is responsible for managing the antivirus.
  */
+
 public class AntivirusManager {
     private ClamAV clamAV;
     private VirusTotal virusTotal;

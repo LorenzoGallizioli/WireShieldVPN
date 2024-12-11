@@ -1,6 +1,6 @@
 package com.wireshield.av;
 
-import com.wireshield.localfileutils.File;
+import java.io.File;
 
 /**
  * The VirusTotal class is responsible for scanning files using VirusTotal.
