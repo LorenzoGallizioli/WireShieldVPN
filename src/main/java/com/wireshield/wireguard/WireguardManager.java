@@ -9,9 +9,11 @@ import com.wireshield.enums.connectionStates;
 public class WireguardManager {
     private String wgPath;
     private Connection connection;
+    private PeerManager peerManager;
 
     public WireguardManager(String wgPath) {
         connection = new Connection();
+        peerManager = new PeerManager();
         File file = new File(wgPath);
         if (!file.exists() || !file.isFile()) {
             throw new IllegalArgumentException("[ERR] WireGuard executable not found.");
@@ -110,7 +112,23 @@ public class WireguardManager {
         }
     }
 
+    /**
+     * Returns the connection.
+     * 
+     * @return Connection
+     *   The connection.
+     */
     public Connection getConnection() {
         return connection;
+    }
+
+    /**
+     * Returns the peer manager.
+     * 
+     * @return PeerManager
+     *   The peer manager.
+     */
+    public PeerManager getPeerManager() {
+        return peerManager;
     }
 }
