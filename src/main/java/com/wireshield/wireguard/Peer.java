@@ -19,6 +19,7 @@ public class Peer {
 
     /**
      * The constructor of the Peer class.
+<<<<<<< HEAD
      * @param PrivateKey
      * @param Address
      * @param DNS 
@@ -29,6 +30,11 @@ public class Peer {
      * @param AllowedIPs
      * @param name
      * 
+=======
+     * @param allowedIPs2 
+     * @param endpoint2 
+     * @param presharedKey 
+>>>>>>> 9572d50af8b16fdfd92ca709b55634de81f27f84
      */
     public Peer(String PrivateKey, String Address, String DNS, String MTU, String PublicKey, String PresharedKey, String Endpoint, String AllowedIPs, String name) {
     	this.privateKey = PrivateKey;
