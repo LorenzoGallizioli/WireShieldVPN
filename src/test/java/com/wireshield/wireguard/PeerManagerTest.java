@@ -9,6 +9,7 @@ import org.junit.Test;
 
 public class PeerManagerTest {
 	
+	String testName = "testPeer";
 	String testString =   "[Interface]\r\n"
 						+ "PrivateKey = cIm09yQB5PUxKIhUwyK8TwL6ulaemcllbuzSCaOG0UM=\r\n"
 						+ "Address = 172.0.0.6/32\r\n"
@@ -20,27 +21,52 @@ public class PeerManagerTest {
 						+ "PresharedKey = 0GYNNk24bSVUKBVGQU2tS1+tu5wT/RV2dQ3Z2gFxrNU=\r\n"
 						+ "AllowedIPs = 0.0.0.0/0, ::/0\r\n"
 						+ "Endpoint = 140.238.212.179:51820\r\n";
+	Map<String, Map<String, String>> extDatas = PeerManager.parsePeerConfig(testString);
 
-	@Test
+
+	/*@Test
 	public void testPeerManager() {
 		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testAddPeer() {
-		fail("Not yet implemented");
-	}
+	}*/
 
 	@Test
 	public void testRemovePeer() {
-		fail("Not yet implemented");
+		PeerManager pm = new PeerManager();
+		String peerId = pm.createPeer(extDatas, testName);
+		
+		pm.removePeer(peerId);
+		
+		if(pm.getPeers().length != 0) {
+			fail("err");
+		}
 	}
 
 	@Test
-	public void testGetPeers() {
+	public void testAddAndGetPeers() {
+		PeerManager pm = new PeerManager();
+		String peerId = pm.createPeer(extDatas, testName);
 		
-		fail("Not yet implemented");
+		Peer p[];
+		p = pm.getPeers();
+		
+		if (p.length == 0 || !p[0].equals(pm.getPeerById(peerId))) {
+			fail("err");
+		}
 	}
+	
+	@Test
+	public void testGetPeerById() {
+		PeerManager pm = new PeerManager();
+		String peerId = pm.createPeer(extDatas, testName);
+		
+		Peer peer = pm.getPeerById(peerId);
+		
+		// Compares the same peer retrieved by 2 different methods
+		if (!peer.equals(pm.getPeers()[0])) {
+			fail("err");
+		}
+	}
+	
 	
 	@Test
 	public void testParsePeerConfig() {
@@ -64,64 +90,5 @@ public class PeerManagerTest {
 		}
 	}
 
-	@Test
-	public void testObject() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetClass() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testHashCode() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testEquals() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testClone() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testToString() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testNotify() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testNotifyAll() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testWait() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testWaitLong() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testWaitLongInt() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testFinalize() {
-		fail("Not yet implemented");
-	}
-
+	
 }
