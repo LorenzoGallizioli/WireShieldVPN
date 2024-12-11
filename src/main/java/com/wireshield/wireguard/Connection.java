@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 
 import com.wireshield.enums.connectionStates;
 
+/**
+ * The Connection class represents a WireGuard connection.
+ */
 public class Connection {
     private connectionStates status;
     private long sentTraffic;
