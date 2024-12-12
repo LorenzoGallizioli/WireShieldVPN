@@ -43,6 +43,9 @@
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_T2ld8azdEe-DLrB2YWdSlA"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_T2ld8qzdEe-DLrB2YWdSlA" value="*"/>
       </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_HvV9YLhkEe-TKtIZasLrnQ" name="PEERS_PATH">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_0eTykKwjEe-xgaz8Fc6Tmg" name="createPeer">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_8vFV8KwjEe-xgaz8Fc6Tmg">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EMap"/>
@@ -69,6 +72,20 @@
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_bG1bELY2Ee-89OgtcmQhlQ" type="_532gkKwXEe-xgaz8Fc6Tmg" direction="return">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C9ru0LesEe-YaMtDED3u3A"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C-K3ALesEe-YaMtDED3u3A" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_HIXVkLhnEe-TKtIZasLrnQ" name="parsePeerConfig">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_NtEYsLhnEe-TKtIZasLrnQ">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_QlsysLhnEe-TKtIZasLrnQ" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EMap"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_XTaRwLhwEe-TKtIZasLrnQ" name="getPeerPathById"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_YSGnQLhzEe-TKtIZasLrnQ" name="setPeersPath">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_b3TzYLhzEe-TKtIZasLrnQ" direction="inout">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </ownedParameter>
       </ownedOperation>
     </packagedElement>
@@ -378,6 +395,7 @@
       <ownedAttribute xmi:type="uml:Property" xmi:id="_SzkS4K5rEe-P0ILuWUiWXw" name="connectionStatus" visibility="private" type="_upjjgKwUEe-xgaz8Fc6Tmg"/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_aMwG8K5rEe-P0ILuWUiWXw" name="avStatus" visibility="private" type="_vqZL8K21Ee-r0tXGBdOuIw"/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_k1iqkK5rEe-P0ILuWUiWXw" name="monitorStatus" visibility="private" type="_vqZL8K21Ee-r0tXGBdOuIw"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_TovpwLhjEe-TKtIZasLrnQ" name="filemanager" type="_PBB3wLhjEe-TKtIZasLrnQ" association="_ToH-sLhjEe-TKtIZasLrnQ"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_HN7OAKwREe-xgaz8Fc6Tmg" name="manageVpn" visibility="public" concurrency="concurrent">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_fzW-oK2xEe-r0tXGBdOuIw" type="_UbK-YK2xEe-r0tXGBdOuIw"/>
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_Eb3iYK8MEe-WFOzjazvNcA" type="_upjjgKwUEe-xgaz8Fc6Tmg" direction="inout"/>
@@ -394,7 +412,7 @@
       <ownedOperation xmi:type="uml:Operation" xmi:id="_l6rRMK5sEe-P0ILuWUiWXw" name="getMonitorStatus">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_1wIuAK5sEe-P0ILuWUiWXw" type="_vqZL8K21Ee-r0tXGBdOuIw" direction="return"/>
       </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_hAtuAK8vEe-WFOzjazvNcA" name="createPeer">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_hAtuAK8vEe-WFOzjazvNcA" name="addPeer">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_nkx38K8vEe-WFOzjazvNcA">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_paVrYK8vEe-WFOzjazvNcA" value="*"/>
@@ -405,6 +423,49 @@
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </ownedParameter>
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_qmSH0K80Ee-WFOzjazvNcA">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_5JLBYLhnEe-TKtIZasLrnQ" name="loadPeersAndSetPath"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_PBB3wLhjEe-TKtIZasLrnQ" name="FileManager">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_fuU7gLhjEe-TKtIZasLrnQ" name="writeFile">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_BG4UQLhnEe-TKtIZasLrnQ">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_WFhRYLhnEe-TKtIZasLrnQ">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_eTq-kLhnEe-TKtIZasLrnQ" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_ltXs0LhjEe-TKtIZasLrnQ" name="createFile">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_ghEDMLhnEe-TKtIZasLrnQ" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_irodULhnEe-TKtIZasLrnQ">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_2NiTgLhjEe-TKtIZasLrnQ" name="readFile">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_l4W4ALhnEe-TKtIZasLrnQ" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_nld6ELhnEe-TKtIZasLrnQ">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_3XJm8LhjEe-TKtIZasLrnQ" name="deleteFile">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_paAZ0LhnEe-TKtIZasLrnQ">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_qsJXILhnEe-TKtIZasLrnQ" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_xwrJ0LhnEe-TKtIZasLrnQ" name="getStdPath">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_2VR9cLhnEe-TKtIZasLrnQ" direction="return">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </ownedParameter>
       </ownedOperation>
@@ -516,5 +577,11 @@
       <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_7yqHwKwUEe-xgaz8Fc6Tmg" name="Connection in progress"/>
       <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_5bPkcKwUEe-xgaz8Fc6Tmg" name="Disconnected"/>
     </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_ToH-sLhjEe-TKtIZasLrnQ" visibility="public" memberEnd="_TovpwLhjEe-TKtIZasLrnQ _Toxe8LhjEe-TKtIZasLrnQ">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_TokqoLhjEe-TKtIZasLrnQ" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_TokqobhjEe-TKtIZasLrnQ" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_Toxe8LhjEe-TKtIZasLrnQ" name="SystemOrchestrator" type="_15Yg4KwMEe-xgaz8Fc6Tmg" association="_ToH-sLhjEe-TKtIZasLrnQ"/>
   </packagedElement>
 </uml:Model>
