@@ -120,8 +120,9 @@
 # 2° Week Scrum 10 Dicembre 2024
 | **Titolo**                      | **Compiti**                                                                                       | **Sviluppatore**         |
 |----------------------------------|--------------------------------------------------------------------------------------------------|--------------------------|
-|  Implementazione gestione cartella Download | Implementazione del codice per monitorare la cartella download e modifica della classe System Orchestrator per gestirlo  | Davide Bonsembiante |
-| Implementazione gestione CLAMAV | Implementazione del codice per avviare CLAMAV e controllare i file scaricati e modifica della classe System Orchestrator per gestirlo   | Davide Bonsembiante
-| Implementazione Gestione PeerManager | Implementazione del codice per monitorare e gestire i peer di comunicazione | Thomas Paganelli
-| Creazione del database | Creazione di un database sqlLite per gestire i peer | Thomas Paganelli |
+|  Implementazione Download Manager | Implementazione del codice per monitorare la cartella download e modifica della classe System Orchestrator per gestirlo  | Davide Bonsembiante |
+| Implementazione AntivirusManager, CLAMAV e Virustotal| Implementazione del codice per gestire gli antivirus CLAMAV e Virustotal e implementazione del codice per quest'ultimi, controllando i file scaricati. Infine modifica della classe System Orchestrator per gestirlo | Davide Bonsembiante
+| Implementazione Gestione Peer e PeerManager | Implementazione del codice per monitorare e gestire i peer di comunicazione | Thomas Paganelli
+| Implementazione File Manager | Implementazione del codice per gestire i file | Thomas Paganelli
+| Aggiornamento dei diagrammi | Aggiornamento dei diagrammi con le nuove assunzioni e i cambiamenti decisi durante lo sviluppo del progetto | Thomas Paganelli |
 | Implementazione gestione Wireguard | Implementazione del codice per avviare Wireguard e gestire le connessioni VPN | Lorenzo Gallizioli |
