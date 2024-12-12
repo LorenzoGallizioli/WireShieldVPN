@@ -27,7 +27,7 @@ public class DownloadManager {
      */
     public DownloadManager(AntivirusManager antivirusManager) {
         this.downloadPath = getDefaultDownloadPath();
-        this.monitorStatus = runningStates.DOWN;
+        this.setMonitorStatus(runningStates.DOWN);
         this.antivirusManager = antivirusManager;
     }
 
@@ -53,7 +53,7 @@ public class DownloadManager {
      * antivirus scan queue.
      */
     public void startMonitoring() {
-        monitorStatus = runningStates.UP;
+        setMonitorStatus(runningStates.UP);
 
         try (WatchService watchService = FileSystems.getDefault().newWatchService()) {
             Path path = Paths.get(downloadPath);
@@ -125,6 +125,14 @@ public class DownloadManager {
             return false;
         }
     }
+
+	public runningStates getMonitorStatus() {
+		return monitorStatus;
+	}
+
+	public void setMonitorStatus(runningStates monitorStatus) {
+		this.monitorStatus = monitorStatus;
+	}
 
     /**
      * Main method for testing the DownloadManager class.
