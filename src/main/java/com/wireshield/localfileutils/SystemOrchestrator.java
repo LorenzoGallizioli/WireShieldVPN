@@ -1,6 +1,10 @@
 package com.wireshield.localfileutils;
 
 import java.util.Map;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.wireshield.av.AntivirusManager;
 import com.wireshield.wireguard.PeerManager;
 import com.wireshield.wireguard.WireguardManager;
@@ -12,6 +16,8 @@ import com.wireshield.enums.vpnOperations;
  * The SystemOrchestrator class is responsible for orchestrating the system.
  */
 public class SystemOrchestrator {
+    private static final Logger logger = LogManager.getLogger(SystemOrchestrator.class);
+
     private WireguardManager wireguardManager;
     private DownloadManager downloadManager;
     private AntivirusManager antivirusManager;
@@ -38,22 +44,22 @@ public class SystemOrchestrator {
         switch (operation) {
             case START:
                 if (wireguardManager.setInterfaceUp(configPath)) {
-                    System.out.println("[INFO] Interfaccia avviata con successo.");
+                    logger.info("Interfaccia avviata con successo.");
                 } else {
-                    System.err.println("[ERR] Errore nell'avvio dell'interfaccia.");
+                    logger.error("Errore nell'avvio dell'interfaccia.");
                 }
             break;
         
             case STOP:
                 if (wireguardManager.setInterfaceDown()) {
-                    System.out.println("[INFO] Interfaccia arrestata con successo.");
+                    logger.info("Interfaccia arrestata con successo.");
                 } else {
-                    System.err.println("[ERR] Errore nell'arresto dell'interfaccia.");
+                    logger.error("Errore nell'arresto dell'interfaccia.");
                 }
                 break;
             
             default:
-                System.err.println("[WARN] Operazione non supportata: " + operation);
+                logger.error("Operazione non supportata: " + operation);
             break;
         }
     

@@ -3,6 +3,10 @@ package com.wireshield.wireguard;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import com.wireshield.enums.connectionStates;
 
@@ -10,6 +14,8 @@ import com.wireshield.enums.connectionStates;
  * The WireguardManager class is responsible for managing the wireguard VPN.
  */
 public class WireguardManager {
+    private static final Logger logger = LogManager.getLogger(WireguardManager.class);
+
     private String wgPath;
     private Connection connection;
     private PeerManager peerManager;
@@ -17,7 +23,7 @@ public class WireguardManager {
     public WireguardManager(String wgPath) {
         File file = new File(wgPath);
         if (!file.exists() || !file.isFile()) {
-            System.err.println("[ERR] WireGuard executable not found");
+            logger.error("WireGuard executable not found");
             return;
         }
         connection = new Connection();
@@ -36,7 +42,7 @@ public class WireguardManager {
     public Boolean setInterfaceUp(String configPath) {
         String activeInterface = connection.getActiveInterface();
         if(activeInterface != null) {
-            System.err.println("[ERR] WireGuard interface is already up.");
+            logger.error("WireGuard interface is already up.");
             return false; // Interface is up
         }
 
@@ -53,17 +59,17 @@ public class WireguardManager {
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
-                System.out.println(line);
+                logger.info(line);
             }
 
             // Checks the exit code of the process.
             int exitCode = process.waitFor();
             if (exitCode == 0) {
-                System.out.println("[INFO] WireGuard interface started.");
+                logger.info("WireGuard interface started.");
                 connection.setStatus(connectionStates.CONNECTED);
                 return true;
             } else {
-                System.err.println("[ERR] Error starting WireGuard interface.");
+                logger.error("Error starting WireGuard interface.");
                 return false;
             }
         } catch (IOException | InterruptedException e) {
@@ -80,7 +86,7 @@ public class WireguardManager {
     public Boolean setInterfaceDown() {
         String interfaceName = connection.getActiveInterface();
         if(interfaceName == null) {
-            System.err.println("[ERR] No active WireGuard interface.");
+            logger.error("No active WireGuard interface.");
             return false;
         }
 
@@ -97,17 +103,17 @@ public class WireguardManager {
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
-                System.out.println(line);
+                logger.info(line);
             }
 
             // Checks the exit code of the process.
             int exitCode = process.waitFor();
             if (exitCode == 0) {
-                System.out.println("[INFO] WireGuard interface stopped.");
+                logger.info("WireGuard interface stopped.");
                 connection.setStatus(connectionStates.DISCONNECTED);
                 return true;
             } else {
-                System.err.println("[ERR] Error stopping WireGuard interface.");
+                logger.error("Error stopping WireGuard interface.");
                 return false;
             }
         } catch (IOException | InterruptedException e) {

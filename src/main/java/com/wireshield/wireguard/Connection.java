@@ -4,12 +4,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.wireshield.enums.connectionStates;
 
 /**
  * The Connection class represents a WireGuard connection.
  */
 public class Connection {
+    private static final Logger logger = LogManager.getLogger(Connection.class);
+
     private connectionStates status;
     private long sentTraffic;
     private long receivedTraffic;
@@ -88,7 +93,7 @@ public class Connection {
             }
             return null; // Interface is down
         } catch (IOException e) {
-            System.err.println("[ERR] Error getting active interface: " + e.getMessage());  
+            logger.error("Error getting active interface: " + e.getMessage());  
             return null;
         }
 
