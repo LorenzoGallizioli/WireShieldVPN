@@ -15,12 +15,13 @@ public class WireguardManager {
     private PeerManager peerManager;
 
     public WireguardManager(String wgPath) {
-        connection = new Connection();
-        peerManager = new PeerManager();
         File file = new File(wgPath);
         if (!file.exists() || !file.isFile()) {
-            throw new IllegalArgumentException("[ERR] WireGuard executable not found.");
+            System.err.println("[ERR] WireGuard executable not found");
+            return;
         }
+        connection = new Connection();
+        peerManager = new PeerManager();
         this.wgPath = wgPath;
     }
 

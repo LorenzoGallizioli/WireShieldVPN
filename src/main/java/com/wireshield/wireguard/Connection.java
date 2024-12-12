@@ -13,10 +13,24 @@ public class Connection {
     private connectionStates status;
     private long sentTraffic;
     private long receivedTraffic;
+    private long lastHandshakeTime;
 
     public Connection() {}
 
-    public void updateTraffic(long sentTraffic, long receivedTraffic) {}
+    /**
+     * Updates the traffic of the connection.
+     * 
+     * @param sentTraffic
+     *   The traffic sent in bytes.
+     * @param receivedTraffic
+     *   The traffic received in bytes.
+     */
+    public void updateTraffic(long sentTraffic, long receivedTraffic) {
+        while (true) {
+            sentTraffic = this.getSentTraffic();
+            receivedTraffic = this.getReceivedTraffic();
+        }
+    }
 
     /**
      * Execute the wg show command for retrieving informations about the connection.
@@ -122,7 +136,8 @@ public class Connection {
      */
     public Long getLastHandshakeTime() {
         String latestHandShake = wgShow("latest-handshakes"); 
-        return Long.parseLong(latestHandShake);
+        lastHandshakeTime = Long.parseLong(latestHandShake);
+        return lastHandshakeTime;
     }
 
 

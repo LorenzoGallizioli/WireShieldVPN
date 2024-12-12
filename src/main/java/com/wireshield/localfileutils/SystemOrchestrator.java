@@ -1,7 +1,6 @@
 package com.wireshield.localfileutils;
 
 import java.util.Map;
-
 import com.wireshield.av.AntivirusManager;
 import com.wireshield.wireguard.WireguardManager;
 import com.wireshield.enums.runningStates;
@@ -31,8 +30,9 @@ public class SystemOrchestrator {
      *   The operation to be performed.
      */
     public void manageVPN(vpnOperations operation) {
+        // UI (scelta peer) -> peerID -> manageVPN(vpnOperations operation, String peerID) -> getPathById(peerID) -> setInterfaceUp(configPath)   
         String wgPath = "C:\\Program Files\\WireGuard\\wireguard.exe";
-        String configPath = "C:\\Program Files\\WireGuard\\Data\\Configurations\\peer5_galliz.conf.dpapi";
+        String configPath = "C:\\Users\\loren\\Downloads\\peer5_galliz.conf";
         wireguardManager = new WireguardManager(wgPath);
         switch (operation) {
             case START:
@@ -106,6 +106,16 @@ public class SystemOrchestrator {
     public void createPeer(String peerData, String peerName){
         Map<String, Map<String, String>> peer = wireguardManager.getPeerManager().parsePeerConfig(peerName);
         wireguardManager.getPeerManager().createPeer(peer, peerName);
+    }
+
+    /**
+     * Gets the wireguard manager.
+     * 
+     * @return WireguardManager
+     *   The wireguard manager.
+     */
+    public WireguardManager getWireguardManager() {
+        return wireguardManager;
     }
 
     /**
