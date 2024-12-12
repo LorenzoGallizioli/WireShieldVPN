@@ -26,7 +26,7 @@ public class SystemOrchestrator {
 		this.antivirusManager = AntivirusManager.getInstance();
 
 		// Passa questa istanza di AntivirusManager al DownloadManager
-		this.downloadManager = new DownloadManager(antivirusManager);
+		this.setDownloadManager(new DownloadManager(antivirusManager));
 
 	}
 
@@ -45,7 +45,7 @@ public class SystemOrchestrator {
 
 		if (monitorStatus == runningStates.UP) {
 			System.out.println("Starting download monitoring service...");
-			new Thread(downloadManager::startMonitoring).start();
+			new Thread(getDownloadManager()::startMonitoring).start();
 		} else {
 			System.out.println("Stopping Download monitoring service...");
 		}
@@ -113,5 +113,13 @@ public class SystemOrchestrator {
 	 */
 	public String getReportInfo(String report) {
 		return "";
+	}
+
+	public DownloadManager getDownloadManager() {
+		return downloadManager;
+	}
+
+	public void setDownloadManager(DownloadManager downloadManager) {
+		this.downloadManager = downloadManager;
 	}
 }

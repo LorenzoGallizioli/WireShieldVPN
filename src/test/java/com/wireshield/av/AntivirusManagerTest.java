@@ -1,94 +1,111 @@
 package com.wireshield.av;
 
-import static org.junit.Assert.*;
-
+import com.wireshield.enums.runningStates;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Map;
+
+import static org.junit.Assert.*;
 
 public class AntivirusManagerTest {
 
-	@Test
-	public void testAntivirusManager() {
-		fail("Not yet implemented");
-	}
+    private AntivirusManager antivirusManager;
+    private File testFile1;
+    private File testFile2;
 
-	@Test
-	public void testPerformScan() {
-		fail("Not yet implemented");
-	}
+    @Before
+    public void setUp() throws IOException {
+        // Ottieni l'istanza di AntivirusManager
+        antivirusManager = AntivirusManager.getInstance();
 
-	@Test
-	public void testAddFileToScanBuffer() {
-		fail("Not yet implemented");
-	}
+        // Crea alcuni file di esempio per il test
+        testFile1 = new File("testfile1.txt");
+        testFile2 = new File("testfile2.txt");
 
-	@Test
-	public void testGetReport() {
-		fail("Not yet implemented");
-	}
+        // Per scopi di testing, creiamo dei file temporanei
+        if (testFile1.createNewFile()) {
+            System.out.println("Created file: " + testFile1.getName());
+        }
+        if (testFile2.createNewFile()) {
+            System.out.println("Created file: " + testFile2.getName());
+        }
+    }
 
-	@Test
-	public void testGetStatus() {
-		fail("Not yet implemented");
-	}
+    @After
+    public void tearDown() {
+        // Elimina i file di test dopo ogni test
+        if (testFile1.exists()) {
+            testFile1.delete();
+        }
+        if (testFile2.exists()) {
+            testFile2.delete();
+        }
+    }
 
-	@Test
-	public void testObject() {
-		fail("Not yet implemented");
-	}
+    @Test
+    public void testAddFileToScanBuffer() {
+        // Aggiungi i file al buffer di scansione
+        antivirusManager.addFileToScanBuffer(testFile1);
+        antivirusManager.addFileToScanBuffer(testFile2);
 
-	@Test
-	public void testGetClass() {
-		fail("Not yet implemented");
-	}
+        // Verifica che i file siano stati aggiunti al buffer
+        Map<File, Boolean> scanBuffer = antivirusManager.getScanBuffer();
+        assertTrue(scanBuffer.containsKey(testFile1));
+        assertTrue(scanBuffer.containsKey(testFile2));
+    }
 
-	@Test
-	public void testHashCode() {
-		fail("Not yet implemented");
-	}
+    @Test
+    public void testPerformScan() {
+        // Aggiungi i file al buffer di scansione
+        antivirusManager.addFileToScanBuffer(testFile1);
+        antivirusManager.addFileToScanBuffer(testFile2);
 
-	@Test
-	public void testEquals() {
-		fail("Not yet implemented");
-	}
+        // Esegui la scansione dei file
+        antivirusManager.performScan();
 
-	@Test
-	public void testClone() {
-		fail("Not yet implemented");
-	}
+        // Verifica che i file siano stati scansionati e rimossi dal buffer
+        Map<File, Boolean> scanBuffer = antivirusManager.getScanBuffer();
+        assertFalse(scanBuffer.containsKey(testFile1));
+        assertFalse(scanBuffer.containsKey(testFile2));
+    }
 
-	@Test
-	public void testToString() {
-		fail("Not yet implemented");
-	}
+    @Test
+    public void testGetReport() {
+        // Esegui la scansione dei file
+        antivirusManager.addFileToScanBuffer(testFile1);
+        antivirusManager.performScan();
 
-	@Test
-	public void testNotify() {
-		fail("Not yet implemented");
-	}
+        // Ottieni il report
+        ScanReport report = antivirusManager.getReport();
 
-	@Test
-	public void testNotifyAll() {
-		fail("Not yet implemented");
-	}
+        // Verifica che il report non sia null
+        assertNotNull(report);
+    }
 
-	@Test
-	public void testWait() {
-		fail("Not yet implemented");
-	}
+    @Test
+    public void testGetStatus() {
+        // Ottieni lo stato dell'antivirus
+        runningStates status = antivirusManager.getStatus();
 
-	@Test
-	public void testWaitLong() {
-		fail("Not yet implemented");
-	}
+        // Verifica che lo stato sia DOWN (stato iniziale)
+        assertEquals(runningStates.DOWN, status);
+    }
 
-	@Test
-	public void testWaitLongInt() {
-		fail("Not yet implemented");
-	}
+    @Test
+    public void testGetScanBuffer() {
+        // Aggiungi i file al buffer di scansione
+        antivirusManager.addFileToScanBuffer(testFile1);
+        antivirusManager.addFileToScanBuffer(testFile2);
 
-	@Test
-	public void testFinalize() {
-		fail("Not yet implemented");
-	}
+        // Ottieni il buffer di scansione
+        Map<File, Boolean> scanBuffer = antivirusManager.getScanBuffer();
 
+        // Verifica che i file siano presenti nel buffer
+        assertTrue(scanBuffer.containsKey(testFile1));
+        assertTrue(scanBuffer.containsKey(testFile2));
+    }
 }

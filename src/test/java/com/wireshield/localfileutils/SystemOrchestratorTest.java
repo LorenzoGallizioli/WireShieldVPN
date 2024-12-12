@@ -1,10 +1,26 @@
 package com.wireshield.localfileutils;
 
-import static org.junit.Assert.*;
-
+import com.wireshield.enums.runningStates;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
+
 public class SystemOrchestratorTest {
+
+    private SystemOrchestrator systemOrchestrator;
+	
+    @Before
+    public void setUp() {
+        systemOrchestrator = new SystemOrchestrator();
+    }
+
+    @After
+    public void tearDown() {
+        systemOrchestrator = null;
+    }
 
 	@Test
 	public void testSystemOrchestrator() {
@@ -18,9 +34,22 @@ public class SystemOrchestratorTest {
 
 	@Test
 	public void testManageAV() {
-		fail("Not yet implemented");
+        systemOrchestrator.manageAV(runningStates.UP);
+        assertEquals(runningStates.UP, systemOrchestrator.getAVStatus());
+
+        systemOrchestrator.manageAV(runningStates.DOWN);
+        assertEquals(runningStates.DOWN, systemOrchestrator.getAVStatus());
 	}
 
+    @Test
+    public void testManageDownload() {
+        systemOrchestrator.manageDownload(runningStates.UP);
+        assertEquals(runningStates.UP, systemOrchestrator.getMonitorStatus());
+
+        systemOrchestrator.manageDownload(runningStates.DOWN);
+        assertEquals(runningStates.DOWN, systemOrchestrator.getMonitorStatus());
+    }
+	
 	@Test
 	public void testGetConnectionStatus() {
 		fail("Not yet implemented");

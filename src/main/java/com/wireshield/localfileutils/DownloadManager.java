@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.HashSet;
 import java.util.Set;
-import com.wireshield.enums.runningStates;
 
 public class DownloadManager {
 
@@ -23,7 +22,7 @@ public class DownloadManager {
         this.antivirusManager = antivirusManager;
     }
 
-    private String getDefaultDownloadPath() {
+    public String getDefaultDownloadPath() {
         String userHome = System.getProperty("user.home");
         String downloadFolder = "Downloads";
 
@@ -35,6 +34,7 @@ public class DownloadManager {
     }
 
     public void startMonitoring() {
+    	monitorStatus = runningStates.UP;
         try (WatchService watchService = FileSystems.getDefault().newWatchService()) {
             Path path = Paths.get(downloadPath);
             path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE);
@@ -53,8 +53,8 @@ public class DownloadManager {
                             String fileName = newFile.getAbsolutePath();
                             if (!detectedFiles.contains(fileName)) {
                                 detectedFiles.add(fileName);
-                                antivirusManager.addFileToScanBuffer(newFile);
                                 System.out.println("New file detected: " + newFile.getName());
+                                antivirusManager.addFileToScanBuffer(newFile);
                             }
                         }
                     }
@@ -67,12 +67,12 @@ public class DownloadManager {
         }
     }
 
-    private boolean isTemporaryFile(File file) {
+    public boolean isTemporaryFile(File file) {
         String fileName = file.getName().toLowerCase();
         return fileName.endsWith(".crdownload") || fileName.endsWith(".part") || fileName.startsWith(".");
     }
 
-    private boolean isFileStable(File file) {
+    public boolean isFileStable(File file) {
         try {
             Thread.sleep(500); // Attendi 500ms per verificare se il file è stabile
             return file.exists() && file.canRead() && file.length() > 0;
@@ -82,14 +82,14 @@ public class DownloadManager {
         }
     }
     
-    /* TESTING MAIN
-     * 
     public static void main(String[] args) {
-        DownloadManager downloadManager = new DownloadManager();
+    	AntivirusManager antivirusManager = AntivirusManager.getInstance();
+        DownloadManager downloadManager = new DownloadManager(antivirusManager);
         downloadManager.startMonitoring();
     }
-    */
     
+    /* TESTING
+ */
 }
 
 
