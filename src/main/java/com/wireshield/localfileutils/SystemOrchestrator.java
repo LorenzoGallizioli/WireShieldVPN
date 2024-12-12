@@ -1,6 +1,9 @@
 package com.wireshield.localfileutils;
 
+import java.util.Map;
+
 import com.wireshield.av.AntivirusManager;
+import com.wireshield.wireguard.PeerManager;
 import com.wireshield.wireguard.WireguardManager;
 import com.wireshield.enums.runningStates;
 import com.wireshield.enums.connectionStates;
@@ -107,8 +110,9 @@ public class SystemOrchestrator {
      *
      * @param peer The peer to be created.
      */
-    public void createPeer(String peer) {
-        // Logic for creating a VPN peer would go here.
+    public void addPeer(String peerData, String peerName){
+		Map<String, Map<String, String>> peer = PeerManager.parsePeerConfig(peerName);
+        wireguardManager.getPeerManager().createPeer(peer, peerName);
     }
 
     /**
