@@ -22,7 +22,11 @@ public class PeerManager {
     /**
      * Retrive datas from Map, create Peer object and add it to peerManager peer array.
      * 
-     * @param map of map (peer info) and Name (peer name)
+     * @param Map <String, Map>
+     * 	 peer info
+     * 
+     * @param String 
+     * 	 peer name
      */
     public String createPeer(Map<String, Map<String, String>> peerData, String name) {
         String PrivateKey = peerData.get("Interface").get("PrivateKey");
