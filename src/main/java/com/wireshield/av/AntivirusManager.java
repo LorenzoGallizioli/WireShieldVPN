@@ -7,134 +7,158 @@ import com.wireshield.enums.runningStates;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * AntivirusManager is a singleton class that manages antivirus scanning.
+ * It buffers files to be scanned, performs scans using ClamAV and VirusTotal,
+ * and maintains a record of scan results.
+ */
 public class AntivirusManager {
 
-	// Variabile statica per memorizzare l'unica istanza
-	private static AntivirusManager instance;
+    private static AntivirusManager instance; // Singleton instance
 
-	private ClamAV clamAV;
-	private VirusTotal virusTotal;
-	private ScanReport finalReports;
-	private Map<File, Boolean> scanBuffer;
-	private runningStates scannerStatus;
-	List<File> filesToRemove = new ArrayList<>();
+    private ClamAV clamAV; // ClamAV scanner instance
+    private VirusTotal virusTotal; // VirusTotal scanner instance
+    private ScanReport finalReports; // Stores the final scan report
+    private Map<File, Boolean> scanBuffer; // Map of files to scan and their scan status
+    private runningStates scannerStatus; // Current state of the scanner
+    private List<File> filesToRemove = new ArrayList<>(); // List of files to remove after scanning
 
-	// Costruttore privato per evitare istanze multiple
-	private AntivirusManager() {
-		this.scanBuffer = new HashMap<>();
-		this.scannerStatus = runningStates.DOWN;
-	}
+    /**
+     * Private constructor to enforce singleton pattern.
+     */
+    private AntivirusManager() {
+        this.scanBuffer = new HashMap<>();
+        this.scannerStatus = runningStates.DOWN;
+    }
 
-	// Metodo pubblico per ottenere l'istanza del Singleton
-	public static synchronized AntivirusManager getInstance() {
-		if (instance == null) {
-			instance = new AntivirusManager(); // Crea l'istanza solo se non esiste già
-		}
-		return instance;
-	}
+    /**
+     * Returns the singleton instance of AntivirusManager.
+     *
+     * @return The AntivirusManager instance.
+     */
+    public static synchronized AntivirusManager getInstance() {
+        if (instance == null) {
+            instance = new AntivirusManager();
+        }
+        return instance;
+    }
 
-	// Metodo per aggiungere un file al buffer solo se non è già stato scansionato
-	public void addFileToScanBuffer(File file) {
-		if (file != null && file.exists()) {
-			if (!scanBuffer.containsKey(file)) {
-				scanBuffer.put(file, false);
-				System.out.println("File added to scan buffer: " + file.getName());
-			} else {
-				System.out.println("File is already in the scan buffer: " + file.getName());
-			}
-		} else {
-			System.out.println("Invalid file or file does not exist.");
-		}
-	}
+    /**
+     * Adds a file to the scan buffer if it has not already been scanned.
+     *
+     * @param file The file to add.
+     */
+    public void addFileToScanBuffer(File file) {
+        if (file != null && file.exists()) {
+            if (!scanBuffer.containsKey(file)) {
+                scanBuffer.put(file, false);
+                System.out.println("File added to scan buffer: " + file.getName());
+            } else {
+                System.out.println("File is already in the scan buffer: " + file.getName());
+            }
+        } else {
+            System.out.println("Invalid file or file does not exist.");
+        }
+    }
 
-	// Metodo per eseguire la scansione dei file
-	public void performScan() {
+    /**
+     * Performs antivirus scanning on files in the scan buffer.
+     */
+    public void performScan() {
+        for (Map.Entry<File, Boolean> entry : scanBuffer.entrySet()) {
+            File file = entry.getKey();
+            Boolean isScanned = entry.getValue();
 
-		// Itera attraverso la mappa scanBuffer
-		for (Map.Entry<File, Boolean> entry : scanBuffer.entrySet()) {
-			File file = entry.getKey();
-			Boolean isScanned = entry.getValue();
+            if (!isScanned) {
+                System.out.println("Scanning file: " + file.getName());
+                ScanReport report = new ScanReport(); // Holds scan details
 
-			// Se il file non è stato scansionato
-			if (!isScanned) {
-				System.out.println("Scanning file: " + file.getName());
-				ScanReport report = new ScanReport(); // Supponiamo che ScanReport sia un oggetto che contiene i
-														// dettagli della scansione
+                // Perform scanning with ClamAV and VirusTotal
+                if (clamAV != null) {
+                    clamAV.analyze(file, report);
+                }
+                if (virusTotal != null) {
+                    virusTotal.analyze(file, report);
+                }
 
-				// Esegui la scansione con ClamAV e VirusTotal
-				if (clamAV != null) {
-					clamAV.analyze(file, report);
-				}
-				if (virusTotal != null) {
-					virusTotal.analyze(file, report);
-				}
+                // Mark the file as scanned
+                scanBuffer.put(file, true);
+                System.out.println("Scan completed for file: " + file.getName());
 
-				// Segna il file come scansionato
-				scanBuffer.put(file, true);
-				System.out.println("Scan completed for file: " + file.getName());
+                // Add file to removal list
+                filesToRemove.add(file);
+            } else {
+                System.out.println("File already scanned: " + file.getName());
+            }
+        }
 
-				// Aggiungi il file alla lista dei file da rimuovere (non rimuoverlo
-				// direttamente dalla mappa durante l'iterazione)
-				filesToRemove.add(file);
-			} else {
-				System.out.println("File already scanned: " + file.getName());
-			}
-		}
+        // Remove scanned files from the buffer
+        for (File file : filesToRemove) {
+            scanBuffer.remove(file);
+            System.out.println("Removed file from buffer: " + file.getName());
+        }
+        filesToRemove.clear(); // Clear the removal list
+    }
 
-		// Dopo l'iterazione, rimuovi i file scansionati dal buffer
-		for (File file : filesToRemove) {
-			scanBuffer.remove(file);
-			System.out.println("Deleted file: " + file.getName());
-		}
-	}
+    /**
+     * Returns the final scan report.
+     *
+     * @return The ScanReport object.
+     */
+    protected ScanReport getReport() {
+        return finalReports;
+    }
 
-	// Metodo per ottenere il rapporto
-	protected ScanReport getReport() {
-		return finalReports;
-	}
+    /**
+     * Returns the current status of the antivirus scanner.
+     *
+     * @return The runningStates of the scanner.
+     */
+    protected runningStates getStatus() {
+        return scannerStatus;
+    }
 
-	// Metodo per ottenere lo stato dell'antivirus
-	protected runningStates getStatus() {
-		return scannerStatus;
-	}
+    /**
+     * Returns the current scan buffer.
+     *
+     * @return A map of files and their scan status.
+     */
+    public Map<File, Boolean> getScanBuffer() {
+        return scanBuffer;
+    }
 
-	// Metodo per ottenere il buffer di file
-	public Map<File, Boolean> getScanBuffer() {
-		return scanBuffer;
-	}
+    /**
+     * Main method for testing the AntivirusManager class.
+     */
+    /*
+    public static void main(String[] args) {
+        File file1 = new File("testfile1.txt");
+        File file2 = new File("testfile2.txt");
 
-	/* TESTING MAIN
-	 * 
-	public static void main(String[] args) {
-		// Crea alcuni file di esempio per il test
-		File file1 = new File("testfile1.txt");
-		File file2 = new File("testfile2.txt");
+        // Create temporary files for testing
+        try {
+            if (file1.createNewFile()) {
+                System.out.println("Created file: " + file1.getName());
+            }
+            if (file2.createNewFile()) {
+                System.out.println("Created file: " + file2.getName());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-		// Per scopi di testing, creiamo dei file temporanei
-		try {
-			if (file1.createNewFile()) {
-				System.out.println("Created file: " + file1.getName());
-			}
-			if (file2.createNewFile()) {
-				System.out.println("Created file: " + file2.getName());
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+        // Get the instance of AntivirusManager
+        AntivirusManager antivirusManager = AntivirusManager.getInstance();
 
-		// Ottieni l'istanza di AntivirusManager
-		AntivirusManager antivirusManager = AntivirusManager.getInstance();
+        // Add files to the scan buffer
+        antivirusManager.addFileToScanBuffer(file1);
+        antivirusManager.addFileToScanBuffer(file2);
 
-		// Aggiungi i file al buffer di scansione
-		antivirusManager.addFileToScanBuffer(file1);
-		antivirusManager.addFileToScanBuffer(file2);
+        // Perform scan
+        antivirusManager.performScan();
 
-		// Esegui la scansione dei file
-		antivirusManager.performScan();
-
-		// Verifica lo stato del buffer
-		System.out
-				.println("Scan buffer after scan: " + antivirusManager.getScanBuffer().size() + " file(s) remaining.");
-	} 
-	*/
+        // Verify the buffer state
+        System.out.println("Scan buffer after scan: " + antivirusManager.getScanBuffer().size() + " file(s) remaining.");
+    }
+    */
 }
