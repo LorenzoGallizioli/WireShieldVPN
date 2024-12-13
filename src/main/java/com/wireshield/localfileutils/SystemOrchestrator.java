@@ -13,25 +13,11 @@ import com.wireshield.enums.runningStates;
 import com.wireshield.enums.connectionStates;
 import com.wireshield.enums.vpnOperations;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 /*
  * The SystemOrchestrator class orchestrates various components of the system,
  * including antivirus, download monitoring, and VPN connections.
  */
 public class SystemOrchestrator {
-<<<<<<< HEAD
-=======
-    private static final Logger logger = LogManager.getLogger(SystemOrchestrator.class);
-
-    private WireguardManager wireguardManager;
-    private DownloadManager downloadManager;
-    private AntivirusManager antivirusManager;
-    private runningStates avStatus;
-    private runningStates monitorStatus;
-    private connectionStates connectionStatus;
->>>>>>> main
 
     private static final Logger logger = LogManager.getLogger(SystemOrchestrator.class);
 
@@ -183,12 +169,6 @@ public class SystemOrchestrator {
     }
 
     /**
-<<<<<<< HEAD
-     * Retrieves report information for the specified report.
-     *
-     * @param report The identifier of the report to retrieve.
-     * @return A string containing the report information.
-=======
      * Gets the wireguard manager.
      * 
      * @return WireguardManager
@@ -205,7 +185,6 @@ public class SystemOrchestrator {
      *   The report to be retrieved.
      * @return String
      *   The report info.
->>>>>>> main
      */
     public String getReportInfo(String report) {
         logger.info("Retrieving report info for report: {}", report);
