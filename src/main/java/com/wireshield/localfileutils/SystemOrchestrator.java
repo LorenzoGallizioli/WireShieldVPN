@@ -2,6 +2,9 @@ package com.wireshield.localfileutils;
 
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.wireshield.av.AntivirusManager;
 import com.wireshield.wireguard.PeerManager;
 import com.wireshield.wireguard.WireguardManager;
@@ -13,6 +16,8 @@ import com.wireshield.enums.vpnOperations;
  * The SystemOrchestrator class is responsible for orchestrating the system.
  */
 public class SystemOrchestrator {
+    private static final Logger logger = LogManager.getLogger(SystemOrchestrator.class);
+
     private WireguardManager wireguardManager;
     private DownloadManager downloadManager;
     private AntivirusManager antivirusManager;
@@ -30,11 +35,37 @@ public class SystemOrchestrator {
      * 
      * @param operation
      *   The operation to be performed.
-     * @param status
-     *   The connection status.
      */
-    public void manageVPN(vpnOperations operation, connectionStates status) {}
+    public void manageVPN(vpnOperations operation) {
+        // UI (scelta peer) -> peerID -> manageVPN(vpnOperations operation, String peerID) -> getPathById(peerID) -> setInterfaceUp(configPath)   
+        String wgPath = "C:\\Program Files\\WireGuard\\wireguard.exe";
+        String configPath = "C:\\Users\\loren\\Downloads\\peer5_galliz.conf";
+        wireguardManager = new WireguardManager(wgPath);
+        switch (operation) {
+            case START:
+                if (wireguardManager.setInterfaceUp(configPath)) {
+                    logger.info("Interfaccia avviata con successo.");
+                } else {
+                    logger.error("Errore nell'avvio dell'interfaccia.");
+                }
+            break;
+        
+            case STOP:
+                if (wireguardManager.setInterfaceDown()) {
+                    logger.info("Interfaccia arrestata con successo.");
+                } else {
+                    logger.error("Errore nell'arresto dell'interfaccia.");
+                }
+                break;
+            
+            default:
+                logger.error("Operazione non supportata: " + operation);
+            break;
+        }
+    
+    }
 
+    
     /**
      * Method to manage the antivirus.
      * 
@@ -82,6 +113,16 @@ public class SystemOrchestrator {
     public void addPeer(String peerData, String peerName){
 		Map<String, Map<String, String>> peer = PeerManager.parsePeerConfig(peerName);
         wireguardManager.getPeerManager().createPeer(peer, peerName);
+    }
+
+    /**
+     * Gets the wireguard manager.
+     * 
+     * @return WireguardManager
+     *   The wireguard manager.
+     */
+    public WireguardManager getWireguardManager() {
+        return wireguardManager;
     }
 
     /**

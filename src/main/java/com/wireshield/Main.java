@@ -1,4 +1,8 @@
 package com.wireshield;
+
+import com.wireshield.enums.vpnOperations;
+import com.wireshield.localfileutils.SystemOrchestrator;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 /**
@@ -10,6 +14,8 @@ public class Main
     
     public static void main( String[] args )
     {
+        SystemOrchestrator so = new SystemOrchestrator();
+        so.manageVPN(vpnOperations.START);
         logger.info("Hello World!");
     }
 }
