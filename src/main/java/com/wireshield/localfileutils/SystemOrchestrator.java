@@ -3,6 +3,9 @@ package com.wireshield.localfileutils;
 import java.io.IOException;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.wireshield.av.AntivirusManager;
 import com.wireshield.wireguard.PeerManager;
 import com.wireshield.wireguard.WireguardManager;
@@ -18,6 +21,17 @@ import org.apache.logging.log4j.Logger;
  * including antivirus, download monitoring, and VPN connections.
  */
 public class SystemOrchestrator {
+<<<<<<< HEAD
+=======
+    private static final Logger logger = LogManager.getLogger(SystemOrchestrator.class);
+
+    private WireguardManager wireguardManager;
+    private DownloadManager downloadManager;
+    private AntivirusManager antivirusManager;
+    private runningStates avStatus;
+    private runningStates monitorStatus;
+    private connectionStates connectionStatus;
+>>>>>>> main
 
     private static final Logger logger = LogManager.getLogger(SystemOrchestrator.class);
 
@@ -41,17 +55,41 @@ public class SystemOrchestrator {
     }
 
     /**
-     * Manages VPN connections by performing the specified operation and updating the status.
-     *
-     * @param operation The VPN operation to be performed (e.g., connect, disconnect).
-     * @param status    The current connection status.
+     * Method to manage the VPN connection.
+     * 
+     * @param operation
+     *   The operation to be performed.
      */
-    public void manageVPN(vpnOperations operation, connectionStates status) {
-        logger.info("Managing VPN operation: {}, Current status: {}", operation, status);
-        // Implementation for managing VPN connections would go here.
-        // This could involve interacting with WireguardManager.
+    public void manageVPN(vpnOperations operation) {
+        // UI (scelta peer) -> peerID -> manageVPN(vpnOperations operation, String peerID) -> getPathById(peerID) -> setInterfaceUp(configPath)   
+        String wgPath = "C:\\Program Files\\WireGuard\\wireguard.exe";
+        String configPath = "C:\\Users\\loren\\Downloads\\peer5_galliz.conf";
+        wireguardManager = new WireguardManager(wgPath);
+        switch (operation) {
+            case START:
+                if (wireguardManager.setInterfaceUp(configPath)) {
+                    logger.info("Interfaccia avviata con successo.");
+                } else {
+                    logger.error("Errore nell'avvio dell'interfaccia.");
+                }
+            break;
+        
+            case STOP:
+                if (wireguardManager.setInterfaceDown()) {
+                    logger.info("Interfaccia arrestata con successo.");
+                } else {
+                    logger.error("Errore nell'arresto dell'interfaccia.");
+                }
+                break;
+            
+            default:
+                logger.error("Operazione non supportata: " + operation);
+            break;
+        }
+    
     }
 
+    
     /**
      * Manages the download monitoring service, starting or stopping it based on the status.
      *
@@ -145,10 +183,29 @@ public class SystemOrchestrator {
     }
 
     /**
+<<<<<<< HEAD
      * Retrieves report information for the specified report.
      *
      * @param report The identifier of the report to retrieve.
      * @return A string containing the report information.
+=======
+     * Gets the wireguard manager.
+     * 
+     * @return WireguardManager
+     *   The wireguard manager.
+     */
+    public WireguardManager getWireguardManager() {
+        return wireguardManager;
+    }
+
+    /**
+     * Gets the report info.
+     * 
+     * @param report
+     *   The report to be retrieved.
+     * @return String
+     *   The report info.
+>>>>>>> main
      */
     public String getReportInfo(String report) {
         logger.info("Retrieving report info for report: {}", report);

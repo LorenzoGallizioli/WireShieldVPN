@@ -1,94 +1,35 @@
 package com.wireshield.wireguard;
 
 import static org.junit.Assert.*;
-
+import java.io.File;
+import org.junit.Before;
 import org.junit.Test;
 
 public class WireguardManagerTest {
 
-	@Test
-	public void testWireguardManager() {
-		fail("Not yet implemented");
-	}
+    @Before
+    public void setup() {
+        File file = new File("C:\\Program Files\\WireGuard\\wireguard.exe");
+        if (!file.exists() || !file.isFile()) {
+            fail("[ERR] WireGuard executable not found.");
+        }
+    }
 
-	@Test
-	public void testSetInterfaceUp() {
-		fail("Not yet implemented");
-	}
+    @Test
+    public void testSetInterfaceUp() {
+        WireguardManager wireguardManager = new WireguardManager("C:\\Program Files\\WireGuard\\wireguard.exe");
+        assertTrue(wireguardManager.setInterfaceUp("C:\\\\Program Files\\\\WireGuard\\\\Data\\\\Configurations\\\\peer5_galliz.conf.dpapi"));
+    }
 
-	@Test
-	public void testSetInterfaceDown() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetPeerManager() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetConnection() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testObject() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetClass() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testHashCode() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testEquals() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testClone() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testToString() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testNotify() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testNotifyAll() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testWait() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testWaitLong() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testWaitLongInt() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testFinalize() {
-		fail("Not yet implemented");
-	}
+    @Test
+    public void testSetInterfaceDown() {
+		try {
+			Thread.sleep(1000);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        WireguardManager wireguardManager = new WireguardManager("C:\\Program Files\\WireGuard\\wireguard.exe");
+        assertTrue(wireguardManager.setInterfaceDown());
+    }
 
 }
