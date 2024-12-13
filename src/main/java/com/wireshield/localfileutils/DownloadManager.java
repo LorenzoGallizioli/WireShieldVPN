@@ -133,13 +133,4 @@ public class DownloadManager {
 		this.monitorStatus = monitorStatus;
 		logger.info("Monitor status updated to: {}", monitorStatus);
 	}
-     
-    /* Main method for testing the DownloadManager class.
-     * 
-    public static void main(String[] args) {
-        AntivirusManager antivirusManager = AntivirusManager.getInstance();
-        DownloadManager downloadManager = new DownloadManager(antivirusManager);
-        downloadManager.startMonitoring();
-    }
-    */
 }

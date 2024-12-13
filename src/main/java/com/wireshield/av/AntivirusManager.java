@@ -139,39 +139,4 @@ public class AntivirusManager {
         logger.debug("Retrieving scan buffer.");
         return scanBuffer;
     }
-
-    /**
-     * Main method for testing the AntivirusManager class.
-     */
-    /*
-    public static void main(String[] args) {
-        File file1 = new File("testfile1.txt");
-        File file2 = new File("testfile2.txt");
-
-        // Create temporary files for testing
-        try {
-            if (file1.createNewFile()) {
-                logger.info("Created file: {}", file1.getName());
-            }
-            if (file2.createNewFile()) {
-                logger.info("Created file: {}", file2.getName());
-            }
-        } catch (IOException e) {
-            logger.error("Error creating test files.", e);
-        }
-
-        // Get the instance of AntivirusManager
-        AntivirusManager antivirusManager = AntivirusManager.getInstance();
-
-        // Add files to the scan buffer
-        antivirusManager.addFileToScanBuffer(file1);
-        antivirusManager.addFileToScanBuffer(file2);
-
-        // Perform scan
-        antivirusManager.performScan();
-
-        // Verify the buffer state
-        logger.info("Scan buffer after scan: {} file(s) remaining.", antivirusManager.getScanBuffer().size());
-    }
-    */
 }
