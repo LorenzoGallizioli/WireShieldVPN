@@ -7,7 +7,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+
 public class FileManager {
+	
+	private static final Logger logger = LogManager.getLogger(FileManager.class);
 	
 	/**
      * Creates a new file at the specified path.
@@ -19,14 +25,14 @@ public class FileManager {
         File file = new File(filePath);
         try {
             if (file.createNewFile()) {
-                System.out.println("File creato: " + file.getName());
+                logger.info("File created: " + file.getName());
                 return true;
             } else {
-                System.out.println("Il file esiste già.");
+                logger.debug("File already exists.");
                 return false;
             }
         } catch (IOException e) {
-            System.out.println("Errore durante la creazione del file: " + e.getMessage());
+        	logger.error("Error occured during file creation: " + e.getMessage());
             return false;
         }
     }
@@ -63,7 +69,7 @@ public class FileManager {
                 content.append(line).append("\n");
             }
         } catch (IOException e) {
-            System.out.println("Errore durante la lettura del file: " + e.getMessage());
+        	logger.error("Errore durante la lettura del file: " + e.getMessage());
             return null;
         }
         return content.toString();
@@ -78,10 +84,10 @@ public class FileManager {
     public boolean deleteFile(String filePath) {
         File file = new File(filePath);
         if (file.delete()) {
-            System.out.println("File eliminato: " + file.getName());
+        	logger.info("File eliminato: " + file.getName());
             return true;
         } else {
-            System.out.println("Errore durante l'eliminazione del file.");
+        	logger.debug("Errore durante l'eliminazione del file.");
             return false;
         }
     }
