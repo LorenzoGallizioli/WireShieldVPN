@@ -464,7 +464,7 @@
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         </ownedParameter>
       </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_xwrJ0LhnEe-TKtIZasLrnQ" name="getStdPath">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_xwrJ0LhnEe-TKtIZasLrnQ" name="getProjectFolder">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_2VR9cLhnEe-TKtIZasLrnQ" direction="return">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </ownedParameter>
