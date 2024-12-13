@@ -1,5 +1,6 @@
 package com.wireshield.localfileutils;
 
+import java.io.IOException;
 import java.util.Map;
 
 import com.wireshield.av.AntivirusManager;
@@ -32,7 +33,7 @@ public class SystemOrchestrator {
      */
     public SystemOrchestrator() {
         // Create a singleton instance of AntivirusManager
-        this.antivirusManager = AntivirusManager.getInstance();
+        this.antivirusManager = new AntivirusManager();
 
         // Pass the AntivirusManager instance to the DownloadManager
         this.setDownloadManager(new DownloadManager(antivirusManager));
@@ -61,13 +62,26 @@ public class SystemOrchestrator {
         logger.info("Managing download monitoring, Desired state: {}", status);
 
         if (monitorStatus == runningStates.UP) {
-            logger.info("Starting download monitoring service...");
-            new Thread(getDownloadManager()::startMonitoring).start(); // Start monitoring in a new thread
+            if (downloadManager.getMonitorStatus() != runningStates.UP) {
+                logger.info("Starting download monitoring service...");
+                try {
+                    downloadManager.startMonitoring(); // Start monitoring
+                } catch (IOException e) {
+                    logger.error("Error starting the download monitoring service: {}", e.getMessage(), e);
+                }
+            } else {
+                logger.info("Download monitoring is already running.");
+            }
         } else {
-            logger.info("Stopping download monitoring service...");
-            // Logic to stop monitoring could be implemented here if needed.
+            if (downloadManager.getMonitorStatus() != runningStates.DOWN) {
+                logger.info("Stopping download monitoring service...");
+                downloadManager.stopMonitoring(); // Stop monitoring
+            } else {
+                logger.info("Download monitoring is already stopped.");
+            }
         }
     }
+
 
     /**
      * Manages the antivirus service, starting or stopping it based on the status.
@@ -75,12 +89,13 @@ public class SystemOrchestrator {
      * @param status The desired running state of the antivirus service.
      */
     public void manageAV(runningStates status) {
-        this.avStatus = status; // Update the antivirus status
+    	
+    	this.avStatus = status; // Update the antivirus status
         logger.info("Managing antivirus service, Desired state: {}", status);
 
         if (status == runningStates.UP) {
             logger.info("Starting antivirus scan...");
-            antivirusManager.performScan(); // Start the antivirus scan
+            antivirusManager.startPerformScan(); // Start the antivirus scan
         } else {
             logger.info("Stopping antivirus...");
             // Logic to stop the antivirus service if required

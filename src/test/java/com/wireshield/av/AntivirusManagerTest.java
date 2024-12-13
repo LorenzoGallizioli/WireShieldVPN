@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -34,7 +35,7 @@ public class AntivirusManagerTest {
      */
     @Before
     public void setUp() throws IOException {
-        antivirusManager = AntivirusManager.getInstance();
+        antivirusManager = new AntivirusManager();
         logger.info("Created AntivirusManager instance");
 
         File tempDir = new File("tempTestFiles");
@@ -88,9 +89,9 @@ public class AntivirusManagerTest {
         antivirusManager.addFileToScanBuffer(testFile2);
         logger.info("Files added to scan buffer");
 
-        Map<File, Boolean> scanBuffer = antivirusManager.getScanBuffer();
-        assertTrue(scanBuffer.containsKey(testFile1));
-        assertTrue(scanBuffer.containsKey(testFile2));
+        List<File> scanBuffer = antivirusManager.getScanBuffer();
+        assertTrue(scanBuffer.contains(testFile1));
+        assertTrue(scanBuffer.contains(testFile2));
 
         logger.info("Verified files in scan buffer");
     }
@@ -107,12 +108,12 @@ public class AntivirusManagerTest {
         antivirusManager.addFileToScanBuffer(testFile2);
         logger.info("Files added to scan buffer");
 
-        antivirusManager.performScan();
+        antivirusManager.startPerformScan();
         logger.info("Scan performed");
 
-        Map<File, Boolean> scanBuffer = antivirusManager.getScanBuffer();
-        assertFalse(scanBuffer.containsKey(testFile1));
-        assertFalse(scanBuffer.containsKey(testFile2));
+        List<File> scanBuffer = antivirusManager.getScanBuffer();
+        assertFalse(scanBuffer.contains(testFile1));
+        assertFalse(scanBuffer.contains(testFile2));
 
         logger.info("Verified files removed from scan buffer after scan");
     }
@@ -126,7 +127,7 @@ public class AntivirusManagerTest {
         logger.info("Running testGetReport...");
 
         antivirusManager.addFileToScanBuffer(testFile1);
-        antivirusManager.performScan();
+        antivirusManager.startPerformScan();
         logger.info("Files added to buffer and scan performed");
 
         ScanReport report = antivirusManager.getReport();

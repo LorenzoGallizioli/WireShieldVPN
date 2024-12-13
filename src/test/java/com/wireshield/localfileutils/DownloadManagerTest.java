@@ -34,7 +34,7 @@ public class DownloadManagerTest {
      */
     @Before
     public void setUp() {
-        antivirusManager = AntivirusManager.getInstance();
+        antivirusManager = new AntivirusManager();
         downloadManager = new DownloadManager(antivirusManager);
 
         testFile = new File(downloadManager.getDefaultDownloadPath() + "/testfile.txt");

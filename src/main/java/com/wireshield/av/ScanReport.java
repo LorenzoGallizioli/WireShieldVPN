@@ -1,7 +1,6 @@
 package com.wireshield.av;
 
 import java.io.File;
-
 import com.wireshield.enums.warningClass;
 
 /**
@@ -17,56 +16,53 @@ public class ScanReport {
     /**
      * The constructor for the ScanReport class.
      */
-    public ScanReport() {}
+    public ScanReport() {
+        this.threatDetected = false; // Default to no threat detected
+        this.threatDetails = "No threat detected"; // Default message
+        this.warningClass = warningClass.CLEAR; // Default warning class
+        this.isValid = true; // Default validity
+    }
 
-    /**
-     * Returns if a threat was detected in a file.
-     * 
-     * @return Boolean
-     *   True if a threat was detected, false otherwise.
-     */
+    // Getter and setter methods for all attributes
+
     public Boolean isThreatDetected() {
         return threatDetected;
     }
 
-    /**
-     * Returns the details of the threat detected in a file.
-     * 
-     * @return String
-     *   The details of the threat detected in a file. 
-     */
+    public void setThreatDetected(Boolean threatDetected) {
+        this.threatDetected = threatDetected;
+    }
+
     public String getThreatDetails() {
         return threatDetails;
     }
 
-    /**
-     * Returns the file that was scanned.
-     * 
-     * @return File
-     *   The file that was scanned.
-     */
+    public void setThreatDetails(String threatDetails) {
+        this.threatDetails = threatDetails;
+    }
+
     public File getFile() {
         return file;
     }
 
-    /**
-     * Returns the warning class of the scan report.
-     * 
-     * @return warningClass
-     *   The warning class of the scan report.
-     */
+    public void setFile(File file) {
+        this.file = file;
+    }
+
     public warningClass getWarningClass() {
         return warningClass;
     }
 
-    /**
-     * Returns if the scan report is valid.
-     * 
-     * @return Boolean
-     *   True if the scan report is valid, false otherwise.
-     */
+    public void setWarningClass(warningClass warningClass) {
+        this.warningClass = warningClass;
+    }
+
     public Boolean isValidReport() {
         return isValid;
+    }
+
+    public void setValid(Boolean isValid) {
+        this.isValid = isValid;
     }
 
     /**
@@ -77,6 +73,12 @@ public class ScanReport {
      */
     @Override
     public String toString() {
-        return "";
+        return "ScanReport {" +
+               "file=" + (file != null ? file.getName() : "null") +
+               ", threatDetected=" + threatDetected +
+               ", threatDetails='" + threatDetails + '\'' +
+               ", warningClass=" + warningClass +
+               ", isValid=" + isValid +
+               '}';
     }
 }
