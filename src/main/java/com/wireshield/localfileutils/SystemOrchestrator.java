@@ -1,12 +1,14 @@
 package com.wireshield.localfileutils;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.wireshield.av.AntivirusManager;
+import com.wireshield.av.ScanReport;
 import com.wireshield.wireguard.PeerManager;
 import com.wireshield.wireguard.WireguardManager;
 import com.wireshield.enums.runningStates;
@@ -113,18 +115,64 @@ public class SystemOrchestrator {
      * @param status The desired running state of the antivirus service.
      */
     public void manageAV(runningStates status) {
-    	
-    	this.avStatus = status; // Update the antivirus status
-        logger.info("Managing antivirus service, Desired state: {}", status);
+        this.avStatus = status; // Aggiorniamo lo stato dell'antivirus
+        logger.info("Gestendo il servizio antivirus, stato desiderato: {}", status);
 
+        // Avviare la scansione antivirus
         if (status == runningStates.UP) {
-            logger.info("Starting antivirus scan...");
-            antivirusManager.startPerformScan(); // Start the antivirus scan
+            if (avStatus != runningStates.UP) {
+                logger.info("Avviando la scansione antivirus...");
+                // Avviare la scansione solo se non è già in esecuzione
+                new Thread(() -> antivirusManager.startPerformScan()).start(); // Eseguiamo la scansione in un thread separato
+                avStatus = runningStates.UP; // Aggiorniamo lo stato dell'antivirus a UP
+            } else {
+                logger.info("La scansione antivirus è già in esecuzione.");
+            }
+        } else if (status == runningStates.DOWN) {
+            if (avStatus != runningStates.DOWN) {
+                logger.info("Fermando l'antivirus...");
+                // Fermiamo la scansione (assicurarsi che il metodo stopPerformScan esista per fermare correttamente la scansione)
+                antivirusManager.stopPerformScan(); // Assicuriamoci che questo metodo esista e fermiamo la scansione
+                avStatus = runningStates.DOWN; // Aggiorniamo lo stato dell'antivirus a DOWN
+                logger.info("Scansione antivirus fermata.");
+            } else {
+                logger.info("La scansione antivirus è già fermata.");
+            }
         } else {
-            logger.info("Stopping antivirus...");
-            // Logic to stop the antivirus service if required
+            logger.error("Stato antivirus non valido: {}", status);
+        }
+
+        // Stampa i report finali
+        List<ScanReport> finalReports = antivirusManager.getFinalReports(); // Ottieni la lista dei report finali
+        if (finalReports.isEmpty()) {
+            logger.info("Nessun report disponibile.");
+        } else {
+            finalReports.forEach(report -> {
+                logger.info("----------");
+                logger.info("File: " + report.getFile().getName());
+
+                // Verifica se è stata rilevata una minaccia
+                if (report.isThreatDetected()) {
+                    logger.info("Threat Detected: YES");
+                    logger.info("Threat Details: " + report.getThreatDetails());
+                    logger.info("Warning Class: " + report.getWarningClass());
+                } else {
+                    logger.info("Threat Detected: NO");
+                }
+
+                // Verifica la validità del report
+                if (report.isValidReport()) {
+                    logger.info("Report is Valid.");
+                } else {
+                    logger.info("Report is INVALID.");
+                }
+
+                logger.info("----------");
+            });
         }
     }
+
+
 
     /**
      * Returns the current connection status of the VPN.
