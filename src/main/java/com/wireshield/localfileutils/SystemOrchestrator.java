@@ -12,7 +12,7 @@ import com.wireshield.enums.vpnOperations;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/**
+/*
  * The SystemOrchestrator class orchestrates various components of the system,
  * including antivirus, download monitoring, and VPN connections.
  */
@@ -27,7 +27,7 @@ public class SystemOrchestrator {
     private runningStates monitorStatus;      // Status of the download monitoring
     private connectionStates connectionStatus; // Status of the VPN connection
 
-    /**
+    /*
      * Constructs a SystemOrchestrator instance, initializing its components.
      */
     public SystemOrchestrator() {

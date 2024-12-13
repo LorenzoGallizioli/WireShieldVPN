@@ -11,7 +11,7 @@ import java.nio.file.*;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
+/*
  * DownloadManager is responsible for monitoring a designated download directory.
  * It detects newly downloaded files and adds them to the antivirus scan queue.
  */
@@ -52,7 +52,7 @@ public class DownloadManager {
         }
     }
 
-    /**
+    /*
      * Starts monitoring the download directory. Detects new files and adds them to the
      * antivirus scan queue.
      */
@@ -133,11 +133,9 @@ public class DownloadManager {
 		this.monitorStatus = monitorStatus;
 		logger.info("Monitor status updated to: {}", monitorStatus);
 	}
-
-    /**
-     * Main method for testing the DownloadManager class.
-     */
-    /*
+     
+    /* Main method for testing the DownloadManager class.
+     * 
     public static void main(String[] args) {
         AntivirusManager antivirusManager = AntivirusManager.getInstance();
         DownloadManager downloadManager = new DownloadManager(antivirusManager);

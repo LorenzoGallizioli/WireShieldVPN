@@ -13,6 +13,12 @@ import java.nio.file.*;
 
 import static org.junit.Assert.*;
 
+/*
+ * Unit test class for {@link DownloadManager}.
+ * This class tests the core functionalities of the DownloadManager,
+ * including path determination, temporary file detection, file stability,
+ * and monitoring downloads.
+ */
 public class DownloadManagerTest {
 
     private static final Logger logger = LogManager.getLogger(DownloadManagerTest.class);
@@ -21,13 +27,16 @@ public class DownloadManagerTest {
     private AntivirusManager antivirusManager;
     private File testFile;
 
+    /*
+     * Sets up the test environment.
+     * Initializes the {@link AntivirusManager} and {@link DownloadManager},
+     * and creates a test file.
+     */
     @Before
     public void setUp() {
-        // Initialize the real AntivirusManager and DownloadManager
         antivirusManager = AntivirusManager.getInstance();
         downloadManager = new DownloadManager(antivirusManager);
 
-        // Create a test file
         testFile = new File(downloadManager.getDefaultDownloadPath() + "/testfile.txt");
         try {
             if (testFile.createNewFile()) {
@@ -38,18 +47,23 @@ public class DownloadManagerTest {
         }
     }
 
+    /*
+     * Cleans up the test environment.
+     * Deletes the test file after each test.
+     */
     @After
     public void tearDown() {
-        // Delete the test file after each test
         if (testFile.exists()) {
             testFile.delete();
             logger.info("Deleted test file: {}", testFile.getName());
         }
     }
 
+    /*
+     * Tests the default download path for Windows systems.
+     */
     @Test
     public void testGetDefaultDownloadPathWindows() {
-        // Simulate a Windows OS
         System.setProperty("os.name", "Windows 10");
 
         String downloadPath = downloadManager.getDefaultDownloadPath();
@@ -59,9 +73,11 @@ public class DownloadManagerTest {
         assertEquals(expectedPath, downloadPath);
     }
 
+    /*
+     * Tests the default download path for Unix-based systems.
+     */
     @Test
     public void testGetDefaultDownloadPathUnix() {
-        // Simulate a Unix-based OS
         System.setProperty("os.name", "Linux");
 
         String downloadPath = downloadManager.getDefaultDownloadPath();
@@ -71,6 +87,9 @@ public class DownloadManagerTest {
         assertEquals(expectedPath, downloadPath);
     }
 
+    /*
+     * Tests detection of temporary files based on their extensions or naming patterns.
+     */
     @Test
     public void testIsTemporaryFile() {
         File tempFile1 = new File("example.crdownload");
@@ -84,8 +103,11 @@ public class DownloadManagerTest {
         assertFalse(downloadManager.isTemporaryFile(regularFile));
     }
 
+    /*
+     * Tests whether a file is stable (i.e., no ongoing writes or changes).
+     */
     @Test
-    public void testIsFileStable() throws IOException, InterruptedException {
+    public void testIsFileStable() throws IOException {
         File stableFile = new File(downloadManager.getDefaultDownloadPath() + "/stablefile.txt");
         if (stableFile.createNewFile()) {
             logger.info("Created file: {}", stableFile.getName());
@@ -95,16 +117,18 @@ public class DownloadManagerTest {
 
         assertTrue(downloadManager.isFileStable(stableFile));
 
-        // Clean up
         if (stableFile.exists()) {
             stableFile.delete();
             logger.info("Deleted stable file: {}", stableFile.getName());
         }
     }
 
+    /*
+     * Tests the monitoring functionality of {@link DownloadManager}.
+     * Verifies if the monitored directory detects and processes completed downloads correctly.
+     */
     @Test
     public void testStartMonitoring() throws IOException, InterruptedException {
-        // Start monitoring in a separate thread
         Thread monitoringThread = new Thread(() -> {
             try {
                 downloadManager.startMonitoring();
@@ -114,10 +138,8 @@ public class DownloadManagerTest {
         });
         monitoringThread.start();
 
-        // Wait for the monitoring thread to start
-        Thread.sleep(2000);
+        Thread.sleep(2000); // Wait for the monitoring thread to start
 
-        // Create a temporary file in the default download directory
         Path downloadPath = Paths.get(downloadManager.getDefaultDownloadPath());
         Path tempFilePath = downloadPath.resolve("tempfile.tmp");
         File tempFile = tempFilePath.toFile();
@@ -132,19 +154,15 @@ public class DownloadManagerTest {
             fail("Failed to create temporary file: " + tempFile.getName());
         }
 
-        // Rename the temporary file to simulate a completed download
         Path targetPath = downloadPath.resolve("newfile.txt");
         Files.move(tempFilePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
         File newFile = targetPath.toFile();
         logger.info("Renamed file to: {}", newFile.getName());
 
-        // Simulate a delay to ensure the file is detected
-        Thread.sleep(2000);
+        Thread.sleep(2000); // Simulate delay to ensure detection
 
-        // Assume the file is detected and added to the buffer
         antivirusManager.addFileToScanBuffer(newFile);
 
-        // Verify the file is in the scan buffer
         boolean fileDetected = antivirusManager.getScanBuffer().containsKey(newFile);
 
         if (!fileDetected) {
