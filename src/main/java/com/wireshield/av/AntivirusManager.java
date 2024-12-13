@@ -6,6 +6,8 @@ import java.util.Map;
 import com.wireshield.enums.runningStates;
 import java.util.List;
 import java.util.ArrayList;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * AntivirusManager is a singleton class that manages antivirus scanning.
@@ -13,6 +15,8 @@ import java.util.ArrayList;
  * and maintains a record of scan results.
  */
 public class AntivirusManager {
+
+    private static final Logger logger = LogManager.getLogger(AntivirusManager.class);
 
     private static AntivirusManager instance; // Singleton instance
 
@@ -29,6 +33,7 @@ public class AntivirusManager {
     private AntivirusManager() {
         this.scanBuffer = new HashMap<>();
         this.scannerStatus = runningStates.DOWN;
+        logger.info("AntivirusManager initialized.");
     }
 
     /**
@@ -39,6 +44,7 @@ public class AntivirusManager {
     public static synchronized AntivirusManager getInstance() {
         if (instance == null) {
             instance = new AntivirusManager();
+            logger.info("AntivirusManager instance created.");
         }
         return instance;
     }
@@ -52,12 +58,12 @@ public class AntivirusManager {
         if (file != null && file.exists()) {
             if (!scanBuffer.containsKey(file)) {
                 scanBuffer.put(file, false);
-                System.out.println("File added to scan buffer: " + file.getName());
+                logger.info("File added to scan buffer: {}", file.getName());
             } else {
-                System.out.println("File is already in the scan buffer: " + file.getName());
+                logger.warn("File is already in the scan buffer: {}", file.getName());
             }
         } else {
-            System.out.println("Invalid file or file does not exist.");
+            logger.error("Invalid file or file does not exist: {}", file);
         }
     }
 
@@ -65,12 +71,14 @@ public class AntivirusManager {
      * Performs antivirus scanning on files in the scan buffer.
      */
     public void performScan() {
+        logger.info("Starting scan on {} file(s) in the scan buffer.", scanBuffer.size());
+
         for (Map.Entry<File, Boolean> entry : scanBuffer.entrySet()) {
             File file = entry.getKey();
             Boolean isScanned = entry.getValue();
 
             if (!isScanned) {
-                System.out.println("Scanning file: " + file.getName());
+                logger.info("Scanning file: {}", file.getName());
                 ScanReport report = new ScanReport(); // Holds scan details
 
                 // Perform scanning with ClamAV and VirusTotal
@@ -83,21 +91,23 @@ public class AntivirusManager {
 
                 // Mark the file as scanned
                 scanBuffer.put(file, true);
-                System.out.println("Scan completed for file: " + file.getName());
+                logger.info("Scan completed for file: {}", file.getName());
 
                 // Add file to removal list
                 filesToRemove.add(file);
             } else {
-                System.out.println("File already scanned: " + file.getName());
+                logger.debug("File already scanned: {}", file.getName());
             }
         }
 
         // Remove scanned files from the buffer
         for (File file : filesToRemove) {
             scanBuffer.remove(file);
-            System.out.println("Removed file from buffer: " + file.getName());
+            logger.info("Removed file from buffer: {}", file.getName());
         }
         filesToRemove.clear(); // Clear the removal list
+
+        logger.info("Scan process completed.");
     }
 
     /**
@@ -106,6 +116,7 @@ public class AntivirusManager {
      * @return The ScanReport object.
      */
     protected ScanReport getReport() {
+        logger.debug("Retrieving final scan report.");
         return finalReports;
     }
 
@@ -115,6 +126,7 @@ public class AntivirusManager {
      * @return The runningStates of the scanner.
      */
     protected runningStates getStatus() {
+        logger.debug("Retrieving scanner status: {}", scannerStatus);
         return scannerStatus;
     }
 
@@ -124,6 +136,7 @@ public class AntivirusManager {
      * @return A map of files and their scan status.
      */
     public Map<File, Boolean> getScanBuffer() {
+        logger.debug("Retrieving scan buffer.");
         return scanBuffer;
     }
 
@@ -138,13 +151,13 @@ public class AntivirusManager {
         // Create temporary files for testing
         try {
             if (file1.createNewFile()) {
-                System.out.println("Created file: " + file1.getName());
+                logger.info("Created file: {}", file1.getName());
             }
             if (file2.createNewFile()) {
-                System.out.println("Created file: " + file2.getName());
+                logger.info("Created file: {}", file2.getName());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Error creating test files.", e);
         }
 
         // Get the instance of AntivirusManager
@@ -158,7 +171,7 @@ public class AntivirusManager {
         antivirusManager.performScan();
 
         // Verify the buffer state
-        System.out.println("Scan buffer after scan: " + antivirusManager.getScanBuffer().size() + " file(s) remaining.");
+        logger.info("Scan buffer after scan: {} file(s) remaining.", antivirusManager.getScanBuffer().size());
     }
     */
 }

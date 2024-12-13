@@ -9,11 +9,16 @@ import com.wireshield.enums.runningStates;
 import com.wireshield.enums.connectionStates;
 import com.wireshield.enums.vpnOperations;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * The SystemOrchestrator class orchestrates various components of the system,
  * including antivirus, download monitoring, and VPN connections.
  */
 public class SystemOrchestrator {
+
+    private static final Logger logger = LogManager.getLogger(SystemOrchestrator.class);
 
     private WireguardManager wireguardManager; // Manages VPN connections
     private DownloadManager downloadManager;   // Manages download monitoring
@@ -31,6 +36,7 @@ public class SystemOrchestrator {
 
         // Pass the AntivirusManager instance to the DownloadManager
         this.setDownloadManager(new DownloadManager(antivirusManager));
+        logger.info("SystemOrchestrator initialized.");
     }
 
     /**
@@ -40,6 +46,7 @@ public class SystemOrchestrator {
      * @param status    The current connection status.
      */
     public void manageVPN(vpnOperations operation, connectionStates status) {
+        logger.info("Managing VPN operation: {}, Current status: {}", operation, status);
         // Implementation for managing VPN connections would go here.
         // This could involve interacting with WireguardManager.
     }
@@ -51,12 +58,13 @@ public class SystemOrchestrator {
      */
     public void manageDownload(runningStates status) {
         this.monitorStatus = status; // Update the monitoring status
+        logger.info("Managing download monitoring, Desired state: {}", status);
 
         if (monitorStatus == runningStates.UP) {
-            System.out.println("Starting download monitoring service...");
+            logger.info("Starting download monitoring service...");
             new Thread(getDownloadManager()::startMonitoring).start(); // Start monitoring in a new thread
         } else {
-            System.out.println("Stopping download monitoring service...");
+            logger.info("Stopping download monitoring service...");
             // Logic to stop monitoring could be implemented here if needed.
         }
     }
@@ -68,12 +76,13 @@ public class SystemOrchestrator {
      */
     public void manageAV(runningStates status) {
         this.avStatus = status; // Update the antivirus status
+        logger.info("Managing antivirus service, Desired state: {}", status);
 
         if (status == runningStates.UP) {
-            System.out.println("Starting antivirus scan...");
+            logger.info("Starting antivirus scan...");
             antivirusManager.performScan(); // Start the antivirus scan
         } else {
-            System.out.println("Stopping antivirus...");
+            logger.info("Stopping antivirus...");
             // Logic to stop the antivirus service if required
         }
     }
@@ -84,6 +93,7 @@ public class SystemOrchestrator {
      * @return The connection status.
      */
     public connectionStates getConnectionStatus() {
+        logger.debug("Retrieving connection status: {}", connectionStatus);
         return connectionStatus;
     }
 
@@ -93,6 +103,7 @@ public class SystemOrchestrator {
      * @return The monitoring status.
      */
     public runningStates getMonitorStatus() {
+        logger.debug("Retrieving monitoring status: {}", monitorStatus);
         return monitorStatus;
     }
 
@@ -102,6 +113,7 @@ public class SystemOrchestrator {
      * @return The antivirus status.
      */
     public runningStates getAVStatus() {
+        logger.debug("Retrieving antivirus status: {}", avStatus);
         return avStatus;
     }
 
@@ -110,9 +122,11 @@ public class SystemOrchestrator {
      *
      * @param peer The peer to be created.
      */
-    public void addPeer(String peerData, String peerName){
-		Map<String, Map<String, String>> peer = PeerManager.parsePeerConfig(peerName);
+    public void addPeer(String peerData, String peerName) {
+        logger.info("Adding new peer with name: {}", peerName);
+        Map<String, Map<String, String>> peer = PeerManager.parsePeerConfig(peerName);
         wireguardManager.getPeerManager().createPeer(peer, peerName);
+        logger.info("Peer added successfully: {}", peerName);
     }
 
     /**
@@ -122,6 +136,7 @@ public class SystemOrchestrator {
      * @return A string containing the report information.
      */
     public String getReportInfo(String report) {
+        logger.info("Retrieving report info for report: {}", report);
         // Return report details (dummy implementation for now)
         return "";
     }
@@ -132,6 +147,7 @@ public class SystemOrchestrator {
      * @return The DownloadManager instance.
      */
     public DownloadManager getDownloadManager() {
+        logger.debug("Retrieving DownloadManager instance.");
         return downloadManager;
     }
 
@@ -141,6 +157,7 @@ public class SystemOrchestrator {
      * @param downloadManager The DownloadManager instance to be set.
      */
     public void setDownloadManager(DownloadManager downloadManager) {
+        logger.debug("Setting DownloadManager instance.");
         this.downloadManager = downloadManager;
     }
 }

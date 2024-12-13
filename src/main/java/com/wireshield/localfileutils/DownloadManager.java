@@ -2,6 +2,8 @@ package com.wireshield.localfileutils;
 
 import com.wireshield.av.AntivirusManager;
 import com.wireshield.enums.runningStates;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +16,8 @@ import java.util.Set;
  * It detects newly downloaded files and adds them to the antivirus scan queue.
  */
 public class DownloadManager {
+
+    private static final Logger logger = LogManager.getLogger(DownloadManager.class);
 
     private String downloadPath; // Path to the monitored download directory
     private final Set<String> detectedFiles = new HashSet<>(); // Tracks already detected files
@@ -29,6 +33,7 @@ public class DownloadManager {
         this.downloadPath = getDefaultDownloadPath();
         this.setMonitorStatus(runningStates.DOWN);
         this.antivirusManager = antivirusManager;
+        logger.info("DownloadManager initialized with path: {}", downloadPath);
     }
 
     /**
@@ -40,7 +45,6 @@ public class DownloadManager {
         String userHome = System.getProperty("user.home");
         String downloadFolder = "Downloads";
 
-        // Differentiate between Windows and Unix-based operating systems
         if (System.getProperty("os.name").toLowerCase().contains("win")) {
             return userHome + "\\" + downloadFolder;
         } else {
@@ -58,41 +62,37 @@ public class DownloadManager {
         try (WatchService watchService = FileSystems.getDefault().newWatchService()) {
             Path path = Paths.get(downloadPath);
 
-            // Register the WatchService for file creation events in the directory
             path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE);
 
-            System.out.println("Monitoring directory: " + downloadPath);
+            logger.info("Monitoring directory: {}", downloadPath);
 
-            // Continuous loop to monitor the directory
             while (true) {
-                WatchKey key = watchService.take(); // Waits for an event
+                WatchKey key = watchService.take();
 
                 for (WatchEvent<?> event : key.pollEvents()) {
                     if (event.kind() == StandardWatchEventKinds.ENTRY_CREATE) {
                         Path newFilePath = path.resolve((Path) event.context());
                         File newFile = newFilePath.toFile();
 
-                        // Check if the file is valid (not temporary and stable)
                         if (!isTemporaryFile(newFile) && isFileStable(newFile)) {
                             String fileName = newFile.getAbsolutePath();
 
-                            // Add the file if it hasn't already been processed
                             if (!detectedFiles.contains(fileName)) {
                                 detectedFiles.add(fileName);
-                                System.out.println("New file detected: " + newFile.getName());
-
-                                // Add the file to the antivirus scan queue
+                                logger.info("New file detected: {}", newFile.getName());
                                 antivirusManager.addFileToScanBuffer(newFile);
                             }
                         }
                     }
                 }
 
-                // Reset the WatchKey to continue receiving events
                 key.reset();
             }
-        } catch (IOException | InterruptedException e) {
-            System.err.println("Error monitoring directory: " + e.getMessage());
+        } catch (IOException e) {
+            logger.error("Error monitoring directory: {}", e.getMessage(), e);
+        } catch (InterruptedException e) {
+            logger.error("Monitoring interrupted: {}", e.getMessage(), e);
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -105,7 +105,6 @@ public class DownloadManager {
     public boolean isTemporaryFile(File file) {
         String fileName = file.getName().toLowerCase();
 
-        // Check for extensions or names indicating temporary files
         return fileName.endsWith(".crdownload") || fileName.endsWith(".part") || fileName.startsWith(".");
     }
 
@@ -117,10 +116,10 @@ public class DownloadManager {
      */
     public boolean isFileStable(File file) {
         try {
-            // Wait briefly to verify file stability
             Thread.sleep(500);
             return file.exists() && file.canRead() && file.length() > 0;
         } catch (InterruptedException e) {
+            logger.error("Error checking file stability: {}", e.getMessage(), e);
             Thread.currentThread().interrupt();
             return false;
         }
@@ -132,6 +131,7 @@ public class DownloadManager {
 
 	public void setMonitorStatus(runningStates monitorStatus) {
 		this.monitorStatus = monitorStatus;
+		logger.info("Monitor status updated to: {}", monitorStatus);
 	}
 
     /**
