@@ -21,7 +21,7 @@ public class FileManager {
      * @param filePath the path where the file will be created
      * @return true if the file is successfully created, false if the file already exists or an error occurs
      */
-    public boolean createFile(String filePath) {
+    public static boolean createFile(String filePath) {   	
         File file = new File(filePath);
         try {
             if (file.createNewFile()) {
@@ -44,7 +44,7 @@ public class FileManager {
      * @param content the content to write to the file
      * @return true if the content is successfully written, false if an error occurs
      */
-    public boolean writeFile(String filePath, String content) {
+    public static boolean writeFile(String filePath, String content) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write(content);
             System.out.println("Scrittura completata.");
@@ -61,7 +61,7 @@ public class FileManager {
      * @param filePath the path of the file to read
      * @return the content of the file as a String, or null if an error occurs
      */
-    public String readFile(String filePath) {
+    public static String readFile(String filePath) {
         StringBuilder content = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -81,7 +81,7 @@ public class FileManager {
      * @param filePath the path of the file to delete
      * @return true if the file is successfully deleted, false if an error occurs or the file does not exist
      */
-    public boolean deleteFile(String filePath) {
+    public static boolean deleteFile(String filePath) {
         File file = new File(filePath);
         if (file.delete()) {
         	logger.info("File eliminato: " + file.getName());
@@ -97,8 +97,36 @@ public class FileManager {
      *
      * @return the absolute path of the project folder
      */
-    public String getProjectFolder() {
+    public static String getProjectFolder() {
         return new File("").getAbsolutePath();
+    }
+    
+    /**
+     * Determines if a file is temporary or incomplete (e.g., `.crdownload`, `.part` files).
+     *
+     * @param file The file to check.
+     * @return true if the file is temporary, false otherwise.
+     */
+    public static boolean isTemporaryFile(File file) {
+        String fileName = file.getName().toLowerCase();
+        return fileName.endsWith(".crdownload") || fileName.endsWith(".part") || fileName.startsWith(".");
+    }
+
+    /**
+     * Checks if a file is stable, meaning the download is complete and the file can be safely processed.
+     *
+     * @param file The file to check.
+     * @return true if the file is stable, false otherwise.
+     */
+    public static boolean isFileStable(File file) {
+        try {
+            Thread.sleep(500); // Wait for a short moment to confirm stability
+            return file.exists() && file.canRead() && file.length() > 0; // File must exist, be readable, and non-empty
+        } catch (InterruptedException e) {
+            logger.error("Error checking file stability: {}", e.getMessage(), e);
+            Thread.currentThread().interrupt();
+            return false;
+        }
     }
 
 

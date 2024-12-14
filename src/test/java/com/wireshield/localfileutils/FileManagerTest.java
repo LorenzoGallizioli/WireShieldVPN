@@ -12,13 +12,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class FileManagerTest {
-	
-	private FileManager fileManager;
+
     private String testFilePath;
 
     @Before
     public void setUp() {
-        fileManager = new FileManager();
         testFilePath = "testFile.txt";
     }
 
@@ -32,37 +30,37 @@ public class FileManagerTest {
 
     @Test
     public void testCreateFile() {
-        assertTrue("File should be created successfully.", fileManager.createFile(testFilePath));
+        assertTrue("File should be created successfully.", FileManager.createFile(testFilePath));
         assertTrue("File should exist on the filesystem.", new File(testFilePath).exists());
     }
 
     @Test
     public void testWriteFile() {
-        fileManager.createFile(testFilePath);
+    	FileManager.createFile(testFilePath);
         String content = "Test content";
-        assertTrue("Content should be written successfully.", fileManager.writeFile(testFilePath, content));
-        assertEquals("Content should match the written data.", content, fileManager.readFile(testFilePath).trim());
+        assertTrue("Content should be written successfully.", FileManager.writeFile(testFilePath, content));
+        assertEquals("Content should match the written data.", content, FileManager.readFile(testFilePath).trim());
     }
 
     @Test
     public void testReadFile() {
-        fileManager.createFile(testFilePath);
+    	FileManager.createFile(testFilePath);
         String content = "Read test content.";
-        fileManager.writeFile(testFilePath, content);
-        assertEquals("Content read should match the written data.", content, fileManager.readFile(testFilePath).trim());
+        FileManager.writeFile(testFilePath, content);
+        assertEquals("Content read should match the written data.", content, FileManager.readFile(testFilePath).trim());
     }
 
     @Test
     public void testDeleteFile() {
-        fileManager.createFile(testFilePath);
-        assertTrue("File should be deleted successfully.", fileManager.deleteFile(testFilePath));
+    	FileManager.createFile(testFilePath);
+        assertTrue("File should be deleted successfully.", FileManager.deleteFile(testFilePath));
         assertFalse("File should not exist on the filesystem.", new File(testFilePath).exists());
     }
 
     @Test
     public void testGetProjectFolder() {
-    	fileManager.createFile(testFilePath);
-        String projectFolder = fileManager.getProjectFolder() + "\\" + testFilePath;
+    	FileManager.createFile(testFilePath);
+        String projectFolder = FileManager.getProjectFolder() + "\\" + testFilePath;
         assertNotNull("Project folder path should not be null.", projectFolder);
         assertTrue("Project folder path should exist.", new File(projectFolder).exists());
     }
