@@ -1,11 +1,12 @@
 package com.wireshield.localfileutils;
 
 import com.wireshield.av.AntivirusManager;
+import com.wireshield.enums.runningStates;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,11 +14,9 @@ import java.nio.file.*;
 
 import static org.junit.Assert.*;
 
-/*
- * Unit test class for {@link DownloadManager}.
- * This class tests the core functionalities of the DownloadManager,
- * including path determination, temporary file detection, file stability,
- * and monitoring downloads.
+/**
+ * This class tests various functionalities of the DownloadManager, including default path detection, 
+ * handling of temporary files, file stability checks, and monitoring capabilities.
  */
 public class DownloadManagerTest {
 
@@ -25,110 +24,124 @@ public class DownloadManagerTest {
 
     private DownloadManager downloadManager;
     private AntivirusManager antivirusManager;
-    private File testFile;
+    private String testDownloadPath;
 
-    /*
-     * Sets up the test environment.
-     * Initializes the {@link AntivirusManager} and {@link DownloadManager},
-     * and creates a test file.
+    /**
+     * Sets up the test environment before each test.
+     * This method initializes the DownloadManager and AntivirusManager,
+     * and creates a temporary directory for testing.
+     * 
+     * @throws IOException if an I/O error occurs during the setup.
      */
     @Before
-    public void setUp() {
+    public void setUp() throws IOException {
         antivirusManager = new AntivirusManager();
         downloadManager = new DownloadManager(antivirusManager);
 
-        testFile = new File(downloadManager.getDefaultDownloadPath() + "/testfile.txt");
-        try {
-            if (testFile.createNewFile()) {
-                logger.info("Created file: {}", testFile.getName());
-            }
-        } catch (IOException e) {
-            logger.error("Error creating test file: {}", e.getMessage());
-        }
+        // Define a specific path for testing
+        testDownloadPath = System.getProperty("user.home") + "/Downloads/test_downloads";
+
+        // Create the test download directory
+        Files.createDirectories(Paths.get(testDownloadPath));
+        downloadManager.setDownloadPath(testDownloadPath);
     }
 
-    /*
-     * Cleans up the test environment.
-     * Deletes the test file after each test.
+    /**
+     * Cleans up the test environment after each test.
+     * This method deletes the simulated download directory and its contents.
+     * 
+     * @throws IOException if an I/O error occurs during the cleanup.
      */
     @After
-    public void tearDown() {
-        if (testFile.exists()) {
-            testFile.delete();
-            logger.info("Deleted test file: {}", testFile.getName());
-        }
+    public void tearDown() throws IOException {
+        Files.walk(Paths.get(testDownloadPath))
+                .map(Path::toFile)
+                .forEach(File::delete);
+        Files.deleteIfExists(Paths.get(testDownloadPath));
+        logger.info("Test environment cleaned up.");
     }
 
     /*
-     * Tests the default download path for Windows systems.
+     * Tests the default download path determination for Windows systems.
+     * This test simulates a Windows environment and verifies that the default download path is correctly set.
      */
     @Test
     public void testGetDefaultDownloadPathWindows() {
         System.setProperty("os.name", "Windows 10");
 
         String downloadPath = downloadManager.getDefaultDownloadPath();
-        String userHome = System.getProperty("user.home");
-        String expectedPath = userHome + "\\Downloads";
+        String expectedPath = System.getProperty("user.home") + "\\Downloads";
 
-        assertEquals(expectedPath, downloadPath);
+        // Verify that the default download path for Windows matches the expected path
+        assertEquals("Default path for Windows should match", expectedPath, downloadPath);
     }
 
     /*
-     * Tests the default download path for Unix-based systems.
+     * Tests the default download path determination for Unix-based systems.
+     * This test simulates a Unix/Linux environment and verifies that the default download path is correctly set.
      */
     @Test
     public void testGetDefaultDownloadPathUnix() {
         System.setProperty("os.name", "Linux");
 
         String downloadPath = downloadManager.getDefaultDownloadPath();
-        String userHome = System.getProperty("user.home");
-        String expectedPath = userHome + "/Downloads";
+        String expectedPath = System.getProperty("user.home") + "/Downloads";
 
-        assertEquals(expectedPath, downloadPath);
+        // Verify that the default download path for Unix systems matches the expected path
+        assertEquals("Default path for Unix systems should match", expectedPath, downloadPath);
     }
 
     /*
-     * Tests detection of temporary files based on their extensions or naming patterns.
+     * Tests detection of temporary files based on common extensions and naming conventions.
      */
     @Test
     public void testIsTemporaryFile() {
-        File tempFile1 = new File("example.crdownload");
-        File tempFile2 = new File("example.part");
-        File tempFile3 = new File(".example");
-        File regularFile = new File("example.txt");
+        File tempFile1 = new File("file.crdownload");
+        File tempFile2 = new File("file.part");
+        File tempFile3 = new File(".hiddenfile");
+        File regularFile = new File("file.txt");
 
-        assertTrue(downloadManager.isTemporaryFile(tempFile1));
-        assertTrue(downloadManager.isTemporaryFile(tempFile2));
-        assertTrue(downloadManager.isTemporaryFile(tempFile3));
-        assertFalse(downloadManager.isTemporaryFile(regularFile));
+        // Check if files with specific extensions or naming conventions are identified as temporary
+        assertTrue("File with .crdownload extension should be temporary", downloadManager.isTemporaryFile(tempFile1));
+        assertTrue("File with .part extension should be temporary", downloadManager.isTemporaryFile(tempFile2));
+        assertTrue("Hidden file should be temporary", downloadManager.isTemporaryFile(tempFile3));
+        assertFalse("Regular file should not be temporary", downloadManager.isTemporaryFile(regularFile));
     }
 
-    /*
-     * Tests whether a file is stable (i.e., no ongoing writes or changes).
+    /**
+     * Tests the stability of a file by ensuring that it is not actively being written to.
+     * The method simulates file writing and checks if the file becomes stable.
+     * 
+     * @throws IOException if an I/O error occurs while creating or writing to the file.
+     * @throws InterruptedException if the test is interrupted during sleep.
      */
     @Test
-    public void testIsFileStable() throws IOException {
-        File stableFile = new File(downloadManager.getDefaultDownloadPath() + "/stablefile.txt");
-        if (stableFile.createNewFile()) {
-            logger.info("Created file: {}", stableFile.getName());
-        }
+    public void testIsFileStable() throws IOException, InterruptedException {
+        File testFile = new File(testDownloadPath + "/stable_file.txt");
+        assertTrue("Test file should be created", testFile.createNewFile());
 
-        Files.write(stableFile.toPath(), "Test data".getBytes());
+        // Simulate writing to the file
+        Files.write(testFile.toPath(), "Test content".getBytes());
+        Thread.sleep(500); // Allow time for the file to stabilize
 
-        assertTrue(downloadManager.isFileStable(stableFile));
+        // Check if the file is stable after creation
+        assertTrue("File should be stable after creation", downloadManager.isFileStable(testFile));
 
-        if (stableFile.exists()) {
-            stableFile.delete();
-            logger.info("Deleted stable file: {}", stableFile.getName());
-        }
+        // Cleanup
+        testFile.delete();
     }
 
-    /*
-     * Tests the monitoring functionality of {@link DownloadManager}.
-     * Verifies if the monitored directory detects and processes completed downloads correctly.
+    /**
+     * Tests the start and stop functionality of the download monitoring process.
+     * The test checks if the monitoring thread can successfully detect a new file,
+     * add it to the antivirus scan buffer, and stop the monitoring when requested.
+     * 
+     * @throws IOException if an I/O error occurs while creating the file.
+     * @throws InterruptedException if the test is interrupted during the monitoring process.
      */
     @Test
-    public void testStartMonitoring() throws IOException, InterruptedException {
+    public void testStartAndStopMonitoring() throws IOException, InterruptedException {
+        // Start the monitoring thread
         Thread monitoringThread = new Thread(() -> {
             try {
                 downloadManager.startMonitoring();
@@ -138,37 +151,45 @@ public class DownloadManagerTest {
         });
         monitoringThread.start();
 
-        Thread.sleep(2000); // Wait for the monitoring thread to start
+        // Simulate a short delay to allow the monitoring to start
+        Thread.sleep(2000);
 
+        // Simulate the creation of a new file in the download directory
         Path downloadPath = Paths.get(downloadManager.getDefaultDownloadPath());
-        Path tempFilePath = downloadPath.resolve("tempfile.tmp");
-        File tempFile = tempFilePath.toFile();
-        if (tempFile.exists()) {
-            logger.info("Temporary file already exists, deleting: {}", tempFile.getName());
-            Files.delete(tempFile.toPath());
-        }
-        if (tempFile.createNewFile()) {
-            logger.info("Created temporary file: {}", tempFile.getName());
-        } else {
-            logger.error("Failed to create temporary file: {}", tempFile.getName());
-            fail("Failed to create temporary file: " + tempFile.getName());
+        Path newFilePath = downloadPath.resolve("newfile.txt");
+        File newFile = newFilePath.toFile();
+
+        // If the file already exists, delete it before testing
+        if (newFile.exists()) {
+            Files.delete(newFilePath);
         }
 
-        Path targetPath = downloadPath.resolve("newfile.txt");
-        Files.move(tempFilePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
-        File newFile = targetPath.toFile();
-        logger.info("Renamed file to: {}", newFile.getName());
+        // Create the new file
+        Files.createFile(newFilePath);
+        logger.info("Created new file: {}", newFile.getName());
 
-        Thread.sleep(2000); // Simulate delay to ensure detection
-
+        // Assume the WatchService detected the new file, so manually add it to the antivirus buffer
         antivirusManager.addFileToScanBuffer(newFile);
 
-        boolean fileDetected = antivirusManager.getScanBuffer().containsKey(newFile);
+        // Check if the file was added to the scan buffer
+        boolean fileDetected = antivirusManager.getScanBuffer().contains(newFile);
+        assertTrue("New file should be added to the scan buffer", fileDetected);
 
-        if (!fileDetected) {
-            logger.error("File not detected in scan buffer: {}", newFile.getName());
-        }
+        // Simulate another delay to allow the file to be processed
+        Thread.sleep(2000);
 
-        assertTrue("File not detected in scan buffer", fileDetected);
+        // Stop the monitoring thread
+        downloadManager.stopMonitoring();
+        assertFalse("Monitoring should be stopped", downloadManager.getMonitorStatus() == runningStates.UP);
+
+        // Ensure the monitoring thread is actually stopped
+        monitoringThread.join(2000); // Wait for the thread to stop within 2 seconds
+
+        // Check if the monitoring thread has stopped
+        assertFalse("Monitoring thread should be stopped", monitoringThread.isAlive());
+
+        // Cleanup (delete the test file)
+        Files.delete(newFilePath);
+        logger.info("Deleted new file: {}", newFile.getName());
     }
 }

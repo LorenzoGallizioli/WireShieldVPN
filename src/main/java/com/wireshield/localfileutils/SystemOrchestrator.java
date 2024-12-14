@@ -16,7 +16,7 @@ import com.wireshield.enums.connectionStates;
 import com.wireshield.enums.vpnOperations;
 
 /*
- * The SystemOrchestrator class orchestrates various components of the system,
+ * The SystemOrchestrator class orchestrates various components of the system, 
  * including antivirus, download monitoring, and VPN connections.
  */
 public class SystemOrchestrator {
@@ -26,8 +26,8 @@ public class SystemOrchestrator {
     private WireguardManager wireguardManager; // Manages VPN connections
     private DownloadManager downloadManager;   // Manages download monitoring
     private AntivirusManager antivirusManager; // Manages antivirus operations
-    private runningStates avStatus;           // Status of the antivirus
-    private runningStates monitorStatus;      // Status of the download monitoring
+    private runningStates avStatus;            // Status of the antivirus
+    private runningStates monitorStatus;       // Status of the download monitoring
     private connectionStates connectionStatus; // Status of the VPN connection
 
     /*
@@ -43,45 +43,47 @@ public class SystemOrchestrator {
     }
 
     /**
-     * Method to manage the VPN connection.
+     * Manages the VPN connection.
      * 
      * @param operation
-     *   The operation to be performed.
+     *   The operation to be performed (START or STOP).
      */
     public void manageVPN(vpnOperations operation) {
-        // UI (scelta peer) -> peerID -> manageVPN(vpnOperations operation, String peerID) -> getPathById(peerID) -> setInterfaceUp(configPath)   
+        // Define the path to the WireGuard executable and the config file
         String wgPath = "C:\\Program Files\\WireGuard\\wireguard.exe";
         String configPath = "C:\\Users\\loren\\Downloads\\peer5_galliz.conf";
+        
+        // Initialize the WireguardManager with the executable path
         wireguardManager = new WireguardManager(wgPath);
+        
         switch (operation) {
             case START:
                 if (wireguardManager.setInterfaceUp(configPath)) {
-                    logger.info("Interfaccia avviata con successo.");
+                    logger.info("Interface successfully started.");
                 } else {
-                    logger.error("Errore nell'avvio dell'interfaccia.");
-                }
-            break;
-        
-            case STOP:
-                if (wireguardManager.setInterfaceDown()) {
-                    logger.info("Interfaccia arrestata con successo.");
-                } else {
-                    logger.error("Errore nell'arresto dell'interfaccia.");
+                    logger.error("Error starting the interface.");
                 }
                 break;
-            
+
+            case STOP:
+                if (wireguardManager.setInterfaceDown()) {
+                    logger.info("Interface successfully stopped.");
+                } else {
+                    logger.error("Error stopping the interface.");
+                }
+                break;
+
             default:
-                logger.error("Operazione non supportata: " + operation);
-            break;
+                logger.error("Unsupported operation: {}", operation);
+                break;
         }
-    
     }
 
-    
     /**
      * Manages the download monitoring service, starting or stopping it based on the status.
-     *
-     * @param status The desired running state of the download monitoring service.
+     * 
+     * @param status 
+     *   The desired running state of the download monitoring service (UP or DOWN).
      */
     public void manageDownload(runningStates status) {
         this.monitorStatus = status; // Update the monitoring status
@@ -108,50 +110,50 @@ public class SystemOrchestrator {
         }
     }
 
-
     /**
      * Manages the antivirus service, starting or stopping it based on the status.
-     *
-     * @param status The desired running state of the antivirus service.
+     * 
+     * @param status 
+     *   The desired running state of the antivirus service (UP or DOWN).
      */
     public void manageAV(runningStates status) {
-        this.avStatus = status; // Aggiorniamo lo stato dell'antivirus
-        logger.info("Gestendo il servizio antivirus, stato desiderato: {}", status);
+        this.avStatus = status; // Update the antivirus status
+        logger.info("Managing antivirus service, Desired state: {}", status);
 
-        // Avviare la scansione antivirus
+        // Start antivirus scan if the status is UP
         if (status == runningStates.UP) {
             if (avStatus != runningStates.UP) {
-                logger.info("Avviando la scansione antivirus...");
-                // Avviare la scansione solo se non è già in esecuzione
-                new Thread(() -> antivirusManager.startPerformScan()).start(); // Eseguiamo la scansione in un thread separato
-                avStatus = runningStates.UP; // Aggiorniamo lo stato dell'antivirus a UP
+                logger.info("Starting antivirus scan...");
+                // Start scan only if it is not already running
+                new Thread(() -> antivirusManager.startPerformScan()).start(); // Perform scan in a separate thread
+                avStatus = runningStates.UP; // Update the antivirus status to UP
             } else {
-                logger.info("La scansione antivirus è già in esecuzione.");
+                logger.info("Antivirus scan is already running.");
             }
         } else if (status == runningStates.DOWN) {
             if (avStatus != runningStates.DOWN) {
-                logger.info("Fermando l'antivirus...");
-                // Fermiamo la scansione (assicurarsi che il metodo stopPerformScan esista per fermare correttamente la scansione)
-                antivirusManager.stopPerformScan(); // Assicuriamoci che questo metodo esista e fermiamo la scansione
-                avStatus = runningStates.DOWN; // Aggiorniamo lo stato dell'antivirus a DOWN
-                logger.info("Scansione antivirus fermata.");
+                logger.info("Stopping antivirus scan...");
+                // Stop the antivirus scan (ensure the method stopPerformScan exists for proper stopping)
+                antivirusManager.stopPerformScan(); // Stop the scan
+                avStatus = runningStates.DOWN; // Update the antivirus status to DOWN
+                logger.info("Antivirus scan stopped.");
             } else {
-                logger.info("La scansione antivirus è già fermata.");
+                logger.info("Antivirus scan is already stopped.");
             }
         } else {
-            logger.error("Stato antivirus non valido: {}", status);
+            logger.error("Invalid antivirus state: {}", status);
         }
 
-        // Stampa i report finali
-        List<ScanReport> finalReports = antivirusManager.getFinalReports(); // Ottieni la lista dei report finali
+        // Print final reports after scanning
+        List<ScanReport> finalReports = antivirusManager.getFinalReports(); // Get the list of final reports
         if (finalReports.isEmpty()) {
-            logger.info("Nessun report disponibile.");
+            logger.info("No reports available.");
         } else {
             finalReports.forEach(report -> {
                 logger.info("----------");
                 logger.info("File: " + report.getFile().getName());
 
-                // Verifica se è stata rilevata una minaccia
+                // Check if a threat was detected
                 if (report.isThreatDetected()) {
                     logger.info("Threat Detected: YES");
                     logger.info("Threat Details: " + report.getThreatDetails());
@@ -160,7 +162,7 @@ public class SystemOrchestrator {
                     logger.info("Threat Detected: NO");
                 }
 
-                // Verifica la validità del report
+                // Check the validity of the report
                 if (report.isValidReport()) {
                     logger.info("Report is Valid.");
                 } else {
@@ -172,12 +174,10 @@ public class SystemOrchestrator {
         }
     }
 
-
-
     /**
      * Returns the current connection status of the VPN.
-     *
-     * @return The connection status.
+     * 
+     * @return The current VPN connection status.
      */
     public connectionStates getConnectionStatus() {
         logger.debug("Retrieving connection status: {}", connectionStatus);
@@ -186,8 +186,8 @@ public class SystemOrchestrator {
 
     /**
      * Returns the current status of the download monitoring service.
-     *
-     * @return The monitoring status.
+     * 
+     * @return The current download monitoring status.
      */
     public runningStates getMonitorStatus() {
         logger.debug("Retrieving monitoring status: {}", monitorStatus);
@@ -196,8 +196,8 @@ public class SystemOrchestrator {
 
     /**
      * Returns the current status of the antivirus service.
-     *
-     * @return The antivirus status.
+     * 
+     * @return The current antivirus status.
      */
     public runningStates getAVStatus() {
         logger.debug("Retrieving antivirus status: {}", avStatus);
@@ -205,9 +205,12 @@ public class SystemOrchestrator {
     }
 
     /**
-     * Creates a new peer in the VPN.
-     *
-     * @param peer The peer to be created.
+     * Creates a new peer in the VPN configuration.
+     * 
+     * @param peerData
+     *   The peer configuration data.
+     * @param peerName
+     *   The name of the peer to be added.
      */
     public void addPeer(String peerData, String peerName) {
         logger.info("Adding new peer with name: {}", peerName);
@@ -217,32 +220,30 @@ public class SystemOrchestrator {
     }
 
     /**
-     * Gets the wireguard manager.
+     * Returns the WireguardManager instance.
      * 
-     * @return WireguardManager
-     *   The wireguard manager.
+     * @return The WireguardManager instance.
      */
     public WireguardManager getWireguardManager() {
         return wireguardManager;
     }
 
     /**
-     * Gets the report info.
+     * Returns the report information based on the report name.
      * 
      * @param report
-     *   The report to be retrieved.
-     * @return String
-     *   The report info.
+     *   The name or identifier of the report to retrieve.
+     * @return The report information (dummy implementation for now).
      */
     public String getReportInfo(String report) {
         logger.info("Retrieving report info for report: {}", report);
-        // Return report details (dummy implementation for now)
+        // Return dummy report details for now
         return "";
     }
 
     /**
      * Returns the instance of DownloadManager.
-     *
+     * 
      * @return The DownloadManager instance.
      */
     public DownloadManager getDownloadManager() {
@@ -252,8 +253,9 @@ public class SystemOrchestrator {
 
     /**
      * Sets the instance of DownloadManager.
-     *
-     * @param downloadManager The DownloadManager instance to be set.
+     * 
+     * @param downloadManager
+     *   The DownloadManager instance to be set.
      */
     public void setDownloadManager(DownloadManager downloadManager) {
         logger.debug("Setting DownloadManager instance.");

@@ -1,169 +1,174 @@
 package com.wireshield.av;
 
-import com.wireshield.enums.runningStates;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.wireshield.enums.runningStates;
+import com.wireshield.enums.warningClass;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
 import static org.junit.Assert.*;
 
 /*
- * Unit test for the {@link AntivirusManager} class. 
- * This class tests the core functionalities of the AntivirusManager, such as adding files to the scan buffer,
- * performing scans, and retrieving reports and statuses.
+ * Test class for the AntivirusManager class.
+ * This class contains unit tests for validating the functionality of the AntivirusManager, 
+ * including adding files to the scan buffer, performing scans, stopping scans, and merging reports.
  */
 public class AntivirusManagerTest {
 
-    private static final Logger logger = LogManager.getLogger(AntivirusManagerTest.class);
-
     private AntivirusManager antivirusManager;
-    private File testFile1;
-    private File testFile2;
+    private ClamAV clamAV;
+    private VirusTotal virusTotal;
 
     /*
-     * Sets up the test environment by creating an instance of {@link AntivirusManager}
-     * and preparing sample test files.
-     *
-     * @throws IOException if file creation fails.
+     * Set up the environment for each test.
+     * This method runs before each test case to initialize the AntivirusManager and the scanning tools (ClamAV and VirusTotal).
      */
     @Before
-    public void setUp() throws IOException {
+    public void setUp() {
+        clamAV = new ClamAV(); // Uses the real implementation of ClamAV
+        virusTotal = new VirusTotal(); // Uses the real implementation of VirusTotal
         antivirusManager = new AntivirusManager();
-        logger.info("Created AntivirusManager instance");
-
-        File tempDir = new File("tempTestFiles");
-        if (!tempDir.exists()) {
-            tempDir.mkdir();
-        }
-
-        testFile1 = new File(tempDir, "testfile1.txt");
-        testFile2 = new File(tempDir, "testfile2.txt");
-
-        if (testFile1.createNewFile()) {
-            logger.info("Created file: " + testFile1.getName());
-        } else {
-            logger.error("Failed to create file: " + testFile1.getName());
-        }
-
-        if (testFile2.createNewFile()) {
-            logger.info("Created file: " + testFile2.getName());
-        } else {
-            logger.error("Failed to create file: " + testFile2.getName());
-        }
+        antivirusManager.setClamAV(clamAV);
+        antivirusManager.setVirusTotal(virusTotal);
     }
 
-    /*
-     * Cleans up test resources by deleting the sample test files.
+    /**
+     * Utility method to create a file with specific content.
+     * @param fileName The name of the file to create.
+     * @return The created File object.
+     * @throws IOException If an I/O error occurs during file creation.
      */
-    @After
-    public void tearDown() {
-        if (testFile1.exists() && testFile1.delete()) {
-            logger.info("Deleted file: " + testFile1.getName());
-        } else {
-            logger.error("Failed to delete file: " + testFile1.getName());
+    private File createFileWithContent(String fileName) throws IOException {
+        File file = new File(fileName);
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            fos.write("Ciao".getBytes()); // Writes "Ciao" to the file
         }
-
-        if (testFile2.exists() && testFile2.delete()) {
-            logger.info("Deleted file: " + testFile2.getName());
-        } else {
-            logger.error("Failed to delete file: " + testFile2.getName());
-        }
+        return file;
     }
 
-    /*
-     * Tests the {@link AntivirusManager#addFileToScanBuffer(File)} method by adding files
-     * and verifying their presence in the scan buffer.
+    /**
+     * Test the addFileToScanBuffer method.
+     * This test verifies that a file is correctly added to the scan buffer of the AntivirusManager.
+     * 
+     * @throws IOException If an I/O error occurs during file creation.
      */
     @Test
-    public void testAddFileToScanBuffer() {
-        logger.info("Running testAddFileToScanBuffer...");
+    public void testAddFileToScanBuffer() throws IOException {
+        // Create a file with "Ciao" content
+        File file = createFileWithContent("testfile.exe");
+        antivirusManager.addFileToScanBuffer(file);
 
-        antivirusManager.addFileToScanBuffer(testFile1);
-        antivirusManager.addFileToScanBuffer(testFile2);
-        logger.info("Files added to scan buffer");
+        // Verify that the file is in the scan buffer
+        assertTrue("The file should be in the buffer", antivirusManager.getScanBuffer().contains(file));
+    }
 
-        List<File> scanBuffer = antivirusManager.getScanBuffer();
-        assertTrue(scanBuffer.contains(testFile1));
-        assertTrue(scanBuffer.contains(testFile2));
+    /**
+     * Test the startPerformScan method.
+     * This test checks if the scan is performed correctly, files are removed from the buffer after scanning, 
+     * and scan reports are generated with correct threat classifications.
+     * 
+     * @throws IOException If an I/O error occurs during file creation.
+     * @throws InterruptedException If the thread is interrupted during the scan.
+     */
+    @Test
+    public void testStartPerformScan() throws IOException, InterruptedException {
+        // Create files with specific extensions
+        File file1 = createFileWithContent("file1.exe"); // Create .exe file
+        File file2 = createFileWithContent("file2.txt"); // Create .txt file
 
-        logger.info("Verified files in scan buffer");
+        // Add files to the buffer
+        antivirusManager.addFileToScanBuffer(file1);
+        antivirusManager.addFileToScanBuffer(file2);
+
+        // Start the scan in a separate thread
+        Thread scanThread = new Thread(() -> {
+            antivirusManager.startPerformScan();
+        });
+        scanThread.start();
+
+        // Wait for the scan to complete
+        scanThread.join(5000); // Wait for some time to simulate scan process
+
+        // Verify that the files are removed from the buffer after scanning
+        assertFalse("The file should be removed from the buffer after scanning", 
+                antivirusManager.getScanBuffer().contains(file1));
+        assertFalse("The file should be removed from the buffer after scanning", 
+                antivirusManager.getScanBuffer().contains(file2));
+
+        // Verify that final reports are present
+        assertTrue("Final reports should be present", !antivirusManager.getFinalReports().isEmpty());
+
+        // Verify that the report for file1.exe flags it as a threat
+        ScanReport finalReport1 = antivirusManager.getFinalReports().get(0);
+        assertTrue("file1.exe should be flagged as dangerous", finalReport1.isThreatDetected());
+        assertEquals("The threat for file1.exe should be DANGEROUS", warningClass.DANGEROUS,
+                finalReport1.getWarningClass());
+
+        // Verify that the report for file2.txt is clean
+        ScanReport finalReport2 = antivirusManager.getFinalReports().get(1);
+        assertFalse("file2.txt should not have any threats", finalReport2.isThreatDetected());
+        assertEquals("The threat for file2.txt should be CLEAR", warningClass.CLEAR,
+                finalReport2.getWarningClass());
+    }
+
+    /**
+     * Test the stopPerformScan method.
+     * This test checks whether the scan can be stopped correctly, and verifies the scan status is updated.
+     * 
+     * @throws InterruptedException If the thread is interrupted during the scan.
+     * @throws IOException If an I/O error occurs during file creation.
+     */
+    @Test
+    public void testStopPerformScan() throws InterruptedException, IOException {
+        // Add a file to the buffer
+        File file1 = createFileWithContent("file1.exe"); // Create .exe file
+        antivirusManager.addFileToScanBuffer(file1);
+
+        // Start the scan in a separate thread
+        Thread scanThread = new Thread(() -> {
+            antivirusManager.startPerformScan();
+        });
+        scanThread.start();
+
+        // Stop the scan
+        antivirusManager.stopPerformScan();
+
+        // Verify that the scan state is DOWN
+        assertEquals("The scan state should be DOWN", runningStates.DOWN,
+                antivirusManager.getScannerStatus());
     }
 
     /*
-     * Tests the {@link AntivirusManager#performScan()} method by ensuring files are scanned
-     * and removed from the buffer.
+     * Test the mergeReports method.
+     * This test verifies that reports are correctly merged, updating threat status and details.
      */
     @Test
-    public void testPerformScan() {
-        logger.info("Running testPerformScan...");
+    public void testMergeReports() {
+        AntivirusManager manager = new AntivirusManager();
 
-        antivirusManager.addFileToScanBuffer(testFile1);
-        antivirusManager.addFileToScanBuffer(testFile2);
-        logger.info("Files added to scan buffer");
+        // Create the target report
+        ScanReport target = new ScanReport();
+        target.setThreatDetected(false);
+        target.setThreatDetails("No threat detected");
+        target.setWarningClass(warningClass.CLEAR);
+        target.setValid(true);
 
-        antivirusManager.startPerformScan();
-        logger.info("Scan performed");
+        // Create the source report
+        ScanReport source = new ScanReport();
+        source.setThreatDetected(true);
+        source.setThreatDetails("Suspicious behavior detected");
+        source.setWarningClass(warningClass.SUSPICIOUS);
+        source.setValid(false);
 
-        List<File> scanBuffer = antivirusManager.getScanBuffer();
-        assertFalse(scanBuffer.contains(testFile1));
-        assertFalse(scanBuffer.contains(testFile2));
+        // Perform the merge
+        manager.mergeReports(target, source);
 
-        logger.info("Verified files removed from scan buffer after scan");
-    }
-
-    /*
-     * Tests the {@link AntivirusManager#getReport()} method by ensuring a scan report
-     * is generated and is not null.
-     */
-    @Test
-    public void testGetReport() {
-        logger.info("Running testGetReport...");
-
-        antivirusManager.addFileToScanBuffer(testFile1);
-        antivirusManager.startPerformScan();
-        logger.info("Files added to buffer and scan performed");
-
-        ScanReport report = antivirusManager.getReport();
-        assertNotNull(report);
-        logger.info("Scan report retrieved");
-    }
-
-    /*
-     * Tests the {@link AntivirusManager#getStatus()} method to verify the initial status
-     * of the antivirus manager.
-     */
-    @Test
-    public void testGetStatus() {
-        logger.info("Running testGetStatus...");
-
-        runningStates status = antivirusManager.getStatus();
-        assertEquals(runningStates.DOWN, status);
-        logger.info("Verified antivirus status is DOWN");
-    }
-
-    /*
-     * Tests the {@link AntivirusManager#getScanBuffer()} method by verifying
-     * that files are correctly added to the buffer.
-     */
-    @Test
-    public void testGetScanBuffer() {
-        logger.info("Running testGetScanBuffer...");
-
-        antivirusManager.addFileToScanBuffer(testFile1);
-        antivirusManager.addFileToScanBuffer(testFile2);
-        logger.info("Files added to scan buffer");
-
-        Map<File, Boolean> scanBuffer = antivirusManager.getScanBuffer();
-        assertTrue(scanBuffer.containsKey(testFile1));
-        assertTrue(scanBuffer.containsKey(testFile2));
-
-        logger.info("Verified files in scan buffer");
+        // Verify that the changes are applied correctly
+        assertTrue(target.isThreatDetected());  // The target should flag the threat
+        assertEquals("Suspicious behavior detected", target.getThreatDetails());  // Threat details should be updated
+        assertEquals(warningClass.SUSPICIOUS, target.getWarningClass());  // Warning class should be updated
+        assertFalse(target.isValidReport());  // Report validity should be updated
     }
 }
