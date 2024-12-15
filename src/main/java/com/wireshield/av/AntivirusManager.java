@@ -104,7 +104,7 @@ public class AntivirusManager {
 
             // Scan with VirusTotal if ClamAV detects a severe threat
             if (finalReport.isThreatDetected() && virusTotal != null) {
-                virusTotal.analyze(fileToScan, finalReport); // Update the report with VirusTotal
+                virusTotal.analyze(fileToScan); // Update the report with VirusTotal
                 ScanReport virusTotalReport = virusTotal.getReport(); // Get VirusTotal report
                 if (virusTotalReport != null) {
                     mergeReports(finalReport, virusTotalReport); // Merge VirusTotal report
