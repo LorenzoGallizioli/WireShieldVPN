@@ -95,7 +95,7 @@ public class AntivirusManager {
 
             // Scan with ClamAV
             if (clamAV != null) {
-                clamAV.analyze(fileToScan, finalReport); // Update the report with ClamAV
+                clamAV.analyze(fileToScan); // Update the report with ClamAV
                 ScanReport clamAVReport = clamAV.getReport(); // Get ClamAV report
                 if (clamAVReport != null) {
                     mergeReports(finalReport, clamAVReport); // Merge ClamAV report
