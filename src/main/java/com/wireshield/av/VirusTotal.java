@@ -19,13 +19,22 @@ import java.io.InputStream;
 import java.net.URI;
 import java.security.MessageDigest;
 
+/*
+ * VirusTotal class interacts with the VirusTotal API to analyze files for potential threats.
+ * It provides methods for file hash calculation, uploading files, and retrieving analysis reports.
+ */
 public class VirusTotal {
 
-    private static final String API_KEY = "895b6aece66d9a168c9822eb4254f2f44993e347c5ea0ddf90708982e857d613"; // Replace with your API key
+    private static final String API_KEY = "895b6aece66d9a168c9822eb4254f2f44993e347c5ea0ddf90708982e857d613"; // Replace with your actual API key
     private ScanReport scanReport;
 
-    // Method to calculate the SHA256 hash of a file
-    private String calculateSHA256(File file) {
+    /**
+     * Calculates the SHA256 hash of a given file.
+     * 
+     * @param file The file to calculate the SHA256 hash for.
+     * @return The calculated SHA256 hash as a hexadecimal string, or null if an error occurs.
+     */
+    String calculateSHA256(File file) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             try (FileInputStream fis = new FileInputStream(file)) {
@@ -47,16 +56,22 @@ public class VirusTotal {
         }
     }
 
-    // Method to upload the file to VirusTotal
+    /**
+     * Analyzes the provided file by uploading it to VirusTotal.
+     * This method calculates the SHA256 hash, uploads the file, and stores the result in the scan report.
+     *
+     * @param file The file to analyze.
+     */
     public void analyze(File file) {
+        // Check if the file is valid
         if (file == null || !file.exists()) {
             System.out.println("The file does not exist.");
-            scanReport = new ScanReport();  // Ensure the object is created even in case of error
+            scanReport = new ScanReport();  // Initialize report as invalid
             scanReport.setValid(false);
             return;
         }
 
-        // Calculate SHA256 of the file and store it in ScanReport
+        // Calculate the SHA256 hash of the file
         String fileHash = calculateSHA256(file);
         if (fileHash != null) {
             System.out.println("Calculated SHA256: " + fileHash);
@@ -64,12 +79,12 @@ public class VirusTotal {
             System.out.println("Failed to calculate SHA256.");
         }
 
-        // Original logic for file upload
+        // Upload the file to VirusTotal for analysis
         try {
             HttpClient client = HttpClients.createDefault();
             URI uri = new URIBuilder("https://www.virustotal.com/api/v3/files").build();
 
-            // Add a print to verify the request URL
+            // Log the request URL for debugging
             System.out.println("Sending request to: " + uri.toString());
 
             HttpPost post = new HttpPost(uri);
@@ -82,64 +97,67 @@ public class VirusTotal {
             HttpResponse response = client.execute(post);
             int statusCode = response.getStatusLine().getStatusCode();
 
-            // Print the response status code
+            // Log response status code
             System.out.println("HTTP Status Code: " + statusCode);
 
             if (statusCode == 200) {
+                // Process the response and retrieve the scan ID
                 InputStream responseStream = response.getEntity().getContent();
                 ObjectMapper objectMapper = new ObjectMapper();
                 JsonNode responseJson = objectMapper.readTree(responseStream);
 
-                // Print the JSON response for debugging
+                // Log the response JSON
                 System.out.println("Response JSON: " + responseJson.toString());
 
                 JsonNode dataNode = responseJson.path("data");
                 JsonNode attributesNode = dataNode.path("attributes");
 
-                // Safely extract the status
                 String status = attributesNode.path("status").asText("Status not found");
 
-                // Print the status for verification
+                // Log the status and scan ID
                 System.out.println("Status: " + status);
-
                 String scanId = dataNode.path("id").asText();
-
-                // Print the scan ID for verification
                 System.out.println("Scan ID: " + scanId);
 
-                // Set the file and scan ID in the report
+                // Initialize the scan report with file and scan ID
                 scanReport = new ScanReport(scanId, file);
-                // Also store the SHA256 hash
                 scanReport.setSha256(fileHash);
             } else {
+                // Handle request error
                 System.out.println("Request error: " + statusCode);
-                scanReport = new ScanReport();  // Ensure the object is initialized
+                scanReport = new ScanReport();  // Initialize as invalid
                 scanReport.setValid(false);
                 scanReport.setThreatDetails("Error during file analysis.");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            scanReport = new ScanReport();  // Ensure the object is initialized
+            scanReport = new ScanReport();  // Initialize as invalid
             scanReport.setValid(false);
             scanReport.setThreatDetails("Error during file analysis.");
         }
     }
 
-    // Method to retrieve the analysis report using the ID, only when the status is 'completed'
+    /**
+     * Retrieves the analysis report for the previously uploaded file using the scan ID.
+     * Polls the VirusTotal API until the analysis status is completed.
+     *
+     * @return The ScanReport with analysis results, or null if an error occurred.
+     */
     public ScanReport getReport() {
+        // Ensure that there is a valid scan report
         if (scanReport == null || scanReport.getScanId() == null) {
             System.out.println("No report available. Please perform an analysis first.");
             return null;
         }
 
         try {
+            // Poll the VirusTotal API for the analysis report using the scan ID
             HttpClient client = HttpClients.createDefault();
             URI uri = new URIBuilder("https://www.virustotal.com/api/v3/analyses/" + scanReport.getScanId()).build();
 
-            // Loop continues to request the report until it's completed
             boolean isCompleted = false;
             while (!isCompleted) {
-                // Print the request URL for retrieving the report
+                // Log request URL for report retrieval
                 System.out.println("Requesting report for Scan ID: " + scanReport.getScanId());
                 System.out.println("Request URL: " + uri.toString());
 
@@ -149,52 +167,47 @@ public class VirusTotal {
                 HttpResponse response = client.execute(get);
                 int statusCode = response.getStatusLine().getStatusCode();
 
-                // Print the response status code
+                // Log response status code
                 System.out.println("HTTP Status Code: " + statusCode);
 
                 if (statusCode == 200) {
+                    // Process the report response
                     InputStream responseStream = response.getEntity().getContent();
                     ObjectMapper objectMapper = new ObjectMapper();
                     JsonNode responseJson = objectMapper.readTree(responseStream);
 
-                    // Print the JSON response for debugging
+                    // Log the response JSON
                     System.out.println("Response JSON: " + responseJson.toString());
 
-                    // Navigate through JSON nodes to get the status
                     JsonNode dataNode = responseJson.path("data");
                     JsonNode attributesNode = dataNode.path("attributes");
 
-                    // Safely extract the status
                     String status = attributesNode.path("status").asText("Status not found");
-
-                    // Print the status for verification
                     System.out.println("Status: " + status);
 
-                    // Check if the status is "completed"
                     if ("completed".equalsIgnoreCase(status)) {
-                        // Extract analysis stats
+                        // Extract statistics from the completed report
                         JsonNode statsNode = attributesNode.path("stats");
 
-                        // Extract counters from JSON
                         int maliciousCount = statsNode.path("malicious").asInt();
                         int harmlessCount = statsNode.path("harmless").asInt();
                         int suspiciousCount = statsNode.path("suspicious").asInt();
                         int undetectedCount = statsNode.path("undetected").asInt();
 
-                        // Print analysis counters
+                        // Log analysis stats
                         System.out.println("Malicious: " + maliciousCount);
                         System.out.println("Harmless: " + harmlessCount);
                         System.out.println("Suspicious: " + suspiciousCount);
                         System.out.println("Undetected: " + undetectedCount);
 
-                        // Update the ScanReport object
+                        // Update scan report with results
                         scanReport.setValid(true);
                         scanReport.setMaliciousCount(maliciousCount);
                         scanReport.setHarmlessCount(harmlessCount);
                         scanReport.setSuspiciousCount(suspiciousCount);
                         scanReport.setUndetectedCount(undetectedCount);
 
-                        // Determine risk based on the counters
+                        // Classify threat risk
                         if (maliciousCount > 0) {
                             double totalScans = maliciousCount + harmlessCount + suspiciousCount + undetectedCount;
                             double maliciousPercentage = (maliciousCount / totalScans) * 100;
@@ -203,15 +216,12 @@ public class VirusTotal {
                             scanReport.setThreatDetected(true);
 
                             if (maliciousPercentage > 70 || maliciousCount > 50) {
-                                // High risk
                                 scanReport.setWarningClass(warningClass.DANGEROUS);
                                 scanReport.setThreatDetails("High risk: high percentage of malicious detections.");
                             } else if (maliciousPercentage > 30 || suspiciousPercentage > 40 || maliciousCount > 10) {
-                                // Moderate risk
                                 scanReport.setWarningClass(warningClass.DANGEROUS);
                                 scanReport.setThreatDetails("Moderate risk: the file might be harmful.");
                             } else {
-                                // Low risk
                                 scanReport.setWarningClass(warningClass.SUSPICIOUS);
                                 scanReport.setThreatDetails("Low risk: some suspicious or malicious detections.");
                             }
@@ -219,38 +229,34 @@ public class VirusTotal {
                             scanReport.setThreatDetected(true);
 
                             if (suspiciousCount > 5) {
-                                // Multiple suspicious detections
                                 scanReport.setWarningClass(warningClass.SUSPICIOUS);
                                 scanReport.setThreatDetails("Suspicious file: multiple suspicious detections.");
                             } else {
-                                // Few suspicious detections
                                 scanReport.setWarningClass(warningClass.SUSPICIOUS);
                                 scanReport.setThreatDetails("Suspicious file: low number of suspicious detections.");
                             }
                         } else {
-                            // No threat detected
                             scanReport.setThreatDetected(false);
                             scanReport.setWarningClass(warningClass.CLEAR);
                             scanReport.setThreatDetails("The file is clean: no threat detected.");
                         }
 
-                        // Set the status as completed
+                        // Mark the scan as completed
                         isCompleted = true;
                     } else {
-                        // Not completed yet, wait 5 seconds and try again
+                        // Not completed yet, retry after 5 seconds
                         System.out.println("Scan not completed yet. Waiting...");
-                        Thread.sleep(5000); // Wait 5 seconds before retrying
+                        Thread.sleep(5000);
                     }
                 } else {
-                    // Handle error while retrieving the report
+                    // Handle errors during report retrieval
                     System.out.println("Error retrieving the report: " + statusCode);
-                    scanReport = new ScanReport();
+                    scanReport = new ScanReport(); // Reset report on error
                     scanReport.setValid(false);
-                    isCompleted = true; // Stop the loop in case of error
+                    isCompleted = true;
                 }
             }
         } catch (Exception e) {
-            // Handle any network or JSON exceptions
             e.printStackTrace();
             scanReport = new ScanReport();
             scanReport.setValid(false);

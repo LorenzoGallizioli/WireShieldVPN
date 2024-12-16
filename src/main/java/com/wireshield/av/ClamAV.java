@@ -11,155 +11,112 @@ import org.apache.logging.log4j.Logger;
 import com.wireshield.enums.warningClass;
 
 /*
- * This class handles file analysis using ClamAV, an antivirus software.
- * It scans files for potential threats (viruses, malware) and generates
- * detailed scan reports based on the scan results.
- * 
- * It interacts with the ClamAV command-line tool (`clamscan.exe`) to perform
- * the actual file scanning and processes its output to classify the file
- * as either clean, suspicious, or containing a threat.
+ * This class uses ClamAV to scan files for threats, analyzing files via the ClamAV command-line tool (`clamscan.exe`)
+ * and generating scan reports based on the results.
  */
 public class ClamAV {
 
-	// Logger for logging activities and debugging, using Log4j for structured
-	// logging
+	// Logger for ClamAV-related logs
 	private static final Logger logger = LogManager.getLogger(ClamAV.class);
-
-	// Holds the most recent scan report after a file has been analyzed
 	private ScanReport clamavReport;
 
-	/*
-	 * Constructor to initialize the ClamAV object. It initializes the
-	 * `clamavReport` to null as no scan has been performed yet.
-	 */
+	// Constructor for initializing ClamAV
 	public ClamAV() {
 		this.clamavReport = null;
 		logger.info("ClamAV initialized.");
 	}
 
 	/**
-	 * Retrieves the scan report of the most recently analyzed file.
+	 * Analyzes a file with ClamAV to check for threats.
 	 * 
-	 * @return The ScanReport object containing details of the last scan.
-	 */
-	public ScanReport getReport() {
-		return clamavReport;
-	}
-
-	/**
-	 * Analyzes a given file using ClamAV antivirus to check for potential threats.
-	 * The method runs the ClamAV scanner (clamscan) as an external process, reads
-	 * its output, and classifies the file as clean, suspicious, or containing a
-	 * threat.
-	 * 
-	 * @param file The file to be analyzed.
+	 * @param file The file to be scanned.
 	 */
 	public void analyze(File file) {
-		// Check if the file is valid (exists) before scanning
+		// Check if the file exists before proceeding
 		if (file == null || !file.exists()) {
-			clamavReport = new ScanReport(); // Create a new empty scan report
+			clamavReport = new ScanReport(); // Initialize the scan report
 			clamavReport.setFile(file);
-			clamavReport.setValid(false); // The file is not valid if it doesn't exist
+			clamavReport.setValid(false);
 			clamavReport.setThreatDetails("File does not exist.");
-			clamavReport.setWarningClass(warningClass.CLEAR); // No threat detected
+			clamavReport.setWarningClass(warningClass.CLEAR); // Mark the file as clear (no threat)
 			logger.warn("File does not exist: " + file);
 			return;
 		}
 
 		try {
-			// Path to the ClamAV executable (clamscan) - ensure this path is correct
-			String clamavPath = "C:\\Program Files\\ClamAV\\clamscan.exe"; // Adjust path if necessary
+			// Define the path to the ClamAV command-line tool (clamscan.exe)
+			String clamavPath = "C:\\Program Files\\ClamAV\\clamscan.exe";
 			logger.info("ClamAV path: " + clamavPath);
 
-			// Create a process to run the ClamAV scanner on the specified file
+			// Initialize the process builder to run the ClamAV scan command
 			ProcessBuilder processBuilder = new ProcessBuilder(clamavPath, file.getAbsolutePath());
-			processBuilder.redirectErrorStream(true); // Merge standard output and error streams
-			Process process = processBuilder.start(); // Start the ClamAV scan process
+			processBuilder.redirectErrorStream(true); // Redirect error stream to the output stream
+			Process process = processBuilder.start(); // Start the scan process
 
 			// Read the output from the ClamAV scan process
 			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 			String line;
-			boolean threatDetected = false; // Flag to indicate if a threat is found
-			boolean suspiciousDetected = false; // Flag for suspicious files
-			String threatDetails = ""; // String to hold the threat details if found
+			boolean threatDetected = false; // Flag for threat detection
+			boolean suspiciousDetected = false; // Flag for suspicious activity detection
+			String threatDetails = ""; // To store the threat details
 
-			// Process the output of ClamAV line by line
+			// Process each line of ClamAV output
 			while ((line = reader.readLine()) != null) {
-				logger.debug("ClamAV output: " + line); // Log ClamAV output for debugging
+				logger.debug("ClamAV output: " + line);
 
-				// Check if the line contains the word "FOUND", which indicates a virus or
-				// malware
+				// Check if ClamAV has found a threat
 				if (line.contains("FOUND")) {
-					threatDetected = true; // Mark as threat detected
+					threatDetected = true;
 					threatDetails = line.substring(line.indexOf(":") + 2, line.lastIndexOf("FOUND")).trim();
 					logger.info("Threat detected: " + threatDetails);
-					break; // Stop reading as we have already detected a threat
+					break; // Stop processing after a threat is found
 				}
-				// Check if the line contains the word "suspicious", indicating suspicious
-				// activity
+				// Check if ClamAV has detected suspicious activity
 				else if (line.contains("suspicious")) {
-					suspiciousDetected = true; // Mark as suspicious file detected
-					threatDetails = line.substring(line.indexOf(":") + 2).trim(); // Extract suspicious details
+					suspiciousDetected = true;
+					threatDetails = line.substring(line.indexOf(":") + 2).trim();
 					logger.info("Suspicious activity detected: " + threatDetails);
-					break; // Stop reading since we have identified suspicious activity
+					break; // Stop processing after suspicious activity is detected
 				}
 			}
 
-			// Create the scan report based on the findings
-			clamavReport = new ScanReport(); // Create a new ScanReport object
-			clamavReport.setFile(file); // Set the file that was scanned
-			clamavReport.setValid(true); // Mark the file as valid for analysis
-			clamavReport.setThreatDetected(threatDetected || suspiciousDetected); // Set if threat or suspicious was
-																					// found
+			// Prepare the scan report
+			clamavReport = new ScanReport();
+			clamavReport.setFile(file);
+			clamavReport.setValid(true); // Mark the report as valid
+			clamavReport.setThreatDetected(threatDetected || suspiciousDetected); // Mark as true if any threat or
+																					// suspicious activity detected
 
-			// Handle the different possible outcomes based on the analysis
+			// Handle the detected threats or suspicious activity
 			if (threatDetected) {
-				clamavReport.setThreatDetails(threatDetails); // Set threat details if a threat is detected
-				clamavReport.setWarningClass(warningClass.DANGEROUS); // Mark as dangerous if a virus is found
+				clamavReport.setThreatDetails(threatDetails); // Set threat details
+				clamavReport.setWarningClass(warningClass.DANGEROUS); // Classify as dangerous
 				logger.warn("Threat found, marking as dangerous.");
 			} else if (suspiciousDetected) {
 				clamavReport.setThreatDetails("Suspicious activity detected");
-				clamavReport.setWarningClass(warningClass.SUSPICIOUS); // Mark as suspicious if suspicious content is
-																		// found
+				clamavReport.setWarningClass(warningClass.SUSPICIOUS); // Classify as suspicious
 				logger.warn("Suspicious activity detected, marking as suspicious.");
 			} else {
 				clamavReport.setThreatDetails("No threat detected");
-				clamavReport.setWarningClass(warningClass.CLEAR); // No threat found, so file is clean
+				clamavReport.setWarningClass(warningClass.CLEAR); // Mark as clear (no threat)
 				logger.info("No threat detected.");
 			}
 
-			// Close the reader after reading the entire output
-			reader.close();
+			reader.close(); // Close the reader after processing the output
 
 		} catch (IOException e) {
-			// Handle any IOExceptions that may occur while running the scan
-			clamavReport = new ScanReport(); // Create a new scan report in case of error
+			// Handle errors during the scanning process
+			clamavReport = new ScanReport();
 			clamavReport.setFile(file);
-			clamavReport.setValid(false); // File is not valid if an error occurs during scanning
+			clamavReport.setValid(false); // Mark the report as invalid
 			clamavReport.setThreatDetails("Error during scan: " + e.getMessage());
-			clamavReport.setWarningClass(warningClass.CLEAR); // Set as clear if there's an error
-			logger.error("Error during scan: " + e.getMessage(), e); // Log the error
+			clamavReport.setWarningClass(warningClass.CLEAR); // Mark as clear due to error
+			logger.error("Error during scan: " + e.getMessage(), e); // Log the error details
 		}
 	}
 
-	// The following main method is for manual testing and is currently commented
-	// out.
-	public static void main(String[] args) {
-		File fileToScan = new File("C:/Users/bnsda/Downloads/eicar.com");
-
-		ClamAV clamAV = new ClamAV();
-		clamAV.analyze(fileToScan);
-
-		ScanReport report = clamAV.getReport();
-		if (report != null) {
-			System.out.println("\n--- Scan Report ---");
-			System.out.println("File: " + report.getFile().getAbsolutePath());
-			System.out.println("Valid: " + report.isValidReport());
-			System.out.println("Threat Detected: " + report.isThreatDetected());
-			System.out.println("Threat Details: " + report.getThreatDetails());
-			System.out.println("Warning Class: " + report.getWarningClass());
-		} else {
-			System.out.println("No report generated.");
-		}
+	// Returns the generated scan report
+	public ScanReport getReport() {
+		return clamavReport;
 	}
 }
