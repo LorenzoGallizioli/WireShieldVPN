@@ -14,14 +14,39 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.client.utils.URIBuilder;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URI;
+import java.security.MessageDigest;
 
 public class VirusTotal {
 
     private static final String API_KEY = "895b6aece66d9a168c9822eb4254f2f44993e347c5ea0ddf90708982e857d613"; // Replace with your API key
     private ScanReport scanReport;
-    
+
+    // Method to calculate the SHA256 hash of a file
+    private String calculateSHA256(File file) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            try (FileInputStream fis = new FileInputStream(file)) {
+                byte[] byteArray = new byte[1024];
+                int bytesCount;
+                while ((bytesCount = fis.read(byteArray)) != -1) {
+                    digest.update(byteArray, 0, bytesCount);
+                }
+            }
+            byte[] bytes = digest.digest();
+            StringBuilder sb = new StringBuilder();
+            for (byte b : bytes) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     // Method to upload the file to VirusTotal
     public void analyze(File file) {
         if (file == null || !file.exists()) {
@@ -31,6 +56,15 @@ public class VirusTotal {
             return;
         }
 
+        // Calculate SHA256 of the file and store it in ScanReport
+        String fileHash = calculateSHA256(file);
+        if (fileHash != null) {
+            System.out.println("Calculated SHA256: " + fileHash);
+        } else {
+            System.out.println("Failed to calculate SHA256.");
+        }
+
+        // Original logic for file upload
         try {
             HttpClient client = HttpClients.createDefault();
             URI uri = new URIBuilder("https://www.virustotal.com/api/v3/files").build();
@@ -75,6 +109,8 @@ public class VirusTotal {
 
                 // Set the file and scan ID in the report
                 scanReport = new ScanReport(scanId, file);
+                // Also store the SHA256 hash
+                scanReport.setSha256(fileHash);
             } else {
                 System.out.println("Request error: " + statusCode);
                 scanReport = new ScanReport();  // Ensure the object is initialized
@@ -229,7 +265,7 @@ public class VirusTotal {
         VirusTotal virusTotal = new VirusTotal();
 
         // Replace with the file path you want to scan
-        File fileToScan = new File("C:/Users/bnsda/Downloads/eicar.com");
+        File fileToScan = new File("C:/Users/bnsda/Downloads/CAP01.pdf");
         virusTotal.analyze(fileToScan);
 
         // Retrieve and display the report after analysis
@@ -237,6 +273,7 @@ public class VirusTotal {
         if (report != null) {
             System.out.println("\n--- Scan Report ---");
             System.out.println("File: " + report.getFile().getAbsolutePath());
+            System.out.println("SHA256: " + report.getSha256());
             System.out.println("Valid: " + report.isValidReport());
             System.out.println("Threat Detected: " + report.isThreatDetected());
             System.out.println("Threat Details: " + report.getThreatDetails());
