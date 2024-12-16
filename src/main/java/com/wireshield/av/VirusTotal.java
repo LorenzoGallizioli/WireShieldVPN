@@ -259,27 +259,4 @@ public class VirusTotal {
 
         return scanReport;
     }
-
-    // Temporary main method for testing
-    public static void main(String[] args) {
-        VirusTotal virusTotal = new VirusTotal();
-
-        // Replace with the file path you want to scan
-        File fileToScan = new File("C:/Users/bnsda/Downloads/CAP01.pdf");
-        virusTotal.analyze(fileToScan);
-
-        // Retrieve and display the report after analysis
-        ScanReport report = virusTotal.getReport();
-        if (report != null) {
-            System.out.println("\n--- Scan Report ---");
-            System.out.println("File: " + report.getFile().getAbsolutePath());
-            System.out.println("SHA256: " + report.getSha256());
-            System.out.println("Valid: " + report.isValidReport());
-            System.out.println("Threat Detected: " + report.isThreatDetected());
-            System.out.println("Threat Details: " + report.getThreatDetails());
-            System.out.println("Warning Class: " + report.getWarningClass());
-        } else {
-            System.out.println("No report generated.");
-        }
-    }
 }

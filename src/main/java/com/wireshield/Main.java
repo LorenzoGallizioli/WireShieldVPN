@@ -1,5 +1,6 @@
 package com.wireshield;
 
+import com.wireshield.enums.runningStates;
 import com.wireshield.enums.vpnOperations;
 import com.wireshield.localfileutils.SystemOrchestrator;
 
@@ -15,7 +16,9 @@ public class Main
     public static void main( String[] args )
     {
         SystemOrchestrator so = new SystemOrchestrator();
-        so.manageVPN(vpnOperations.START);
-        logger.info("Hello World!");
+        /*so.manageVPN(vpnOperations.START);
+        logger.info("Hello World!");*/
+        so.manageDownload(runningStates.UP);
+        so.manageAV(runningStates.UP);
     }
 }

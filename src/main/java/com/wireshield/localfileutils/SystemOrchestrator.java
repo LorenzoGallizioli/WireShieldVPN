@@ -8,7 +8,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.wireshield.av.AntivirusManager;
+import com.wireshield.av.ClamAV;
 import com.wireshield.av.ScanReport;
+import com.wireshield.av.VirusTotal;
 import com.wireshield.wireguard.PeerManager;
 import com.wireshield.wireguard.WireguardManager;
 import com.wireshield.enums.runningStates;
@@ -26,6 +28,9 @@ public class SystemOrchestrator {
     private WireguardManager wireguardManager; // Manages VPN connections
     private DownloadManager downloadManager;   // Manages download monitoring
     private AntivirusManager antivirusManager; // Manages antivirus operations
+    private ClamAV clamAV;
+    private VirusTotal virusTotal;
+    
     private runningStates avStatus;            // Status of the antivirus
     private runningStates monitorStatus;       // Status of the download monitoring
     private connectionStates connectionStatus; // Status of the VPN connection
@@ -36,9 +41,15 @@ public class SystemOrchestrator {
     public SystemOrchestrator() {
         // Create a singleton instance of AntivirusManager
         this.antivirusManager = new AntivirusManager();
-
+     // Configura ClamAV e VirusTotal
+        this.clamAV = new ClamAV(); // Inizializza la tua implementazione di ClamAV
+        this.virusTotal = new VirusTotal(); // Inizializza la tua implementazione di VirusTotal
         // Pass the AntivirusManager instance to the DownloadManager
         this.setDownloadManager(new DownloadManager(antivirusManager));
+        // Imposta gli scanner su AntivirusManager
+        antivirusManager.setClamAV(clamAV);
+        antivirusManager.setVirusTotal(virusTotal);
+        
         logger.info("SystemOrchestrator initialized.");
     }
 
@@ -117,31 +128,24 @@ public class SystemOrchestrator {
      *   The desired running state of the antivirus service (UP or DOWN).
      */
     public void manageAV(runningStates status) {
-        this.avStatus = status; // Update the antivirus status
+
+        this.avStatus = status; // Correggere l'assegnazione dello stato dell'antivirus
         logger.info("Managing antivirus service, Desired state: {}", status);
 
-        // Start antivirus scan if the status is UP
-        if (status == runningStates.UP) {
-            if (avStatus != runningStates.UP) {
-                logger.info("Starting antivirus scan...");
-                // Start scan only if it is not already running
-                new Thread(() -> antivirusManager.startPerformScan()).start(); // Perform scan in a separate thread
-                avStatus = runningStates.UP; // Update the antivirus status to UP
+        if (monitorStatus == runningStates.UP) {
+            if (antivirusManager.getScannerStatus() != runningStates.UP) {
+                logger.info("Starting antivirus service...");
+                antivirusManager.startPerformScan(); // Start monitoring
             } else {
-                logger.info("Antivirus scan is already running.");
-            }
-        } else if (status == runningStates.DOWN) {
-            if (avStatus != runningStates.DOWN) {
-                logger.info("Stopping antivirus scan...");
-                // Stop the antivirus scan (ensure the method stopPerformScan exists for proper stopping)
-                antivirusManager.stopPerformScan(); // Stop the scan
-                avStatus = runningStates.DOWN; // Update the antivirus status to DOWN
-                logger.info("Antivirus scan stopped.");
-            } else {
-                logger.info("Antivirus scan is already stopped.");
+                logger.info("Antivirus service is already running.");
             }
         } else {
-            logger.error("Invalid antivirus state: {}", status);
+            if (antivirusManager.getScannerStatus() != runningStates.DOWN) {
+                logger.info("Stopping antivirus service...");
+                antivirusManager.stopPerformScan(); // Stop monitoring
+            } else {
+                logger.info("Antivirus service is already stopped.");
+            }
         }
 
         // Print final reports after scanning
