@@ -32,6 +32,7 @@ public class AntivirusManager {
      * Constructs an AntivirusManager instance.
      */
     public AntivirusManager() {
+    	
         logger.info("AntivirusManager initialized.");
         scannerStatus = runningStates.DOWN;
     }
@@ -125,7 +126,9 @@ public class AntivirusManager {
                 // Add the consolidated report to the final reports
                 finalReports.add(finalReport);
                 logger.info("Scan completed for file: {}", fileToScan.getName());
-                logger.info("Scan report for file {}: {}", fileToScan.getName(), finalReport);
+                
+                // Use ScanReport's printReport method to print the details
+                finalReport.printReport();
             }
 
             logger.info("Scanning process finished or stopped.");
@@ -161,27 +164,36 @@ public class AntivirusManager {
      * @param source The ScanReport with additional details.
      */
     void mergeReports(ScanReport target, ScanReport source) {
-        if (source != null && source.isThreatDetected()) {
-            // Update the threatDetected flag
-            target.setThreatDetected(true);
+    	if (source != null && source.isThreatDetected()) {
+    	    // Update the threatDetected flag
+    	    target.setThreatDetected(true);
 
-            // Handle threat details
-            if (target.getThreatDetails().equals("No threat detected")) {
-                target.setThreatDetails(source.getThreatDetails());
-            } else {
-                target.setThreatDetails(target.getThreatDetails() + "; " + source.getThreatDetails());
-            }
+    	    // Use only the last threat detail message (i.e., High risk: high percentage of malicious detections)
+    	    target.setThreatDetails(source.getThreatDetails());
 
-            // Set the most severe warning class
-            if (source.getWarningClass().compareTo(target.getWarningClass()) > 0) {
-                target.setWarningClass(source.getWarningClass());
-            }
+    	    // Set the most severe warning class
+    	    if (source.getWarningClass().compareTo(target.getWarningClass()) > 0) {
+    	        target.setWarningClass(source.getWarningClass());
+    	    }
+
+    	    // Merge VirusTotal counters
+    	    target.setMaliciousCount(target.getMaliciousCount() + source.getMaliciousCount());
+    	    target.setHarmlessCount(target.getHarmlessCount() + source.getHarmlessCount());
+    	    target.setSuspiciousCount(target.getSuspiciousCount() + source.getSuspiciousCount());
+    	    target.setUndetectedCount(target.getUndetectedCount() + source.getUndetectedCount());
+    	}
+
+        // Include SHA256 from source if it's valid and different from target's SHA256
+        if (source != null && source.getSha256() != null && !source.getSha256().equals(target.getSha256())) {
+            target.setSha256(source.getSha256());
         }
 
         // Update report validity
         boolean validReport = target.isValidReport() && (source != null && source.isValidReport());
         target.setValid(validReport);
     }
+
+
 
     /**
      * Returns the current scanner status.

@@ -89,26 +89,28 @@ public class SystemOrchestrator {
      * @param status The desired state of the download monitoring service (UP or DOWN).
      */
     public void manageDownload(runningStates status) {
-        this.monitorStatus = status; // Update monitoring status
-        logger.info("Managing download monitoring, Desired state: {}", status);
+        this.monitorStatus = status; // Update download monitoring status
+        logger.info("Managing download monitoring service. Desired state: {}", status);
 
         if (monitorStatus == runningStates.UP) {
             if (downloadManager.getMonitorStatus() != runningStates.UP) {
                 logger.info("Starting download monitoring service...");
                 try {
-                    downloadManager.startMonitoring(); // Start monitoring
+                    downloadManager.startMonitoring(); // Start monitoring downloads
+                    logger.info("Download monitoring service started successfully.");
                 } catch (IOException e) {
                     logger.error("Error starting the download monitoring service: {}", e.getMessage(), e);
                 }
             } else {
-                logger.info("Download monitoring is already running.");
+                logger.info("Download monitoring service is already running.");
             }
         } else {
             if (downloadManager.getMonitorStatus() != runningStates.DOWN) {
                 logger.info("Stopping download monitoring service...");
-                downloadManager.stopMonitoring(); // Stop monitoring
+                downloadManager.stopMonitoring(); // Stop monitoring downloads
+				logger.info("Download monitoring service stopped successfully.");
             } else {
-                logger.info("Download monitoring is already stopped.");
+                logger.info("Download monitoring service is already stopped.");
             }
         }
     }
@@ -120,38 +122,47 @@ public class SystemOrchestrator {
      */
     public void manageAV(runningStates status) {
         this.avStatus = status; // Update antivirus status
-        logger.info("Managing antivirus service, Desired state: {}", status);
+        logger.info("Managing antivirus service. Desired state: {}", status);
 
         if (avStatus == runningStates.UP) {
             if (antivirusManager.getScannerStatus() != runningStates.UP) {
                 logger.info("Starting antivirus service...");
-                antivirusManager.startPerformScan(); // Start antivirus scan
+
+                // Starting antivirus scan and providing progress
+                try {
+                    antivirusManager.startPerformScan(); // Start antivirus scan
+                    logger.info("Antivirus service started successfully.");
+                } catch (Exception e) {
+                    logger.error("Error while starting antivirus service: {}", e.getMessage(), e);
+                }
             } else {
                 logger.info("Antivirus service is already running.");
             }
         } else {
             if (antivirusManager.getScannerStatus() != runningStates.DOWN) {
                 logger.info("Stopping antivirus service...");
-                antivirusManager.stopPerformScan(); // Stop antivirus scan
+                
+                // Stopping the scan
+                try {
+                    antivirusManager.stopPerformScan(); // Stop antivirus scan
+                    logger.info("Antivirus service stopped successfully.");
+                } catch (Exception e) {
+                    logger.error("Error while stopping antivirus service: {}", e.getMessage(), e);
+                }
             } else {
                 logger.info("Antivirus service is already stopped.");
             }
         }
 
-        // Print final scan reports
+        // Print final scan reports using printReport() method
         List<ScanReport> finalReports = antivirusManager.getFinalReports();
         if (finalReports.isEmpty()) {
-            logger.info("No reports available.");
+            logger.info("No scan reports available.");
         } else {
-            finalReports.forEach(report -> {
-                logger.info("----------");
-                logger.info("File: " + report.getFile().getName());
-                logger.info("Threat Detected: " + (report.isThreatDetected() ? "YES" : "NO"));
-                logger.info("Threat Details: " + report.getThreatDetails());
-                logger.info("Warning Class: " + report.getWarningClass());
-                logger.info("Report is " + (report.isValidReport() ? "Valid" : "INVALID"));
-                logger.info("----------");
-            });
+            logger.info("Printing final scan reports:");
+            for (ScanReport report : finalReports) {
+                report.printReport();  // Use printReport method to print the report
+            }
         }
     }
 

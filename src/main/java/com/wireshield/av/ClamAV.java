@@ -39,14 +39,14 @@ public class ClamAV {
 			clamavReport.setValid(false);
 			clamavReport.setThreatDetails("File does not exist.");
 			clamavReport.setWarningClass(warningClass.CLEAR); // Mark the file as clear (no threat)
-			logger.warn("File does not exist: " + file);
+			logger.warn("File does not exist: {}", file.getAbsolutePath());
 			return;
 		}
 
 		try {
 			// Define the path to the ClamAV command-line tool (clamscan.exe)
 			String clamavPath = "C:\\Program Files\\ClamAV\\clamscan.exe";
-			logger.info("ClamAV path: " + clamavPath);
+			logger.info("ClamAV path: {}", clamavPath);
 
 			// Initialize the process builder to run the ClamAV scan command
 			ProcessBuilder processBuilder = new ProcessBuilder(clamavPath, file.getAbsolutePath());
@@ -62,20 +62,20 @@ public class ClamAV {
 
 			// Process each line of ClamAV output
 			while ((line = reader.readLine()) != null) {
-				logger.debug("ClamAV output: " + line);
+				logger.debug("ClamAV output: {}", line);
 
 				// Check if ClamAV has found a threat
 				if (line.contains("FOUND")) {
 					threatDetected = true;
 					threatDetails = line.substring(line.indexOf(":") + 2, line.lastIndexOf("FOUND")).trim();
-					logger.info("Threat detected: " + threatDetails);
+					logger.info("Threat detected: {}", threatDetails);
 					break; // Stop processing after a threat is found
 				}
 				// Check if ClamAV has detected suspicious activity
 				else if (line.contains("suspicious")) {
 					suspiciousDetected = true;
 					threatDetails = line.substring(line.indexOf(":") + 2).trim();
-					logger.info("Suspicious activity detected: " + threatDetails);
+					logger.info("Suspicious activity detected: {}", threatDetails);
 					break; // Stop processing after suspicious activity is detected
 				}
 			}
@@ -111,7 +111,8 @@ public class ClamAV {
 			clamavReport.setValid(false); // Mark the report as invalid
 			clamavReport.setThreatDetails("Error during scan: " + e.getMessage());
 			clamavReport.setWarningClass(warningClass.CLEAR); // Mark as clear due to error
-			logger.error("Error during scan: " + e.getMessage(), e); // Log the error details
+			logger.error("Error during scan: {}", e.getMessage(), e); // Log the error details
+
 		}
 	}
 
