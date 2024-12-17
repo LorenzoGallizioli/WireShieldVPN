@@ -11,6 +11,8 @@
    - [Week Scrum n°2](#2-week-scrum-26-novembre-2024)
 6. [**Sprint n°2**](#sprint-n2--18112024---9122024)
    - [Week Scrum n°1](#1-week-scrum-03-dicembre-2024)
+   - [Week Scrum n°2](#2-week-scrum-10-dicembre-2024)
+   - [Week Scrum n°3](#3-week-scrum-17-dicembre-2024)
 
 &nbsp;
 
