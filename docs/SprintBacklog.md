@@ -126,3 +126,15 @@
 | Implementazione File Manager | Implementazione del codice per gestire i file | Thomas Paganelli
 | Aggiornamento dei diagrammi | Aggiornamento dei diagrammi con le nuove assunzioni e i cambiamenti decisi durante lo sviluppo del progetto | Thomas Paganelli |
 | Implementazione gestione Wireguard | Implementazione del codice per avviare Wireguard e gestire le connessioni VPN | Lorenzo Gallizioli |
+
+&nbsp;
+
+# 3° Week Scrum 17 Dicembre 2024
+| **Titolo**                      | **Compiti**                                                                                       | **Sviluppatore**         |
+|----------------------------------|--------------------------------------------------------------------------------------------------|--------------------------|
+|  Aggiornare diagrammi | Aggiornare i diagrammi di documentazione per la classe WireguardManager  | Lorenzo Gallizioli |
+| Iniziare l'implementazione della GUI | Implementazione del codice per gestire la Graphical User Interface con JavaFX | Lorenzo Gallizioli |
+| Terminare implementazione AntivirusManager & VirusTotal | Implementazione del codice per la comunicazione con le APIv3 di VirusTotal + Gestire la possibilita' che l'utente non voglia utilizzare il suddetto servizio | Davide Bonsembiante |
+| Riorganizzazione di alcune classi | Spostare alcuni metodi di AntivirusManager in FileManager | Thomas Paganelli |
+| Refactoring con desisgn patterns | Verificare che il codice rispetti i pattern di programmazione designati e spiegati a lezione | Thomas Paganelli |
+
