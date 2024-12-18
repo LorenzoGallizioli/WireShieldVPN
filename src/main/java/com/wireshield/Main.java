@@ -9,9 +9,6 @@ import org.apache.logging.log4j.Logger;
  * Entry point for the WireShield application.
  */
 public class Main {
-
-    private static final Logger logger = LogManager.getLogger(Main.class);
-
     /**
      * Main method to launch the WireShield application.
      * 

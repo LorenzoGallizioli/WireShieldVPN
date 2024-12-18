@@ -14,7 +14,7 @@ import java.nio.file.*;
 
 import static org.junit.Assert.*;
 
-/**
+/*
  * This class tests various functionalities of the DownloadManager, including default path detection, 
  * handling of temporary files, file stability checks, and monitoring capabilities.
  */

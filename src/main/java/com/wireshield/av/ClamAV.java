@@ -84,8 +84,7 @@ public class ClamAV {
 			clamavReport = new ScanReport();
 			clamavReport.setFile(file);
 			clamavReport.setValid(true); // Mark the report as valid
-			clamavReport.setThreatDetected(threatDetected || suspiciousDetected); // Mark as true if any threat or
-																					// suspicious activity detected
+			clamavReport.setThreatDetected(threatDetected || suspiciousDetected); // Mark as true if any threat or suspicious activity detected
 
 			// Handle the detected threats or suspicious activity
 			if (threatDetected) {

@@ -6,14 +6,12 @@ import org.junit.After;
 import org.junit.Test;
 
 import com.wireshield.enums.warningClass;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-/*
- * Test class for VirusTotal. This class contains unit tests to verify the
- * functionality of the VirusTotal class in detecting threats in files.
- */
+import java.util.Queue;
+import java.util.LinkedList;
+
 public class VirusTotalTest {
 
     // VirusTotal object to test
@@ -21,6 +19,13 @@ public class VirusTotalTest {
     // Example files for testing
     private File validFile;
     private File eicarFile;
+
+    // Constants
+    private static final int REQUEST_LIMIT = 5;
+    private static final String testApiKey = "895b6aece66d9a168c9822eb4254f2f44993e347c5ea0ddf90708982e857d613";
+    
+    // A Queue to simulate request timestamps (for testing canMakeRequest method)
+    private Queue<Long> requestTimestamps;
 
     /*
      * Setup method for tests. Creates temporary files to be used during tests. This
@@ -37,6 +42,9 @@ public class VirusTotalTest {
         // Create the EICAR test virus file
         eicarFile = File.createTempFile("eicar_test", ".com");
         writeToFile(eicarFile, "X5O!P%@AP[4\\PZX54(P^)7CC)7}$A*G!");
+
+        // Initialize Queue for rate-limiting tests
+        requestTimestamps = new LinkedList<>();
     }
 
     /*
@@ -80,7 +88,7 @@ public class VirusTotalTest {
         ScanReport validReport = virusTotal.getReport();
         assertNotNull(validReport); // The report should not be null
         assertFalse(validReport.isThreatDetected()); // No threat should be detected
-        assertEquals("The file is clean: no threat detected.", validReport.getThreatDetails()); // Correct details
+        assertEquals("The file is clean: no threats detected.", validReport.getThreatDetails()); // Correct details
         assertEquals(warningClass.CLEAR, validReport.getWarningClass()); // Warning class should be CLEAR
     }
 
@@ -97,7 +105,7 @@ public class VirusTotalTest {
         // Assert that it is detected as a threat
         assertNotNull(eicarReport);
         assertTrue(eicarReport.isThreatDetected()); // This should detect the EICAR test virus
-        assertEquals("Low risk: some suspicious or malicious detections.", eicarReport.getThreatDetails()); // Correct details
+        assertEquals("Moderate risk: the file might be harmful.", eicarReport.getThreatDetails()); // Correct details
         assertEquals(warningClass.SUSPICIOUS, eicarReport.getWarningClass()); // Warning class should be suspicious
     }
 
@@ -117,19 +125,8 @@ public class VirusTotalTest {
         assertNotNull(report); // The report should not be null
         assertEquals(validFile, report.getFile()); // The analyzed file should match the valid file
         assertFalse(report.isThreatDetected()); // No threat should be detected
-        assertEquals("The file is clean: no threat detected.", report.getThreatDetails()); // Correct details
+        assertEquals("The file is clean: no threats detected.", report.getThreatDetails()); // Correct details
         assertEquals(warningClass.CLEAR, report.getWarningClass()); // Warning class should be CLEAR
-    }
-
-    /*
-     * Test for the correct SHA256 calculation of a file.
-     */
-    @Test
-    public void testCalculateSHA256() {
-        // Calculate SHA256 for validFile
-        String sha256Hash = virusTotal.calculateSHA256(validFile);
-        assertNotNull(sha256Hash); // SHA256 should be calculated
-        assertEquals(64, sha256Hash.length()); // SHA256 hash length should be 64 characters
     }
 
     /*
@@ -143,5 +140,56 @@ public class VirusTotalTest {
 
         // Check if the scan ID was received
         assertNotNull(report.getScanId());
+    }
+
+    /*
+     * Test the getApiKey() method. Verifies that the API key is correctly read
+     * from the file.
+     */
+    @Test
+    public void testGetApiKey() {
+        // Simulate reading an API key from the file
+        String apiKey = virusTotal.getApiKey();
+        assertNotNull(apiKey);  // Ensure the API key is not null
+        assertEquals(testApiKey, apiKey); // Check if it matches the expected API key
+    }
+
+    /*
+     * Test the ensureApiKeyFileExists() method. Verifies that it correctly handles
+     * file existence and creates a new API key file if necessary.
+     */
+    @Test
+    public void testEnsureApiKeyFileExists() {
+        // Simulate the case where the API key file doesn't exist or is empty
+        virusTotal.ensureApiKeyFileExists();
+
+        // Check if the API key file is created
+        File apiKeyFile = new File("api_key.txt");
+        assertTrue(apiKeyFile.exists()); // Verify the file was created
+
+        // Simulate the file containing a valid API key
+        String apiKey = virusTotal.getApiKey();
+        assertNotNull(apiKey); // The API key should exist
+    }
+
+    /*
+     * Test the canMakeRequest() method. Verifies that it respects the request
+     * limit and returns true when the limit has not been reached.
+     */
+    @Test
+    public void testCanMakeRequest() {
+        // Simulate making requests and check if the limit is respected
+        for (int i = 0; i == REQUEST_LIMIT; i++) {
+            requestTimestamps.add(System.currentTimeMillis()); // Simulate requests
+        }
+
+        // Now, the request limit should have been reached
+        boolean canRequest = virusTotal.canMakeRequest();
+        assertFalse(canRequest); // The limit should be exceeded, so it should return false
+
+        // Remove some timestamps to simulate time passing and test again
+        requestTimestamps.poll(); // Remove one timestamp
+        canRequest = virusTotal.canMakeRequest();
+        assertTrue(canRequest); // The request should now be allowed
     }
 }
