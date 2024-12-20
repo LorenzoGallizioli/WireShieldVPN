@@ -20,8 +20,7 @@ public class VirusTotalTest {
     private File validFile;
     private File eicarFile;
 
-    // Constants
-    private static final int REQUEST_LIMIT = 5;
+    // API Key
     private static final String testApiKey = "895b6aece66d9a168c9822eb4254f2f44993e347c5ea0ddf90708982e857d613";
     
     // A Queue to simulate request timestamps (for testing canMakeRequest method)
@@ -178,18 +177,34 @@ public class VirusTotalTest {
      */
     @Test
     public void testCanMakeRequest() {
-        // Simulate making requests and check if the limit is respected
-        for (int i = 0; i == REQUEST_LIMIT; i++) {
-            requestTimestamps.add(System.currentTimeMillis()); // Simulate requests
+        // Inizializza l'oggetto VirusTotal
+        VirusTotal virusTotal = new VirusTotal();
+
+        // Simula il riempimento della coda con richieste valide
+        long currentTime = System.currentTimeMillis();
+        System.out.println("Current time: " + currentTime);  // Debug
+
+        for (int i = 0; i < VirusTotal.REQUEST_LIMIT; i++) {
+            virusTotal.requestTimestamps.add(currentTime - (i * 10)); // Aggiunge richieste con intervalli minimi
+            System.out.println("Added timestamp: " + (currentTime - (i * 10)));  // Debug
         }
 
-        // Now, the request limit should have been reached
+        // Ora il limite dovrebbe essere stato raggiunto
         boolean canRequest = virusTotal.canMakeRequest();
-        assertFalse(canRequest); // The limit should be exceeded, so it should return false
+        System.out.println("Can make request (before adding new): " + canRequest);  // Debug
 
-        // Remove some timestamps to simulate time passing and test again
-        requestTimestamps.poll(); // Remove one timestamp
+        // Dovrebbe restituire false, quindi l'asserzione assertFalse dovrebbe passare
+        assertFalse(canRequest);
+
+        // Simula il passare del tempo e l'aggiunta di una nuova richiesta
+        virusTotal.requestTimestamps.poll(); // Rimuove una richiesta vecchia
+        System.out.println("Removed one old request. Current timestamps: " + virusTotal.requestTimestamps);  // Debug
+
         canRequest = virusTotal.canMakeRequest();
-        assertTrue(canRequest); // The request should now be allowed
+        System.out.println("Can make request (after adding new): " + canRequest);  // Debug
+
+        // Ora dovrebbe essere consentito fare una richiesta, quindi l'asserzione assertTrue dovrebbe passare
+        assertTrue(canRequest);
     }
+
 }

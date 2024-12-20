@@ -27,7 +27,7 @@ public class AntivirusManager {
     private runningStates scannerStatus; // Current operational state of the scanner
 
     private Thread scanThread; // Reference to the thread managing scans
-    private static final long MAX_FILE_SIZE = 10 * 1024 * 1024; // Max file size for VirusTotal (10 MB)
+    static final long MAX_FILE_SIZE = 10 * 1024 * 1024; // Max file size for VirusTotal (10 MB)
 
     /*
      * Constructor to initialize the AntivirusManager.

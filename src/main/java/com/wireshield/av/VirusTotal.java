@@ -27,9 +27,9 @@ import java.util.LinkedList;
  */
 public class VirusTotal {
 	private String API_KEY; // API Key for accessing the VirusTotal API
-	private static final int REQUEST_LIMIT = 4; // Maximum requests allowed per minute
+	static final int REQUEST_LIMIT = 4; // Maximum requests allowed per minute
 	private static final long ONE_MINUTE_IN_MILLIS = 60 * 1000; // Duration of one minute in milliseconds
-	private Queue<Long> requestTimestamps = new LinkedList<>(); // Tracks timestamps of API requests
+	Queue<Long> requestTimestamps = new LinkedList<>(); // Tracks timestamps of API requests
 	private ScanReport scanReport; // Stores the scan report for the last analyzed file
 
 	/*
@@ -277,7 +277,7 @@ public class VirusTotal {
 		}
 
 		// Check if the request limit has been reached
-		if (requestTimestamps.size() <= REQUEST_LIMIT) {
+		if (requestTimestamps.size() < REQUEST_LIMIT) {
 			return true;
 		} else {
 			long oldestRequestTime = requestTimestamps.peek();
