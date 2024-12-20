@@ -1,10 +1,14 @@
 package com.wireshield.ui;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+
 import com.wireshield.localfileutils.SystemOrchestrator;
+
 public class UserInterface extends Application {
 
     private SystemOrchestrator systemOrchestrator;
@@ -12,13 +16,17 @@ public class UserInterface extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Label label = new Label("Benvenuto in JavaFX!");
-        StackPane root = new StackPane(label);
-        Scene scene = new Scene(root, 400, 300);
+    	try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("MainView.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root, 400, 300);
 
-        primaryStage.setTitle("Applicazione JavaFX");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+            primaryStage.setTitle("Applicazione JavaFX");
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // Metodo main richiesto per il punto di ingresso
