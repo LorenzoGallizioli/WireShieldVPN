@@ -1,5 +1,6 @@
 package com.wireshield.ui;
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -7,6 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import com.wireshield.enums.vpnOperations;
 import com.wireshield.localfileutils.SystemOrchestrator;
 
 public class UserInterface extends Application {
@@ -35,14 +37,13 @@ public class UserInterface extends Application {
     }
     
     /**
-     * The constructor of the UserInterface.
-     */
-    public UserInterface(){}
-
-    /**
      * Changes the state of the VPN.
      */
-    public void changeVPNState(){}
+    @FXML
+    public void changeVPNState(){
+    	SystemOrchestrator so = new SystemOrchestrator();
+        so.manageVPN(vpnOperations.START);
+    }
 
     /**
      * Imports a peer.
