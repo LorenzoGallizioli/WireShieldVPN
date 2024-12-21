@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.ArrayList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import com.wireshield.enums.runningStates;
 import com.wireshield.enums.warningClass;
+
 import java.util.Queue;
 import java.util.LinkedList;
 
