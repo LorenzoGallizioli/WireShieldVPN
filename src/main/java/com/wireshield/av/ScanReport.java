@@ -251,7 +251,7 @@ public class ScanReport {
 
     /**
      * Returns a string representation of the scan report.
-     * @return A string representation of the ScanReport object
+     * @return a string representation of the ScanReport object
      */
     @Override
     public String toString() {

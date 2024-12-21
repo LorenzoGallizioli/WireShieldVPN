@@ -152,7 +152,7 @@ public class ScanReportTest {
         scanReport.setSha256("1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef");
 
         // Expected string representation
-        String expectedString = "ScanReport {scanId='', file=testfile.txt, threatDetected=true, threatDetails='Malware detected', warningClass=SUSPICIOUS, isValid=false, maliciousCount=0, harmlessCount=0, suspiciousCount=0, undetectedCount=0}";
+        String expectedString = "ScanReport {scanId='', file=testfile.txt, SHA256 Hash=1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef, threatDetected=true, threatDetails='Malware detected', warningClass=SUSPICIOUS, isValid=false, maliciousCount=0, harmlessCount=0, suspiciousCount=0, undetectedCount=0}";
         assertEquals(expectedString, scanReport.toString());  // Verifies that toString() returns the correct string representation
     }
 }

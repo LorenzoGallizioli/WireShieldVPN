@@ -22,9 +22,6 @@ public class VirusTotalTest {
 
     // API Key
     private static final String testApiKey = "895b6aece66d9a168c9822eb4254f2f44993e347c5ea0ddf90708982e857d613";
-    
-    // A Queue to simulate request timestamps (for testing canMakeRequest method)
-    private Queue<Long> requestTimestamps;
 
     /*
      * Setup method for tests. Creates temporary files to be used during tests. This
@@ -41,9 +38,6 @@ public class VirusTotalTest {
         // Create the EICAR test virus file
         eicarFile = File.createTempFile("eicar_test", ".com");
         writeToFile(eicarFile, "X5O!P%@AP[4\\PZX54(P^)7CC)7}$A*G!");
-
-        // Initialize Queue for rate-limiting tests
-        requestTimestamps = new LinkedList<>();
     }
 
     /*
@@ -177,33 +171,33 @@ public class VirusTotalTest {
      */
     @Test
     public void testCanMakeRequest() {
-        // Inizializza l'oggetto VirusTotal
+        // Initialize the VirusTotal object
         VirusTotal virusTotal = new VirusTotal();
 
-        // Simula il riempimento della coda con richieste valide
+        // Simulate filling the queue with valid requests
         long currentTime = System.currentTimeMillis();
         System.out.println("Current time: " + currentTime);  // Debug
 
         for (int i = 0; i < VirusTotal.REQUEST_LIMIT; i++) {
-            virusTotal.requestTimestamps.add(currentTime - (i * 10)); // Aggiunge richieste con intervalli minimi
+            virusTotal.requestTimestamps.add(currentTime - (i * 10)); // Adds requests with minimal intervals
             System.out.println("Added timestamp: " + (currentTime - (i * 10)));  // Debug
         }
 
-        // Ora il limite dovrebbe essere stato raggiunto
+        // Now the limit should have been reached
         boolean canRequest = virusTotal.canMakeRequest();
         System.out.println("Can make request (before adding new): " + canRequest);  // Debug
 
-        // Dovrebbe restituire false, quindi l'asserzione assertFalse dovrebbe passare
+        // It should return false, so the assertFalse assertion should pass
         assertFalse(canRequest);
 
-        // Simula il passare del tempo e l'aggiunta di una nuova richiesta
-        virusTotal.requestTimestamps.poll(); // Rimuove una richiesta vecchia
+        // Simulate the passing of time and adding a new request
+        virusTotal.requestTimestamps.poll(); // Removes an old request
         System.out.println("Removed one old request. Current timestamps: " + virusTotal.requestTimestamps);  // Debug
 
         canRequest = virusTotal.canMakeRequest();
         System.out.println("Can make request (after adding new): " + canRequest);  // Debug
 
-        // Ora dovrebbe essere consentito fare una richiesta, quindi l'asserzione assertTrue dovrebbe passare
+        // Now it should be allowed to make a request, so the assertTrue assertion should pass
         assertTrue(canRequest);
     }
 
