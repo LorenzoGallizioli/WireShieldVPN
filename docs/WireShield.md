@@ -251,13 +251,40 @@ I seguenti diagrammi UML sono stati utilizzati per progettare il sistema:
 
 &nbsp;
 ## 9. 🖌️ **Software Design**
+### Report sui Design Pattern Utilizzati nelle Classi in Wireshield
 
+Diversi design pattern sono stati adottati per migliorare la struttura e la manutenibilità del codice. Di seguito sono descritti i principali pattern utilizzati, le loro applicazioni e i benefici che apportano al progetto.
+
+#### Singleton Pattern
+
+Il Singleton Pattern viene utilizzato per garantire che una classe abbia una sola istanza e per fornire un punto di accesso globale a essa. Questo approccio è adottato in tutte le classi, tranne nella classe `Peer`. Questa decisione è stata presa per una ragione funzionale e dettata dalle caratterische specifiche del nostro sistema= abbiamo spesso avuto la necessità di implmentare classi che fornissero un servizo piu che uno scopo informativo, ad eccezione appunto della classe `Peer`.
+In alcuni scenari, il Singleton Pattern può essere combinato con altri pattern per potenziare la funzionalità.
+
+#### Factory Pattern
+
+Il Factory Pattern fornisce un'interfaccia per creare oggetti, delegando alle sottoclassi la logica di definizione del tipo specifico di oggetto da istanziare. In Wireshield, per esempio, la classe `AntivirusManager` sfrutta questo pattern per creare istanze di `ClamAV` o `VirusTotal` in base a condizioni operative, come i parametri di configurazione.
+
+Questo pattern centralizza la logica di creazione degli oggetti, migliorando la flessibilità e la manutenibilità del codice. nel nostro caso viene utilizzato insieme al Singleton Pattern per garantire che ogni tipo di antivirus abbia un'unica istanza gestita centralmente.
+
+#### Strategy Pattern
+
+Il Strategy Pattern permette di definire una famiglia di algoritmi, incapsularli e renderli intercambiabili. La classe `AntivirusManager`, implementando le classi `ClamAV` e `VirusTotal` con interfaccia comune `AVInterface`, consentone di selezionare dinamicamente il metodo di scansione antivirus più appropriato.
+
+Grazie a questo pattern, la logica di selezione dell'antivirus è separata dalla logica di esecuzione, rendendo il codice più modulare e facilmente estendibile. Questo approccio garantisce flessibilità nella gestione delle operazioni di scansione.
+
+#### Template Method Pattern
+
+Il Template Method Pattern definisce la struttura di un algoritmo nella superclasse, lasciando alle sottoclassi l'implementazione di dettagli specifici. In Wireshield, per esempio, la classe `ScanReport` utilizza questo pattern per strutturare il processo di generazione dei report di scansione.
+
+La superclasse `ScanReport` stabilisce i passi comuni per la creazione di un report, mentre le sottoclassi possono personalizzare aspetti come il formato o il contenuto del documento. Questo pattern promuove il riutilizzo del codice e garantisce coerenza nella struttura degli antivirus.
+
+      
     DEVE contenere una descrizione del design (mediante i diagrammi UML va bene)
     POTREBBE contenere un calcolo di complessità (ad esempio con McCabe) di una piccola parte
     DOVREBBE contenere qualche misurazione del codice, (con qualche metrica che abbiamo visto).
     Alcuni tools che vedremo a lezione: stanide, jdepend, struture101, sonarlint, PMD ...
     DEVE applicare un paio di design pattern visti a lezione
-
+  
 
 &nbsp;
 ## 10. 🔍 **Software Testing**
