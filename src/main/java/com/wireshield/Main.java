@@ -1,9 +1,9 @@
 package com.wireshield;
 
 import com.wireshield.ui.UserInterface;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 /**
  * Entry point dell'applicazione.
  */

@@ -5,9 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-
 import com.wireshield.enums.vpnOperations;
 import com.wireshield.localfileutils.SystemOrchestrator;
 
@@ -15,15 +13,13 @@ public class UserInterface extends Application {
 
     private SystemOrchestrator systemOrchestrator;
 
-
     @Override
     public void start(Stage primaryStage) {
     	try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("MainView.fxml"));
             Parent root = loader.load();
-            Scene scene = new Scene(root, 400, 300);
-
-            primaryStage.setTitle("Applicazione JavaFX");
+            Scene scene = new Scene(root);
+            primaryStage.setTitle("Wireshield");
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {
