@@ -16,6 +16,7 @@ import com.wireshield.enums.connectionStates;
 public class WireguardManager {
     private static final Logger logger = LogManager.getLogger(WireguardManager.class);
 
+    private static WireguardManager instance;
     private String wgPath;
     private Connection connection;
     private PeerManager peerManager;
@@ -26,9 +27,23 @@ public class WireguardManager {
             logger.error("WireGuard executable not found");
             return;
         }
-        connection = new Connection();
-        peerManager = new PeerManager();
+        connection = Connection.getInstance();
+        peerManager = PeerManager.getInstance();
         this.wgPath = wgPath;
+    }
+    
+    /**
+     * Public static method to get the Singleton instance of WireguardManager.
+     * If the instance does not exist, it will be created with the provided wgPath.
+     *
+     * @param wgPath the path to the WireGuard executable.
+     * @return the single instance of WireguardManager.
+     */
+    public static synchronized WireguardManager getInstance(String wgPath) {
+        if (instance == null) {
+            instance = new WireguardManager(wgPath);
+        }
+        return instance;
     }
 
     /**

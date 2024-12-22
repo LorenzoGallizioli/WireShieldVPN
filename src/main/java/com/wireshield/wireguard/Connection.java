@@ -15,12 +15,25 @@ import com.wireshield.enums.connectionStates;
 public class Connection {
     private static final Logger logger = LogManager.getLogger(Connection.class);
 
+    private static Connection instance;
     private connectionStates status;
     private long sentTraffic;
     private long receivedTraffic;
     private long lastHandshakeTime;
 
-    public Connection() {}
+    private Connection() {}
+    
+    /**
+     * Public method to get the Singleton instance.
+     * 
+     * @return the single instance of Connection.
+     */
+    public static synchronized Connection getInstance() {
+        if (instance == null) {
+            instance = new Connection();
+        }
+        return instance;
+    }
 
     /**
      * Updates the traffic of the connection.
