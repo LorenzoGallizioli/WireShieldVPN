@@ -15,7 +15,7 @@ public class Main {
      * @param args Command line arguments (not used).
      */
     public static void main(String[] args) {
-        SystemOrchestrator so = new SystemOrchestrator();
+        SystemOrchestrator so = SystemOrchestrator.getInstance();
         so.manageDownload(runningStates.UP);
         so.manageAV(runningStates.UP);
     }
