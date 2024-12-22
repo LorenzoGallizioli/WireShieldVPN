@@ -41,12 +41,12 @@ public class UserInterface extends Application {
         so.manageVPN(vpnOperations.START);
     }
 
-    /**
+    /*
      * Imports a peer.
      */
     public void importPeer(){}
 
-    /**
+    /*
      * Shows the available peers.
      */
     public void showAvailablePeers(){}
