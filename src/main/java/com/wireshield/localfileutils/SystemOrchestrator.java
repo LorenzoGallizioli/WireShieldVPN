@@ -39,9 +39,9 @@ public class SystemOrchestrator {
      * Initializes the SystemOrchestrator instance with necessary components.
      */
     private SystemOrchestrator() {
-        this.antivirusManager = new AntivirusManager();
-        this.clamAV = new ClamAV(); // Initialize ClamAV
-        this.virusTotal = new VirusTotal(); // Initialize VirusTotal
+        this.antivirusManager = AntivirusManager.getInstance();
+        this.clamAV = ClamAV.getInstance(); // Initialize ClamAV
+        this.virusTotal = VirusTotal.getInstance(); // Initialize VirusTotal
 
         this.setDownloadManager(DownloadManager.getInstance(antivirusManager));
         antivirusManager.setClamAV(clamAV);
