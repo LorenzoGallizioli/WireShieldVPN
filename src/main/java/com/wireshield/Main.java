@@ -10,7 +10,7 @@ public class Main {
     /**
      * Main method to launch the WireShield application.
      * 
-     * @param args Command line arguments (not used).
+     * @param args Command line arguments.
      */
     public static void main(String[] args) {
         SystemOrchestrator so = new SystemOrchestrator();

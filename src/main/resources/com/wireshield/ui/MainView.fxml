@@ -18,9 +18,9 @@
             <left>
                <VBox prefHeight="530.0" prefWidth="178.0" style="-fx-background-color: #73C9D3;" BorderPane.alignment="CENTER">
                   <children>
-                     <Button id="homeButton" blendMode="DARKEN" mnemonicParsing="false" prefHeight="106.0" prefWidth="178.0" text="Home" onAction="#viewHome"/>
-                     <Button id="logsButton" blendMode="DARKEN" mnemonicParsing="false" prefHeight="103.0" prefWidth="178.0" text="Logs" onAction="#viewLogs"/>
-                     <Button blendMode="DARKEN" mnemonicParsing="false" prefHeight="116.0" prefWidth="178.0" text="Settings" />
+                     <Button id="homeButton" blendMode="DARKEN" mnemonicParsing="false" onAction="#viewHome" prefHeight="106.0" prefWidth="178.0" text="Home" />
+                     <Button id="logsButton" blendMode="DARKEN" mnemonicParsing="false" onAction="#viewLogs" prefHeight="103.0" prefWidth="178.0" text="Logs" />
+                     <Button id="settingsButton" blendMode="DARKEN" mnemonicParsing="false" onAction="#viewSettings" prefHeight="116.0" prefWidth="178.0" text="Settings" />
                   </children>
                </VBox>
             </left>
@@ -30,6 +30,12 @@
          </BorderPane>
          <Pane layoutX="178.0" layoutY="35.0" prefHeight="495.0" prefWidth="662.0">
             <children>
+               <AnchorPane fx:id="settingsPane" prefHeight="495.0" prefWidth="662.0" style="-fx-background-color: #E8E9F3;" />
+               <AnchorPane fx:id="logsPane" prefHeight="495.0" prefWidth="662.0" style="-fx-background-color: #E8E9F3;">
+                  <children>
+                     <TextArea fx:id="logsArea" editable="false" layoutX="14.0" layoutY="14.0" prefHeight="465.0" prefWidth="632.0" />
+                  </children>
+               </AnchorPane>
                <AnchorPane fx:id="homePane" prefHeight="495.0" prefWidth="662.0" style="-fx-background-color: #E8E9F3;">
                   <children>
                       <Button fx:id="vpnButton" layoutX="261.0" layoutY="331.0" onAction="#changeVPNState" prefHeight="62.0" prefWidth="138.0" text="Start VPN" />
@@ -38,11 +44,6 @@
                            <Image url="@../../../images/wireshield_logo.png" />
                         </image>
                      </ImageView>
-                  </children>
-               </AnchorPane>
-               <AnchorPane fx:id="logsPane" prefHeight="495.0" prefWidth="662.0" style="-fx-background-color: #E8E9F3;">
-                  <children>
-                     <TextArea fx:id="logsArea" layoutX="14.0" layoutY="14.0" prefHeight="465.0" prefWidth="632.0" />
                   </children>
                </AnchorPane>
             </children>

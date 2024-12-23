@@ -13,7 +13,6 @@ import com.wireshield.enums.connectionStates;
  */
 public class WireguardManager {
     private static final Logger logger = LogManager.getLogger(WireguardManager.class);
-
     private String wgPath;
     private Connection connection;
     private PeerManager peerManager;
@@ -27,6 +26,12 @@ public class WireguardManager {
         connection = new Connection();
         peerManager = new PeerManager();
         this.wgPath = wgPath;
+        if(connection.getActiveInterface() != null) {
+            connection.setStatus(connectionStates.CONNECTED);
+        }
+        else {
+            connection.setStatus(connectionStates.DISCONNECTED);
+        }
     }
 
     /**
