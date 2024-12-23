@@ -126,8 +126,8 @@ public class WireguardManager {
      * @return Connection
      *   The connection.
      */
-    public Connection getConnection() {
-        return connection;
+    public connectionStates getConnectionStatus() {
+        return connection.getStatus();
     }
 
     /**

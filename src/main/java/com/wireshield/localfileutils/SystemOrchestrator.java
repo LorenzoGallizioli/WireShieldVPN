@@ -22,12 +22,12 @@ public class SystemOrchestrator {
 
     private static final Logger logger = LogManager.getLogger(SystemOrchestrator.class);
 
+    private String wgPath = "C:\\Program Files\\WireGuard\\wireguard.exe";
     private WireguardManager wireguardManager; // Manages VPN connections
     private DownloadManager downloadManager;   // Manages download monitoring
     private AntivirusManager antivirusManager; // Manages antivirus operations
     private ClamAV clamAV;
     private VirusTotal virusTotal;
-
     private runningStates avStatus;            // Antivirus service status
     private runningStates monitorStatus;       // Download monitoring service status
     private connectionStates connectionStatus; // VPN connection status
@@ -36,6 +36,7 @@ public class SystemOrchestrator {
      * Initializes the SystemOrchestrator instance with necessary components.
      */
     public SystemOrchestrator() {
+        this.wireguardManager = new WireguardManager(wgPath);
         this.antivirusManager = new AntivirusManager();
         this.clamAV = new ClamAV(); // Initialize ClamAV
         this.virusTotal = new VirusTotal(); // Initialize VirusTotal
@@ -53,11 +54,8 @@ public class SystemOrchestrator {
      * @param operation The operation to be performed (START or STOP).
      */
     public void manageVPN(vpnOperations operation) {
-        String wgPath = "C:\\Program Files\\WireGuard\\wireguard.exe";
+
         String configPath = "C:\\Users\\loren\\Downloads\\peer5_galliz.conf";
-
-        wireguardManager = new WireguardManager(wgPath);
-
         switch (operation) {
             case START:
                 if (wireguardManager.setInterfaceUp(configPath)) {
@@ -170,6 +168,7 @@ public class SystemOrchestrator {
      * @return The current VPN connection status.
      */
     public connectionStates getConnectionStatus() {
+        this.connectionStatus = wireguardManager.getConnectionStatus();
         logger.debug("Retrieving connection status: {}", connectionStatus);
         return connectionStatus;
     }
