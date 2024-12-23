@@ -131,6 +131,16 @@ public class WireguardManager {
     }
 
     /**
+     * Returns the connection logs.
+     * 
+     * @return String
+     *   The connection logs. 
+     */
+    public String getConnectionLogs(){
+        return connection.toString();
+    }
+
+    /**
      * Returns the peer manager.
      * 
      * @return PeerManager

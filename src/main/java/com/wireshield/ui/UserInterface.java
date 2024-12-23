@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -25,6 +26,9 @@ public class UserInterface extends Application {
 
     @FXML
     private AnchorPane logsPane;
+
+    @FXML
+    private TextArea logsArea;
 
         @Override
         public void start(Stage primaryStage) {
@@ -69,6 +73,8 @@ public class UserInterface extends Application {
     @FXML
     public void viewLogs(){
         logsPane.toFront();
+        String logs = so.getWireguardManager().getConnectionLogs();
+        logsArea.setText(logs + "\n");
     }
 
     /*
