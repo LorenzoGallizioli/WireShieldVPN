@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.wireshield.ui.UserInterface">
+<StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wireshield.ui.UserInterface">
    <AnchorPane prefHeight="528.0" prefWidth="839.0">
       <children>
          <BorderPane layoutY="-1.0" prefHeight="529.0" prefWidth="840.0">
             <left>
                <VBox prefHeight="530.0" prefWidth="178.0" style="-fx-background-color: #73C9D3;" BorderPane.alignment="CENTER">
                   <children>
-                     <Button blendMode="DARKEN" mnemonicParsing="false" prefHeight="106.0" prefWidth="178.0" text="Home" />
-                     <Button blendMode="DARKEN" mnemonicParsing="false" prefHeight="103.0" prefWidth="178.0" text="Logs" />
+                     <Button id="homeButton" blendMode="DARKEN" mnemonicParsing="false" prefHeight="106.0" prefWidth="178.0" text="Home" onAction="#viewHome"/>
+                     <Button id="logsButton" blendMode="DARKEN" mnemonicParsing="false" prefHeight="103.0" prefWidth="178.0" text="Logs" onAction="#viewLogs"/>
                      <Button blendMode="DARKEN" mnemonicParsing="false" prefHeight="116.0" prefWidth="178.0" text="Settings" />
                   </children>
                </VBox>
@@ -25,8 +27,10 @@
             <top>
                <HBox prefHeight="37.0" prefWidth="840.0" style="-fx-background-color: #369FAB;" BorderPane.alignment="CENTER" />
             </top>
-            <center>
-               <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         </BorderPane>
+         <Pane layoutX="178.0" layoutY="35.0" prefHeight="495.0" prefWidth="662.0">
+            <children>
+               <AnchorPane fx:id="homePane" prefHeight="495.0" prefWidth="662.0" style="-fx-background-color: #E8E9F3;">
                   <children>
                       <Button fx:id="vpnButton" layoutX="261.0" layoutY="331.0" onAction="#changeVPNState" prefHeight="62.0" prefWidth="138.0" text="Start VPN" />
                      <ImageView fitHeight="200.0" fitWidth="225.0" layoutX="230.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true">
@@ -36,8 +40,13 @@
                      </ImageView>
                   </children>
                </AnchorPane>
-            </center>
-         </BorderPane>
+               <AnchorPane fx:id="logsPane" prefHeight="495.0" prefWidth="662.0" style="-fx-background-color: #E8E9F3;">
+                  <children>
+                     <TextArea id="LogsArea" layoutX="14.0" layoutY="14.0" prefHeight="465.0" prefWidth="632.0" />
+                  </children>
+               </AnchorPane>
+            </children>
+         </Pane>
       </children>
    </AnchorPane>
 </StackPane>
