@@ -1,6 +1,7 @@
 package com.wireshield.localfileutils;
 
 import com.wireshield.av.AntivirusManager;
+import com.wireshield.av.FileManager;
 import com.wireshield.enums.runningStates;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

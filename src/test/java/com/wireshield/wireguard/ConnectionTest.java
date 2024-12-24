@@ -18,7 +18,7 @@ public class ConnectionTest {
 
     @Before
     public void setUp() {
-        connection = new Connection();
+        connection = Connection.getInstance();
     }
 
     @Test

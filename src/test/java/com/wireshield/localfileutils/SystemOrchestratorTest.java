@@ -26,7 +26,7 @@ public class SystemOrchestratorTest {
      */
     @Before
     public void setUp() {
-        systemOrchestrator = new SystemOrchestrator();
+        systemOrchestrator = SystemOrchestrator.getInstance();
         logger.info("SystemOrchestrator instance created");
     }
 

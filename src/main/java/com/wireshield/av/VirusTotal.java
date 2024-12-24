@@ -3,7 +3,6 @@ package com.wireshield.av;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wireshield.enums.warningClass;
-import com.wireshield.localfileutils.FileManager;
 
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpGet;

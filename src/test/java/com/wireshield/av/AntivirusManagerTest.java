@@ -9,11 +9,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
-
 import static org.junit.Assert.*;
-
-import com.wireshield.localfileutils.FileManager;
 
 /*
  * Test class for the AntivirusManager class.
@@ -34,9 +30,9 @@ public class AntivirusManagerTest {
 	 */
 	@Before
 	public void setUp() {
-		clamAV = new ClamAV(); // Uses the real implementation of ClamAV
-		virusTotal = new VirusTotal(); // Uses the real implementation of VirusTotal
-		antivirusManager = new AntivirusManager();
+		clamAV = ClamAV.getInstance(); // Uses the real implementation of ClamAV
+		virusTotal = VirusTotal.getInstance(); // Uses the real implementation of VirusTotal
+		antivirusManager = AntivirusManager.getInstance();
 		antivirusManager.setClamAV(clamAV);
 		antivirusManager.setVirusTotal(virusTotal);
 	}
@@ -265,7 +261,7 @@ public class AntivirusManagerTest {
 	 */
 	@Test
 	public void testMergeReports() {
-		AntivirusManager manager = new AntivirusManager();
+		AntivirusManager manager = AntivirusManager.getInstance();
 
 		// Create the target report
 		ScanReport target = new ScanReport();
