@@ -9,8 +9,6 @@ import com.wireshield.enums.warningClass;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Queue;
-import java.util.LinkedList;
 
 public class VirusTotalTest {
 
@@ -29,7 +27,7 @@ public class VirusTotalTest {
      */
     @Before
     public void setUp() throws IOException {
-        virusTotal = new VirusTotal(); // Initializes the VirusTotal object to be tested
+        virusTotal = VirusTotal.getInstance(); // Initializes the VirusTotal object to be tested
 
         // Create temporary files for testing
         validFile = File.createTempFile("validfile", ".txt");
@@ -172,7 +170,7 @@ public class VirusTotalTest {
     @Test
     public void testCanMakeRequest() {
         // Initialize the VirusTotal object
-        VirusTotal virusTotal = new VirusTotal();
+        VirusTotal virusTotal = VirusTotal.getInstance();
 
         // Simulate filling the queue with valid requests
         long currentTime = System.currentTimeMillis();

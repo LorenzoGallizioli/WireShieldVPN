@@ -13,7 +13,7 @@ public class Main {
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
-        SystemOrchestrator so = new SystemOrchestrator();
+        SystemOrchestrator so = SystemOrchestrator.getInstance();        
         UserInterface.main(args);
         so.manageDownload(runningStates.UP);
         so.manageAV(runningStates.UP);

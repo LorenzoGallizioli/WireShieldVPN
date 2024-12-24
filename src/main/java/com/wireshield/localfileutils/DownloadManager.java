@@ -1,6 +1,7 @@
 package com.wireshield.localfileutils;
 
 import com.wireshield.av.AntivirusManager;
+import com.wireshield.av.FileManager;
 import com.wireshield.enums.runningStates;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,6 +20,7 @@ public class DownloadManager {
 
     private static final Logger logger = LogManager.getLogger(DownloadManager.class);
 
+    private static DownloadManager instance; // Singleton instance
     private String downloadPath; // Path to the monitored download directory
     private final Set<String> detectedFiles = new HashSet<>(); // Set to track already detected files
     private AntivirusManager antivirusManager; // Antivirus manager instance for scanning files
@@ -31,11 +33,24 @@ public class DownloadManager {
      *
      * @param antivirusManager The AntivirusManager instance for file scanning.
      */
-    public DownloadManager(AntivirusManager antivirusManager) {
+    private DownloadManager(AntivirusManager antivirusManager) {
         this.setDownloadPath(getDefaultDownloadPath()); // Set the default download path
         this.monitorStatus = runningStates.DOWN; // Initially DOWN (not monitoring)
         this.antivirusManager = antivirusManager;
         logger.info("DownloadManager initialized with path: {}", getDownloadPath());
+    }
+    
+    /**
+     * Static method to get the Singleton instance of DownloadManager.
+     *
+     * @param antivirusManager The AntivirusManager instance (only used for first initialization).
+     * @return The single instance of DownloadManager.
+     */
+    public static synchronized DownloadManager getInstance(AntivirusManager antivirusManager) {
+        if (instance == null) {
+            instance = new DownloadManager(antivirusManager);
+        }
+        return instance;
     }
 
     /**

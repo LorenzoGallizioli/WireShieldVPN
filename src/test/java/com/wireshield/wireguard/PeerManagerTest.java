@@ -29,7 +29,7 @@ public class PeerManagerTest {
 
 	@Test
 	public void testRemovePeer() {
-		PeerManager pm = new PeerManager();
+		PeerManager pm = PeerManager.getInstance();
 		String peerId = pm.createPeer(extDatas, testName);
 		
 		pm.removePeer(peerId);
@@ -41,7 +41,7 @@ public class PeerManagerTest {
 
 	@Test
 	public void testAddAndGetPeers() {
-		PeerManager pm = new PeerManager();
+		PeerManager pm = PeerManager.getInstance();
 		String peerId = pm.createPeer(extDatas, testName);
 		
 		Peer p[];
@@ -54,7 +54,7 @@ public class PeerManagerTest {
 	
 	@Test
 	public void testGetPeerById() {
-		PeerManager pm = new PeerManager();
+		PeerManager pm = PeerManager.getInstance();
 		String peerId = pm.createPeer(extDatas, testName);
 		
 		Peer peer = pm.getPeerById(peerId);

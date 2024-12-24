@@ -30,7 +30,7 @@ public class ClamAVTest {
      */
     @Before
     public void setUp() throws IOException {
-        clamAV = new ClamAV();  // Initializes the ClamAV object to be tested
+        clamAV = ClamAV.getInstance();  // Initializes the ClamAV object to be tested
 
         // Create temporary files for testing
         validFile = File.createTempFile("validfile", ".txt");

@@ -21,6 +21,7 @@ import com.wireshield.enums.vpnOperations;
 public class SystemOrchestrator {
 
     private static final Logger logger = LogManager.getLogger(SystemOrchestrator.class);
+    private static SystemOrchestrator instance;
 
     private String wgPath = "C:\\Program Files\\WireGuard\\wireguard.exe";
     private WireguardManager wireguardManager; // Manages VPN connections
@@ -35,17 +36,29 @@ public class SystemOrchestrator {
     /*
      * Initializes the SystemOrchestrator instance with necessary components.
      */
-    public SystemOrchestrator() {
-        this.wireguardManager = new WireguardManager(wgPath);
-        this.antivirusManager = new AntivirusManager();
-        this.clamAV = new ClamAV(); // Initialize ClamAV
-        this.virusTotal = new VirusTotal(); // Initialize VirusTotal
+    private SystemOrchestrator() {
+        this.wireguardManager = WireguardManager.getInstance(wgPath);
+        this.antivirusManager = AntivirusManager.getInstance();
+        this.clamAV = ClamAV.getInstance(); // Initialize ClamAV
+        this.virusTotal = VirusTotal.getInstance(); // Initialize VirusTotal
 
-        this.setDownloadManager(new DownloadManager(antivirusManager));
+        this.setDownloadManager(DownloadManager.getInstance(antivirusManager));
         antivirusManager.setClamAV(clamAV);
         antivirusManager.setVirusTotal(virusTotal);
 
         logger.info("SystemOrchestrator initialized.");
+    }
+    
+    /**
+     * Static method to get the Singleton instance of SystemOrchestrator.
+     *
+     * @return the single instance of SystemOrchestrator.
+     */
+    public static synchronized SystemOrchestrator getInstance() {
+        if (instance == null) {
+            instance = new SystemOrchestrator();
+        }
+        return instance;
     }
 
     /**

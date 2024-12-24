@@ -18,13 +18,27 @@ public class ClamAV {
 
 	// Logger for ClamAV-related logs
 	private static final Logger logger = LogManager.getLogger(ClamAV.class);
+	
+    private static ClamAV instance;
 	private ScanReport clamavReport;
 
 	// Constructor for initializing ClamAV
-	public ClamAV() {
+	private ClamAV() {
 		this.clamavReport = null;
 		logger.info("ClamAV initialized.");
 	}
+	
+	/**
+     * Public static method to get the Singleton instance of ClamAV.
+     *
+     * @return the single instance of ClamAV.
+     */
+    public static synchronized ClamAV getInstance() {
+        if (instance == null) {
+            instance = new ClamAV();
+        }
+        return instance;
+    }
 
 	/**
 	 * Analyzes a file with ClamAV to check for threats.

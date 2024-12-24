@@ -19,6 +19,7 @@ public class AntivirusManager {
 
     private static final Logger logger = LogManager.getLogger(AntivirusManager.class);
 
+    private static AntivirusManager instance;
     private ClamAV clamAV; // Instance for ClamAV scanning
     private VirusTotal virusTotal; // Instance for VirusTotal scanning
     private Queue<File> scanBuffer = new LinkedList<>(); // Queue for file handling (FIFO)
@@ -33,9 +34,21 @@ public class AntivirusManager {
      * Constructor to initialize the AntivirusManager.
      * Sets the initial scanner state to DOWN.
      */
-    public AntivirusManager() {
+    private AntivirusManager() {
         logger.info("AntivirusManager initialized.");
         scannerStatus = runningStates.DOWN;
+    }
+    
+    /**
+     * Public static method to get the Singleton instance of AntivirusManager.
+     *
+     * @return the single instance of AntivirusManager.
+     */
+    public static synchronized AntivirusManager getInstance() {
+        if (instance == null) {
+            instance = new AntivirusManager();
+        }
+        return instance;
     }
 
     /**

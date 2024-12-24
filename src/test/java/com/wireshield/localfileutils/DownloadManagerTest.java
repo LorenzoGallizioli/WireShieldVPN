@@ -1,6 +1,7 @@
 package com.wireshield.localfileutils;
 
 import com.wireshield.av.AntivirusManager;
+import com.wireshield.av.FileManager;
 import com.wireshield.enums.runningStates;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,8 +36,8 @@ public class DownloadManagerTest {
      */
     @Before
     public void setUp() throws IOException {
-        antivirusManager = new AntivirusManager();
-        downloadManager = new DownloadManager(antivirusManager);
+        antivirusManager = AntivirusManager.getInstance();
+        downloadManager = DownloadManager.getInstance(antivirusManager);
 
         // Define a specific path for testing
         testDownloadPath = System.getProperty("user.home") + "/Downloads/test_downloads";

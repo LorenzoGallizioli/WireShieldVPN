@@ -131,7 +131,28 @@
 
 &nbsp;
 
-# 3° Week Scrum 17 Dicembre 2024
+&nbsp;
+---
+# Sprint n°3: &nbsp;&nbsp; 17/12/2024 - 02/01/2025
+## **Ruoli del Team**
+
+- **Product Owner**: 
+  - Lorenzo Gallizioli
+  - Davide Bonsembiante
+  - Thomas Paganelli 
+
+- **Scrum Master**: Davide Bonsembiante - Facilitatore dei processi SCRUM.
+
+- **Team di Sviluppo**: 
+  - Lorenzo Gallizioli
+  - Davide Bonsembiante
+  - Thomas Paganelli
+
+- **Week Scrum**: ogni martedì, orario da definirsi sul gruppo whatsapp.
+
+&nbsp;
+
+# 1° Week Scrum 17 Dicembre 2024
 | **Titolo**                      | **Compiti**                                                                                       | **Sviluppatore**         |
 |----------------------------------|--------------------------------------------------------------------------------------------------|--------------------------|
 |  Aggiornare diagrammi | Aggiornare i diagrammi di documentazione per la classe WireguardManager  | Lorenzo Gallizioli |
@@ -139,4 +160,17 @@
 | Terminare implementazione AntivirusManager & VirusTotal | Implementazione del codice per la comunicazione con le APIv3 di VirusTotal + Gestire la possibilita' che l'utente non voglia utilizzare il suddetto servizio + Gestire limite di dimensione file e il numero massimo di richieste al minuto + Implementare metodo per inserimento e lettura della API Key da un file ".txt" in vista della GUI | Davide Bonsembiante |
 | Riorganizzazione di alcune classi | Spostare alcuni metodi di AntivirusManager in FileManager | Davide Bonsembiante |
 | Refactoring con desisgn patterns | Verificare che il codice rispetti i pattern di programmazione designati e spiegati a lezione | Thomas Paganelli |
+
+&nbsp;
+
+# 2° Week Scrum 24 Dicembre 2024
+| **Titolo**                      | **Compiti**                                                                                       | **Sviluppatore**         |
+|----------------------------------|--------------------------------------------------------------------------------------------------|--------------------------|
+| Aggiornare diagrammi | Aggiornare i diagrammi di documentazione con le nuove modifiche fatte riguardante l'implementazione di Download Manager e Antivirus Manager e aggiornare i diagrammi anche per la modifica fatta nei package spostando File Manager in AV | Davide Bonsembiante |
+| Mandare Mail Virustotal | Inviare un'email a VirusTotal per chiedere se è possibile effettuare una richiesta POST fornendo solo l'hash SHA256, senza inviare il file, per ottenere nella richiesta GET il report completo del file analizzato | Davide Bonsembiante |
+| Modificare Testing Download Manager e Antivirus Manager | Aggiungere codice in tearDown di ogni test per poter cancellare i file creati durante il testing dopo aver finito il testing della classe | Davide Bonsembiante |
+| Continuare l'implementazione della GUI | Continuare l'mplementazione del codice per gestire la Graphical User Interface con JavaFX | Lorenzo Gallizioli |
+| Reperire il path di Wireguard in modo automatico | Trovare un modo per reperire il path di default impostato da Wireguard nel sistema operativo Windows | Thomas Paganelli |
+| Reperire i log di Wireguard | Trovare un modo per reperire i log di Wireguard, utili per mostrarli poi nella GUI | Thomas Paganelli |
+| Riorganizzazione di alcune classi | Spostare alcuni metodi di AntivirusManager in FileManager | Davide Bonsembiante / Thomas Panagelli / Lorenzo Gallizioli|
 

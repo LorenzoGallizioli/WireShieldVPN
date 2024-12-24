@@ -10,13 +10,26 @@ import java.util.Map;
  */
 public class PeerManager {
     
+    private static PeerManager instance;
     private List<Peer> peers;
 
     /**
      * The constructor for the PeerManager class.
      */
-    public PeerManager() {
+    private PeerManager() {
     	this.peers = new ArrayList<>();
+    }
+    
+    /**
+     * Public method to get the Singleton instance.
+     * 
+     * @return the single instance of PeerManager.
+     */
+    public static synchronized PeerManager getInstance() {
+        if (instance == null) {
+            instance = new PeerManager();
+        }
+        return instance;
     }
 
     /**

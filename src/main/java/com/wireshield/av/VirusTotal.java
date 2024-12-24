@@ -3,7 +3,6 @@ package com.wireshield.av;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wireshield.enums.warningClass;
-import com.wireshield.localfileutils.FileManager;
 
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpGet;
@@ -26,6 +25,8 @@ import java.util.LinkedList;
  * retrieves analysis reports.
  */
 public class VirusTotal {
+	
+    private static VirusTotal instance;
 	private String API_KEY; // API Key for accessing the VirusTotal API
 	static final int REQUEST_LIMIT = 4; // Maximum requests allowed per minute
 	private static final long ONE_MINUTE_IN_MILLIS = 60 * 1000; // Duration of one minute in milliseconds
@@ -36,7 +37,7 @@ public class VirusTotal {
 	 * Constructs a VirusTotal instance and ensures the API key file is available.
 	 * If the key is invalid or missing, the program prompts the user for input.
 	 */
-	public VirusTotal() {
+	private VirusTotal() {
 		ensureApiKeyFileExists(); // Ensures the API key file is created or requests input if missing
 		this.API_KEY = getApiKey(); // Reads the API key from the file
 		if (this.API_KEY == null || this.API_KEY.trim().isEmpty()) {
@@ -44,6 +45,18 @@ public class VirusTotal {
 			System.exit(1);
 		}
 	}
+	
+	/**
+     * Public static method to get the Singleton instance of VirusTotal.
+     *
+     * @return the single instance of VirusTotal.
+     */
+    public static synchronized VirusTotal getInstance() {
+        if (instance == null) {
+            instance = new VirusTotal();
+        }
+        return instance;
+    }
 
 	/**
 	 * Analyzes a file by uploading it to VirusTotal for a threat analysis. If the

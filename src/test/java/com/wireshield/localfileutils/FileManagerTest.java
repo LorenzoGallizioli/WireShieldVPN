@@ -11,6 +11,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.wireshield.av.FileManager;
+
 /*
  * Unit test class for the FileManager class. This class contains tests for
  * verifying the functionality of file management methods such as create, write,
