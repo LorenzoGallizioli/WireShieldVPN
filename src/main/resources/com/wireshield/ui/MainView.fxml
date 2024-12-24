@@ -16,7 +16,7 @@
       <children>
          <BorderPane layoutY="-1.0" prefHeight="529.0" prefWidth="840.0">
             <left>
-               <VBox prefHeight="530.0" prefWidth="178.0" style="-fx-background-color: #73C9D3;" BorderPane.alignment="CENTER">
+               <VBox prefHeight="530.0" prefWidth="178.0" BorderPane.alignment="CENTER">
                   <children>
                      <Button id="homeButton" blendMode="DARKEN" mnemonicParsing="false" onAction="#viewHome" prefHeight="106.0" prefWidth="178.0" text="Home" />
                      <Button id="logsButton" blendMode="DARKEN" mnemonicParsing="false" onAction="#viewLogs" prefHeight="103.0" prefWidth="178.0" text="Logs" />
@@ -25,7 +25,7 @@
                </VBox>
             </left>
             <top>
-               <HBox prefHeight="37.0" prefWidth="840.0" style="-fx-background-color: #369FAB;" BorderPane.alignment="CENTER" />
+               <HBox prefHeight="37.0" prefWidth="840.0" BorderPane.alignment="CENTER" />
             </top>
          </BorderPane>
          <Pane layoutX="178.0" layoutY="35.0" prefHeight="495.0" prefWidth="662.0">

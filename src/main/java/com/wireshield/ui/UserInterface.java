@@ -36,6 +36,7 @@ public class UserInterface extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("MainView.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
             primaryStage.setTitle("Wireshield");
             primaryStage.setScene(scene);
             primaryStage.show();
