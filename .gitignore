@@ -173,3 +173,6 @@ $RECYCLE.BIN/
 
 # Built Visual Studio Code Extensions
 *.vsix
+
+# Project custom files
+testPeer.conf
