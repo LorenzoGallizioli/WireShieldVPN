@@ -1,6 +1,6 @@
 package com.wireshield;
 
-import com.wireshield.enums.runningStates;
+import com.wireshield.enums.*;
 import com.wireshield.localfileutils.SystemOrchestrator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,7 +16,9 @@ public class Main {
      */
     public static void main(String[] args) {
         SystemOrchestrator so = SystemOrchestrator.getInstance();
-        so.manageDownload(runningStates.UP);
-        so.manageAV(runningStates.UP);
+        //so.manageVPN(vpnOperations.START);
+        so.manageVPN(vpnOperations.STOP);
+        //so.manageDownload(runningStates.UP);
+        //so.manageAV(runningStates.UP);
     }
 }

@@ -100,6 +100,7 @@ public class WireguardManager {
      */
     public Boolean setInterfaceDown() {
         String interfaceName = connection.getActiveInterface();
+
         if(interfaceName == null) {
             logger.error("No active WireGuard interface.");
             return false;

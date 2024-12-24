@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.wireshield.av.AntivirusManager;
 import com.wireshield.av.ClamAV;
+import com.wireshield.av.FileManager;
 import com.wireshield.av.ScanReport;
 import com.wireshield.av.VirusTotal;
 import com.wireshield.wireguard.PeerManager;
@@ -68,8 +69,13 @@ public class SystemOrchestrator {
      * @param operation The operation to be performed (START or STOP).
      */
     public void manageVPN(vpnOperations operation) {
-        String wgPath = "C:\\Program Files\\WireGuard\\wireguard.exe";
-        String configPath = "C:\\Users\\loren\\Downloads\\peer5_galliz.conf";
+    	
+    	String projectPath = FileManager.getProjectFolder();
+    	
+    	String confName = "testPeer.conf"; // PARAMENTRO ORA HARDCODDATO, DA SOSTITUIRE IN FASE DI IMPLEMENTAZIONE GUI
+    	
+        String wgPath = projectPath + "\\bin\\wireguard-windows-executables\\amd64\\wireguard.exe";
+        String configPath = projectPath + "\\config\\connection-configurations\\" + confName;
 
         wireguardManager = new WireguardManager(wgPath);
 
