@@ -47,7 +47,7 @@ public class UserInterface extends Application {
     
     // Metodo main richiesto per il punto di ingresso.
     public static void main(String[] args) {
-        so = new SystemOrchestrator();
+        so = SystemOrchestrator.getInstance();
         so.manageVPN(vpnOperations.STOP); // Per sicurezza, stoppa qualsiasi VPN wireguard prima di iniziare.
         launch(args); // Metodo di avvio JavaFX.
     }
