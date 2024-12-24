@@ -168,6 +168,7 @@
 |----------------------------------|--------------------------------------------------------------------------------------------------|--------------------------|
 | Aggiornare diagrammi | Aggiornare i diagrammi di documentazione con le nuove modifiche fatte riguardante l'implementazione di Download Manager e Antivirus Manager  | Davide Bonsembiante |
 | Mandare Mail Virustotal | Inviare un'email a VirusTotal per chiedere se è possibile effettuare una richiesta POST fornendo solo l'hash SHA256, senza inviare il file, per ottenere nella richiesta GET il report completo del file analizzato | Davide Bonsembiante |
+| Modificare Testing Download Manager e Antivirus Manager | Aggiungere codice in tearDown di ogni test per poter cancellare i file creati durante il testing dopo aver finito il testing della classe | Davide Bonsembiante |
 | Continuare l'implementazione della GUI | Continuare l'mplementazione del codice per gestire la Graphical User Interface con JavaFX | Lorenzo Gallizioli |
 | Reperire il path di Wireguard in modo automatico | Trovare un modo per reperire il path di default impostato da Wireguard nel sistema operativo Windows | Thomas Paganelli |
 | Reperire i log di Wireguard | Trovare un modo per reperire i log di Wireguard, utili per mostrarli poi nella GUI | Thomas Paganelli |
