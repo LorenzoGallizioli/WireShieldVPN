@@ -173,3 +173,4 @@ $RECYCLE.BIN/
 
 # Built Visual Studio Code Extensions
 *.vsix
+/.apt_generated_tests/
