@@ -1,11 +1,15 @@
-package com.wireshield.localfileutils;
+package com.wireshield.av;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
 
 import org.junit.After;
 import org.junit.Before;
@@ -151,5 +155,46 @@ public class FileManagerTest {
 	    // Ensure the SHA256 hash has a length of 64 characters (expected for SHA256)
 	    assertEquals("SHA256 hash should have 64 characters", 64, sha256Hash.length());
 	}
+	
+	/*
+	 * Verifies that the method correctly retrieves the values for valid keys
+	 * present in the configuration file. Ensures that the returned values
+	 * match the expected results.
+	 *
+	 */
+	@Test
+    public void testGetConfigValue_ValidKey() throws org.json.simple.parser.ParseException {
+        try {
+            String api_key = FileManager.getConfigValue("api_key");
+            assertEquals("1234567890", api_key);
+
+            String PEER_STD_PATH = FileManager.getConfigValue("PEER_STD_PATH");
+            assertEquals("\\config\\connection-configurations\\", PEER_STD_PATH);
+            
+            String WIREGUARDEXE_STD_PATH = FileManager.getConfigValue("WIREGUARDEXE_STD_PATH");
+            assertEquals("\\bin\\wireguard-windows-executables\\amd64\\wireguard.exe", WIREGUARDEXE_STD_PATH);
+            
+            String WGEXE_STD_PATH = FileManager.getConfigValue("WGEXE_STD_PATH");
+            assertEquals("\\bin\\wireguard-windows-executables\\amd64\\wg.exe", WGEXE_STD_PATH);
+            
+        } catch (IOException e) {
+            fail("Exception should not occur: " + e.getMessage());
+        }
+    }
+
+	/*
+	 * Verifies that the method returns null when an invalid key is requested
+	 * and that no exceptions are thrown during the process.
+	 *
+	 */
+    @Test
+    public void testGetConfigValue_InvalidKey() throws org.json.simple.parser.ParseException{
+        try {
+            String value = FileManager.getConfigValue("nonexistent_key");
+            assertNull(value);
+        } catch (IOException e) {
+            fail("Exception should not occur: " + e.getMessage());
+        }
+    }
 
 }

@@ -2,6 +2,7 @@ package com.wireshield.wireguard;
 
 import static org.junit.Assert.*;
 
+import org.json.simple.parser.ParseException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,7 +18,7 @@ public class ConnectionTest {
     private Connection connection;
 
     @Before
-    public void setUp() {
+    public void setUp() throws IOException, ParseException {
         connection = Connection.getInstance();
     }
 
