@@ -9,7 +9,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.json.simple.parser.ParseException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.HttpResponse;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
@@ -17,7 +16,6 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.client.utils.URIBuilder;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Queue;
@@ -34,7 +32,7 @@ public class VirusTotal {
 
 	private static VirusTotal instance;
 	private String API_KEY; // API Key for accessing the VirusTotal API
-	static final int REQUEST_LIMIT = 4; // Maximum requests allowed per minute
+	static final int REQUEST_LIMIT = 3; // Maximum requests allowed per minute
 	private static final long ONE_MINUTE_IN_MILLIS = 60 * 1000; // Duration of one minute in milliseconds
 	Queue<Long> requestTimestamps = new LinkedList<>(); // Tracks timestamps of API requests
 	private ScanReport scanReport; // Stores the scan report for the last analyzed file
@@ -226,7 +224,7 @@ public class VirusTotal {
 	}
 
 	/**
-	 * Reads the API key from the api_key.txt file.
+	 * Reads the API key from the config.json file.
 	 *
 	 * @return The API key as a String, or null if the file is empty or missing.
 	 */
@@ -241,7 +239,7 @@ public class VirusTotal {
 	}
 
 	/*
-	 * Ensures that the api_key.txt file exists. If the file does not exist or is
+	 * Ensures that the section api_key in config.json file exists. If the file does not exist or is
 	 * empty, prompts the user to enter the API key and saves it to the file.
 	 */
 	void ensureApiKeyFileExists() {
@@ -252,7 +250,8 @@ public class VirusTotal {
 			return;
 		}
 
-		logger.info("API key file is missing or empty. Please enter your API key:");
+		logger.info("API key file is missing or empty.Please enter your API key:");
+
 		java.util.Scanner scanner = null;
 		try {
 			scanner = new java.util.Scanner(System.in); // Initialize the Scanner
@@ -303,5 +302,4 @@ public class VirusTotal {
 			return false;
 		}
 	}
-
 }

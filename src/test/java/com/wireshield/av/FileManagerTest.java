@@ -5,17 +5,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.io.IOException;
-import java.text.ParseException;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.wireshield.av.FileManager;
 
 /*
  * Unit test class for the FileManager class. This class contains tests for
@@ -164,22 +159,17 @@ public class FileManagerTest {
 	 */
 	@Test
     public void testGetConfigValue_ValidKey() throws org.json.simple.parser.ParseException {
-        try {
-            String api_key = FileManager.getConfigValue("api_key");
-            assertEquals("1234567890", api_key);
+        String api_key = FileManager.getConfigValue("api_key");
+		assertEquals("895b6aece66d9a168c9822eb4254f2f44993e347c5ea0ddf90708982e857d613", api_key);
 
-            String PEER_STD_PATH = FileManager.getConfigValue("PEER_STD_PATH");
-            assertEquals("\\config\\connection-configurations\\", PEER_STD_PATH);
-            
-            String WIREGUARDEXE_STD_PATH = FileManager.getConfigValue("WIREGUARDEXE_STD_PATH");
-            assertEquals("\\bin\\wireguard-windows-executables\\amd64\\wireguard.exe", WIREGUARDEXE_STD_PATH);
-            
-            String WGEXE_STD_PATH = FileManager.getConfigValue("WGEXE_STD_PATH");
-            assertEquals("\\bin\\wireguard-windows-executables\\amd64\\wg.exe", WGEXE_STD_PATH);
-            
-        } catch (IOException e) {
-            fail("Exception should not occur: " + e.getMessage());
-        }
+		String PEER_STD_PATH = FileManager.getConfigValue("PEER_STD_PATH");
+		assertEquals("\\config\\connection-configurations\\", PEER_STD_PATH);
+		
+		String WIREGUARDEXE_STD_PATH = FileManager.getConfigValue("WIREGUARDEXE_STD_PATH");
+		assertEquals("\\bin\\wireguard-windows-executables\\amd64\\wireguard.exe", WIREGUARDEXE_STD_PATH);
+		
+		String WGEXE_STD_PATH = FileManager.getConfigValue("WGEXE_STD_PATH");
+		assertEquals("\\bin\\wireguard-windows-executables\\amd64\\wg.exe", WGEXE_STD_PATH);
     }
 
 	/*
@@ -189,12 +179,8 @@ public class FileManagerTest {
 	 */
     @Test
     public void testGetConfigValue_InvalidKey() throws org.json.simple.parser.ParseException{
-        try {
-            String value = FileManager.getConfigValue("nonexistent_key");
-            assertNull(value);
-        } catch (IOException e) {
-            fail("Exception should not occur: " + e.getMessage());
-        }
+        String value = FileManager.getConfigValue("nonexistent_key");
+		assertNull(value);
     }
 
 }
