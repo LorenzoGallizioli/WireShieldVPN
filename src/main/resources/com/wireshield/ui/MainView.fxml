@@ -32,7 +32,12 @@
          </BorderPane>
          <Pane layoutX="178.0" layoutY="37.0" prefHeight="495.0" prefWidth="662.0">
             <children>
-               <AnchorPane fx:id="settingsPane" prefHeight="495.0" prefWidth="662.0"/>
+               <AnchorPane fx:id="settingsPane" prefHeight="495.0" prefWidth="662.0">
+                  <children>
+                     <Label text="Upload peer configuration: " layoutX="50.0" layoutY="20.0"/>
+                     <Button text="Choose..." onAction="#handleFileSelection" layoutX="50.0" layoutY="50.0" />
+                  </children>
+               </AnchorPane>
                <AnchorPane fx:id="avPane" prefHeight="495.0" prefWidth="662.0">
                   <children>
                      <Label text="AV status:" layoutX="14.0" layoutY="10.0" />

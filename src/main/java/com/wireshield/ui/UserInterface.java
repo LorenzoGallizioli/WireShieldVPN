@@ -1,10 +1,18 @@
 package com.wireshield.ui;
+import com.wireshield.av.FileManager;
 import com.wireshield.enums.connectionStates;
 import com.wireshield.enums.runningStates;
 import com.wireshield.enums.vpnOperations;
 import com.wireshield.localfileutils.SystemOrchestrator;
+
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -12,6 +20,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -110,6 +119,44 @@ public class UserInterface extends Application {
     @FXML
     public void viewSettings(){
         settingsPane.toFront();
+    }
+
+    /**
+     * Handles the file selection event and copies the selected file to the peer directory.
+     * 
+     * @param event 
+     *   The action event triggered when a file is selected.
+     */
+    @FXML
+    public void handleFileSelection(ActionEvent event) {
+        String defaultPeerPath = FileManager.getProjectFolder() + FileManager.getConfigValue("PEER_STD_PATH");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select a File");
+        fileChooser.getExtensionFilters().add(
+            new FileChooser.ExtensionFilter("WireGuard Config Files (*.conf)", "*.conf")
+        );
+        
+        // Mostra la finestra di selezione file
+        Stage stage = new Stage();
+        File selectedFile = fileChooser.showOpenDialog(stage);
+
+        if (selectedFile != null) {
+            try {
+                // Percorso di destinazione
+                Path targetPath = Path.of(defaultPeerPath, selectedFile.getName());
+
+                // Copia il file nella cartella di destinazione
+                Files.createDirectories(targetPath.getParent()); // Assicura che la cartella esista
+                Files.copy(selectedFile.toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
+
+                System.out.println("File copied to: " + targetPath.toAbsolutePath());
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Failed to copy the file.");
+            }
+        } else {
+            System.out.println("No file selected.");
+        }
     }
 
     /*

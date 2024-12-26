@@ -39,7 +39,7 @@ public class SystemOrchestrator {
         this.antivirusManager = AntivirusManager.getInstance();
         this.clamAV = ClamAV.getInstance(); // Initialize ClamAV
         this.virusTotal = VirusTotal.getInstance(); // Initialize VirusTotal
-
+        this.wireguardManager = WireguardManager.getInstance();
         this.setDownloadManager(DownloadManager.getInstance(antivirusManager));
         antivirusManager.setClamAV(clamAV);
         antivirusManager.setVirusTotal(virusTotal);
@@ -67,8 +67,6 @@ public class SystemOrchestrator {
     public void manageVPN(vpnOperations operation) {
     	
     	String configPath = "testPeer.conf"; // PARAMENTRO HARDCODDATO, DA SOSTITUIRE IN FASE DI IMPLEMENTAZIONE GUI
-
-        wireguardManager = WireguardManager.getInstance();
 
         switch (operation) {
             case START:

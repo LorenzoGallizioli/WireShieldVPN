@@ -16,7 +16,7 @@ public class Connection {
     private static final Logger logger = LogManager.getLogger(Connection.class);
 
     private static Connection instance;
-    private connectionStates status;
+    private connectionStates status = connectionStates.DISCONNECTED;
     private long sentTraffic;
     private long receivedTraffic;
     private long lastHandshakeTime;
