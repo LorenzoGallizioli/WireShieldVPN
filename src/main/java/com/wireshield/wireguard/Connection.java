@@ -3,6 +3,7 @@ package com.wireshield.wireguard;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,6 +23,7 @@ public class Connection {
     private long sentTraffic;
     private long receivedTraffic;
     private long lastHandshakeTime;
+    private String ActiveInterface;
     private String wgPath;
 
     private Connection() throws IOException, ParseException {
@@ -50,10 +52,32 @@ public class Connection {
      * @param receivedTraffic
      *   The traffic received in bytes.
      */
-    public void updateTraffic(long sentTraffic, long receivedTraffic) {
-        while (true) {
-            sentTraffic = this.getSentTraffic();
-            receivedTraffic = this.getReceivedTraffic();
+    public Long[] getTraffic() {
+    	this.updateTraffic();
+    	
+    	Long[] traffic = new Long[2];
+    	
+    	traffic[0] = this.sentTraffic;
+    	traffic[1] = this.receivedTraffic;
+    	
+    	return traffic;
+    }
+    
+    /**
+     * Retrieves the traffic sent and received.
+     * 
+     * @return Long[]
+     *   The traffic sent and received in bytes.
+     */
+    public void updateTraffic() {
+        String trafficString = wgShow("transfer");
+        
+        if(trafficString != null) {
+	        this.sentTraffic = Long.parseLong(trafficString.trim().split("\\s+")[0]);
+	        this.receivedTraffic = Long.parseLong(trafficString.trim().split("\\s+")[1]);
+        } else {
+        	this.sentTraffic = 0;
+        	this.receivedTraffic = 0;
         }
     }
 
@@ -83,6 +107,63 @@ public class Connection {
     }
 
     /**
+     * Update the active interface variable.
+     */
+    protected void updateActiveInterface() {    	
+    	
+    	Process process = null;
+        try {
+            ProcessBuilder processBuilder = new ProcessBuilder(wgPath, "show", "interfaces");
+            process = processBuilder.start();
+
+            // Read the output of the command
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+                  
+            while ((line = reader.readLine()) != null) {
+                if (!line.isEmpty()) {
+                    this.ActiveInterface = line; // Get only the first wg interface up and exit
+                    return;
+                }
+            }
+            this.ActiveInterface = null; // Interface is down
+            
+        } catch (IOException e) {
+            logger.error("Error getting active interface: " + e.getMessage());  
+            this.ActiveInterface = null;
+            
+        } finally {
+        	if (process != null) {
+                process.destroy();
+                
+            }
+        	
+        }
+
+    }
+    
+    /**
+     * Retrive the active interface.
+     * 
+     * @return String|null
+     *   The name of the interface or null if not found.
+     */
+    protected String getActiveInterface() {
+    	this.updateActiveInterface();
+    	return this.ActiveInterface;
+    }
+
+    /**
+     * Retrieves the status of the connection.
+     * 
+     * @return connectionStates
+     *   The status.
+     */
+    public connectionStates getStatus() {
+        return this.status;
+    }
+    
+    /**
      * Sets the connection status.
      * 
      * @param status
@@ -93,66 +174,13 @@ public class Connection {
     }
 
     /**
-     * Retrieves the active interface.
-     * 
-     * @return String|null
-     *   The name of the interface or null if not found.
+     * Updates the last handshake time variable.
      */
-    protected String getActiveInterface() {
-        try {
-            ProcessBuilder processBuilder = new ProcessBuilder(wgPath, "show", "interfaces");
-            Process process = processBuilder.start();
-
-            // Read the output of the command
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (!line.isEmpty()) {
-                    return line; // Interface is up
-                }
-            }
-            return null; // Interface is down
-        } catch (IOException e) {
-            logger.error("Error getting active interface: " + e.getMessage());  
-            return null;
-        }
-
+    public void updateLastHandshakeTime() {
+        String latestHandShake = wgShow("latest-handshakes"); 
+        this.lastHandshakeTime = Long.parseLong(latestHandShake);
     }
-
-    /**
-     * Retrieves the status of the connection.
-     * 
-     * @return connectionStates
-     *   The status.
-     */
-    public connectionStates getStatus() {
-        return status;
-    }
-
-    /**
-     * Retrieves the traffic sent.
-     * 
-     * @return Long
-     *   The traffic sent in bytes.
-     */
-    public Long getSentTraffic() {
-        String trafficString = wgShow("transfer");
-        sentTraffic = Long.parseLong(trafficString.trim().split("\\s+")[0]);
-        return sentTraffic;
-    }
-
-    /**
-     * Retrieves the traffic received.
-     * 
-     * @return Long
-     *   The traffic received in bytes.
-     */
-    public Long getReceivedTraffic() {
-        String trafficString = wgShow("transfer");
-        receivedTraffic = Long.parseLong(trafficString.trim().split("\\s+")[1]);
-        return receivedTraffic;
-    }
-
+    
     /**
      * Retrieves the last handshake time.
      * 
@@ -160,11 +188,9 @@ public class Connection {
      *   The last handshake time.
      */
     public Long getLastHandshakeTime() {
-        String latestHandShake = wgShow("latest-handshakes"); 
-        lastHandshakeTime = Long.parseLong(latestHandShake);
-        return lastHandshakeTime;
+    	this.updateLastHandshakeTime();
+    	return this.lastHandshakeTime;
     }
-
 
     /**
      * Describes the connection.
@@ -172,12 +198,11 @@ public class Connection {
     @Override
     public String toString() {
         return String.format(
-            "[INFO] Interface: %s\n[INFO] Status: %s\n[INFO] Last handshake time: %s\n[INFO] Received traffic: %s\n[INFO] Sent traffic: %s",
+            "[INFO] Interface: %s\n[INFO] Status: %s\n[INFO] Last handshake time: %s\n[INFO] Received traffic: %s\n",
             this.getActiveInterface(),
             this.getStatus(),
             this.getLastHandshakeTime(),
-            this.getReceivedTraffic(),
-            this.getSentTraffic());
+            Arrays.toString(this.getTraffic()));
     }
 
 }

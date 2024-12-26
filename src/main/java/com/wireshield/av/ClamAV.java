@@ -84,9 +84,8 @@ public class ClamAV {
 					threatDetails = line.substring(line.indexOf(":") + 2, line.lastIndexOf("FOUND")).trim();
 					logger.info("Threat detected: {}", threatDetails);
 					break; // Stop processing after a threat is found
-				}
-				// Check if ClamAV has detected suspicious activity
-				else if (line.contains("suspicious")) {
+					
+				}else if (line.contains("suspicious")) { // Check if ClamAV has detected suspicious activity
 					suspiciousDetected = true;
 					threatDetails = line.substring(line.indexOf(":") + 2).trim();
 					logger.info("Suspicious activity detected: {}", threatDetails);

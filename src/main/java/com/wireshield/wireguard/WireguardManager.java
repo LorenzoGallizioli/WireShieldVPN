@@ -12,6 +12,7 @@ import java.io.IOException;
 
 import com.wireshield.av.FileManager;
 import com.wireshield.enums.connectionStates;
+import com.wireshield.enums.vpnOperations;
 
 /**
  * The WireguardManager class is responsible for managing the wireguard VPN.
@@ -76,6 +77,8 @@ public class WireguardManager {
                 "/installtunnelservice", 
                 defaultPeerPath + configPath
             );
+            
+            System.out.println(wireguardPath + " /installtunnelservice " + defaultPeerPath + configPath);
             Process process = processBuilder.start();
 
             // Reads the output.
@@ -144,6 +147,43 @@ public class WireguardManager {
             e.printStackTrace();
             return false;
         }
+    }
+    
+    public synchronized void updateConnectionStats() {
+    	
+    	if(connection.getStatus() == connectionStates.CONNECTED) {
+    		while(connection.getActiveInterface() == null) {}
+    	}
+    	
+    	// Update active interface
+    	connection.updateActiveInterface();
+    	
+    	// Update traffic
+    	connection.updateTraffic();
+    	
+    	// Update last hand-shake
+    	connection.updateLastHandshakeTime();
+    	
+    }
+    
+    public void startUpdateConnectionStats() {
+    	Runnable task = () -> {
+            while (connection.getStatus() == connectionStates.CONNECTED) { // Check interface is up
+            	updateConnectionStats();
+            	logger.info(connection.toString());
+                try {
+                    Thread.sleep(1000); // wait
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    logger.error("updateConnectionStats() thread unexpecly interrupted");
+                    break;
+                }
+            }
+            logger.info("updateConnectionStats() thread stopped");
+        };
+
+        Thread thread = new Thread(task);
+        thread.start();
     }
 
     /**
