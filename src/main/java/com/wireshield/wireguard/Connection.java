@@ -22,7 +22,7 @@ public class Connection {
     private long lastHandshakeTime;
     private String wgPath;
 
-    private Connection() throws IOException, ParseException {
+    private Connection() {
     	this.wgPath = FileManager.getProjectFolder() + FileManager.getConfigValue("WGEXE_STD_PATH");
     }
     
@@ -33,7 +33,7 @@ public class Connection {
      * @throws ParseException 
      * @throws IOException 
      */
-    public static synchronized Connection getInstance() throws IOException, ParseException {
+    public static synchronized Connection getInstance() {
         if (instance == null) {
             instance = new Connection();
         }
