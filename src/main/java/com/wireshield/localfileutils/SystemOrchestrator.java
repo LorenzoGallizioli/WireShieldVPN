@@ -28,7 +28,7 @@ public class SystemOrchestrator {
     private AntivirusManager antivirusManager; // Manages antivirus operations
     private ClamAV clamAV;
     private VirusTotal virusTotal;
-    private runningStates avStatus;            // Antivirus service status
+    private runningStates avStatus = runningStates.DOWN;            // Antivirus service status
     private runningStates monitorStatus;       // Download monitoring service status
     private connectionStates connectionStatus; // VPN connection status
 
@@ -238,6 +238,15 @@ public class SystemOrchestrator {
     public DownloadManager getDownloadManager() {
         logger.debug("Retrieving DownloadManager instance.");
         return downloadManager;
+    }
+
+    /**
+     * Retrieves the AntivirusManager instance.
+     *
+     * @return The AntivirusManager instance.
+     */
+    public AntivirusManager getAntivirusManager() {
+        return antivirusManager;
     }
 
     /**

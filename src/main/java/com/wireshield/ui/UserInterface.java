@@ -29,19 +29,25 @@ import javafx.stage.Stage;
 public class UserInterface extends Application {
 
     private static SystemOrchestrator so;
+    
+    /**
+     * JavaFX Buttons.
+     */
     @FXML
-    private Button vpnButton;
+    private Button vpnButton, uploadPeerButton;
+    
+    /**
+     * JavaFX AnchorPanes.
+     */
     @FXML
-    private AnchorPane homePane;
-    @FXML
-    private AnchorPane logsPane;
-    @FXML
-    private AnchorPane avPane;
-    @FXML
-    private AnchorPane settingsPane;
-    @FXML
-    private TextArea logsArea;
+    private AnchorPane homePane, logsPane, avPane, settingsPane;
 
+    /**
+     * JavaFX TextAreas.
+     */
+    @FXML
+    private TextArea logsArea, avStatusArea, avFilesArea;
+    
     @Override
     public void start(Stage primaryStage) {
         try {
@@ -74,12 +80,14 @@ public class UserInterface extends Application {
             so.manageAV(runningStates.DOWN);
             so.manageVPN(vpnOperations.STOP);
             vpnButton.setText("Start VPN");
+            uploadPeerButton.setDisable(false);
         }
         else{
             so.manageVPN(vpnOperations.START);
             so.manageAV(runningStates.UP);
             so.manageDownload(runningStates.UP);
             vpnButton.setText("Stop VPN");
+            uploadPeerButton.setDisable(true);
         }
     }
 
@@ -110,6 +118,11 @@ public class UserInterface extends Application {
      */
     @FXML
     public void viewAv(){
+        runningStates avStatus = so.getAVStatus();
+        avStatusArea.setText(avStatus + "\n");
+        if (avStatus == runningStates.UP){
+            avFilesArea.setText(so.getAntivirusManager().getFinalReports() + "\n");
+        }
         avPane.toFront();
     }
 
