@@ -6,8 +6,11 @@ import java.io.InputStreamReader;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
+
+import com.wireshield.av.FileManager;
 import com.wireshield.enums.connectionStates;
 
 /**
@@ -17,19 +20,22 @@ public class WireguardManager {
     private static final Logger logger = LogManager.getLogger(WireguardManager.class);
 
     private static WireguardManager instance;
-    private String wgPath;
+    private String wireguardPath;
+    private String defaultPeerPath;
     private Connection connection;
     private PeerManager peerManager;
 
-    public WireguardManager(String wgPath) {
-        File file = new File(wgPath);
+    private WireguardManager() throws IOException, ParseException {
+    	this.wireguardPath = FileManager.getProjectFolder() + FileManager.getConfigValue("WIREGUARDEXE_STD_PATH");
+        this.defaultPeerPath = FileManager.getProjectFolder() + FileManager.getConfigValue("PEER_STD_PATH");
+    	
+        File file = new File(wireguardPath);
         if (!file.exists() || !file.isFile()) {
             logger.error("WireGuard executable not found");
             return;
         }
-        connection = Connection.getInstance();
-        peerManager = PeerManager.getInstance();
-        this.wgPath = wgPath;
+        this.connection = Connection.getInstance();
+        this.peerManager = PeerManager.getInstance();
     }
     
     /**
@@ -38,10 +44,12 @@ public class WireguardManager {
      *
      * @param wgPath the path to the WireGuard executable.
      * @return the single instance of WireguardManager.
+     * @throws ParseException 
+     * @throws IOException 
      */
-    public static synchronized WireguardManager getInstance(String wgPath) {
+    public static synchronized WireguardManager getInstance() throws IOException, ParseException {
         if (instance == null) {
-            instance = new WireguardManager(wgPath);
+            instance = new WireguardManager();
         }
         return instance;
     }
@@ -50,7 +58,7 @@ public class WireguardManager {
      * Starts the wireguard inteface based on the configuration path.
      * 
      * @param configPath
-     *   The configuration file path.
+     *   The configuration file path (Name).(extension) .
      * 
      * @return True if the interface is correctly up, false overwise.
      */
@@ -64,9 +72,9 @@ public class WireguardManager {
         try {
             // Command for wireguard interface start.
             ProcessBuilder processBuilder = new ProcessBuilder(
-                wgPath, 
+                wireguardPath, 
                 "/installtunnelservice", 
-                configPath
+                defaultPeerPath + configPath
             );
             Process process = processBuilder.start();
 
@@ -100,6 +108,7 @@ public class WireguardManager {
      */
     public Boolean setInterfaceDown() {
         String interfaceName = connection.getActiveInterface();
+
         if(interfaceName == null) {
             logger.error("No active WireGuard interface.");
             return false;
@@ -108,7 +117,7 @@ public class WireguardManager {
         try {
             // Command for wireguard interface stop.
             ProcessBuilder processBuilder = new ProcessBuilder(
-                wgPath, 
+                wireguardPath, 
                 "/uninstalltunnelservice", 
                 interfaceName
             );

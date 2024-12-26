@@ -1,0 +1,6 @@
+{
+  "api_key": "1234567890",
+  "PEER_STD_PATH": "\\config\\connection-configurations\\",
+  "WIREGUARDEXE_STD_PATH": "\\bin\\wireguard-windows-executables\\amd64\\wireguard.exe",
+  "WGEXE_STD_PATH": "\\bin\\wireguard-windows-executables\\amd64\\wg.exe"
+}
