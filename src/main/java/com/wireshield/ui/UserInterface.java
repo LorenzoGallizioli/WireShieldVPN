@@ -1,5 +1,6 @@
 package com.wireshield.ui;
 import com.wireshield.enums.connectionStates;
+import com.wireshield.enums.runningStates;
 import com.wireshield.enums.vpnOperations;
 import com.wireshield.localfileutils.SystemOrchestrator;
 import java.io.IOException;
@@ -25,6 +26,8 @@ public class UserInterface extends Application {
     private AnchorPane homePane;
     @FXML
     private AnchorPane logsPane;
+    @FXML
+    private AnchorPane avPane;
     @FXML
     private AnchorPane settingsPane;
     @FXML
@@ -58,11 +61,15 @@ public class UserInterface extends Application {
     @FXML
     public void changeVPNState(){ 
         if (so.getConnectionStatus() == connectionStates.CONNECTED){
+            so.manageDownload(runningStates.DOWN);
+            so.manageAV(runningStates.DOWN);
             so.manageVPN(vpnOperations.STOP);
             vpnButton.setText("Start VPN");
         }
         else{
             so.manageVPN(vpnOperations.START);
+            so.manageAV(runningStates.UP);
+            so.manageDownload(runningStates.UP);
             vpnButton.setText("Stop VPN");
         }
     }
@@ -87,6 +94,14 @@ public class UserInterface extends Application {
         }
         String logs = so.getWireguardManager().getConnectionLogs();
         logsArea.setText(logs + "\n");
+    }
+
+    /**
+     * Displays the antivirus page.
+     */
+    @FXML
+    public void viewAv(){
+        avPane.toFront();
     }
 
     /**

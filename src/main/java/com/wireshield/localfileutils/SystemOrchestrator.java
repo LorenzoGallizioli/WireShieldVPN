@@ -68,22 +68,14 @@ public class SystemOrchestrator {
      */
     public void manageVPN(vpnOperations operation) {
 
-        String configPath = "C:\\Users\\loren\\Downloads\\peer5_galliz.conf";
+        String configPath = "C:\\Users\\loren\\Downloads\\test.conf";
         switch (operation) {
             case START:
-                if (wireguardManager.setInterfaceUp(configPath)) {
-                    logger.info("Interface successfully started.");
-                } else {
-                    logger.error("Error starting the interface.");
-                }
+                wireguardManager.setInterfaceUp(configPath);
                 break;
 
             case STOP:
-                if (wireguardManager.setInterfaceDown()) {
-                    logger.info("Interface successfully stopped.");
-                } else {
-                    logger.error("Error stopping the interface.");
-                }
+                wireguardManager.setInterfaceDown(); 
                 break;
 
             default:

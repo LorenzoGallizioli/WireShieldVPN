@@ -1,19 +1,35 @@
 .root {
     -fx-font-family: "Arial";
     -fx-font-size: 14px;
-    -fx-background-color: #F0F0F0;
+    -fx-background-color: #252526;
+    -fx-text-fill: white;
 }
 
-.vbox {
-    -fx-background-color: #73C9D3;
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
 }
 
-.hbox {
+#hBox {
     -fx-background-color: #369FAB;
 }
 
+#vBox .button {
+    -fx-background-color: #252526;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0; 
+}
+
+#vBox .button:hover {
+    -fx-background-color: #2d2d30;
+}
+
 #homePane .button {
-    -fx-background-color: #484848;
+    -fx-background-color: #0065a9;
     -fx-text-fill: black;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
@@ -22,9 +38,19 @@
 }
 
 #homePane .button:hover {
-    -fx-background-color: #485050;
+    -fx-background-color: #0098ff;
 }
 
-.anchor-pane {
-    -fx-background-color: #E8E9F3;
+#homePane, #logsPane, #avPane, #settingsPane {
+    -fx-background-color: #252526;
+}
+
+.black-textarea {
+    -fx-control-inner-background: #2d2d30;
+    -fx-text-fill: white;
+    -fx-background-color: #2d2d30;
+    -fx-font-size: 14px;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: #2d2d30;
 }

@@ -17,7 +17,7 @@ public class WireguardManagerTest {
 
     @Test
     public void testSetInterfaceUp() {
-        WireguardManager wireguardManager = new WireguardManager("C:\\Program Files\\WireGuard\\wireguard.exe");
+        WireguardManager wireguardManager = WireguardManager.getInstance("C:\\Program Files\\WireGuard\\wireguard.exe");
         assertTrue(wireguardManager.setInterfaceUp("C:\\\\Program Files\\\\WireGuard\\\\Data\\\\Configurations\\\\peer5_galliz.conf.dpapi"));
     }
 
@@ -28,7 +28,7 @@ public class WireguardManagerTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        WireguardManager wireguardManager = new WireguardManager("C:\\Program Files\\WireGuard\\wireguard.exe");
+        WireguardManager wireguardManager = WireguardManager.getInstance("C:\\Program Files\\WireGuard\\wireguard.exe");
         assertTrue(wireguardManager.setInterfaceDown());
     }
 

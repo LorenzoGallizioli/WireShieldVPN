@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,29 +15,38 @@
 <StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wireshield.ui.UserInterface">
    <AnchorPane prefHeight="528.0" prefWidth="839.0">
       <children>
-         <BorderPane layoutY="-1.0" prefHeight="529.0" prefWidth="840.0">
+         <BorderPane prefHeight="530.0" prefWidth="840.0">
             <left>
-               <VBox prefHeight="530.0" prefWidth="178.0" BorderPane.alignment="CENTER">
+               <VBox fx:id="vBox" prefHeight="530.0" prefWidth="178.0" BorderPane.alignment="CENTER">
                   <children>
-                     <Button id="homeButton" blendMode="DARKEN" mnemonicParsing="false" onAction="#viewHome" prefHeight="106.0" prefWidth="178.0" text="Home" />
-                     <Button id="logsButton" blendMode="DARKEN" mnemonicParsing="false" onAction="#viewLogs" prefHeight="103.0" prefWidth="178.0" text="Logs" />
-                     <Button id="settingsButton" blendMode="DARKEN" mnemonicParsing="false" onAction="#viewSettings" prefHeight="116.0" prefWidth="178.0" text="Settings" />
+                     <Button id="homeButton" mnemonicParsing="false" onAction="#viewHome" prefHeight="105.0" prefWidth="178.0" text="Home" />
+                     <Button id="logsButton" mnemonicParsing="false" onAction="#viewLogs" prefHeight="105.0" prefWidth="178.0" text="Logs" />
+                     <Button id="avButton" mnemonicParsing="false" onAction="#viewAv" prefHeight="105.0" prefWidth="178.0" text="Antivirus" />
+                     <Button id="settingsButton" mnemonicParsing="false" onAction="#viewSettings" prefHeight="105.0" prefWidth="178.0" text="Settings" />
                   </children>
                </VBox>
             </left>
             <top>
-               <HBox prefHeight="37.0" prefWidth="840.0" BorderPane.alignment="CENTER" />
+               <HBox fx:id="hBox" prefHeight="37.0" prefWidth="840.0" BorderPane.alignment="CENTER" />
             </top>
          </BorderPane>
-         <Pane layoutX="178.0" layoutY="35.0" prefHeight="495.0" prefWidth="662.0">
+         <Pane layoutX="178.0" layoutY="37.0" prefHeight="495.0" prefWidth="662.0">
             <children>
-               <AnchorPane fx:id="settingsPane" prefHeight="495.0" prefWidth="662.0" style="-fx-background-color: #E8E9F3;" />
-               <AnchorPane fx:id="logsPane" prefHeight="495.0" prefWidth="662.0" style="-fx-background-color: #E8E9F3;">
+               <AnchorPane fx:id="settingsPane" prefHeight="495.0" prefWidth="662.0"/>
+               <AnchorPane fx:id="avPane" prefHeight="495.0" prefWidth="662.0">
                   <children>
-                     <TextArea fx:id="logsArea" editable="false" layoutX="14.0" layoutY="14.0" prefHeight="465.0" prefWidth="632.0" />
+                     <Label text="AV status:" layoutX="14.0" layoutY="10.0" />
+                     <TextArea fx:id="avStatusArea" editable="false" layoutX="14.0" layoutY="30.0" prefHeight="200.0" prefWidth="632.0" styleClass="black-textarea"/>
+                     <Label text="Scanned files:" layoutX="14.0" layoutY="240.0" />
+                     <TextArea fx:id="avFilesArea" editable="false" layoutX="14.0" layoutY="260.0" prefHeight="200.0" prefWidth="632.0" styleClass="black-textarea"/>
                   </children>
                </AnchorPane>
-               <AnchorPane fx:id="homePane" prefHeight="495.0" prefWidth="662.0" style="-fx-background-color: #E8E9F3;">
+               <AnchorPane fx:id="logsPane" prefHeight="495.0" prefWidth="662.0">
+                  <children>
+                     <TextArea fx:id="logsArea" editable="false" layoutX="14.0" layoutY="14.0" prefHeight="465.0" prefWidth="632.0" styleClass="black-textarea"/>
+                  </children>
+               </AnchorPane>
+               <AnchorPane fx:id="homePane" prefHeight="495.0" prefWidth="662.0">
                   <children>
                       <Button fx:id="vpnButton" layoutX="261.0" layoutY="331.0" onAction="#changeVPNState" prefHeight="62.0" prefWidth="138.0" text="Start VPN" />
                      <ImageView fitHeight="200.0" fitWidth="225.0" layoutX="230.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true">
