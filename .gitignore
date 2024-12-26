@@ -1,3 +1,5 @@
+# Project custom files
+testPeer.conf
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 
@@ -173,3 +175,4 @@ $RECYCLE.BIN/
 
 # Built Visual Studio Code Extensions
 *.vsix
+

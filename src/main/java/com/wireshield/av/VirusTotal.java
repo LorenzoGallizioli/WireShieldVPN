@@ -25,8 +25,8 @@ import java.util.LinkedList;
  * retrieves analysis reports.
  */
 public class VirusTotal {
-	
-    private static VirusTotal instance;
+
+	private static VirusTotal instance;
 	private String API_KEY; // API Key for accessing the VirusTotal API
 	static final int REQUEST_LIMIT = 4; // Maximum requests allowed per minute
 	private static final long ONE_MINUTE_IN_MILLIS = 60 * 1000; // Duration of one minute in milliseconds
@@ -45,18 +45,18 @@ public class VirusTotal {
 			System.exit(1);
 		}
 	}
-	
+
 	/**
-     * Public static method to get the Singleton instance of VirusTotal.
-     *
-     * @return the single instance of VirusTotal.
-     */
-    public static synchronized VirusTotal getInstance() {
-        if (instance == null) {
-            instance = new VirusTotal();
-        }
-        return instance;
-    }
+	 * Public static method to get the Singleton instance of VirusTotal.
+	 *
+	 * @return the single instance of VirusTotal.
+	 */
+	public static synchronized VirusTotal getInstance() {
+		if (instance == null) {
+			instance = new VirusTotal();
+		}
+		return instance;
+	}
 
 	/**
 	 * Analyzes a file by uploading it to VirusTotal for a threat analysis. If the
@@ -225,7 +225,7 @@ public class VirusTotal {
 	 * @return The API key as a String, or null if the file is empty or missing.
 	 */
 	String getApiKey() {
-		String filePath = "api_key.txt";
+		String filePath = "config/api_key.txt";
 		String apiKey = FileManager.readFile(filePath);
 		if (apiKey != null) {
 			return apiKey.trim(); // Remove extra spaces
@@ -238,7 +238,7 @@ public class VirusTotal {
 	 * empty, prompts the user to enter the API key and saves it to the file.
 	 */
 	void ensureApiKeyFileExists() {
-		String filePath = "api_key.txt";
+		String filePath = "config/api_key.txt";
 
 		if (!FileManager.createFile(filePath)) {
 			String apiKeyContent = FileManager.readFile(filePath);
@@ -247,7 +247,7 @@ public class VirusTotal {
 				return;
 			}
 		}
-		
+
 		System.out.println("API key file is missing or empty. Please enter your API key:");
 		java.util.Scanner scanner = null;
 		try {
@@ -295,8 +295,28 @@ public class VirusTotal {
 		} else {
 			long oldestRequestTime = requestTimestamps.peek();
 			long timeToWait = ONE_MINUTE_IN_MILLIS - (currentTime - oldestRequestTime);
-			System.out.println("Request limit exceeded! VirusTotal will be available in: " + (timeToWait / 1000) + " seconds.");
+			System.out.println(
+					"Request limit exceeded! VirusTotal will be available in: " + (timeToWait / 1000) + " seconds.");
 			return false;
 		}
+	}
+
+	public static void main(String[] args) {
+		// Creazione dell'istanza di VirusTotal per testare la gestione della chiave API
+		VirusTotal virusTotal = VirusTotal.getInstance();
+
+		// Il codice di seguito verifica se la chiave è stata correttamente caricata o
+		// creata
+		System.out.println("API Key: " + virusTotal.getApiKey());
+
+		// Testa il comportamento di `ensureApiKeyFileExists` per assicurarsi che il
+		// file venga creato o letto correttamente
+		virusTotal.ensureApiKeyFileExists();
+
+		// Dopo aver fatto ciò, puoi testare l'analisi di un file fittizio, se
+		// necessario
+		// Per esempio:
+		// File fileToAnalyze = new File("path_to_file");
+		// virusTotal.analyze(fileToAnalyze);
 	}
 }
