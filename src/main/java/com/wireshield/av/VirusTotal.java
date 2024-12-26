@@ -45,7 +45,7 @@ public class VirusTotal {
 		ensureApiKeyFileExists(); // Ensures the API key file is created or requests input if missing
 		this.API_KEY = getApiKey(); // Reads the API key from the file
 		if (this.API_KEY == null || this.API_KEY.trim().isEmpty()) {
-			System.out.println("Error: Invalid API key. Restart the program and enter a valid key.");
+			logger.debug("Error: Invalid API key. Restart the program and enter a valid key.");
 			System.exit(1);
 		}
 	}
@@ -71,7 +71,7 @@ public class VirusTotal {
 	public void analyze(File file) {
 		// Check request limits
 		if (!canMakeRequest()) {
-			System.out.println("VirusTotal analysis canceled. Proceeding with ClamAV check only.");
+			logger.info("VirusTotal analysis canceled. Proceeding with ClamAV check only.");
 			scanReport = new ScanReport();
 			scanReport.setValid(false);
 			scanReport.setThreatDetails("VirusTotal analysis rejected: request limit exceeded.");
@@ -80,7 +80,7 @@ public class VirusTotal {
 
 		// Validate the file
 		if (file == null || !file.exists()) {
-			System.out.println("The file does not exist.");
+			logger.info("The file does not exist.");
 			scanReport = new ScanReport();
 			scanReport.setValid(false);
 			return;
@@ -88,15 +88,15 @@ public class VirusTotal {
 
 		String fileHash = FileManager.calculateSHA256(file);
 		if (fileHash != null) {
-			System.out.println("SHA256 calculated: " + fileHash);
+			logger.info("SHA256 calculated: " + fileHash);
 		} else {
-			System.out.println("Error calculating SHA256.");
+			logger.info("Error calculating SHA256.");
 		}
 
 		try {
 			// Build the HTTP POST request
 			HttpClient client = HttpClients.createDefault();
-			URI uri = new URIBuilder("https://www.virustotal.com/api/v3/files").build();
+			URI uri = new URIBuilder(FileManager.getConfigValue("VIRUSTOTAL_URI")).build();
 			HttpPost post = new HttpPost(uri);
 			post.addHeader("x-apikey", API_KEY);
 
