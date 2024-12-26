@@ -22,8 +22,8 @@ public class Main {
      */
     public static void main(String[] args) throws IOException, ParseException {
         SystemOrchestrator so = SystemOrchestrator.getInstance();
-        //so.manageVPN(vpnOperations.START);
-        so.manageVPN(vpnOperations.STOP);
+        so.manageVPN(vpnOperations.START);
+        //so.manageVPN(vpnOperations.STOP);
         //so.manageDownload(runningStates.UP);
         //so.manageAV(runningStates.UP);
     }
