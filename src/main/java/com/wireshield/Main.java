@@ -1,4 +1,6 @@
 package com.wireshield;
+import java.io.IOException;
+import java.text.ParseException;
 import com.wireshield.ui.UserInterface;
 
 /*
@@ -10,7 +12,7 @@ public class Main {
      * 
      * @param args Command line arguments.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ParseException {
         UserInterface.main(args);
     }
 }

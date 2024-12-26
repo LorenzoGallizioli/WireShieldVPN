@@ -8,6 +8,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.security.MessageDigest;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,6 +19,8 @@ import org.apache.logging.log4j.Logger;
 public class FileManager {
 	
 	private static final Logger logger = LogManager.getLogger(FileManager.class);
+    private static String CONFIG_PATH = FileManager.getProjectFolder() + "\\config\\config.json";
+
 	
 	/**
      * Creates a new file at the specified path.
@@ -158,4 +163,29 @@ public class FileManager {
 			return null;
 		}
 	}
+	
+	/**
+     * Reads the JSON file and retrieves the value associated with the given key.
+     *
+     * @param key the key whose associated value is to be returned
+     * @return the value as a String, or null if the key does not exist
+     * @throws IOException if there is an issue reading the file
+     * @throws ParseException if the file is not a valid JSON
+     */
+    public static String getConfigValue(String key) throws IOException, ParseException {
+        // Parse the JSON file
+        JSONParser parser = new JSONParser();
+        try (FileReader reader = new FileReader(CONFIG_PATH)) {
+            // Read the JSON object from the file
+            JSONObject jsonObject = (JSONObject) parser.parse(reader);
+
+            // Retrieve the value associated with the key
+            Object value = jsonObject.get(key);
+            if (value != null) {
+            	return value.toString();
+        	} else {
+        		return null;
+        	}
+        }
+    }
 }
