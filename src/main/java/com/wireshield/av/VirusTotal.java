@@ -7,6 +7,9 @@ import com.wireshield.enums.warningClass;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.json.simple.parser.ParseException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.HttpResponse;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
@@ -14,6 +17,7 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.client.utils.URIBuilder;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Queue;
@@ -25,6 +29,8 @@ import java.util.LinkedList;
  * retrieves analysis reports.
  */
 public class VirusTotal {
+	
+    private static final Logger logger = LogManager.getLogger(AntivirusManager.class);
 
 	private static VirusTotal instance;
 	private String API_KEY; // API Key for accessing the VirusTotal API
@@ -139,13 +145,13 @@ public class VirusTotal {
 	public ScanReport getReport() {
 		// Ensure a valid scan report exists
 		if (scanReport == null || scanReport.getScanId() == null) {
-			System.out.println("No report available. Please perform an analysis first.");
+			logger.debug("No report available. Possibile AV failure");
 			return null;
 		}
 
 		try {
 			HttpClient client = HttpClients.createDefault();
-			URI uri = new URIBuilder("https://www.virustotal.com/api/v3/analyses/" + scanReport.getScanId()).build();
+			URI uri = new URIBuilder(FileManager.getConfigValue("VIRUSTOTAL_URI") + scanReport.getScanId()).build();
 
 			boolean isCompleted = false;
 			while (!isCompleted) {
@@ -203,7 +209,7 @@ public class VirusTotal {
 						Thread.sleep(5000);
 					}
 				} else {
-					System.out.println("Error retrieving the report: " + statusCode);
+					logger.info("Error retrieving the report from server: " + statusCode);
 					scanReport = new ScanReport();
 					scanReport.setValid(false);
 					isCompleted = true;
@@ -225,8 +231,9 @@ public class VirusTotal {
 	 * @return The API key as a String, or null if the file is empty or missing.
 	 */
 	String getApiKey() {
-		String filePath = "config/api_key.txt";
-		String apiKey = FileManager.readFile(filePath);
+		
+		String apiKey;
+		apiKey = FileManager.getConfigValue("api_key");
 		if (apiKey != null) {
 			return apiKey.trim(); // Remove extra spaces
 		}
@@ -238,35 +245,32 @@ public class VirusTotal {
 	 * empty, prompts the user to enter the API key and saves it to the file.
 	 */
 	void ensureApiKeyFileExists() {
-		String filePath = "config/api_key.txt";
-
-		if (!FileManager.createFile(filePath)) {
-			String apiKeyContent = FileManager.readFile(filePath);
-			if (apiKeyContent != null && !apiKeyContent.trim().isEmpty()) {
-				System.out.println("API key already exists.");
-				return;
-			}
+		
+		String apiKeyContent = FileManager.getConfigValue("api_key");
+		if (apiKeyContent != null && !apiKeyContent.trim().isEmpty()) {
+			logger.info("API key exists and not empty: skipped");
+			return;
 		}
 
-		System.out.println("API key file is missing or empty. Please enter your API key:");
+		logger.info("API key file is missing or empty. Please enter your API key:");
 		java.util.Scanner scanner = null;
 		try {
 			scanner = new java.util.Scanner(System.in); // Initialize the Scanner
 			String apiKey = scanner.nextLine(); // Read user input
 
 			if (apiKey != null && !apiKey.trim().isEmpty()) { // Validate input
-				if (FileManager.writeFile(filePath, apiKey)) {
-					System.out.println("API key saved successfully!");
+				if (FileManager.writeConfigValue ("api_key", apiKey)) {
+					logger.info("API key saved successfully!");
 				} else {
-					System.out.println("Error saving the API key."); // Handle file write error
+					logger.debug("Error saving the API key."); // Handle file write error
 					System.exit(1);
 				}
 			} else {
-				System.out.println("Invalid API key. Restart the program and provide a valid key.");
+				logger.info("Invalid API key. Restart the program and provide a valid key.");
 				System.exit(1);
 			}
 		} catch (Exception e) {
-			System.out.println("Error during API key input: " + e.getMessage()); // Handle exceptions
+			logger.error("Error during API key input: " + e.getMessage()); // Handle exceptions
 			System.exit(1);
 		} finally {
 			if (scanner != null) {
@@ -295,28 +299,9 @@ public class VirusTotal {
 		} else {
 			long oldestRequestTime = requestTimestamps.peek();
 			long timeToWait = ONE_MINUTE_IN_MILLIS - (currentTime - oldestRequestTime);
-			System.out.println(
-					"Request limit exceeded! VirusTotal will be available in: " + (timeToWait / 1000) + " seconds.");
+			logger.info("Request limit exceeded! VirusTotal will be available in: " + (timeToWait / 1000) + " seconds.");
 			return false;
 		}
 	}
 
-	public static void main(String[] args) {
-		// Creazione dell'istanza di VirusTotal per testare la gestione della chiave API
-		VirusTotal virusTotal = VirusTotal.getInstance();
-
-		// Il codice di seguito verifica se la chiave è stata correttamente caricata o
-		// creata
-		System.out.println("API Key: " + virusTotal.getApiKey());
-
-		// Testa il comportamento di `ensureApiKeyFileExists` per assicurarsi che il
-		// file venga creato o letto correttamente
-		virusTotal.ensureApiKeyFileExists();
-
-		// Dopo aver fatto ciò, puoi testare l'analisi di un file fittizio, se
-		// necessario
-		// Per esempio:
-		// File fileToAnalyze = new File("path_to_file");
-		// virusTotal.analyze(fileToAnalyze);
-	}
 }

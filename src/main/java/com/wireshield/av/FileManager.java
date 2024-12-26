@@ -172,7 +172,7 @@ public class FileManager {
      * @throws IOException if there is an issue reading the file
      * @throws ParseException if the file is not a valid JSON
      */
-    public static String getConfigValue(String key) throws IOException, ParseException {
+    public static String getConfigValue(String key){
         // Parse the JSON file
         JSONParser parser = new JSONParser();
         try (FileReader reader = new FileReader(CONFIG_PATH)) {
@@ -186,6 +186,49 @@ public class FileManager {
         	} else {
         		return null;
         	}
+        } catch(Exception e) {
+        	return null;
         }
+        	
+    }
+    
+    /**
+     * Writes a value to the JSON file for the specified key. If the key already exists,
+     * its value will be updated; otherwise, a new key-value pair will be added.
+     *
+     * @param key   the key to add or update
+     * @param value the value to set for the key
+     * @return 
+     * @throws IOException if there is an issue reading or writing the file
+     * @throws ParseException if the file is not a valid JSON
+     */
+    public static boolean writeConfigValue(String key, String value){
+        JSONParser parser = new JSONParser();
+        JSONObject jsonObject = null;
+
+        File file = new File(CONFIG_PATH);
+
+        // Load existing JSON data if the file exists
+        if (file.exists()) {
+            try (FileReader reader = new FileReader(file)) {
+                jsonObject = (JSONObject) parser.parse(reader);
+            } catch (Exception e) {
+            	logger.error("Error during JSON");
+            }
+        } else {
+            // If the file does not exist, initialize a new JSON object
+            jsonObject = new JSONObject();
+        }
+
+        // Update or add the key-value pair
+        jsonObject.put(key, value);
+
+        // Write the updated JSON object back to the file
+        try (FileWriter writer = new FileWriter(file)) {
+            writer.write(jsonObject.toJSONString());
+            return true;
+        } catch (Exception e) {
+			return false; 
+		}
     }
 }
