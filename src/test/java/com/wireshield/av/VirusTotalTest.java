@@ -198,5 +198,4 @@ public class VirusTotalTest {
         // Now it should be allowed to make a request, so the assertTrue assertion should pass
         assertTrue(canRequest);
     }
-
 }
