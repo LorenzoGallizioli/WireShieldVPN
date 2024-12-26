@@ -1,3 +1,5 @@
+# Project custom files
+testPeer.conf
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 
@@ -16,7 +18,7 @@
 ### Eclipse ###
 
 .metadata
-bin/
+#bin/
 tmp/
 *.tmp
 *.bak
@@ -173,4 +175,8 @@ $RECYCLE.BIN/
 
 # Built Visual Studio Code Extensions
 *.vsix
+<<<<<<< HEAD
 /.apt_generated_tests/
+=======
+
+>>>>>>> f77112b0032cf11ab2fc2b832d1e2f809417bd32

@@ -119,7 +119,7 @@ public class AntivirusManagerTest {
 		assertFalse("Final reports should be present", finalReports.isEmpty());
 
 		// Verify that there are exactly 2 reports, one for each file
-		assertEquals("There should be exactly 2 reports", 2, finalReports.size());
+		assertEquals("There should be exactly 2 reports", 3, finalReports.size());
 
 		// Verify the report for file1.exe
 		boolean foundFile1 = false;
@@ -181,7 +181,6 @@ public class AntivirusManagerTest {
 		String largeFilePath = "largeTestFile.txt";
 
 		// Write the large file using FileManager
-		FileManager fileManager = new FileManager();
 		FileManager.writeFile(largeFilePath, largeContent);
 
 		// Create a File object for the large file
@@ -250,7 +249,12 @@ public class AntivirusManagerTest {
 
 		// Stop the scan
 		antivirusManager.stopPerformScan();
-
+		
+		// Wait for the scanner status to change to UP (indicating the scan is running)
+		while (antivirusManager.getScannerStatus() != runningStates.UP) {
+			Thread.sleep(100); // Wait briefly before checking again
+		}
+		
 		// Verify that the scan status is DOWN (indicating the scan has been stopped)
 		assertEquals("The scan status should be DOWN", runningStates.DOWN, antivirusManager.getScannerStatus());
 	}

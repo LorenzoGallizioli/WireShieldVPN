@@ -8,6 +8,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.security.MessageDigest;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,6 +19,8 @@ import org.apache.logging.log4j.Logger;
 public class FileManager {
 	
 	private static final Logger logger = LogManager.getLogger(FileManager.class);
+    private static String CONFIG_PATH = FileManager.getProjectFolder() + "\\config\\config.json";
+
 	
 	/**
      * Creates a new file at the specified path.
@@ -158,4 +163,72 @@ public class FileManager {
 			return null;
 		}
 	}
+	
+	/**
+     * Reads the JSON file and retrieves the value associated with the given key.
+     *
+     * @param key the key whose associated value is to be returned
+     * @return the value as a String, or null if the key does not exist
+     * @throws IOException if there is an issue reading the file
+     * @throws ParseException if the file is not a valid JSON
+     */
+    public static String getConfigValue(String key){
+        // Parse the JSON file
+        JSONParser parser = new JSONParser();
+        try (FileReader reader = new FileReader(CONFIG_PATH)) {
+            // Read the JSON object from the file
+            JSONObject jsonObject = (JSONObject) parser.parse(reader);
+
+            // Retrieve the value associated with the key
+            Object value = jsonObject.get(key);
+            if (value != null) {
+            	return value.toString();
+        	} else {
+        		return null;
+        	}
+        } catch(Exception e) {
+        	return null;
+        }
+        	
+    }
+    
+    /**
+     * Writes a value to the JSON file for the specified key. If the key already exists,
+     * its value will be updated; otherwise, a new key-value pair will be added.
+     *
+     * @param key   the key to add or update
+     * @param value the value to set for the key
+     * @return 
+     * @throws IOException if there is an issue reading or writing the file
+     * @throws ParseException if the file is not a valid JSON
+     */
+    public static boolean writeConfigValue(String key, String value){
+        JSONParser parser = new JSONParser();
+        JSONObject jsonObject = null;
+
+        File file = new File(CONFIG_PATH);
+
+        // Load existing JSON data if the file exists
+        if (file.exists()) {
+            try (FileReader reader = new FileReader(file)) {
+                jsonObject = (JSONObject) parser.parse(reader);
+            } catch (Exception e) {
+            	logger.error("Error during JSON");
+            }
+        } else {
+            // If the file does not exist, initialize a new JSON object
+            jsonObject = new JSONObject();
+        }
+
+        // Update or add the key-value pair
+        jsonObject.put(key, value);
+
+        // Write the updated JSON object back to the file
+        try (FileWriter writer = new FileWriter(file)) {
+            writer.write(jsonObject.toJSONString());
+            return true;
+        } catch (Exception e) {
+			return false; 
+		}
+    }
 }

@@ -6,7 +6,9 @@ import java.io.InputStreamReader;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.simple.parser.ParseException;
 
+import com.wireshield.av.FileManager;
 import com.wireshield.enums.connectionStates;
 
 /**
@@ -20,15 +22,20 @@ public class Connection {
     private long sentTraffic;
     private long receivedTraffic;
     private long lastHandshakeTime;
+    private String wgPath;
 
-    private Connection() {}
+    private Connection() throws IOException, ParseException {
+    	this.wgPath = FileManager.getProjectFolder() + FileManager.getConfigValue("WGEXE_STD_PATH");
+    }
     
     /**
      * Public method to get the Singleton instance.
      * 
      * @return the single instance of Connection.
+     * @throws ParseException 
+     * @throws IOException 
      */
-    public static synchronized Connection getInstance() {
+    public static synchronized Connection getInstance() throws IOException, ParseException {
         if (instance == null) {
             instance = new Connection();
         }
@@ -60,7 +67,7 @@ public class Connection {
     private String wgShow(String param) {
         String activeInterface = this.getActiveInterface();
         try {
-        ProcessBuilder processBuilder = new ProcessBuilder("wg", "show", activeInterface, param);
+        ProcessBuilder processBuilder = new ProcessBuilder(wgPath, "show", activeInterface, param);
         Process process = processBuilder.start();
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -93,7 +100,7 @@ public class Connection {
      */
     protected String getActiveInterface() {
         try {
-            ProcessBuilder processBuilder = new ProcessBuilder("wg", "show", "interfaces");
+            ProcessBuilder processBuilder = new ProcessBuilder(wgPath, "show", "interfaces");
             Process process = processBuilder.start();
 
             // Read the output of the command

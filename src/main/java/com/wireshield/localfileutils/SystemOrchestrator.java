@@ -6,9 +6,11 @@ import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.simple.parser.ParseException;
 
 import com.wireshield.av.AntivirusManager;
 import com.wireshield.av.ClamAV;
+import com.wireshield.av.FileManager;
 import com.wireshield.av.ScanReport;
 import com.wireshield.av.VirusTotal;
 import com.wireshield.wireguard.PeerManager;
@@ -66,12 +68,14 @@ public class SystemOrchestrator {
      * Manages the VPN connection.
      * 
      * @param operation The operation to be performed (START or STOP).
+     * @throws ParseException 
+     * @throws IOException 
      */
-    public void manageVPN(vpnOperations operation) {
-        String wgPath = "C:\\Program Files\\WireGuard\\wireguard.exe";
-        String configPath = "C:\\Users\\loren\\Downloads\\peer5_galliz.conf";
+    public void manageVPN(vpnOperations operation) throws IOException, ParseException {
+    	
+    	String configPath = "testPeer.conf"; // PARAMENTRO HARDCODDATO, DA SOSTITUIRE IN FASE DI IMPLEMENTAZIONE GUI
 
-        wireguardManager = new WireguardManager(wgPath);
+        wireguardManager = WireguardManager.getInstance();
 
         switch (operation) {
             case START:
