@@ -71,7 +71,7 @@ public class SystemOrchestrator {
      * @throws ParseException 
      * @throws IOException 
      */
-    public void manageVPN(vpnOperations operation) throws IOException, ParseException {
+    public void manageVPN(vpnOperations operation) {
     	
     	String configPath = "testPeer.conf"; // PARAMENTRO HARDCODDATO, DA SOSTITUIRE IN FASE DI IMPLEMENTAZIONE GUI
 
