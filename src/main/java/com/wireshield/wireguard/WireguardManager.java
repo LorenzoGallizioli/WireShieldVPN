@@ -25,7 +25,7 @@ public class WireguardManager {
     private Connection connection;
     private PeerManager peerManager;
 
-    private WireguardManager() throws IOException, ParseException {
+    private WireguardManager() {
     	this.wireguardPath = FileManager.getProjectFolder() + FileManager.getConfigValue("WIREGUARDEXE_STD_PATH");
         this.defaultPeerPath = FileManager.getProjectFolder() + FileManager.getConfigValue("PEER_STD_PATH");
     	
@@ -47,7 +47,7 @@ public class WireguardManager {
      * @throws ParseException 
      * @throws IOException 
      */
-    public static synchronized WireguardManager getInstance() throws IOException, ParseException {
+    public static synchronized WireguardManager getInstance() {
         if (instance == null) {
             instance = new WireguardManager();
         }
