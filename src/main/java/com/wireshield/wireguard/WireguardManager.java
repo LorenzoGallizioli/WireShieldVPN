@@ -23,12 +23,15 @@ public class WireguardManager {
     private static WireguardManager instance;
     private String wireguardPath;
     private String defaultPeerPath;
+    private String logDumpPath;
     private Connection connection;
     private PeerManager peerManager;
+    private String logs;
 
     private WireguardManager() {
     	this.wireguardPath = FileManager.getProjectFolder() + FileManager.getConfigValue("WIREGUARDEXE_STD_PATH");
         this.defaultPeerPath = FileManager.getProjectFolder() + FileManager.getConfigValue("PEER_STD_PATH");
+        this.logDumpPath = FileManager.getProjectFolder() + FileManager.getConfigValue("LOGDUMP_STD_PATH");
     	
         File file = new File(wireguardPath);
         if (!file.exists() || !file.isFile()) {
@@ -37,6 +40,8 @@ public class WireguardManager {
         }
         this.connection = Connection.getInstance();
         this.peerManager = PeerManager.getInstance();
+        
+        this.startUpdateWireguardLogs(); // Start log update thread
     }
     
     /**
@@ -151,9 +156,8 @@ public class WireguardManager {
     
     public synchronized void updateConnectionStats() {
     	
-    	if(connection.getStatus() == connectionStates.CONNECTED) {
-    		while(connection.getActiveInterface() == null) {}
-    	}
+    	// Wait that while the interface is actually up
+    	while(connection.getActiveInterface() == null) {}
     	
     	// Update active interface
     	connection.updateActiveInterface();
@@ -180,6 +184,39 @@ public class WireguardManager {
                 }
             }
             logger.info("updateConnectionStats() thread stopped");
+        };
+
+        Thread thread = new Thread(task);
+        thread.start();
+    }
+    
+    /**
+     * 
+     */
+    public void startUpdateWireguardLogs() {
+    	Runnable task = () -> {
+    		while(true) {
+    			try {
+    				ProcessBuilder processBuilder = new ProcessBuilder(wireguardPath, "/dumplog", ">", this.logDumpPath);
+                	processBuilder.start();
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+    			
+    			String logDump = FileManager.readFile(this.logDumpPath);
+    			this.logs = logDump;
+    		
+    			try {
+    				Thread.sleep(1000); // wait
+    			} catch (InterruptedException e) {
+    				Thread.currentThread().interrupt();
+    				logger.error("startUpdateWireguardLogs() thread unexpecly interrupted");
+    				break;
+    			}
+    		}
+            // Code
         };
 
         Thread thread = new Thread(task);
