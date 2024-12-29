@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.Region?>
 
 <StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wireshield.ui.UserInterface">
    <AnchorPane prefHeight="528.0" prefWidth="839.0">
@@ -30,19 +31,19 @@
             <top>
                <HBox fx:id="hBox" prefHeight="37.0" prefWidth="840.0" BorderPane.alignment="CENTER">
                   <children>
-                     <Label text="Wireshield" style="-fx-text-fill: white; -fx-font-size: 14px;" HBox.hgrow="ALWAYS" />
-                     <Button fx:id="minimizeButton" text="—" onAction="#minimizeWindow" />
+                     <Region HBox.hgrow="ALWAYS" />
+                     <Button fx:id="minimizeButton" text="—" onAction="#minimizeWindow"/>
                      <Button fx:id="closeButton" text="X" onAction="#closeWindow" />
                   </children>
                </HBox>
             </top>
          </BorderPane>
-         <Pane layoutX="178.0" layoutY="37.0" prefHeight="495.0" prefWidth="662.0">
+         <Pane layoutX="178.0" layoutY="39.0" prefHeight="495.0" prefWidth="662.0">
             <children>
                <AnchorPane fx:id="settingsPane" prefHeight="495.0" prefWidth="662.0" styleClass="black-pane">
                   <children>
                      <Label text="Upload peer configuration: " layoutX="14.0" layoutY="20.0"/>
-                     <Button fx:id="uploadPeerButton" text="Choose..." onAction="#handleFileSelection" layoutX="14.0" layoutY="50.0" />
+                     <Button fx:id="uploadPeerButton" text="Choose..." onAction="#handleFileSelection" layoutX="14.0" layoutY="50.0" styleClass="btn-primary"/>
                      <Label text="Loaded Peers:" layoutX="14.0" layoutY="100.0" />
                      <ListView fx:id="peerListView" layoutX="14.0" layoutY="130.0" prefHeight="200.0" prefWidth="632.0" styleClass="black-listview"/>
                   </children>
@@ -50,9 +51,9 @@
                <AnchorPane fx:id="avPane" prefHeight="495.0" prefWidth="662.0" styleClass="black-pane">
                   <children>
                      <Label text="AV status:" layoutX="14.0" layoutY="10.0" />
-                     <TextArea fx:id="avStatusArea" editable="false" layoutX="14.0" layoutY="30.0" prefHeight="200.0" prefWidth="632.0" styleClass="black-textarea"/>
-                     <Label text="Scanned files:" layoutX="14.0" layoutY="230.0" />
-                     <ListView fx:id="avFilesListView" layoutX="14.0" layoutY="250.0" prefHeight="200.0" prefWidth="632.0" styleClass="black-listview"/>  
+                     <Label fx:id="avStatusLabel" layoutX="14.0" layoutY="30.0" prefWidth="632.0" />
+                     <Label text="Scanned files:" layoutX="14.0" layoutY="60.0" />
+                     <ListView fx:id="avFilesListView" layoutX="14.0" layoutY="80.0" prefHeight="250.0" prefWidth="632.0" styleClass="black-listview"/>  
                   </children>
                </AnchorPane>
                <AnchorPane fx:id="logsPane" prefHeight="495.0" prefWidth="662.0" styleClass="black-pane">
@@ -62,7 +63,7 @@
                </AnchorPane>
                <AnchorPane fx:id="homePane" prefHeight="495.0" prefWidth="662.0" styleClass="black-pane">
                   <children>
-                      <Button fx:id="vpnButton" layoutX="261.0" layoutY="331.0" onAction="#changeVPNState" prefHeight="62.0" prefWidth="138.0" text="Start VPN" />
+                      <Button fx:id="vpnButton" layoutX="261.0" layoutY="331.0" onAction="#changeVPNState" prefHeight="62.0" prefWidth="138.0" text="Start VPN" styleClass="btn-primary" />
                      <ImageView fitHeight="200.0" fitWidth="225.0" layoutX="230.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true">
                         <image>
                            <Image url="@../../../images/wireshield_logo.png" />

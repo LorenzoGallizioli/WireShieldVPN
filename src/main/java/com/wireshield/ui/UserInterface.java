@@ -18,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.Parent;
@@ -40,6 +41,12 @@ public class UserInterface extends Application {
     private Button vpnButton, uploadPeerButton;
 
     /**
+     * JavaFX Labels.
+     */
+    @FXML
+    private Label avStatusLabel;
+    
+    /**
      * JavaFX AnchorPanes.
      */
     @FXML
@@ -49,7 +56,7 @@ public class UserInterface extends Application {
      * JavaFX TextAreas.
      */
     @FXML
-    private TextArea logsArea, avStatusArea, avFilesArea;
+    private TextArea logsArea, avFilesArea;
 
     /**
      * JavaFX HBox Buttons.
@@ -176,7 +183,7 @@ public class UserInterface extends Application {
     @FXML
     public void viewAv() {
         runningStates avStatus = so.getAVStatus();
-        avStatusArea.setText(avStatus + "\n");
+        avStatusLabel.setText(avStatus.toString());
         if (avStatus == runningStates.UP) {
             avFilesList.clear();
             List<ScanReport> reports = so.getAntivirusManager().getFinalReports();

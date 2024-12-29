@@ -34,8 +34,21 @@
     -fx-border-color: #2d2d30;
 }
 
+.btn-primary {
+    -fx-background-color: #0065a9;
+    -fx-text-fill: black;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20 10 20;
+    -fx-cursor: hand;
+}
+
+.btn-primary:hover {
+    -fx-background-color: #0098ff;
+}
+
 #hBox {
-    -fx-background-color: #369FAB;
+    -fx-background-color: #0065a9;
 }
 
 #hBox .button {
@@ -56,17 +69,4 @@
 
 #vBox .button:hover {
     -fx-background-color: #2d2d30;
-}
-
-#vpnButton {
-    -fx-background-color: #0065a9;
-    -fx-text-fill: black;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-padding: 10 20 10 20;
-    -fx-cursor: hand;
-}
-
-#vpnButton:hover {
-    -fx-background-color: #0098ff;
 }
