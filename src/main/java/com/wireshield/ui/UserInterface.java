@@ -1,5 +1,6 @@
 package com.wireshield.ui;
 import com.wireshield.av.FileManager;
+import com.wireshield.av.ScanReport;
 import com.wireshield.enums.connectionStates;
 import com.wireshield.enums.runningStates;
 import com.wireshield.enums.vpnOperations;
@@ -10,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -22,20 +24,20 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ListView;
 
-/**
- * The UserInterface class represents the user interface for the WireShield application.
- */
 public class UserInterface extends Application {
 
     private static SystemOrchestrator so;
-    
+
     /**
      * JavaFX Buttons.
      */
     @FXML
     private Button vpnButton, uploadPeerButton;
-    
+
     /**
      * JavaFX AnchorPanes.
      */
@@ -47,7 +49,20 @@ public class UserInterface extends Application {
      */
     @FXML
     private TextArea logsArea, avStatusArea, avFilesArea;
-    
+
+    /**
+     * JavaFX ListViews.
+     */
+    @FXML
+    private ListView<String> peerListView;
+    private ObservableList<String> peerList = FXCollections.observableArrayList();
+    @FXML
+    private ListView<String> avFilesListView;
+    private ObservableList<String> avFilesList = FXCollections.observableArrayList();
+
+    /**
+     * Start the application.
+     */
     @Override
     public void start(Stage primaryStage) {
         try {
@@ -62,27 +77,44 @@ public class UserInterface extends Application {
             e.printStackTrace();
         }
     }
-    
-    // Metodo main richiesto per il punto di ingresso.
+
+    /**
+     * Initialize the user interface.
+     */
+    @FXML
+    public void initialize() {
+        viewHome();
+        if (peerListView != null) {
+            peerListView.setItems(peerList);
+        }
+        if (avFilesListView != null) {
+            avFilesListView.setItems(avFilesList);
+        }
+    }
+
+    /**
+     * Main method to launch the WireShield application.
+     * 
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         so = SystemOrchestrator.getInstance();
-        so.manageVPN(vpnOperations.STOP); // Per sicurezza, stoppa qualsiasi VPN wireguard prima di iniziare.
-        launch(args); // Metodo di avvio JavaFX.
+        so.manageVPN(vpnOperations.STOP);
+        launch(args);
     }
-    
+
     /**
      * Changes the state of the VPN.
      */
     @FXML
-    public void changeVPNState(){ 
-        if (so.getConnectionStatus() == connectionStates.CONNECTED){
+    public void changeVPNState() { 
+        if (so.getConnectionStatus() == connectionStates.CONNECTED) {
             so.manageDownload(runningStates.DOWN);
             so.manageAV(runningStates.DOWN);
             so.manageVPN(vpnOperations.STOP);
             vpnButton.setText("Start VPN");
             uploadPeerButton.setDisable(false);
-        }
-        else{
+        } else {
             so.manageVPN(vpnOperations.START);
             so.manageAV(runningStates.UP);
             so.manageDownload(runningStates.UP);
@@ -91,21 +123,20 @@ public class UserInterface extends Application {
         }
     }
 
-    /**
-     * Displays the home page.
-     */
     @FXML
-    public void viewHome(){
+    public void viewHome() {
         homePane.toFront();
+        if (!checkFilesInDirectory()) {
+            vpnButton.setDisable(true);
+        } else {
+            vpnButton.setDisable(false);
+        }
     }
 
-    /**
-     * Displays the logs page.
-     */
     @FXML
-    public void viewLogs(){
+    public void viewLogs() {
         logsPane.toFront();
-        if (so.getConnectionStatus() == connectionStates.DISCONNECTED){
+        if (so.getConnectionStatus() == connectionStates.DISCONNECTED) {
             logsArea.setText("No connection.\n");
             return;
         }
@@ -117,11 +148,17 @@ public class UserInterface extends Application {
      * Displays the antivirus page.
      */
     @FXML
-    public void viewAv(){
+    public void viewAv() {
         runningStates avStatus = so.getAVStatus();
         avStatusArea.setText(avStatus + "\n");
-        if (avStatus == runningStates.UP){
-            avFilesArea.setText(so.getAntivirusManager().getFinalReports() + "\n");
+        if (avStatus == runningStates.UP) {
+            avFilesList.clear();
+            List<ScanReport> reports = so.getAntivirusManager().getFinalReports();
+            for (ScanReport report : reports) {
+                String fileName = report.getFile().getName();
+                String warningClass = report.getWarningClass().toString();
+                avFilesList.add(fileName + " - " + warningClass);
+            }
         }
         avPane.toFront();
     }
@@ -130,8 +167,26 @@ public class UserInterface extends Application {
      * Displays the settings page.
      */
     @FXML
-    public void viewSettings(){
+    public void viewSettings() {
         settingsPane.toFront();
+        updatePeerList();
+    }
+
+    private boolean checkFilesInDirectory() {
+        String folderPath = FileManager.getProjectFolder() + FileManager.getConfigValue("PEER_STD_PATH");
+        File directory = new File(folderPath);
+
+        if (directory.exists() && directory.isDirectory()) {
+            File[] files = directory.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    if (file.isFile() && file.length() > 0) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -148,21 +203,17 @@ public class UserInterface extends Application {
         fileChooser.getExtensionFilters().add(
             new FileChooser.ExtensionFilter("WireGuard Config Files (*.conf)", "*.conf")
         );
-        
-        // Mostra la finestra di selezione file
+
         Stage stage = new Stage();
         File selectedFile = fileChooser.showOpenDialog(stage);
 
         if (selectedFile != null) {
             try {
-                // Percorso di destinazione
                 Path targetPath = Path.of(defaultPeerPath, selectedFile.getName());
-
-                // Copia il file nella cartella di destinazione
-                Files.createDirectories(targetPath.getParent()); // Assicura che la cartella esista
+                Files.createDirectories(targetPath.getParent());
                 Files.copy(selectedFile.toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
-
                 System.out.println("File copied to: " + targetPath.toAbsolutePath());
+                updatePeerList();
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println("Failed to copy the file.");
@@ -172,13 +223,23 @@ public class UserInterface extends Application {
         }
     }
 
-    /*
-     * Imports a peer.
+    /**
+     * Updates the peer list based on the files in the peer directory.
      */
-    public void importPeer(){}
+    private void updatePeerList() {
+        String folderPath = FileManager.getProjectFolder() + FileManager.getConfigValue("PEER_STD_PATH");
+        File directory = new File(folderPath);
 
-    /*
-     * Shows the available peers.
-     */
-    public void showAvailablePeers(){}
+        if (directory.exists() && directory.isDirectory()) {
+            File[] files = directory.listFiles();
+            if (files != null) {
+                peerList.clear(); // Svuota la lista attuale
+                for (File file : files) {
+                    if (file.isFile() && file.length() > 0) {
+                        peerList.add(file.getName()); // Aggiungi il nome del file alla lista
+                    }
+                }
+            }
+        }
+    }
 }

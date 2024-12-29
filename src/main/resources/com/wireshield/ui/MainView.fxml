@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ListView?>
 
 <StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wireshield.ui.UserInterface">
    <AnchorPane prefHeight="528.0" prefWidth="839.0">
@@ -36,14 +37,16 @@
                   <children>
                      <Label text="Upload peer configuration: " layoutX="50.0" layoutY="20.0"/>
                      <Button fx:id="uploadPeerButton" text="Choose..." onAction="#handleFileSelection" layoutX="50.0" layoutY="50.0" />
+                     <Label text="Loaded Peers:" layoutX="50.0" layoutY="100.0" />
+                     <ListView fx:id="peerListView" layoutX="50.0" layoutY="130.0" prefHeight="200.0" prefWidth="632.0" styleClass="black-listview"/>
                   </children>
                </AnchorPane>
                <AnchorPane fx:id="avPane" prefHeight="495.0" prefWidth="662.0">
                   <children>
                      <Label text="AV status:" layoutX="14.0" layoutY="10.0" />
                      <TextArea fx:id="avStatusArea" editable="false" layoutX="14.0" layoutY="30.0" prefHeight="200.0" prefWidth="632.0" styleClass="black-textarea"/>
-                     <Label text="Scanned files:" layoutX="14.0" layoutY="240.0" />
-                     <TextArea fx:id="avFilesArea" editable="false" layoutX="14.0" layoutY="260.0" prefHeight="200.0" prefWidth="632.0" styleClass="black-textarea"/>
+                     <Label text="Scanned files:" layoutX="14.0" layoutY="230.0" />
+                     <ListView fx:id="avFilesListView" layoutX="14.0" layoutY="250.0" prefHeight="200.0" prefWidth="632.0" styleClass="black-listview"/>  
                   </children>
                </AnchorPane>
                <AnchorPane fx:id="logsPane" prefHeight="495.0" prefWidth="662.0">

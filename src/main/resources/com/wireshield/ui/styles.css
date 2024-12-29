@@ -54,3 +54,13 @@
     -fx-border-radius: 0;
     -fx-border-color: #2d2d30;
 }
+
+.black-listview {
+    -fx-control-inner-background: #2d2d30;
+    -fx-text-fill: white;
+    -fx-background-color: #2d2d30;
+    -fx-font-size: 14px;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: #2d2d30;
+}
