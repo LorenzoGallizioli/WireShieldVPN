@@ -34,47 +34,47 @@ import javafx.scene.control.ListView;
 public class UserInterface extends Application {
 
     private static final Logger logger = LogManager.getLogger(SystemOrchestrator.class);
-    private static SystemOrchestrator so;
+    protected static SystemOrchestrator so;
 
     /**
      * JavaFX Buttons.
      */
     @FXML
-    private Button vpnButton, uploadPeerButton;
+    protected Button vpnButton, uploadPeerButton;
 
     /**
      * JavaFX Labels.
      */
     @FXML
-    private Label avStatusLabel;
+    protected Label avStatusLabel;
     
     /**
      * JavaFX AnchorPanes.
      */
     @FXML
-    private AnchorPane homePane, logsPane, avPane, settingsPane;
+    protected AnchorPane homePane, logsPane, avPane, settingsPane;
 
     /**
      * JavaFX TextAreas.
      */
     @FXML
-    private TextArea logsArea, avFilesArea;
+    protected TextArea logsArea, avFilesArea;
 
     /**
      * JavaFX HBox Buttons.
      */
     @FXML
-    private Button minimizeButton, closeButton;
+    protected Button minimizeButton, closeButton;
 
     /**
      * JavaFX ListViews.
      */
     @FXML
-    private ListView<String> peerListView;
-    private ObservableList<String> peerList = FXCollections.observableArrayList();
+    protected ListView<String> peerListView;
+    protected ObservableList<String> peerList = FXCollections.observableArrayList();
     @FXML
-    private ListView<String> avFilesListView;
-    private ObservableList<String> avFilesList = FXCollections.observableArrayList();
+    protected ListView<String> avFilesListView;
+    protected ObservableList<String> avFilesList = FXCollections.observableArrayList();
 
     /**
      * Start the application.
@@ -217,7 +217,7 @@ public class UserInterface extends Application {
      * 
      * @return True if there are files in the directory, false otherwise.
      */
-    private boolean checkFilesInDirectory() {
+    protected boolean checkFilesInDirectory() {
         String folderPath = FileManager.getProjectFolder() + FileManager.getConfigValue("PEER_STD_PATH");
         File directory = new File(folderPath);
 
@@ -272,7 +272,7 @@ public class UserInterface extends Application {
     /**
      * Updates the peer list based on the files in the peer directory.
      */
-    private void updatePeerList() {
+    protected void updatePeerList() {
         String folderPath = FileManager.getProjectFolder() + FileManager.getConfigValue("PEER_STD_PATH");
         File directory = new File(folderPath);
 
