@@ -184,6 +184,7 @@ public class DownloadManager {
     }
 
     /**
+     * USELESS (ONLY USED IN TEST METHOD)
      * Sets the path to the download directory to be monitored.
      *
      * @param downloadPath The path to the download directory.
