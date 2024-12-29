@@ -9,7 +9,7 @@
 </body>
     </ownedComment>
     <ownedComment xmi:type="uml:Comment" xmi:id="_E9V8ILGbEe-H3owF1Dw5KQ">
-      <body>[virus trovato]&#xD;
+      <body>[virus trovato &amp;&amp; richieste al minuto &lt; 4]&#xD;
 </body>
     </ownedComment>
     <ownedComment xmi:type="uml:Comment" xmi:id="_s4u8ELl7Ee-BoIDbisRLQw">
@@ -67,12 +67,12 @@
     <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_pCepMLGZEe-H3owF1Dw5KQ" name="Message55SendEvent" covered="_pISBILGXEe-H3owF1Dw5KQ" message="_pCc0ALGZEe-H3owF1Dw5KQ"/>
     <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_pCepMbGZEe-H3owF1Dw5KQ" name="Message55ReceiveEvent" covered="_yBxKULGXEe-H3owF1Dw5KQ" message="_pCc0ALGZEe-H3owF1Dw5KQ"/>
     <fragment xmi:type="uml:ActionExecutionSpecification" xmi:id="_wAsYgLGZEe-H3owF1Dw5KQ" name="ActionExecutionSpecification55" covered="_yBxKULGXEe-H3owF1Dw5KQ" finish="_wAuNsLGZEe-H3owF1Dw5KQ" start="_pCepMbGZEe-H3owF1Dw5KQ"/>
-    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_hCabULGZEe-H3owF1Dw5KQ" name="Message47SendEvent" covered="_vDTOELGXEe-H3owF1Dw5KQ" message="_hCYmILGZEe-H3owF1Dw5KQ"/>
-    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_hCabUbGZEe-H3owF1Dw5KQ" name="Message47ReceiveEvent" covered="_w3K_cLGXEe-H3owF1Dw5KQ" message="_hCYmILGZEe-H3owF1Dw5KQ"/>
     <fragment xmi:type="uml:ActionExecutionSpecification" xmi:id="_jgj4wLGZEe-H3owF1Dw5KQ" name="ActionExecutionSpecification50" covered="_w3K_cLGXEe-H3owF1Dw5KQ" finish="_jgkf0LGZEe-H3owF1Dw5KQ" start="_hCabUbGZEe-H3owF1Dw5KQ" action="_teyxkLGbEe-H3owF1Dw5KQ"/>
     <fragment xmi:type="uml:CombinedFragment" xmi:id="_s5SGMLGaEe-H3owF1Dw5KQ" name="CombinedFragment92" covered="_vDTOELGXEe-H3owF1Dw5KQ _w3K_cLGXEe-H3owF1Dw5KQ" interactionOperator="loop">
       <operand xmi:type="uml:InteractionOperand" xmi:id="_s5WXoLGaEe-H3owF1Dw5KQ" name="InteractionOperand0" covered="_vDTOELGXEe-H3owF1Dw5KQ _w3K_cLGXEe-H3owF1Dw5KQ">
         <fragment xmi:type="uml:ExecutionOccurrenceSpecification" xmi:id="_jgkf0LGZEe-H3owF1Dw5KQ" name="ActionExecutionSpecification50Finish" covered="_w3K_cLGXEe-H3owF1Dw5KQ" execution="_jgj4wLGZEe-H3owF1Dw5KQ"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_hCabUbGZEe-H3owF1Dw5KQ" name="Message47ReceiveEvent" covered="_w3K_cLGXEe-H3owF1Dw5KQ" message="_hCYmILGZEe-H3owF1Dw5KQ"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_hCabULGZEe-H3owF1Dw5KQ" name="Message47SendEvent" covered="_vDTOELGXEe-H3owF1Dw5KQ" message="_hCYmILGZEe-H3owF1Dw5KQ"/>
         <guard xmi:type="uml:InteractionConstraint" xmi:id="_ycyLALGaEe-H3owF1Dw5KQ" name="Nuovo File"/>
       </operand>
     </fragment>
@@ -124,7 +124,7 @@
     <message xmi:type="uml:Message" xmi:id="_Lds8sLGZEe-H3owF1Dw5KQ" name="Aggiorno stato" messageSort="asynchCall" receiveEvent="_LduK0bGZEe-H3owF1Dw5KQ" sendEvent="_LduK0LGZEe-H3owF1Dw5KQ"/>
     <message xmi:type="uml:Message" xmi:id="_NnZ0ILGZEe-H3owF1Dw5KQ" name="Aggiorno stato" messageSort="asynchCall" receiveEvent="_NnbCQbGZEe-H3owF1Dw5KQ" sendEvent="_NnbCQLGZEe-H3owF1Dw5KQ"/>
     <message xmi:type="uml:Message" xmi:id="_PEfdMLGZEe-H3owF1Dw5KQ" name="VPN attiva" messageSort="asynchCall" receiveEvent="_PEgrULGZEe-H3owF1Dw5KQ" sendEvent="_PEgEQLGZEe-H3owF1Dw5KQ"/>
-    <message xmi:type="uml:Message" xmi:id="_Z93agLGZEe-H3owF1Dw5KQ" name="Avvio monitoraggio cartella" messageSort="asynchCall" receiveEvent="_Z95PsLGZEe-H3owF1Dw5KQ" sendEvent="_Z94ooLGZEe-H3owF1Dw5KQ"/>
+    <message xmi:type="uml:Message" xmi:id="_Z93agLGZEe-H3owF1Dw5KQ" name="Avvio download manager" messageSort="asynchCall" receiveEvent="_Z95PsLGZEe-H3owF1Dw5KQ" sendEvent="_Z94ooLGZEe-H3owF1Dw5KQ"/>
     <message xmi:type="uml:Message" xmi:id="_hCYmILGZEe-H3owF1Dw5KQ" name="Controllo cartella" messageSort="asynchCall" receiveEvent="_hCabUbGZEe-H3owF1Dw5KQ" sendEvent="_hCabULGZEe-H3owF1Dw5KQ"/>
     <message xmi:type="uml:Message" xmi:id="_pCc0ALGZEe-H3owF1Dw5KQ" name="Avvio antivirus manager" messageSort="asynchCall" receiveEvent="_pCepMbGZEe-H3owF1Dw5KQ" sendEvent="_pCepMLGZEe-H3owF1Dw5KQ"/>
     <message xmi:type="uml:Message" xmi:id="_ygTOgLGZEe-H3owF1Dw5KQ" name="Invio nuovo file" messageSort="asynchCall" receiveEvent="_ygVDsLGZEe-H3owF1Dw5KQ" sendEvent="_ygUcoLGZEe-H3owF1Dw5KQ"/>

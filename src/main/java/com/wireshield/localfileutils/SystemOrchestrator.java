@@ -10,7 +10,6 @@ import org.json.simple.parser.ParseException;
 
 import com.wireshield.av.AntivirusManager;
 import com.wireshield.av.ClamAV;
-import com.wireshield.av.FileManager;
 import com.wireshield.av.ScanReport;
 import com.wireshield.av.VirusTotal;
 import com.wireshield.wireguard.PeerManager;
@@ -30,8 +29,8 @@ public class SystemOrchestrator {
     private WireguardManager wireguardManager; // Manages VPN connections
     private DownloadManager downloadManager;   // Manages download monitoring
     private AntivirusManager antivirusManager; // Manages antivirus operations
-    private ClamAV clamAV;
-    private VirusTotal virusTotal;
+    private ClamAV clamAV;					   // Manages ClamAV antivirus
+    private VirusTotal virusTotal; 			   // Manages Virustotal antivirus
 
     private runningStates avStatus;            // Antivirus service status
     private runningStates monitorStatus;       // Download monitoring service status
@@ -45,7 +44,7 @@ public class SystemOrchestrator {
         this.clamAV = ClamAV.getInstance(); // Initialize ClamAV
         this.virusTotal = VirusTotal.getInstance(); // Initialize VirusTotal
 
-        this.setDownloadManager(DownloadManager.getInstance(antivirusManager));
+        this.downloadManager = DownloadManager.getInstance(antivirusManager);
         antivirusManager.setClamAV(clamAV);
         antivirusManager.setVirusTotal(virusTotal);
 
@@ -254,15 +253,5 @@ public class SystemOrchestrator {
     public DownloadManager getDownloadManager() {
         logger.debug("Retrieving DownloadManager instance.");
         return downloadManager;
-    }
-
-    /**
-     * Sets the DownloadManager instance.
-     * 
-     * @param downloadManager The DownloadManager instance to set.
-     */
-    public void setDownloadManager(DownloadManager downloadManager) {
-        logger.debug("Setting DownloadManager instance.");
-        this.downloadManager = downloadManager;
     }
 }

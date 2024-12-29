@@ -72,8 +72,7 @@ public class AntivirusManager {
     }
 
     /*
-     * Starts the antivirus scanning process. Scans all files in the buffer until stopped.
-     * Prevents multiple scans from running concurrently.
+     * Starting the antivirus scanning process.
      */
     public void startPerformScan() {
         if (scannerStatus == runningStates.UP) {
@@ -98,8 +97,8 @@ public class AntivirusManager {
                         try {
                             wait(); // Wait until a new file is added
                         } catch (InterruptedException e) {
-                            logger.error("Scanning interrupted.", e);
-                            break;
+                            logger.error("Scanning interrupted while waiting.", e);
+                            break; // Exit if interrupted while waiting
                         }
                     }
                     continue;
@@ -139,14 +138,21 @@ public class AntivirusManager {
 
                 finalReports.add(finalReport); // Save the final report
                 logger.info("Scan completed for file: {}", fileToScan.getName());
-                finalReport.printReport();
+
+                // Check for interruption after each file scan
+                if (Thread.currentThread().isInterrupted()) {
+                    logger.info("Scan interrupted, stopping scan.");
+                    break; // Exit if interrupted while scanning a file
+                }
             }
 
+            scannerStatus = runningStates.DOWN; // Update scanner status after the loop ends
             logger.info("Scanning process finished or stopped.");
         });
 
         scanThread.start();
     }
+
 
     /*
      * Stops the antivirus scanning process if it is running.

@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import com.wireshield.enums.warningClass;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class VirusTotalTest {
@@ -17,7 +16,7 @@ public class VirusTotalTest {
     // Example files for testing
     private File validFile;
     private File eicarFile;
-
+    
     // API Key
     private static final String testApiKey = "895b6aece66d9a168c9822eb4254f2f44993e347c5ea0ddf90708982e857d613";
 
@@ -31,11 +30,13 @@ public class VirusTotalTest {
 
         // Create temporary files for testing
         validFile = File.createTempFile("validfile", ".txt");
-        writeToFile(validFile, "This is a valid file for testing.");
+        // Use FileManager.writeFile method to write content
+        FileManager.writeFile(validFile.getAbsolutePath(), "This is a valid file for testing.");
 
         // Create the EICAR test virus file
         eicarFile = File.createTempFile("eicar_test", ".com");
-        writeToFile(eicarFile, "X5O!P%@AP[4\\PZX54(P^)7CC)7}$A*G!");
+        // Use FileManager.writeFile method to write content
+        FileManager.writeFile(eicarFile.getAbsolutePath(), "X5O!P%@AP[4\\PZX54(P^)7CC)7}$A*G!");
     }
 
     /*
@@ -51,19 +52,6 @@ public class VirusTotalTest {
         if (eicarFile != null && eicarFile.exists()) {
             eicarFile.delete();
         }
-    }
-
-    /**
-     * Helper method to write content to a file.
-     * 
-     * @param file    The file to write to
-     * @param content The content to write into the file
-     * @throws IOException If an error occurs during file writing
-     */
-    private void writeToFile(File file, String content) throws IOException {
-        FileWriter writer = new FileWriter(file);
-        writer.write(content);
-        writer.close();
     }
 
     /*
@@ -131,8 +119,15 @@ public class VirusTotalTest {
 
         // Check if the scan ID was received
         assertNotNull(report.getScanId());
-    }
 
+        // Adding sleep of 1 minute after this test
+        try {
+            Thread.sleep(60000); // 1 minute sleep
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt(); // Restore the interrupted status
+        }
+    }
+    
     /*
      * Test the getApiKey() method. Verifies that the API key is correctly read
      * from the file.
@@ -155,7 +150,7 @@ public class VirusTotalTest {
         virusTotal.ensureApiKeyFileExists();
 
         // Check if the API key file is created
-        File apiKeyFile = new File("api_key.txt");
+        File apiKeyFile = new File("config/config.json");
         assertTrue(apiKeyFile.exists()); // Verify the file was created
 
         // Simulate the file containing a valid API key
@@ -197,5 +192,12 @@ public class VirusTotalTest {
 
         // Now it should be allowed to make a request, so the assertTrue assertion should pass
         assertTrue(canRequest);
+
+        // Adding sleep of 1 minute after this test
+        try {
+            Thread.sleep(60000); // 1 minute sleep
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt(); // Restore the interrupted status
+        }
     }
 }

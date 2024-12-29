@@ -14,7 +14,7 @@ import com.wireshield.enums.warningClass;
  * This class uses ClamAV to scan files for threats, analyzing files via the ClamAV command-line tool (`clamscan.exe`)
  * and generating scan reports based on the results.
  */
-public class ClamAV {
+public class ClamAV implements AVInterface{
 
 	// Logger for ClamAV-related logs
 	private static final Logger logger = LogManager.getLogger(ClamAV.class);
