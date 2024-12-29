@@ -38,6 +38,12 @@
     -fx-background-color: #369FAB;
 }
 
+#hBox .button {
+    -fx-background-color: transparent; 
+    -fx-text-fill: white; 
+    -fx-font-size: 16px;
+}
+
 #vBox .button {
     -fx-background-color: #252526;
     -fx-text-fill: white;

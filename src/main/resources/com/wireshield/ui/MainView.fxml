@@ -28,7 +28,13 @@
                </VBox>
             </left>
             <top>
-               <HBox fx:id="hBox" prefHeight="37.0" prefWidth="840.0" BorderPane.alignment="CENTER" />
+               <HBox fx:id="hBox" prefHeight="37.0" prefWidth="840.0" BorderPane.alignment="CENTER">
+                  <children>
+                     <Label text="Wireshield" style="-fx-text-fill: white; -fx-font-size: 14px;" HBox.hgrow="ALWAYS" />
+                     <Button fx:id="minimizeButton" text="—" onAction="#minimizeWindow" />
+                     <Button fx:id="closeButton" text="X" onAction="#closeWindow" />
+                  </children>
+               </HBox>
             </top>
          </BorderPane>
          <Pane layoutX="178.0" layoutY="37.0" prefHeight="495.0" prefWidth="662.0">

@@ -24,6 +24,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
@@ -51,6 +52,12 @@ public class UserInterface extends Application {
     private TextArea logsArea, avStatusArea, avFilesArea;
 
     /**
+     * JavaFX HBox Buttons.
+     */
+    @FXML
+    private Button minimizeButton, closeButton;
+
+    /**
      * JavaFX ListViews.
      */
     @FXML
@@ -70,6 +77,7 @@ public class UserInterface extends Application {
             Parent root = loader.load();
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+            primaryStage.initStyle(StageStyle.UNDECORATED);
             primaryStage.setTitle("Wireshield");
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -101,6 +109,24 @@ public class UserInterface extends Application {
         so = SystemOrchestrator.getInstance();
         so.manageVPN(vpnOperations.STOP);
         launch(args);
+    }
+
+    /**
+     * Minimizes the application window.
+     */
+    @FXML
+    public void minimizeWindow() {
+        Stage stage = (Stage) minimizeButton.getScene().getWindow();
+        stage.setIconified(true);
+    }
+
+    /**
+     * Closes the application window.
+     */
+    @FXML
+    public void closeWindow() {
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
     }
 
     /**
