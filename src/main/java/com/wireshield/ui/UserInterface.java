@@ -12,7 +12,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,6 +33,7 @@ import javafx.scene.control.ListView;
 
 public class UserInterface extends Application {
 
+    private static final Logger logger = LogManager.getLogger(SystemOrchestrator.class);
     private static SystemOrchestrator so;
 
     /**
@@ -88,8 +90,10 @@ public class UserInterface extends Application {
             primaryStage.setTitle("Wireshield");
             primaryStage.setScene(scene);
             primaryStage.show();
+            logger.info("Main view loaded successfully.");
         } catch (IOException e) {
             e.printStackTrace();
+            logger.error("Failed to load the main view.");
         }
     }
 
@@ -125,6 +129,7 @@ public class UserInterface extends Application {
     public void minimizeWindow() {
         Stage stage = (Stage) minimizeButton.getScene().getWindow();
         stage.setIconified(true);
+        logger.info("Window minimized.");
     }
 
     /**
@@ -147,12 +152,14 @@ public class UserInterface extends Application {
             so.manageVPN(vpnOperations.STOP);
             vpnButton.setText("Start VPN");
             uploadPeerButton.setDisable(false);
+            logger.info("All services are stopped.");
         } else {
             so.manageVPN(vpnOperations.START);
             so.manageAV(runningStates.UP);
             so.manageDownload(runningStates.UP);
             vpnButton.setText("Stop VPN");
             uploadPeerButton.setDisable(true);
+            logger.info("All services started successfully.");
         }
     }
 
@@ -205,6 +212,11 @@ public class UserInterface extends Application {
         updatePeerList();
     }
 
+    /**
+     * Checks if there are any files in the peer directory.
+     * 
+     * @return True if there are files in the directory, false otherwise.
+     */
     private boolean checkFilesInDirectory() {
         String folderPath = FileManager.getProjectFolder() + FileManager.getConfigValue("PEER_STD_PATH");
         File directory = new File(folderPath);
@@ -245,14 +257,15 @@ public class UserInterface extends Application {
                 Path targetPath = Path.of(defaultPeerPath, selectedFile.getName());
                 Files.createDirectories(targetPath.getParent());
                 Files.copy(selectedFile.toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
-                System.out.println("File copied to: " + targetPath.toAbsolutePath());
+                logger.debug("File copied to: " + targetPath.toAbsolutePath());
                 updatePeerList();
+                logger.info("File copied successfully.");
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("Failed to copy the file.");
+                logger.error("Failed to copy the file.");
             }
         } else {
-            System.out.println("No file selected.");
+            logger.info("No file selected.");
         }
     }
 
@@ -270,6 +283,8 @@ public class UserInterface extends Application {
                 for (File file : files) {
                     if (file.isFile() && file.length() > 0) {
                         peerList.add(file.getName()); // Aggiungi il nome del file alla lista
+                        logger.debug("File added to peer list: " + file.getName());
+                        logger.info("Peer list updated.");
                     }
                 }
             }
