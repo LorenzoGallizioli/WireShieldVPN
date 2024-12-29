@@ -10,38 +10,7 @@
     -fx-text-fill: white;
 }
 
-#hBox {
-    -fx-background-color: #369FAB;
-}
-
-#vBox .button {
-    -fx-background-color: #252526;
-    -fx-text-fill: white;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-cursor: hand;
-    -fx-background-radius: 0;
-    -fx-border-radius: 0; 
-}
-
-#vBox .button:hover {
-    -fx-background-color: #2d2d30;
-}
-
-#homePane .button {
-    -fx-background-color: #0065a9;
-    -fx-text-fill: black;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-padding: 10 20 10 20;
-    -fx-cursor: hand;
-}
-
-#homePane .button:hover {
-    -fx-background-color: #0098ff;
-}
-
-#homePane, #logsPane, #avPane, #settingsPane {
+.black-pane {
     -fx-background-color: #252526;
 }
 
@@ -63,4 +32,35 @@
     -fx-background-radius: 0;
     -fx-border-radius: 0;
     -fx-border-color: #2d2d30;
+}
+
+#hBox {
+    -fx-background-color: #369FAB;
+}
+
+#vBox .button {
+    -fx-background-color: #252526;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0; 
+}
+
+#vBox .button:hover {
+    -fx-background-color: #2d2d30;
+}
+
+#vpnButton {
+    -fx-background-color: #0065a9;
+    -fx-text-fill: black;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20 10 20;
+    -fx-cursor: hand;
+}
+
+#vpnButton:hover {
+    -fx-background-color: #0098ff;
 }

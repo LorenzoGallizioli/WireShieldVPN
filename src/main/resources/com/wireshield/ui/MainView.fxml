@@ -33,15 +33,15 @@
          </BorderPane>
          <Pane layoutX="178.0" layoutY="37.0" prefHeight="495.0" prefWidth="662.0">
             <children>
-               <AnchorPane fx:id="settingsPane" prefHeight="495.0" prefWidth="662.0">
+               <AnchorPane fx:id="settingsPane" prefHeight="495.0" prefWidth="662.0" styleClass="black-pane">
                   <children>
-                     <Label text="Upload peer configuration: " layoutX="50.0" layoutY="20.0"/>
-                     <Button fx:id="uploadPeerButton" text="Choose..." onAction="#handleFileSelection" layoutX="50.0" layoutY="50.0" />
-                     <Label text="Loaded Peers:" layoutX="50.0" layoutY="100.0" />
-                     <ListView fx:id="peerListView" layoutX="50.0" layoutY="130.0" prefHeight="200.0" prefWidth="632.0" styleClass="black-listview"/>
+                     <Label text="Upload peer configuration: " layoutX="14.0" layoutY="20.0"/>
+                     <Button fx:id="uploadPeerButton" text="Choose..." onAction="#handleFileSelection" layoutX="14.0" layoutY="50.0" />
+                     <Label text="Loaded Peers:" layoutX="14.0" layoutY="100.0" />
+                     <ListView fx:id="peerListView" layoutX="14.0" layoutY="130.0" prefHeight="200.0" prefWidth="632.0" styleClass="black-listview"/>
                   </children>
                </AnchorPane>
-               <AnchorPane fx:id="avPane" prefHeight="495.0" prefWidth="662.0">
+               <AnchorPane fx:id="avPane" prefHeight="495.0" prefWidth="662.0" styleClass="black-pane">
                   <children>
                      <Label text="AV status:" layoutX="14.0" layoutY="10.0" />
                      <TextArea fx:id="avStatusArea" editable="false" layoutX="14.0" layoutY="30.0" prefHeight="200.0" prefWidth="632.0" styleClass="black-textarea"/>
@@ -49,12 +49,12 @@
                      <ListView fx:id="avFilesListView" layoutX="14.0" layoutY="250.0" prefHeight="200.0" prefWidth="632.0" styleClass="black-listview"/>  
                   </children>
                </AnchorPane>
-               <AnchorPane fx:id="logsPane" prefHeight="495.0" prefWidth="662.0">
+               <AnchorPane fx:id="logsPane" prefHeight="495.0" prefWidth="662.0" styleClass="black-pane">
                   <children>
                      <TextArea fx:id="logsArea" editable="false" layoutX="14.0" layoutY="14.0" prefHeight="465.0" prefWidth="632.0" styleClass="black-textarea"/>
                   </children>
                </AnchorPane>
-               <AnchorPane fx:id="homePane" prefHeight="495.0" prefWidth="662.0">
+               <AnchorPane fx:id="homePane" prefHeight="495.0" prefWidth="662.0" styleClass="black-pane">
                   <children>
                       <Button fx:id="vpnButton" layoutX="261.0" layoutY="331.0" onAction="#changeVPNState" prefHeight="62.0" prefWidth="138.0" text="Start VPN" />
                      <ImageView fitHeight="200.0" fitWidth="225.0" layoutX="230.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true">
