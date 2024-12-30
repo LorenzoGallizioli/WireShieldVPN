@@ -41,7 +41,7 @@ public class WireguardManager {
         this.connection = Connection.getInstance();
         this.peerManager = PeerManager.getInstance();
         
-        this.startUpdateWireguardLogs(); // Start log update thread
+        //this.startUpdateWireguardLogs(); // Start log update thread
     }
     
     /**
@@ -198,8 +198,7 @@ public class WireguardManager {
     		while(true) {
     			try {
     				ProcessBuilder processBuilder = new ProcessBuilder();
-    				processBuilder.command(wireguardPath, "/dumplog");
-    				processBuilder.redirectOutput(new File(logDumpPath));
+    				processBuilder.command(wireguardPath, "/dumplog > " + this.logDumpPath);
     				processBuilder.redirectErrorStream(true);
                 	processBuilder.start();
 					
@@ -209,7 +208,6 @@ public class WireguardManager {
 				}
     			
     			String logDump = FileManager.readFile(this.logDumpPath);
-    			System.out.println(logDump);
     			this.logs = logDump;
     		
     			try {
