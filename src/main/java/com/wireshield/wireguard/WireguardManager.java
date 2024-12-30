@@ -154,6 +154,18 @@ public class WireguardManager {
         }
     }
     
+    /**
+     * Updates connection statistics in a synchronized manner.
+     * <p>
+     * This method waits until the active interface of the connection is available, then
+     * performs the following updates:
+     * <ul>
+     *   <li>Updates the active interface.</li>
+     *   <li>Updates traffic statistics.</li>
+     *   <li>Updates the last handshake time.</li>
+     * </ul>
+     * </p>
+     */
     public synchronized void updateConnectionStats() {
     	
     	// Wait that while the interface is actually up
@@ -170,6 +182,15 @@ public class WireguardManager {
     	
     }
     
+    /**
+     * Starts a thread to continuously update connection statistics.
+     * <p>
+     * The method runs a background task that repeatedly calls {@link #updateConnectionStats()}
+     * as long as the connection status is {@code CONNECTED}. After each update, it logs the current
+     * state of the connection and sleeps for 1 second before the next iteration. If the thread is
+     * interrupted, it stops and logs an error.
+     * </p>
+     */
     public void startUpdateConnectionStats() {
     	Runnable task = () -> {
             while (connection.getStatus() == connectionStates.CONNECTED) { // Check interface is up
@@ -191,7 +212,13 @@ public class WireguardManager {
     }
     
     /**
-     * 
+     * Starts a thread to continuously update WireGuard logs.
+     * <p>
+     * This method executes a background task that periodically dumps WireGuard logs
+     * to a specified file using a {@link ProcessBuilder}. The logs are then read into
+     * memory and stored. The task runs indefinitely, with a 1-second sleep between iterations.
+     * If the thread is interrupted, it stops and logs an error.
+     * </p>
      */
     public void startUpdateWireguardLogs() {
     	Runnable task = () -> {
