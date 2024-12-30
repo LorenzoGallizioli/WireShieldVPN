@@ -22,8 +22,19 @@ public class Main {
      */
     public static void main(String[] args) throws IOException, ParseException {
         SystemOrchestrator so = SystemOrchestrator.getInstance();
-        so.manageVPN(vpnOperations.START);
-        //so.manageVPN(vpnOperations.STOP);
+        //so.manageVPN(vpnOperations.START);
+        //so.getWireguardManager().startUpdateWireguardLogs();
+        
+        /*while(true) {
+        	try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	System.out.println(so.getWireguardManager().getLog());
+        }*/
+        so.manageVPN(vpnOperations.STOP);
         //so.manageDownload(runningStates.UP);
         //so.manageAV(runningStates.UP);
     }

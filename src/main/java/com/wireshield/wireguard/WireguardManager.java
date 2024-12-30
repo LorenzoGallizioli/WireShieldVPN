@@ -197,7 +197,10 @@ public class WireguardManager {
     	Runnable task = () -> {
     		while(true) {
     			try {
-    				ProcessBuilder processBuilder = new ProcessBuilder(wireguardPath, "/dumplog", ">", this.logDumpPath);
+    				ProcessBuilder processBuilder = new ProcessBuilder();
+    				processBuilder.command(wireguardPath, "/dumplog");
+    				processBuilder.redirectOutput(new File(logDumpPath));
+    				processBuilder.redirectErrorStream(true);
                 	processBuilder.start();
 					
 				} catch (IOException e) {
@@ -206,6 +209,7 @@ public class WireguardManager {
 				}
     			
     			String logDump = FileManager.readFile(this.logDumpPath);
+    			System.out.println(logDump);
     			this.logs = logDump;
     		
     			try {
@@ -230,7 +234,7 @@ public class WireguardManager {
      *   The connection.
      */
     public Connection getConnection() {
-        return connection;
+        return this.connection;
     }
 
     /**
@@ -240,6 +244,16 @@ public class WireguardManager {
      *   The peer manager.
      */
     public PeerManager getPeerManager() {
-        return peerManager;
+        return this.peerManager;
+    }
+    
+    /**
+     * Returns wg logs.
+     * 
+     * @return String
+     *   wireguard logs.
+     */
+    public String getLog() {
+    	return this.logs;
     }
 }
