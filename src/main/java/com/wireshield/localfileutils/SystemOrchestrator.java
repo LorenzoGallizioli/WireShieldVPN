@@ -36,7 +36,8 @@ public class SystemOrchestrator {
      * Initializes the SystemOrchestrator instance with necessary components.
      */
     private SystemOrchestrator() {
-        this.antivirusManager = AntivirusManager.getInstance();
+        this.wireguardManager = WireguardManager.getInstance(); // Initialize WireguardManager
+        this.antivirusManager = AntivirusManager.getInstance(); // Initialize AntivirusManager
         this.clamAV = ClamAV.getInstance(); // Initialize ClamAV
         this.virusTotal = VirusTotal.getInstance(); // Initialize VirusTotal
         this.wireguardManager = WireguardManager.getInstance();
