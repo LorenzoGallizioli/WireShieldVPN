@@ -9,6 +9,7 @@ import com.wireshield.enums.runningStates;
 import com.wireshield.enums.warningClass;
 import java.util.Queue;
 import java.util.LinkedList;
+import javax.swing.JOptionPane;
 
 /*
  * AntivirusManager manages antivirus scanning of files. 
@@ -134,6 +135,7 @@ public class AntivirusManager {
                 if (finalReport.getWarningClass() == warningClass.DANGEROUS
                         || finalReport.getWarningClass() == warningClass.SUSPICIOUS) {
                     logger.warn("Threat detected in file: {}", fileToScan.getName());
+                    JOptionPane.showMessageDialog(null, "Threat detected in file: " + fileToScan.getName(),"Threat Detected", JOptionPane.WARNING_MESSAGE); // Show warning dialog
                     filesToRemove.add(fileToScan);
                 }
 
