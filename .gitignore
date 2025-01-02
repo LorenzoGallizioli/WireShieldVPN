@@ -1,5 +1,6 @@
 # Project custom files
 testPeer.conf
+/connection-configurations/
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 

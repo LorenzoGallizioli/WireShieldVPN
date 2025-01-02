@@ -40,7 +40,8 @@ public class SystemOrchestrator {
      * Initializes the SystemOrchestrator instance with necessary components.
      */
     private SystemOrchestrator() {
-        this.antivirusManager = AntivirusManager.getInstance();
+        this.wireguardManager = WireguardManager.getInstance(); // Initialize WireguardManager
+        this.antivirusManager = AntivirusManager.getInstance(); // Initialize AntivirusManager
         this.clamAV = ClamAV.getInstance(); // Initialize ClamAV
         this.virusTotal = VirusTotal.getInstance(); // Initialize VirusTotal
 
@@ -70,11 +71,9 @@ public class SystemOrchestrator {
      * @throws ParseException 
      * @throws IOException 
      */
-    public void manageVPN(vpnOperations operation) throws IOException, ParseException {
+    public void manageVPN(vpnOperations operation) {
     	
     	String configPath = "testPeer.conf"; // PARAMENTRO HARDCODDATO, DA SOSTITUIRE IN FASE DI IMPLEMENTAZIONE GUI
-
-        wireguardManager = WireguardManager.getInstance();
 
         switch (operation) {
             case START:
