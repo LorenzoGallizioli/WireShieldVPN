@@ -15,7 +15,7 @@ public class WireguardManagerTest {
 	String configPath = "testPeer.conf";
 
     @Before
-    public void setup() throws IOException, ParseException {
+    public void setup() {
         File file = new File(FileManager.getProjectFolder() + FileManager.getConfigValue("WIREGUARDEXE_STD_PATH"));
         if (!file.exists() || !file.isFile()) {
             fail("[ERR] WireGuard executable not found.");
@@ -23,13 +23,13 @@ public class WireguardManagerTest {
     }
     
     @Test
-    public void testSetInterfaceUp() throws IOException, ParseException {
+    public void testSetInterfaceUp() {
         WireguardManager wireguardManager = WireguardManager.getInstance();
         assertTrue(wireguardManager.setInterfaceUp(configPath).booleanValue());
     }
 
     @Test
-    public void testSetInterfaceDown() throws IOException, ParseException {
+    public void testSetInterfaceDown() {
 		try {
 			Thread.sleep(1000);
 		} catch (Exception e) {

@@ -166,7 +166,7 @@ public class WireguardManager {
      * </ul>
      * </p>
      */
-    public synchronized void updateConnectionStats() {
+    private synchronized void updateConnectionStats() {
     	
     	// Wait that while the interface is actually up
     	while(connection.getActiveInterface() == null) {}

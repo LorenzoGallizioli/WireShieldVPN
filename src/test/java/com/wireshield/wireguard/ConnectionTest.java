@@ -41,7 +41,7 @@ public class ConnectionTest {
     }
 
     @Test
-    public void testGetSentTraffic() throws IOException {
+    public void testGetTraffic() throws IOException {
         ProcessBuilder processBuilder = new ProcessBuilder("cmd", "/c", "echo transfer=1000 2000");
         Process process = processBuilder.start();
         InputStream inputStream = process.getInputStream();
@@ -50,24 +50,12 @@ public class ConnectionTest {
         String line = reader.readLine();
         assertNotNull(line);
         String[] traffic = line.split("=")[1].split(" ");
+        
         Long sentTraffic = Long.parseLong(traffic[0]);
-        
-        assertEquals(Long.valueOf(1000), sentTraffic);
-    }
-
-    @Test
-    public void testGetReceivedTraffic() throws IOException {
-        ProcessBuilder processBuilder = new ProcessBuilder("cmd", "/c", "echo transfer=1000 2000");
-        Process process = processBuilder.start();
-        InputStream inputStream = process.getInputStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        
-        String line = reader.readLine();
-        assertNotNull(line);
-        String[] traffic = line.split("=")[1].split(" ");
         Long receivedTraffic = Long.parseLong(traffic[1]);
         
         assertEquals(Long.valueOf(2000), receivedTraffic);
+        assertEquals(Long.valueOf(1000), sentTraffic);
     }
 
     @Test
