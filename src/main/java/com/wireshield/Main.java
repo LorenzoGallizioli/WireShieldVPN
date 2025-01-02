@@ -1,31 +1,39 @@
 package com.wireshield;
 
-import com.wireshield.enums.*;
-import com.wireshield.localfileutils.SystemOrchestrator;
-
+import com.wireshield.ui.*;
+import javax.swing.JOptionPane;
 import java.io.IOException;
 
-import org.json.simple.parser.ParseException;
-
-/*
- * Entry point for the WireShield application.
- */
 public class Main {
     /**
      * Main method to launch the WireShield application.
      * 
-     * @param args Command line arguments (not used).
-     * @throws ParseException 
-     * @throws IOException 
-     * @throws InterruptedException 
+     * @param args Command line arguments.
      */
-    public static void main(String[] args) throws IOException, ParseException, InterruptedException {
-        SystemOrchestrator so = SystemOrchestrator.getInstance();
-        so.manageVPN(vpnOperations.START);
-        //so.manageVPN(vpnOperations.STOP);
-        //so.manageDownload(runningStates.UP);
-        so.manageAV(runningStates.UP);
-        Thread.sleep(10000);
-        so.manageAV(runningStates.DOWN);
+    public static void main(String[] args) {
+        // Check if the application is running as an admin.
+        if (!isRunningAsAdmin()) {
+            // Info messagge using Swing.
+            JOptionPane.showMessageDialog(null,
+                    "You must run this application as an administrator.", "Administrator Required",
+                    JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);
+        }
+        UserInterface.main(args);
+    }
+
+    /**
+     * Check if the application is running as an admin.
+     * 
+     * @return true if the application is running as an admin, false otherwise.
+     */
+    private static boolean isRunningAsAdmin() {
+        try {
+            Process process = Runtime.getRuntime().exec("net session");
+            process.waitFor();
+            return process.exitValue() == 0;
+        } catch (IOException | InterruptedException e) {
+            return false;
+        }
     }
 }

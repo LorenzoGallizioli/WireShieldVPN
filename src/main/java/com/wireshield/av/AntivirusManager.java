@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.wireshield.enums.runningStates;
 import com.wireshield.enums.warningClass;
+import javax.swing.JOptionPane;
 
 /**
  * Manages antivirus scanning tasks and orchestrates file analysis using ClamAV and VirusTotal.
@@ -130,6 +131,8 @@ public class AntivirusManager {
 
                 if (finalReport.getWarningClass() == warningClass.DANGEROUS
                         || finalReport.getWarningClass() == warningClass.SUSPICIOUS) {
+                    logger.warn("Threat detected in file: {}", fileToScan.getName());
+                    JOptionPane.showMessageDialog(null, "Threat detected in file: " + fileToScan.getName(),"Threat Detected", JOptionPane.WARNING_MESSAGE); // Show warning dialog
                     filesToRemove.add(fileToScan);
                 }
 

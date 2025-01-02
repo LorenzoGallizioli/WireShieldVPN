@@ -156,8 +156,8 @@ public class VirusTotal implements AVInterface{
 		try {
 			HttpClient client = HttpClients.createDefault();
 			URI uri = new URIBuilder(VIRUSTOTAL_URI + "/analyses/" + scanReport.getScanId()).build();
-
 			boolean isCompleted = false;
+			logger.info("Waiting for the report...");
 			while (!isCompleted) {
 				HttpGet get = new HttpGet(uri);
 				get.addHeader("x-apikey", API_KEY);
@@ -219,6 +219,7 @@ public class VirusTotal implements AVInterface{
 		} catch (Exception e) {
 			logger.error("Exception while getting the analysis report.", e);
 		}
+		logger.info("Report retrieved successfully.");
 		return scanReport;
 	}
 

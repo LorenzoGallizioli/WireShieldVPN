@@ -3,11 +3,9 @@ package com.wireshield.wireguard;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.parser.ParseException;
-
 import com.wireshield.av.FileManager;
 import com.wireshield.enums.connectionStates;
 
@@ -18,7 +16,7 @@ public class Connection {
     private static final Logger logger = LogManager.getLogger(Connection.class);
 
     private static Connection instance;
-    private connectionStates status;
+    private connectionStates status = connectionStates.DISCONNECTED;
     private long sentTraffic;
     private long receivedTraffic;
     private long lastHandshakeTime;
