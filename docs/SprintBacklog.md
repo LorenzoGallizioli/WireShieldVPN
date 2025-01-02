@@ -174,3 +174,14 @@
 | Reperire i log di Wireguard | Trovare un modo per reperire i log di Wireguard, utili per mostrarli poi nella GUI | Thomas Paganelli |
 | Riorganizzazione di alcune classi | Spostare alcuni metodi di AntivirusManager in FileManager | Davide Bonsembiante / Thomas Panagelli / Lorenzo Gallizioli|
 
+&nbsp;
+
+# 3° Week Scrum 02 Gennaio 2024
+| **Titolo**                      | **Compiti**                                                                                       | **Sviluppatore**         |
+|----------------------------------|--------------------------------------------------------------------------------------------------|--------------------------|
+| Terminare GUI| Terminare l'implementazione della GUI includendo correttamente tutti i log e testando il funzionamento nel complesso di Wireshield | Lorenzo Gallizioli |
+| Implementazione chiamate di Windows | Trovare il modo di implementare due chiamate su Windows. La prima deve consentire di effettuare l'accesso come amministratore nel caso in cui il programma venga avviato senza privilegi elevati, mostrando l'avviso di Windows per l'esecuzione come amministratore. La seconda deve consentire la cancellazione di un file dannoso | |
+| Migliorare la GUI | Migliorare l'estetica della GUI | |
+| Iniziare a sistemare la documentazione | Modificare la documentazione fatta nel mese di novembre con le nuove decisioni prese durante l'implementazione del progetto | |
+| Riorganizzazione struttura progetto | Riorganizzare la struttura del progetto seguendo le indicazioni indicate dal profe | Davide Bonsembiante / Thomas Panagelli / Lorenzo Gallizioli|
+
