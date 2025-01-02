@@ -26,9 +26,9 @@ public class SystemOrchestrator {
     private WireguardManager wireguardManager; // Manages VPN connections
     private DownloadManager downloadManager;   // Manages download monitoring
     private AntivirusManager antivirusManager; // Manages antivirus operations
-    private ClamAV clamAV;
-    private VirusTotal virusTotal;
-    private runningStates avStatus = runningStates.DOWN;            // Antivirus service status
+    private ClamAV clamAV;                     // Analyzes files with ClamAV
+    private VirusTotal virusTotal;             // Analyzes files with VirusTotal
+    private runningStates avStatus = runningStates.DOWN; // Antivirus service status
     private runningStates monitorStatus;       // Download monitoring service status
     private connectionStates connectionStatus; // VPN connection status
 
@@ -41,7 +41,7 @@ public class SystemOrchestrator {
         this.clamAV = ClamAV.getInstance(); // Initialize ClamAV
         this.virusTotal = VirusTotal.getInstance(); // Initialize VirusTotal
         this.wireguardManager = WireguardManager.getInstance();
-        this.setDownloadManager(DownloadManager.getInstance(antivirusManager));
+        this.downloadManager = DownloadManager.getInstance(antivirusManager);
         antivirusManager.setClamAV(clamAV);
         antivirusManager.setVirusTotal(virusTotal);
 
@@ -246,15 +246,5 @@ public class SystemOrchestrator {
      */
     public AntivirusManager getAntivirusManager() {
         return antivirusManager;
-    }
-
-    /**
-     * Sets the DownloadManager instance.
-     * 
-     * @param downloadManager The DownloadManager instance to set.
-     */
-    public void setDownloadManager(DownloadManager downloadManager) {
-        logger.debug("Setting DownloadManager instance.");
-        this.downloadManager = downloadManager;
     }
 }

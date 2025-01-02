@@ -5,7 +5,6 @@ import com.wireshield.av.FileManager;
 import com.wireshield.enums.runningStates;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +24,6 @@ public class DownloadManagerTest {
 
     private DownloadManager downloadManager;
     private AntivirusManager antivirusManager;
-    private String testDownloadPath;
 
     /**
      * Sets up the test environment before each test.
@@ -38,28 +36,6 @@ public class DownloadManagerTest {
     public void setUp() throws IOException {
         antivirusManager = AntivirusManager.getInstance();
         downloadManager = DownloadManager.getInstance(antivirusManager);
-
-        // Define a specific path for testing
-        testDownloadPath = System.getProperty("user.home") + "/Downloads/test_downloads";
-
-        // Create the test download directory
-        Files.createDirectories(Paths.get(testDownloadPath));
-        downloadManager.setDownloadPath(testDownloadPath);
-    }
-
-    /**
-     * Cleans up the test environment after each test.
-     * This method deletes the simulated download directory and its contents.
-     * 
-     * @throws IOException if an I/O error occurs during the cleanup.
-     */
-    @After
-    public void tearDown() throws IOException {
-        Files.walk(Paths.get(testDownloadPath))
-                .map(Path::toFile)
-                .forEach(File::delete);
-        Files.deleteIfExists(Paths.get(testDownloadPath));
-        logger.info("Test environment cleaned up.");
     }
 
     /*
@@ -118,7 +94,7 @@ public class DownloadManagerTest {
      */
     @Test
     public void testIsFileStable() throws IOException, InterruptedException {
-        File testFile = new File(testDownloadPath + "/stable_file.txt");
+        File testFile = new File(System.getProperty("user.home") + "/Downloads/stable_file.txt");
         assertTrue("Test file should be created", testFile.createNewFile());
 
         // Simulate writing to the file
