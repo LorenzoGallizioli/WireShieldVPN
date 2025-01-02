@@ -43,7 +43,7 @@
                <AnchorPane fx:id="settingsPane" prefHeight="495.0" prefWidth="662.0" styleClass="black-pane">
                   <children>
                      <Label text="Upload new peers: " layoutX="14.0" layoutY="20.0"/>
-                     <Button fx:id="uploadPeerButton" text="Upload file (.conf)" onAction="#handleFileSelection" layoutX="14.0" layoutY="47.0" styleClass="btn-primary"/>
+                     <Button fx:id="uploadPeerButton" text="Upload files (.conf)" onAction="#handleFileSelection" layoutX="14.0" layoutY="47.0" styleClass="btn-primary"/>
                   </children>
                </AnchorPane>
                <AnchorPane fx:id="avPane" prefHeight="495.0" prefWidth="662.0" styleClass="black-pane">
