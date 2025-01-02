@@ -191,6 +191,9 @@ public class UserInterface extends Application {
         }
     }
 
+    /**
+     * Displays the home page.
+     */
     @FXML
     public void viewHome() {
         homePane.toFront();
@@ -202,6 +205,9 @@ public class UserInterface extends Application {
         updatePeerList();
     }
 
+    /**
+     * Displays the logs page.
+     */
     @FXML
     public void viewLogs() {
         logsPane.toFront();

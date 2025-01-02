@@ -18,6 +18,7 @@
    <AnchorPane prefHeight="528.0" prefWidth="839.0">
       <children>
          <BorderPane prefHeight="530.0" prefWidth="840.0">
+            <!-- Left bar -->
             <left>
                <VBox fx:id="vBox" prefHeight="530.0" prefWidth="178.0" BorderPane.alignment="CENTER">
                   <children>
@@ -28,6 +29,7 @@
                   </children>
                </VBox>
             </left>
+            <!-- Top bar -->
             <top>
                <HBox fx:id="hBox" prefHeight="37.0" prefWidth="840.0" BorderPane.alignment="CENTER">
                   <children>
@@ -40,12 +42,14 @@
          </BorderPane>
          <Pane layoutX="178.0" layoutY="39.0" prefHeight="495.0" prefWidth="662.0">
             <children>
+               <!-- Settings panel --> 
                <AnchorPane fx:id="settingsPane" prefHeight="495.0" prefWidth="662.0" styleClass="black-pane">
                   <children>
                      <Label text="Upload new peers: " layoutX="14.0" layoutY="20.0"/>
                      <Button fx:id="uploadPeerButton" text="Upload files (.conf)" onAction="#handleFileSelection" layoutX="14.0" layoutY="47.0" styleClass="btn-primary"/>
                   </children>
                </AnchorPane>
+               <!-- AntiVirus panel --> 
                <AnchorPane fx:id="avPane" prefHeight="495.0" prefWidth="662.0" styleClass="black-pane">
                   <children>
                      <Label text="AV status:" layoutX="14.0" layoutY="10.0" />
@@ -54,29 +58,29 @@
                      <ListView fx:id="avFilesListView" layoutX="14.0" layoutY="80.0" prefHeight="250.0" prefWidth="632.0" styleClass="black-listview"/>  
                   </children>
                </AnchorPane>
+               <!-- Logs panel --> 
                <AnchorPane fx:id="logsPane" prefHeight="495.0" prefWidth="662.0" styleClass="black-pane">
                   <children>
                      <TextArea fx:id="logsArea" editable="false" layoutX="14.0" layoutY="14.0" prefHeight="465.0" prefWidth="632.0" styleClass="black-textarea"/>
                   </children>
                </AnchorPane>
+               <!-- Home panel --> 
                <AnchorPane fx:id="homePane" prefHeight="495.0" prefWidth="662.0" styleClass="black-pane">
                   <children>
                      <HBox layoutX="14.0" layoutY="80.0" spacing="20.0">
-                        <!-- Immagine -->
+                        <!-- Logo -->
                         <ImageView fitHeight="200.0" fitWidth="225.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../images/wireshield_logo.png" />
                            </image>
                         </ImageView>
-            
-                        <!-- Lista -->
+                        <!-- Peer list -->
                         <VBox spacing="10.0">
                            <Label text="Available peers:" />
                            <ListView fx:id="peerListView" prefHeight="200.0" prefWidth="400.0" styleClass="black-listview"/>
                         </VBox>
                      </HBox>
-        
-                     <!-- Bottone VPN -->
+                     <!-- VPN Button -->
                      <Button fx:id="vpnButton" layoutX="235.0" layoutY="331.0" onAction="#changeVPNState" prefHeight="62.0" prefWidth="138.0" text="Start VPN" styleClass="btn-primary" />
                   </children>
                </AnchorPane>
