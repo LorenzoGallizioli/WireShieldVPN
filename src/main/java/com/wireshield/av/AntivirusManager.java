@@ -3,46 +3,42 @@ package com.wireshield.av;
 import java.io.File;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Queue;
+import java.util.LinkedList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.wireshield.enums.runningStates;
 import com.wireshield.enums.warningClass;
-import java.util.Queue;
-import java.util.LinkedList;
 
-/*
- * AntivirusManager manages antivirus scanning of files. 
- * It integrates ClamAV and VirusTotal for scanning files, 
- * tracks the scanning process, and stores the results.
+/**
+ * Manages antivirus scanning tasks and orchestrates file analysis using ClamAV and VirusTotal.
+ * This class is implemented as a singleton.
  */
 public class AntivirusManager {
 
     private static final Logger logger = LogManager.getLogger(AntivirusManager.class);
 
     private static AntivirusManager instance;
-    private ClamAV clamAV; // Instance for ClamAV scanning
-    private VirusTotal virusTotal; // Instance for VirusTotal scanning
-    private Queue<File> scanBuffer = new LinkedList<>(); // Queue for file handling (FIFO)
-    private List<File> filesToRemove = new ArrayList<>(); // Files flagged for removal post-scan
-    private List<ScanReport> finalReports = new ArrayList<>(); // Consolidated scan reports
-    private runningStates scannerStatus; // Current operational state of the scanner
 
-    private Thread scanThread; // Reference to the thread managing scans
-    static final long MAX_FILE_SIZE = 10 * 1024 * 1024; // Max file size for VirusTotal (10 MB)
+    private ClamAV clamAV;
+    private VirusTotal virusTotal;
+    private Queue<File> scanBuffer = new LinkedList<>();
+    private List<File> filesToRemove = new ArrayList<>();
+    private List<ScanReport> finalReports = new ArrayList<>();
+    private runningStates scannerStatus;
 
-    /*
-     * Constructor to initialize the AntivirusManager.
-     * Sets the initial scanner state to DOWN.
-     */
+    private Thread scanThread;
+    static final long MAX_FILE_SIZE = 10 * 1024 * 1024; // Maximum file size for VirusTotal analysis (10 MB)
+
     private AntivirusManager() {
         logger.info("AntivirusManager initialized.");
         scannerStatus = runningStates.DOWN;
     }
-    
+
     /**
-     * Public static method to get the Singleton instance of AntivirusManager.
+     * Returns the singleton instance of AntivirusManager.
      *
-     * @return the single instance of AntivirusManager.
+     * @return the AntivirusManager instance.
      */
     public static synchronized AntivirusManager getInstance() {
         if (instance == null) {
@@ -52,28 +48,26 @@ public class AntivirusManager {
     }
 
     /**
-     * Adds a file to the scan buffer if it is valid and not already in the queue.
-     * Notifies the scanning thread to process the new file.
+     * Adds a file to the scan buffer for future analysis.
      *
-     * @param file The file to add to the scan buffer.
+     * @param file the file to add to the scan buffer.
      */
     public synchronized void addFileToScanBuffer(File file) {
         if (file == null || !file.exists()) {
-            logger.error("Invalid file or file does not exist: {}", file);
+            logger.error("Invalid file or file does not exist.");
             return;
         }
         if (!scanBuffer.contains(file)) {
             scanBuffer.add(file);
             logger.info("File added to scan buffer: {}", file.getName());
-            notify(); // Notify scanning thread
+            notify(); // Notify scanning thread of new file
         } else {
             logger.warn("File is already in the scan buffer: {}", file.getName());
         }
     }
 
     /*
-     * Starts the antivirus scanning process. Scans all files in the buffer until stopped.
-     * Prevents multiple scans from running concurrently.
+     * Starts the antivirus scan process. If the scanner is already running, the method does nothing.
      */
     public void startPerformScan() {
         if (scannerStatus == runningStates.UP) {
@@ -88,28 +82,31 @@ public class AntivirusManager {
             while (scannerStatus == runningStates.UP) {
                 File fileToScan;
 
+                // Retrieve the next file to scan from the buffer
                 synchronized (scanBuffer) {
-                    fileToScan = scanBuffer.poll(); // Retrieve file from the queue
+                    fileToScan = scanBuffer.poll();
                 }
 
+                // Wait for new files if the buffer is empty
                 if (fileToScan == null) {
-                    logger.info("No files to scan, waiting for new files...");
                     synchronized (this) {
                         try {
-                            wait(); // Wait until a new file is added
+                            if (Thread.currentThread().isInterrupted()) {
+                                break; // Exit if thread is interrupted
+                            }
+                            wait();
                         } catch (InterruptedException e) {
-                            logger.error("Scanning interrupted.", e);
+                            Thread.currentThread().interrupt(); // Restore interrupt status
                             break;
                         }
                     }
                     continue;
                 }
 
-                logger.info("Scanning file: {}", fileToScan.getName());
+                // Perform the file scanning
                 ScanReport finalReport = new ScanReport();
                 finalReport.setFile(fileToScan);
 
-                // Scan with ClamAV
                 if (clamAV != null) {
                     clamAV.analyze(fileToScan);
                     ScanReport clamAVReport = clamAV.getReport();
@@ -118,38 +115,41 @@ public class AntivirusManager {
                     }
                 }
 
-                // Scan with VirusTotal if applicable
                 if (finalReport.isThreatDetected() && virusTotal != null && fileToScan.length() <= MAX_FILE_SIZE) {
-                    logger.info("Scanning with VirusTotal for file: {}", fileToScan.getName());
                     virusTotal.analyze(fileToScan);
                     ScanReport virusTotalReport = virusTotal.getReport();
                     if (virusTotalReport != null) {
                         mergeReports(finalReport, virusTotalReport);
                     }
                 } else if (fileToScan.length() > MAX_FILE_SIZE) {
-                    logger.warn("File is too large for VirusTotal analysis (> 10 MB): {}", fileToScan.getName());
+                    logger.warn("File is too large for VirusTotal analysis: {}", fileToScan.getName());
                 }
 
-                // Handle detected threats
+                // Add the report to final results
+                finalReports.add(finalReport);
+
                 if (finalReport.getWarningClass() == warningClass.DANGEROUS
                         || finalReport.getWarningClass() == warningClass.SUSPICIOUS) {
-                    logger.warn("Threat detected in file: {}", fileToScan.getName());
                     filesToRemove.add(fileToScan);
                 }
 
-                finalReports.add(finalReport); // Save the final report
-                logger.info("Scan completed for file: {}", fileToScan.getName());
-                finalReport.printReport();
+                if (Thread.currentThread().isInterrupted()) {
+                    break; // Exit loop if thread is interrupted
+                }
             }
 
-            logger.info("Scanning process finished or stopped.");
+            // Cleanup and notify termination
+            synchronized (this) {
+                scannerStatus = runningStates.DOWN;
+                notifyAll(); // Notify all threads waiting on this object
+            }
         });
 
         scanThread.start();
     }
 
     /*
-     * Stops the antivirus scanning process if it is running.
+     * Stops the ongoing antivirus scan process gracefully.
      */
     public void stopPerformScan() {
         if (scannerStatus == runningStates.DOWN) {
@@ -158,65 +158,67 @@ public class AntivirusManager {
         }
 
         scannerStatus = runningStates.DOWN;
-        logger.info("Scanning process stopped.");
 
         if (scanThread != null && scanThread.isAlive()) {
             scanThread.interrupt();
+            try {
+                scanThread.join(); // Wait for the thread to terminate
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt(); // Restore interrupt status
+            }
         }
     }
 
     /**
-     * Sets the ClamAV scanner instance for file analysis.
+     * Sets the ClamAV engine for file analysis.
      *
-     * @param clamAV The ClamAV instance to set.
+     * @param clamAV the ClamAV instance.
      */
     public void setClamAV(ClamAV clamAV) {
         this.clamAV = clamAV;
     }
 
     /**
-     * Sets the VirusTotal scanner instance for file analysis.
+     * Sets the VirusTotal engine for file analysis.
      *
-     * @param virusTotal The VirusTotal instance to set.
+     * @param virusTotal the VirusTotal instance.
      */
     public void setVirusTotal(VirusTotal virusTotal) {
         this.virusTotal = virusTotal;
     }
-    
+
     /**
-     * Returns the current state of the scanner.
+     * Retrieves the current status of the scanner.
      *
-     * @return The scanner's operational state.
+     * @return the scanner status.
      */
     public runningStates getScannerStatus() {
         return scannerStatus;
     }
 
     /**
-     * Retrieves the list of final scan reports for all processed files.
+     * Retrieves the list of final scan reports.
      *
-     * @return A list of ScanReport objects.
+     * @return the list of scan reports.
      */
     public List<ScanReport> getFinalReports() {
         return finalReports;
     }
 
     /**
-     * Retrieves the current files in the scan buffer.
+     * Retrieves the current state of the scan buffer.
      *
-     * @return A list of files waiting for scanning.
+     * @return a copy of the scan buffer.
      */
     public synchronized List<File> getScanBuffer() {
-        logger.info("Returning the current state of the scan buffer. Size: {}", scanBuffer.size());
         return new ArrayList<>(scanBuffer);
     }
-    
+
     /**
-     * Merges the details from a source ScanReport into a target ScanReport.
-     * Updates threat status, details, warning class, and detection counts.
+     * Merges details from one scan report into another.
      *
-     * @param target The target ScanReport to update.
-     * @param source The source ScanReport with additional details.
+     * @param target the target report to be updated.
+     * @param source the source report to merge from.
      */
     void mergeReports(ScanReport target, ScanReport source) {
         if (source != null && source.isThreatDetected()) {

@@ -18,178 +18,170 @@ import java.util.Set;
  */
 public class DownloadManager {
 
-    private static final Logger logger = LogManager.getLogger(DownloadManager.class);
+	private static final Logger logger = LogManager.getLogger(DownloadManager.class);
 
-    private static DownloadManager instance; // Singleton instance
-    private String downloadPath; // Path to the monitored download directory
-    private final Set<String> detectedFiles = new HashSet<>(); // Set to track already detected files
-    private AntivirusManager antivirusManager; // Antivirus manager instance for scanning files
-    private runningStates monitorStatus; // Current monitoring status (UP or DOWN)
-    private WatchService watchService; // WatchService to monitor file system events
-    private Thread monitorThread; // Thread to run the monitoring process
+	private static DownloadManager instance; // Singleton instance
+	private String downloadPath; // Path to the monitored download directory
+	private final Set<String> detectedFiles = new HashSet<>(); // Set to track already detected files
+	private AntivirusManager antivirusManager; // Antivirus manager instance for scanning files
+	private runningStates monitorStatus; // Current monitoring status (UP or DOWN)
+	private WatchService watchService; // WatchService to monitor file system events
+	private Thread monitorThread; // Thread to run the monitoring process
 
-    /**
-     * Constructs a DownloadManager instance and sets up the initial state.
-     *
-     * @param antivirusManager The AntivirusManager instance for file scanning.
-     */
-    private DownloadManager(AntivirusManager antivirusManager) {
-        this.setDownloadPath(getDefaultDownloadPath()); // Set the default download path
-        this.monitorStatus = runningStates.DOWN; // Initially DOWN (not monitoring)
-        this.antivirusManager = antivirusManager;
-        logger.info("DownloadManager initialized with path: {}", getDownloadPath());
-    }
-    
-    /**
-     * Static method to get the Singleton instance of DownloadManager.
-     *
-     * @param antivirusManager The AntivirusManager instance (only used for first initialization).
-     * @return The single instance of DownloadManager.
-     */
-    public static synchronized DownloadManager getInstance(AntivirusManager antivirusManager) {
-        if (instance == null) {
-            instance = new DownloadManager(antivirusManager);
-        }
-        return instance;
-    }
+	/**
+	 * Constructs a DownloadManager instance and sets up the initial state.
+	 *
+	 * @param antivirusManager The AntivirusManager instance for file scanning.
+	 */
+	private DownloadManager(AntivirusManager antivirusManager) {
+		this.downloadPath = getDefaultDownloadPath(); // Set default download path automatically
+		this.monitorStatus = runningStates.DOWN; // Initially DOWN (not monitoring)
+		this.antivirusManager = antivirusManager;
+		logger.info("DownloadManager initialized with path: {}", getDownloadPath());
+	}
 
-    /**
-     * Determines the default download directory path based on the operating system.
-     *
-     * @return The default download directory path.
-     */
-    public String getDefaultDownloadPath() {
-        String userHome = System.getProperty("user.home");
-        String downloadFolder = "Downloads";
+	/**
+	 * Static method to get the Singleton instance of DownloadManager.
+	 *
+	 * @param antivirusManager The AntivirusManager instance (only used for first
+	 *                         initialization).
+	 * @return The single instance of DownloadManager.
+	 */
+	public static synchronized DownloadManager getInstance(AntivirusManager antivirusManager) {
+		if (instance == null) {
+			instance = new DownloadManager(antivirusManager);
+		}
+		return instance;
+	}
 
-        if (System.getProperty("os.name").toLowerCase().contains("win")) {
-            return userHome + "\\" + downloadFolder; // Windows path separator
-        } else {
-            return userHome + "/" + downloadFolder; // UNIX-based path separator
-        }
-    }
+	/**
+	 * Determines the default download directory path based on the operating system.
+	 *
+	 * @return The default download directory path.
+	 */
+	public String getDefaultDownloadPath() {
+		String userHome = System.getProperty("user.home");
+		String downloadFolder = "Downloads";
 
-    /**
-     * Starts monitoring the download directory for new files. Files detected will be added to the antivirus scan queue.
-     *
-     * @throws IOException If an error occurs while setting up the WatchService.
-     */
-    public void startMonitoring() throws IOException {
-        if (monitorStatus == runningStates.UP) {
-            logger.warn("Already monitoring the download directory.");
-            return; // Monitoring already in progress
-        }
+		if (System.getProperty("os.name").toLowerCase().contains("win")) {
+			return userHome + "\\" + downloadFolder; // Windows path separator
+		} else {
+			return userHome + "/" + downloadFolder; // UNIX-based path separator
+		}
+	}
 
-        monitorStatus = runningStates.UP; // Set monitoring status to UP (active)
-        logger.info("Monitoring directory: {}", getDownloadPath());
+	/**
+	 * Starts monitoring the download directory for new files. Files detected will
+	 * be added to the antivirus scan queue.
+	 *
+	 * @throws IOException If an error occurs while setting up the WatchService.
+	 */
+	public void startMonitoring() throws IOException {
+		if (monitorStatus == runningStates.UP) {
+			logger.warn("Already monitoring the download directory.");
+			return; // Monitoring already in progress
+		}
 
-        // Create WatchService to monitor directory
-        try {
-            watchService = FileSystems.getDefault().newWatchService();
-            Path path = Paths.get(getDownloadPath());
+		monitorStatus = runningStates.UP; // Set monitoring status to UP (active)
+		logger.info("Monitoring directory: {}", getDownloadPath());
 
-            // Register the directory to listen for new file creation events
-            path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE);
+		// Create WatchService to monitor directory
+		try {
+			watchService = FileSystems.getDefault().newWatchService();
+			Path path = Paths.get(getDownloadPath());
 
-            // Start monitoring in a new thread
-            monitorThread = new Thread(() -> {
-                // Loop to monitor the directory as long as the status is UP
-                while (monitorStatus == runningStates.UP) {
-                    try {
-                        WatchKey key = watchService.take(); // Blocking call until an event is detected
+			// Register the directory to listen for new file creation events
+			path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE);
 
-                        // Process each event
-                        for (WatchEvent<?> event : key.pollEvents()) {
-                            if (event.kind() == StandardWatchEventKinds.ENTRY_CREATE) {
-                                Path newFilePath = path.resolve((Path) event.context());
-                                File newFile = newFilePath.toFile();
+			// Start monitoring in a new thread
+			monitorThread = new Thread(() -> {
+				// Loop to monitor the directory as long as the status is UP
+				while (monitorStatus == runningStates.UP) {
+					try {
+						WatchKey key = watchService.take(); // Blocking call until an event is detected
 
-                                if (!FileManager.isTemporaryFile(newFile) && FileManager.isFileStable(newFile)) {
-                                    String fileName = newFile.getAbsolutePath();
+						// Process each event
+						for (WatchEvent<?> event : key.pollEvents()) {
+							if (event.kind() == StandardWatchEventKinds.ENTRY_CREATE) {
+								Path newFilePath = path.resolve((Path) event.context());
+								File newFile = newFilePath.toFile();
 
-                                    // Check if file is already detected
-                                    if (!detectedFiles.contains(fileName)) {
-                                        detectedFiles.add(fileName);
-                                        logger.info("New file detected: {}", newFile.getName());
-                                        antivirusManager.addFileToScanBuffer(newFile); // Add to antivirus queue
-                                    }
-                                }
-                            }
-                        }
+								if (!FileManager.isTemporaryFile(newFile) && FileManager.isFileStable(newFile)) {
+									String fileName = newFile.getAbsolutePath();
 
-                        key.reset(); // Reset the key to continue watching for further events
+									// Check if file is already detected
+									if (!detectedFiles.contains(fileName)) {
+										detectedFiles.add(fileName);
+										logger.info("New file detected: {}", newFile.getName());
+										antivirusManager.addFileToScanBuffer(newFile); // Add to antivirus queue
+									}
+								}
+							}
+						}
 
-                    } catch (InterruptedException e) {
-                        // Handle interruption gracefully, but don't stop the monitoring thread
-                        if (monitorStatus == runningStates.UP) {
-                            logger.info("Monitoring interrupted, but continuing...");
-                            Thread.currentThread().interrupt(); // Preserve interruption flag
-                        }
-                    }
-                }
-            });
+						key.reset(); // Reset the key to continue watching for further events
 
-            // Start the monitoring thread
-            monitorThread.start();
+					} catch (InterruptedException e) {
+						// Handle interruption gracefully, but don't stop the monitoring thread
+						if (monitorStatus == runningStates.UP) {
+							logger.info("Monitoring interrupted, but continuing...");
+							Thread.currentThread().interrupt(); // Preserve interruption flag
+						}
+					}
+				}
+			});
 
-        } catch (IOException e) {
-            logger.error("Error creating WatchService: {}", e.getMessage(), e);
-        }
-    }
+			// Start the monitoring thread
+			monitorThread.start();
 
-    /*
-     * Stops monitoring the download directory and terminates the monitoring thread.
-     */
-    public void stopMonitoring() {
-        if (monitorStatus == runningStates.DOWN) {
-            logger.warn("Monitoring is already stopped.");
-            return; // Monitoring already stopped
-        }
+		} catch (IOException e) {
+			logger.error("Error creating WatchService: {}", e.getMessage(), e);
+		}
+	}
 
-        monitorStatus = runningStates.DOWN; // Set monitoring status to DOWN (inactive)
-        try {
-            // Stop the monitor thread and close WatchService
-            if (monitorThread != null && monitorThread.isAlive()) {
-                monitorThread.interrupt();
-                monitorThread.join(); // Wait for the thread to finish
-            }
+	/*
+	 * Stops monitoring the download directory and terminates the monitoring thread.
+	 */
+	public void stopMonitoring() {
+		if (monitorStatus == runningStates.DOWN) {
+			logger.warn("Monitoring is already stopped.");
+			return; // Monitoring already stopped
+		}
 
-            if (watchService != null) {
-                watchService.close(); // Close the WatchService
-            }
+		monitorStatus = runningStates.DOWN; // Set monitoring status to DOWN (inactive)
+		try {
+			// Stop the monitor thread and close WatchService
+			if (monitorThread != null && monitorThread.isAlive()) {
+				monitorThread.interrupt();
+				monitorThread.join(); // Wait for the thread to finish
+			}
 
-            logger.info("Stopped monitoring the directory.");
+			if (watchService != null) {
+				watchService.close(); // Close the WatchService
+			}
 
-        } catch (IOException | InterruptedException e) {
-            logger.error("Error stopping monitoring: {}", e.getMessage(), e);
-        }
-    }
+			logger.info("Stopped monitoring the directory.");
 
-    /**
-     * Returns the current status of the monitor (UP or DOWN).
-     *
-     * @return The current monitor status.
-     */
-    public runningStates getMonitorStatus() {
-        return monitorStatus;
-    }
+		} catch (IOException | InterruptedException e) {
+			logger.error("Error stopping monitoring: {}", e.getMessage(), e);
+		}
+	}
 
-    /**
-     * Returns the path to the download directory being monitored.
-     *
-     * @return The path to the monitored download directory.
-     */
-    public String getDownloadPath() {
-        return downloadPath;
-    }
+	/**
+	 * Returns the current status of the monitor (UP or DOWN).
+	 *
+	 * @return The current monitor status.
+	 */
+	public runningStates getMonitorStatus() {
+		return monitorStatus;
+	}
 
-    /**
-     * USELESS (ONLY USED IN TEST METHOD)
-     * Sets the path to the download directory to be monitored.
-     *
-     * @param downloadPath The path to the download directory.
-     */
-    public void setDownloadPath(String downloadPath) {
-        this.downloadPath = downloadPath;
-    }   
+	/**
+	 * Returns the path to the download directory being monitored.
+	 *
+	 * @return The path to the monitored download directory.
+	 */
+	public String getDownloadPath() {
+		return downloadPath;
+	}
 }

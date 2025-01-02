@@ -73,14 +73,6 @@ public class ScanReport {
     }
 
     /**
-     * Sets the scan ID.
-     * @param scanId The scan ID
-     */
-    public void setScanId(String scanId) {
-        this.scanId = scanId;
-    }
-
-    /**
      * Checks if a threat was detected based on the warning classification.
      * @return True if a threat was detected, otherwise false
      */

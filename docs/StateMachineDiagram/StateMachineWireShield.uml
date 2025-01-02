@@ -33,15 +33,23 @@
               <subvertex xmi:type="uml:State" xmi:id="_wm54cKv9Ee-S9JdTvRaYug" name="Scansione antivirus">
                 <region xmi:type="uml:Region" xmi:id="_JLV3kKv-Ee-S9JdTvRaYug" name="Region1">
                   <transition xmi:type="uml:Transition" xmi:id="_RVqNoKv-Ee-S9JdTvRaYug" source="_JLWeoqv-Ee-S9JdTvRaYug" target="_MVsTsKv-Ee-S9JdTvRaYug"/>
-                  <transition xmi:type="uml:Transition" xmi:id="_Sn8U4Kv-Ee-S9JdTvRaYug" source="_MVsTsKv-Ee-S9JdTvRaYug" target="_Ojyi8Kv-Ee-S9JdTvRaYug"/>
-                  <transition xmi:type="uml:Transition" xmi:id="_rUnC8Kv-Ee-S9JdTvRaYug" name="Virus trovato" source="_Ojyi8Kv-Ee-S9JdTvRaYug" target="_n6vkIKv-Ee-S9JdTvRaYug"/>
-                  <transition xmi:type="uml:Transition" xmi:id="_wqDdoKv-Ee-S9JdTvRaYug" name="File OK" source="_Ojyi8Kv-Ee-S9JdTvRaYug" target="_uLvBEKv-Ee-S9JdTvRaYug"/>
-                  <transition xmi:type="uml:Transition" xmi:id="_ySeM8Kv-Ee-S9JdTvRaYug" source="_n6vkIKv-Ee-S9JdTvRaYug" target="_uLvBEKv-Ee-S9JdTvRaYug"/>
+                  <transition xmi:type="uml:Transition" xmi:id="_Sn8U4Kv-Ee-S9JdTvRaYug" source="_MVsTsKv-Ee-S9JdTvRaYug" target="_sPpd4MUjEe-bNoUAJwWYIg"/>
+                  <transition xmi:type="uml:Transition" xmi:id="_rUnC8Kv-Ee-S9JdTvRaYug" name="Virus trovato" source="_Ojyi8Kv-Ee-S9JdTvRaYug" target="_mkKsUMUkEe-bNoUAJwWYIg"/>
+                  <transition xmi:type="uml:Transition" xmi:id="_51zxkMUjEe-bNoUAJwWYIg" name="Virus Trovato &amp;&amp; Richieste &lt; 4/min" source="_sPpd4MUjEe-bNoUAJwWYIg" target="_Ojyi8Kv-Ee-S9JdTvRaYug"/>
+                  <transition xmi:type="uml:Transition" xmi:id="_pWTAQMUlEe-bNoUAJwWYIg" source="_mkKsUMUkEe-bNoUAJwWYIg" target="_n6vkIKv-Ee-S9JdTvRaYug"/>
+                  <transition xmi:type="uml:Transition" xmi:id="_vwpGIMUoEe-VL4h3Q-mAHQ" name="File OK" source="_mkKsUMUkEe-bNoUAJwWYIg" target="_tKcf8MUoEe-VL4h3Q-mAHQ"/>
+                  <transition xmi:type="uml:Transition" xmi:id="_wfOqcMUoEe-VL4h3Q-mAHQ" name="File OK" source="_sPpd4MUjEe-bNoUAJwWYIg" target="_tKcf8MUoEe-VL4h3Q-mAHQ"/>
+                  <transition xmi:type="uml:Transition" xmi:id="_xkgQcMUoEe-VL4h3Q-mAHQ" source="_n6vkIKv-Ee-S9JdTvRaYug" target="_tKcf8MUoEe-VL4h3Q-mAHQ"/>
+                  <transition xmi:type="uml:Transition" xmi:id="_1QbvoMUoEe-VL4h3Q-mAHQ" source="_tKcf8MUoEe-VL4h3Q-mAHQ" target="_uLvBEKv-Ee-S9JdTvRaYug"/>
                   <subvertex xmi:type="uml:Pseudostate" xmi:id="_JLWeoqv-Ee-S9JdTvRaYug"/>
                   <subvertex xmi:type="uml:State" xmi:id="_MVsTsKv-Ee-S9JdTvRaYug" name="Scansione ClamAV"/>
                   <subvertex xmi:type="uml:State" xmi:id="_Ojyi8Kv-Ee-S9JdTvRaYug" name="Scansione VirusTotal"/>
-                  <subvertex xmi:type="uml:State" xmi:id="_n6vkIKv-Ee-S9JdTvRaYug" name="Eliminazione file"/>
+                  <subvertex xmi:type="uml:State" xmi:id="_n6vkIKv-Ee-S9JdTvRaYug" name="Richiesta eliminazione file all'utente"/>
                   <subvertex xmi:type="uml:FinalState" xmi:id="_uLvBEKv-Ee-S9JdTvRaYug"/>
+                  <subvertex xmi:type="uml:Pseudostate" xmi:id="_sPpd4MUjEe-bNoUAJwWYIg" kind="choice"/>
+                  <subvertex xmi:type="uml:Pseudostate" xmi:id="_mkKsUMUkEe-bNoUAJwWYIg" kind="choice"/>
+                  <subvertex xmi:type="uml:State" xmi:id="_sCBfUMUoEe-VL4h3Q-mAHQ" name="CopyOf_Scansione ClamAV_12"/>
+                  <subvertex xmi:type="uml:State" xmi:id="_tKcf8MUoEe-VL4h3Q-mAHQ" name="Creazione Report"/>
                 </region>
               </subvertex>
               <subvertex xmi:type="uml:FinalState" xmi:id="_06IywKv-Ee-S9JdTvRaYug" name="Scansione Terminata"/>

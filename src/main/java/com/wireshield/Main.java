@@ -5,8 +5,6 @@ import com.wireshield.localfileutils.SystemOrchestrator;
 
 import java.io.IOException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.simple.parser.ParseException;
 
 /*
@@ -19,12 +17,15 @@ public class Main {
      * @param args Command line arguments (not used).
      * @throws ParseException 
      * @throws IOException 
+     * @throws InterruptedException 
      */
-    public static void main(String[] args) throws IOException, ParseException {
+    public static void main(String[] args) throws IOException, ParseException, InterruptedException {
         SystemOrchestrator so = SystemOrchestrator.getInstance();
         so.manageVPN(vpnOperations.START);
         //so.manageVPN(vpnOperations.STOP);
         //so.manageDownload(runningStates.UP);
-        //so.manageAV(runningStates.UP);
+        so.manageAV(runningStates.UP);
+        Thread.sleep(10000);
+        so.manageAV(runningStates.DOWN);
     }
 }

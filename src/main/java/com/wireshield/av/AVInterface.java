@@ -15,5 +15,5 @@ public interface AVInterface {
      * @param report
      *   The scan report.
      */
-    public abstract void analyze(File file, ScanReport report);
+    public abstract void analyze(File file);
 }
