@@ -40,7 +40,7 @@ public class UserInterface extends Application {
      * JavaFX Buttons.
      */
     @FXML
-    protected Button vpnButton, uploadPeerButton;
+    protected Button vpnButton;
 
     /**
      * JavaFX Labels.
@@ -75,6 +75,7 @@ public class UserInterface extends Application {
     @FXML
     protected ListView<String> avFilesListView;
     protected ObservableList<String> avFilesList = FXCollections.observableArrayList();
+    private String selectedPeerFile; // Variabile per memorizzare il file selezionato.
 
     /**
      * Start the application.
@@ -103,13 +104,39 @@ public class UserInterface extends Application {
     @FXML
     public void initialize() {
         viewHome();
+        updatePeerList();
+        
+        // Imposta lo stato iniziale della ListView in base allo stato della VPN
+        peerListView.setDisable(so.getConnectionStatus() == connectionStates.CONNECTED);
+
+        // Disabilita il pulsante solo se il testo è "Start VPN" e non è selezionato alcun file
+        if (vpnButton.getText().equals("Start VPN")) {
+            vpnButton.setDisable(true);
+        }
+    
         if (peerListView != null) {
             peerListView.setItems(peerList);
+            peerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue != null) {
+                    selectedPeerFile = newValue; // Memorizza il file selezionato
+                    if (vpnButton.getText().equals("Start VPN")) {
+                        vpnButton.setDisable(false); // Abilita il pulsante solo se il testo è "Start VPN"
+                    }
+                    logger.info("File selezionato nella peer list: " + selectedPeerFile);
+                } else {
+                    if (vpnButton.getText().equals("Start VPN")) {
+                        vpnButton.setDisable(true); // Disabilita il pulsante solo se non c'è selezione e il testo è "Start VPN"
+                    }
+                    logger.info("Nessun file selezionato.");
+                }
+            });
         }
+    
         if (avFilesListView != null) {
             avFilesListView.setItems(avFilesList);
         }
     }
+    
 
     /**
      * Main method to launch the WireShield application.
@@ -118,7 +145,7 @@ public class UserInterface extends Application {
      */
     public static void main(String[] args) {
         so = SystemOrchestrator.getInstance();
-        so.manageVPN(vpnOperations.STOP);
+        so.manageVPN(vpnOperations.STOP,null);
         launch(args);
     }
 
@@ -146,19 +173,20 @@ public class UserInterface extends Application {
      */
     @FXML
     public void changeVPNState() { 
+
         if (so.getConnectionStatus() == connectionStates.CONNECTED) {
             so.manageDownload(runningStates.DOWN);
             so.manageAV(runningStates.DOWN);
-            so.manageVPN(vpnOperations.STOP);
+            so.manageVPN(vpnOperations.STOP, null);
             vpnButton.setText("Start VPN");
-            uploadPeerButton.setDisable(false);
+            peerListView.setDisable(false); // Rendi i peer selezionabili.
             logger.info("All services are stopped.");
         } else {
-            so.manageVPN(vpnOperations.START);
+            so.manageVPN(vpnOperations.START, selectedPeerFile);
             so.manageAV(runningStates.UP);
             so.manageDownload(runningStates.UP);
             vpnButton.setText("Stop VPN");
-            uploadPeerButton.setDisable(true);
+            peerListView.setDisable(true); // Disabilita la selezione dei peer.
             logger.info("All services started successfully.");
         }
     }
@@ -171,6 +199,7 @@ public class UserInterface extends Application {
         } else {
             vpnButton.setDisable(false);
         }
+        updatePeerList();
     }
 
     @FXML
@@ -209,7 +238,6 @@ public class UserInterface extends Application {
     @FXML
     public void viewSettings() {
         settingsPane.toFront();
-        updatePeerList();
     }
 
     /**

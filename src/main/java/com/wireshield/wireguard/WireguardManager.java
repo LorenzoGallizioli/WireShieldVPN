@@ -54,12 +54,12 @@ public class WireguardManager {
     /**
      * Starts the wireguard inteface based on the configuration path.
      * 
-     * @param configPath
-     *   The configuration file path (Name).(extension) .
+     * @param configFileName
+     *   The configuration file name (Name).(extension) .
      * 
      * @return True if the interface is correctly up, false overwise.
      */
-    public Boolean setInterfaceUp(String configPath) {
+    public Boolean setInterfaceUp(String configFileName) {
         String activeInterface = connection.getActiveInterface();
         if(activeInterface != null) {
             logger.error("WireGuard interface is already up.");
@@ -71,7 +71,7 @@ public class WireguardManager {
             ProcessBuilder processBuilder = new ProcessBuilder(
                 wireguardPath, 
                 "/installtunnelservice", 
-                defaultPeerPath + configPath
+                defaultPeerPath + configFileName
             );
             Process process = processBuilder.start();
 

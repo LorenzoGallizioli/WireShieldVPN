@@ -65,13 +65,11 @@ public class SystemOrchestrator {
      * 
      * @param operation The operation to be performed (START or STOP).
      */
-    public void manageVPN(vpnOperations operation) {
-    	
-    	String configPath = "testPeer.conf"; // PARAMENTRO HARDCODDATO, DA SOSTITUIRE IN FASE DI IMPLEMENTAZIONE GUI
+    public void manageVPN(vpnOperations operation, String peer) {
 
         switch (operation) {
             case START:
-                wireguardManager.setInterfaceUp(configPath);
+                wireguardManager.setInterfaceUp(peer);
                 break;
 
             case STOP:
