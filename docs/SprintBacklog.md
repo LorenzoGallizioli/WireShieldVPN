@@ -179,11 +179,11 @@
 # 3° Week Scrum 02 Gennaio 2024
 | **Titolo**                      | **Compiti**                                                                                       | **Sviluppatore**         |
 |----------------------------------|--------------------------------------------------------------------------------------------------|--------------------------|
-| Terminare GUI| Terminare l'implementazione della GUI includendo correttamente tutti i log e testando il funzionamento nel complesso di Wireshield | Lorenzo Gallizioli |
+| Terminare GUI | Terminare l'implementazione della GUI includendo correttamente tutti i log e testando il funzionamento nel complesso di Wireshield | Lorenzo Gallizioli |
 | Implementazione chiamate di Windows | Trovare il modo di implementare due chiamate su Windows. La prima deve consentire di effettuare l'accesso come amministratore nel caso in cui il programma venga avviato senza privilegi elevati, mostrando l'avviso di Windows per l'esecuzione come amministratore. La seconda deve consentire la cancellazione di un file dannoso | |
 | Migliorare la GUI | Migliorare l'estetica della GUI | |
-| Ricontrollo generale codice | Ricontrollare il codice sistemando con Solarlint tutti gli avvisi, i warning e gli info, poi far girare i vari plugin richiesti dal professor per capire se il codice rispetta tutte i requisiti richiesti | |
-| Iniziare a sistemare la documentazione | Modificare la documentazione fatta nel mese di novembre con le nuove decisioni prese durante l'implementazione del progetto | |
+| Ricontrollo generale codice | Ricontrollare il codice sistemando con Sonarlint tutti gli avvisi, i warning e gli info, poi far girare i vari plugin richiesti dal professor per capire se il codice rispetta tutte i requisiti richiesti | |
 | Archiviare ClamAV | Capire come archiviare ClamAV nella cartella del progetto in quanto supera i limiti di caricamento di Github | Davide Bonsembiante |
+| Sistemare testing con Eclemma | Sistemare i testing runnando eclemma e aumentando la copertura | |
 | Riorganizzazione struttura progetto | Riorganizzare la struttura del progetto seguendo le indicazioni indicate dal profe | Davide Bonsembiante / Thomas Panagelli / Lorenzo Gallizioli |
 
