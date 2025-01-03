@@ -184,6 +184,6 @@
 | Migliorare la GUI | Migliorare l'estetica della GUI | |
 | Ricontrollo generale codice | Ricontrollare il codice sistemando con Solarlint tutti gli avvisi, i warning e gli info, poi far girare i vari plugin richiesti dal professor per capire se il codice rispetta tutte i requisiti richiesti | |
 | Iniziare a sistemare la documentazione | Modificare la documentazione fatta nel mese di novembre con le nuove decisioni prese durante l'implementazione del progetto | |
-| Archiviare ClamAV | Capire come archiviare ClamAV nella cartella del progetto in quanto supera i limiti di caricamento di Github | Davide Bonsembiante / Thomas Panagelli / Lorenzo Gallizioli |
+| Archiviare ClamAV | Capire come archiviare ClamAV nella cartella del progetto in quanto supera i limiti di caricamento di Github | Davide Bonsembiante |
 | Riorganizzazione struttura progetto | Riorganizzare la struttura del progetto seguendo le indicazioni indicate dal profe | Davide Bonsembiante / Thomas Panagelli / Lorenzo Gallizioli |
 
