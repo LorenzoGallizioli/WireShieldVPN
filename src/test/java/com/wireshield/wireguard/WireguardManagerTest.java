@@ -15,7 +15,7 @@ public class WireguardManagerTest {
 	String configPath = "testPeer.conf";
 
     @Before
-    public void setup() {
+    public void setUp() {
         File file = new File(FileManager.getProjectFolder() + FileManager.getConfigValue("WIREGUARDEXE_STD_PATH"));
         if (!file.exists() || !file.isFile()) {
             fail("[ERR] WireGuard executable not found.");

@@ -3,7 +3,6 @@ package com.wireshield.wireguard;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -88,18 +87,20 @@ public class Connection {
      *   [public-key | private-key | listen-port | fwmark | peers | preshared-keys | endpoints | allowed-ips | latest-handshakes | transfer | persistent-keepalive | dump]
      * @return
      */
-    private String wgShow(String param) {
+    protected String wgShow(String param) {
         String activeInterface = this.getActiveInterface();
+        if (activeInterface == null || param == null) return null;
+        
         try {
-        ProcessBuilder processBuilder = new ProcessBuilder(wgPath, "show", activeInterface, param);
-        Process process = processBuilder.start();
+        	ProcessBuilder processBuilder = new ProcessBuilder(wgPath, "show", activeInterface, param);
+        	Process process = processBuilder.start();
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-        String line;
-        while ((line = reader.readLine()) != null) {
-            return line.split("=")[1].trim();
-        }
-        return null;
+        	BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        	String line;
+        	while ((line = reader.readLine()) != null) {
+        		return line.split("=")[1].trim();
+        	}
+        	return null;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -178,7 +179,7 @@ public class Connection {
      */
     public void updateLastHandshakeTime() {
         String latestHandShake = wgShow("latest-handshakes"); 
-        this.lastHandshakeTime = Long.parseLong(latestHandShake);
+        if (latestHandShake != null) this.lastHandshakeTime = Long.parseLong(latestHandShake);
     }
     
     /**
@@ -198,11 +199,29 @@ public class Connection {
     @Override
     public String toString() {
         return String.format(
-            "[INFO] Interface: %s\n[INFO] Status: %s\n[INFO] Last handshake time: %s\n[INFO] Received traffic: %s\n",
-            this.getActiveInterface(),
-            this.getStatus(),
-            this.getLastHandshakeTime(),
-            Arrays.toString(this.getTraffic()));
+            "[INFO] Interface: %s\n[INFO] Status: %s\n[INFO] Last handshake time: %s\n[INFO] Received traffic: %s\n[INFO] Sent traffic: %s",
+            this.ActiveInterface,
+            this.status,
+            this.lastHandshakeTime,
+            (long)this.receivedTraffic,
+            (long)this.sentTraffic);
     }
+    
+
+	protected void setSentTraffic(long sentTraffic) {
+		this.sentTraffic = sentTraffic;
+	}
+
+	protected void setReceivedTraffic(long receivedTraffic) {
+		this.receivedTraffic = receivedTraffic;
+	}
+
+	protected void setLastHandshakeTime(long lastHandshakeTime) {
+		this.lastHandshakeTime = lastHandshakeTime;
+	}
+
+	protected void setActiveInterface(String activeInterface) {
+		ActiveInterface = activeInterface;
+	}
 
 }
