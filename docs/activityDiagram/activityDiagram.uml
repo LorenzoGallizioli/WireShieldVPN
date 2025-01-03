@@ -42,9 +42,9 @@
     <node xmi:type="uml:OpaqueAction" xmi:id="_FTs0YLGgEe-H3owF1Dw5KQ" name="Inoltra comandi" incoming="_o3YvULGgEe-H3owF1Dw5KQ" outgoing="_pgfWsLGgEe-H3owF1Dw5KQ" inPartition="_O-etELGfEe-H3owF1Dw5KQ"/>
     <node xmi:type="uml:OpaqueAction" xmi:id="_ICgkALGgEe-H3owF1Dw5KQ" name="Inoltra comandi" incoming="_pgfWsLGgEe-H3owF1Dw5KQ" outgoing="_qaC04LGgEe-H3owF1Dw5KQ" inPartition="_TjoTQLGfEe-H3owF1Dw5KQ"/>
     <node xmi:type="uml:OpaqueAction" xmi:id="_JpyD0LGgEe-H3owF1Dw5KQ" name="Avvio/Interruzione VPN" incoming="_qaC04LGgEe-H3owF1Dw5KQ" outgoing="__k4zQLGmEe-H3owF1Dw5KQ" inPartition="_W71lMLGfEe-H3owF1Dw5KQ"/>
-    <node xmi:type="uml:OpaqueAction" xmi:id="_QhdGQLGgEe-H3owF1Dw5KQ" name="Inizio download manager" incoming="_MNmAMLGnEe-H3owF1Dw5KQ" outgoing="_sQs8wLMaEe-3h-z9LHfo8A" inPartition="_aT34ALGfEe-H3owF1Dw5KQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_QhdGQLGgEe-H3owF1Dw5KQ" name="Start download manager" incoming="_MNmAMLGnEe-H3owF1Dw5KQ" outgoing="_sQs8wLMaEe-3h-z9LHfo8A" inPartition="_aT34ALGfEe-H3owF1Dw5KQ"/>
     <node xmi:type="uml:OpaqueAction" xmi:id="_SEls8LGgEe-H3owF1Dw5KQ" name="Scanning download" incoming="_tBm1QLMaEe-3h-z9LHfo8A" outgoing="_VMhqELGnEe-H3owF1Dw5KQ" inPartition="_aT34ALGfEe-H3owF1Dw5KQ"/>
-    <node xmi:type="uml:OpaqueAction" xmi:id="_UfebALGgEe-H3owF1Dw5KQ" name="Inizio Antivirus manager" incoming="_2EzusLGnEe-H3owF1Dw5KQ" inPartition="_ffoLMLGfEe-H3owF1Dw5KQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_UfebALGgEe-H3owF1Dw5KQ" name="Start Antivirus manager" incoming="_2EzusLGnEe-H3owF1Dw5KQ" inPartition="_ffoLMLGfEe-H3owF1Dw5KQ"/>
     <node xmi:type="uml:OpaqueAction" xmi:id="_W9ri0LGgEe-H3owF1Dw5KQ" name="Analisi ClamAV" incoming="_dWrBALGnEe-H3owF1Dw5KQ" outgoing="_jHg-QLGnEe-H3owF1Dw5KQ" inPartition="_ffoLMLGfEe-H3owF1Dw5KQ"/>
     <node xmi:type="uml:OpaqueAction" xmi:id="_YX43ALGgEe-H3owF1Dw5KQ" name="Analisi VirusTotal" incoming="_k4vrULGnEe-H3owF1Dw5KQ" outgoing="_19MQMLMaEe-3h-z9LHfo8A" inPartition="_ffoLMLGfEe-H3owF1Dw5KQ"/>
     <node xmi:type="uml:OpaqueAction" xmi:id="_agHu0LGgEe-H3owF1Dw5KQ" name="Inoltro report completo" incoming="_23YnkLMaEe-3h-z9LHfo8A" outgoing="_zGaq8LGnEe-H3owF1Dw5KQ" inPartition="_TjoTQLGfEe-H3owF1Dw5KQ"/>

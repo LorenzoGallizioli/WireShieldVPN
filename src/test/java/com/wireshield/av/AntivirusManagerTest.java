@@ -1,6 +1,7 @@
 package com.wireshield.av;
 
 import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
 import com.wireshield.enums.runningStates;
 import com.wireshield.enums.warningClass;
@@ -36,6 +37,27 @@ public class AntivirusManagerTest {
 		antivirusManager.setClamAV(clamAV);
 		antivirusManager.setVirusTotal(virusTotal);
 	}
+	
+    /**
+     * Clean up the files created during the tests.
+     * This method will be executed after each test to delete the created files.
+     */
+    @After
+    public void tearDown() {
+        // List of files to delete
+        File file1 = new File("file1.exe");
+        File file2 = new File("file2.txt");
+        File file3 = new File("file3.pdf");
+        File testFile = new File("testfile.exe");
+        File largeFile = new File("largeTestFile.txt");
+
+        // Delete the files if they exist
+        file1.delete();
+        file2.delete();
+        file3.delete();
+        testFile.delete();
+        largeFile.delete();
+    }
 
 	/**
 	 * Utility method to create a file with specific content.
@@ -65,7 +87,7 @@ public class AntivirusManagerTest {
 		antivirusManager.addFileToScanBuffer(file);
 
 		// Verify that the file is in the scan buffer
-		assertTrue("The file should be in the buffer", antivirusManager.getScanBuffer().contains(file));
+		assertTrue("The file should be in the buffer", antivirusManager.getScanBuffer().contains(file));		
 	}
 
 	/**
@@ -79,82 +101,87 @@ public class AntivirusManagerTest {
 
 	@Test
 	public void testStartPerformScan() throws InterruptedException, IOException {
-		// Declare the initial antivirus service state
-		runningStates avStatus = runningStates.DOWN; // Initial state is DOWN
+	    // Declare the initial antivirus service state
+	    runningStates avStatus = runningStates.DOWN; // Initial state is DOWN
 
-		// Create sample files
-		File file1 = createFileWithContent("file1.exe"); // Malicious file
-		File file2 = createFileWithContent("file2.txt"); // Clean file
+	    // Create sample files
+	    File file1 = createFileWithContent("file1.exe"); // First file
+	    File file2 = createFileWithContent("file2.txt"); // Second file
 
-		// Add the files to the scan buffer
-		antivirusManager.addFileToScanBuffer(file1);
-		antivirusManager.addFileToScanBuffer(file2);
+	    // Clear any previously scanned files or reports before starting the test
+	    antivirusManager.getScanBuffer().clear();
+	    antivirusManager.getFinalReports().clear();
 
-		// Verify that the files have been added correctly
-		assertEquals("The scan buffer should contain 2 files", 2, antivirusManager.getScanBuffer().size());
+	    // Add the files to the scan buffer
+	    antivirusManager.addFileToScanBuffer(file1);
+	    antivirusManager.addFileToScanBuffer(file2);
 
-		// Change state to UP and start the antivirus service
-		avStatus = runningStates.UP;
+	    // Verify that the files have been added correctly
+	    assertEquals("The scan buffer should contain 2 files", 2, antivirusManager.getScanBuffer().size());
 
-		if (avStatus == runningStates.UP) {
-			if (antivirusManager.getScannerStatus() != runningStates.UP) {
-				try {
-					antivirusManager.startPerformScan();
-				} catch (Exception e) {
-					fail("Error starting the antivirus service: " + e.getMessage());
-				}
-			}
-		}
+	    // Change state to UP and start the antivirus service
+	    avStatus = runningStates.UP;
 
-		// Wait for the scan buffer to be empty and reports to be generated
-		while (!antivirusManager.getScanBuffer().isEmpty() || antivirusManager.getFinalReports().size() < 2) {
-			Thread.sleep(1000); // Wait briefly before checking again
-		}
+	    if (avStatus == runningStates.UP) {
+	        if (antivirusManager.getScannerStatus() != runningStates.UP) {
+	            try {
+	                antivirusManager.startPerformScan();
+	            } catch (Exception e) {
+	                fail("Error starting the antivirus service: " + e.getMessage());
+	            }
+	        }
+	    }
 
-		// Verify that the scan buffer is empty after scanning
-		assertTrue("The buffer should be empty after the scan", antivirusManager.getScanBuffer().isEmpty());
+	    // Wait for the scan buffer to be empty and reports to be generated
+	    while (!antivirusManager.getScanBuffer().isEmpty() || antivirusManager.getFinalReports().size() < 3) {
+	        Thread.sleep(1000); // Wait briefly before checking again
+	    }
 
-		// Verify that the final reports have been generated
-		List<ScanReport> finalReports = antivirusManager.getFinalReports();
-		assertFalse("Final reports should be present", finalReports.isEmpty());
+	    // Verify that the scan buffer is empty after scanning
+	    assertTrue("The buffer should be empty after the scan", antivirusManager.getScanBuffer().isEmpty());
 
-		// Verify that there are exactly 2 reports, one for each file
-		assertEquals("There should be exactly 2 reports", 3, finalReports.size());
+	    // Verify that the final reports have been generated
+	    List<ScanReport> finalReports = antivirusManager.getFinalReports();
+	    assertFalse("Final reports should be present", finalReports.isEmpty());
 
-		// Verify the report for file1.exe
-		boolean foundFile1 = false;
-		boolean foundFile2 = false;
+	    // Verify that there are exactly 2 reports for the files being tested
+	    assertEquals("There should be exactly 3 reports", 3, finalReports.size());
 
-		for (ScanReport report : finalReports) {
-			// Get the file name from the File object
-			String fileName = report.getFile().getName(); // Use getName() to get the file name as a string
-			System.out.println("Report file: '" + fileName + "'"); // Debug the file name
+	    // Verify the report for file1.exe and file2.txt
+	    boolean foundFile1 = false;
+	    boolean foundFile2 = false;
 
-			if ("file1.exe".equals(fileName)) {
-				foundFile1 = true;
-				System.out.println("foundFile1 set to true for file1.exe");
-				assertFalse("file1.exe should not be detected as a threat", report.isThreatDetected());
-				assertEquals("The threat level for file1.exe should be CLEAR", warningClass.CLEAR,
-						report.getWarningClass());
-			}
+	    // Iterate over the reports and check for the presence of file1.exe and file2.txt
+	    for (ScanReport report : finalReports) {
+	        String fileName = report.getFile().getName();
+	        System.out.println("Report file: '" + fileName + "'");  // Debugging: Print file name
 
-			if ("file2.txt".equals(fileName)) {
-				foundFile2 = true;
-				System.out.println("foundFile2 set to true for file2.txt");
-				assertFalse("file2.txt should not be detected as a threat", report.isThreatDetected());
-				assertEquals("The threat level for file2.txt should be CLEAR", warningClass.CLEAR,
-						report.getWarningClass());
-			}
-		}
+	        // Check for file1.exe
+	        if ("file1.exe".equals(fileName)) {
+	            foundFile1 = true;
+	            System.out.println("foundFile1 set to true for file1.exe");
+	            assertFalse("file1.exe should not be detected as a threat", report.isThreatDetected());
+	            assertEquals("The threat level for file1.exe should be CLEAR", warningClass.CLEAR, report.getWarningClass());
+	        }
 
-		// Output debug information for found files
-		System.out.println("foundFile1: " + foundFile1);
-		System.out.println("foundFile2: " + foundFile2);
+	        // Check for file2.txt
+	        if ("file2.txt".equals(fileName)) {
+	            foundFile2 = true;
+	            System.out.println("foundFile2 set to true for file2.txt");
+	            assertFalse("file2.txt should not be detected as a threat", report.isThreatDetected());
+	            assertEquals("The threat level for file2.txt should be CLEAR", warningClass.CLEAR, report.getWarningClass());
+	        }
+	    }
 
-		// Assert that both files were found in the reports
-		assertTrue(foundFile1);
-		assertTrue(foundFile2);
+	    // Output debug information for found files
+	    System.out.println("foundFile1: " + foundFile1);
+	    System.out.println("foundFile2: " + foundFile2);
+
+	    // Assert that both files were found in the reports
+	    assertTrue(foundFile1);
+	    assertTrue(foundFile2);
 	}
+
 
 	/**
 	 * Test to verify that large files are excluded from VirusTotal scanning. This
@@ -215,12 +242,6 @@ public class AntivirusManagerTest {
 
 		// Assert that VirusTotal was not called for the large file
 		assertTrue("Large file should not be marked as scanned by VirusTotal", virusTotalNotCalled);
-
-		// Clean up the large test file
-		File fileToDelete = new File(largeFilePath);
-		if (fileToDelete.exists()) {
-			fileToDelete.delete();
-		}
 	}
 
 	/**
@@ -232,33 +253,35 @@ public class AntivirusManagerTest {
 	 */
 	@Test
 	public void testStopPerformScan() throws InterruptedException, IOException {
-		// Create a file to be added to the scan buffer
-		File file1 = createFileWithContent("file1.exe"); // Create a .exe file
-		antivirusManager.addFileToScanBuffer(file1);
+	    // Crea un file da aggiungere al buffer di scansione
+	    File file3 = createFileWithContent("file3.pdf");
+	    antivirusManager.addFileToScanBuffer(file3);
 
-		// Start the scan in a separate thread
-		Thread scanThread = new Thread(() -> {
-			antivirusManager.startPerformScan();
-		});
-		scanThread.start();
+	    // Avvia la scansione in un thread separato
+	    Thread scanThread = new Thread(() -> {
+	        antivirusManager.startPerformScan();
+	    });
+	    scanThread.start();
 
-		// Wait for the scanner status to change to UP (indicating the scan is running)
-		while (antivirusManager.getScannerStatus() != runningStates.UP) {
-			Thread.sleep(100); // Wait briefly before checking again
-		}
+	    // Attendi che lo stato della scansione cambi in UP (indicando che la scansione sta girando)
+	    while (antivirusManager.getScannerStatus() != runningStates.UP) {
+	        Thread.sleep(100); // Attendi brevemente prima di verificare nuovamente
+	    }
 
-		// Stop the scan
-		antivirusManager.stopPerformScan();
-		
-		// Wait for the scanner status to change to UP (indicating the scan is running)
-		while (antivirusManager.getScannerStatus() != runningStates.UP) {
-			Thread.sleep(100); // Wait briefly before checking again
-		}
-		
-		// Verify that the scan status is DOWN (indicating the scan has been stopped)
-		assertEquals("The scan status should be DOWN", runningStates.DOWN, antivirusManager.getScannerStatus());
+	    // Ferma la scansione
+	    antivirusManager.stopPerformScan();
+
+	    // Attendi che lo stato della scansione cambi in DOWN (indicando che la scansione è fermata)
+	    while (antivirusManager.getScannerStatus() != runningStates.DOWN) {
+	        Thread.sleep(100); // Attendi brevemente prima di verificare nuovamente
+	    }
+
+	    // Verifica che lo stato della scansione sia DOWN (indicando che la scansione è stata fermata)
+	    assertEquals("Lo stato della scansione dovrebbe essere DOWN", runningStates.DOWN, antivirusManager.getScannerStatus());
 	}
 
+
+	
 	/*
 	 * Test the mergeReports method. This test verifies that reports are correctly
 	 * merged, updating threat status and details.

@@ -3,13 +3,10 @@ package com.wireshield.wireguard;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.parser.ParseException;
-
 import java.io.IOException;
-
 import com.wireshield.av.FileManager;
 import com.wireshield.enums.connectionStates;
 import com.wireshield.enums.vpnOperations;
@@ -63,12 +60,12 @@ public class WireguardManager {
     /**
      * Starts the wireguard inteface based on the configuration path.
      * 
-     * @param configPath
-     *   The configuration file path (Name).(extension) .
+     * @param configFileName
+     *   The configuration file name (Name).(extension) .
      * 
      * @return True if the interface is correctly up, false overwise.
      */
-    public Boolean setInterfaceUp(String configPath) {
+    public Boolean setInterfaceUp(String configFileName) {
         String activeInterface = connection.getActiveInterface();
         if(activeInterface != null) {
             logger.error("WireGuard interface is already up.");
@@ -80,7 +77,7 @@ public class WireguardManager {
             ProcessBuilder processBuilder = new ProcessBuilder(
                 wireguardPath, 
                 "/installtunnelservice", 
-                defaultPeerPath + configPath
+                defaultPeerPath + configFileName
             );
             
             System.out.println(wireguardPath + " /installtunnelservice " + defaultPeerPath + configPath);
@@ -258,8 +255,18 @@ public class WireguardManager {
      * @return Connection
      *   The connection.
      */
-    public Connection getConnection() {
-        return this.connection;
+    public connectionStates getConnectionStatus() {
+        return connection.getStatus();
+    }
+
+    /**
+     * Returns the connection logs.
+     * 
+     * @return String
+     *   The connection logs. 
+     */
+    public String getConnectionLogs(){
+        return connection.toString();
     }
 
     /**

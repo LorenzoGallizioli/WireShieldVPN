@@ -3,14 +3,10 @@ package com.wireshield.localfileutils;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.json.simple.parser.ParseException;
-
 import com.wireshield.av.AntivirusManager;
 import com.wireshield.av.ClamAV;
-import com.wireshield.av.FileManager;
 import com.wireshield.av.ScanReport;
 import com.wireshield.av.VirusTotal;
 import com.wireshield.wireguard.PeerManager;
@@ -25,15 +21,14 @@ import com.wireshield.enums.vpnOperations;
 public class SystemOrchestrator {
 
     private static final Logger logger = LogManager.getLogger(SystemOrchestrator.class);
-
     private static SystemOrchestrator instance;
+
     private WireguardManager wireguardManager; // Manages VPN connections
     private DownloadManager downloadManager;   // Manages download monitoring
     private AntivirusManager antivirusManager; // Manages antivirus operations
-    private ClamAV clamAV;
-    private VirusTotal virusTotal;
-
-    private runningStates avStatus;            // Antivirus service status
+    private ClamAV clamAV;                     // Analyzes files with ClamAV
+    private VirusTotal virusTotal;             // Analyzes files with VirusTotal
+    private runningStates avStatus = runningStates.DOWN; // Antivirus service status
     private runningStates monitorStatus;       // Download monitoring service status
     private connectionStates connectionStatus; // VPN connection status
 
@@ -41,12 +36,12 @@ public class SystemOrchestrator {
      * Initializes the SystemOrchestrator instance with necessary components.
      */
     private SystemOrchestrator() {
-        this.antivirusManager = AntivirusManager.getInstance();
+        this.wireguardManager = WireguardManager.getInstance(); // Initialize WireguardManager
+        this.antivirusManager = AntivirusManager.getInstance(); // Initialize AntivirusManager
         this.clamAV = ClamAV.getInstance(); // Initialize ClamAV
         this.virusTotal = VirusTotal.getInstance(); // Initialize VirusTotal
         this.wireguardManager = WireguardManager.getInstance();
-
-        this.setDownloadManager(DownloadManager.getInstance(antivirusManager));
+        this.downloadManager = DownloadManager.getInstance(antivirusManager);
         antivirusManager.setClamAV(clamAV);
         antivirusManager.setVirusTotal(virusTotal);
 
@@ -69,28 +64,16 @@ public class SystemOrchestrator {
      * Manages the VPN connection.
      * 
      * @param operation The operation to be performed (START or STOP).
-     * @throws ParseException 
-     * @throws IOException 
      */
-    public void manageVPN(vpnOperations operation) {
-    	
-    	String configPath = "testPeer.conf"; // PARAMENTRO HARDCODDATO, DA SOSTITUIRE IN FASE DI IMPLEMENTAZIONE GUI
+    public void manageVPN(vpnOperations operation, String peer) {
 
         switch (operation) {
             case START:
-                if (wireguardManager.setInterfaceUp(configPath)) {
-                    logger.info("Interface successfully started.");
-                } else {
-                    logger.error("Error starting the interface.");
-                }
+                wireguardManager.setInterfaceUp(peer);
                 break;
 
             case STOP:
-                if (wireguardManager.setInterfaceDown()) {
-                    logger.info("Interface successfully stopped.");
-                } else {
-                    logger.error("Error stopping the interface.");
-                }
+                wireguardManager.setInterfaceDown(); 
                 break;
 
             default:
@@ -188,6 +171,7 @@ public class SystemOrchestrator {
      * @return The current VPN connection status.
      */
     public connectionStates getConnectionStatus() {
+        this.connectionStatus = wireguardManager.getConnectionStatus();
         logger.debug("Retrieving connection status: {}", connectionStatus);
         return connectionStatus;
     }
@@ -256,12 +240,11 @@ public class SystemOrchestrator {
     }
 
     /**
-     * Sets the DownloadManager instance.
-     * 
-     * @param downloadManager The DownloadManager instance to set.
+     * Retrieves the AntivirusManager instance.
+     *
+     * @return The AntivirusManager instance.
      */
-    public void setDownloadManager(DownloadManager downloadManager) {
-        logger.debug("Setting DownloadManager instance.");
-        this.downloadManager = downloadManager;
+    public AntivirusManager getAntivirusManager() {
+        return antivirusManager;
     }
 }

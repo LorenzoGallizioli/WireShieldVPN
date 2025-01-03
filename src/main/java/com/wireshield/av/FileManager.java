@@ -169,8 +169,6 @@ public class FileManager {
      *
      * @param key the key whose associated value is to be returned
      * @return the value as a String, or null if the key does not exist
-     * @throws IOException if there is an issue reading the file
-     * @throws ParseException if the file is not a valid JSON
      */
     public static String getConfigValue(String key){
         // Parse the JSON file
