@@ -80,7 +80,7 @@ public class WireguardManager {
                 defaultPeerPath + configFileName
             );
             
-            System.out.println(wireguardPath + " /installtunnelservice " + defaultPeerPath + configPath);
+            //System.out.println(wireguardPath + " /installtunnelservice " + defaultPeerPath + configFileName);
             Process process = processBuilder.start();
 
             // Reads the output.
