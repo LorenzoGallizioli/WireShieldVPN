@@ -215,7 +215,7 @@ public class UserInterface extends Application {
             logsArea.setText("No connection.\n");
             return;
         }
-        String logs = so.getWireguardManager().getConnectionLogs();
+        String logs = so.getWireguardManager().getLog();
         logsArea.setText(logs + "\n");
     }
 
