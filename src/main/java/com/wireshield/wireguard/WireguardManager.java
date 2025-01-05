@@ -38,7 +38,7 @@ public class WireguardManager {
         this.connection = Connection.getInstance();
         this.peerManager = PeerManager.getInstance();
         
-        //this.startUpdateWireguardLogs(); // Start log update thread
+        this.startUpdateWireguardLogs(); // Start log update thread
     }
     
     /**
@@ -115,7 +115,7 @@ public class WireguardManager {
         String interfaceName = connection.getActiveInterface();
 
         if(interfaceName == null) {
-            logger.error("No active WireGuard interface.");
+            logger.info("No active WireGuard interface.");
             return false;
         }
 
