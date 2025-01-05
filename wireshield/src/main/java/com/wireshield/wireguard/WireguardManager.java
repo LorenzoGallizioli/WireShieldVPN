@@ -280,6 +280,17 @@ public class WireguardManager {
     }
     
     /**
+     * Returns the connection object.
+     * 
+     * @return Connection
+     *   The connection.
+     */
+    protected Connection getConnection() {
+        return this.connection;
+    }
+    
+    
+    /**
      * Returns wg logs.
      * 
      * @return String
