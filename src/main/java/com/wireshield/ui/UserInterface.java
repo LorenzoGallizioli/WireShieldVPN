@@ -15,6 +15,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -105,7 +106,7 @@ public class UserInterface extends Application {
     public void initialize() {
         viewHome();
         updatePeerList();
-        
+        startDynamicLogUpdate();
         // Imposta lo stato iniziale della ListView in base allo stato della VPN
         peerListView.setDisable(so.getConnectionStatus() == connectionStates.CONNECTED);
 
@@ -166,6 +167,10 @@ public class UserInterface extends Application {
     public void closeWindow() {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
+        so.manageDownload(runningStates.DOWN);
+        so.manageAV(runningStates.DOWN);
+        so.manageVPN(vpnOperations.STOP, null);
+        System.exit(0);
     }
 
     /**
@@ -206,12 +211,6 @@ public class UserInterface extends Application {
     @FXML
     public void viewLogs() {
         logsPane.toFront();
-        if (so.getConnectionStatus() == connectionStates.DISCONNECTED) {
-            logsArea.setText("No connection.\n");
-            return;
-        }
-        String logs = so.getWireguardManager().getConnectionLogs();
-        logsArea.setText(logs + "\n");
     }
 
     /**
@@ -297,4 +296,35 @@ public class UserInterface extends Application {
             }
         }
     }
+
+    /**
+     * Starts a thread that dynamically updates the logs area.
+     */
+    protected void startDynamicLogUpdate() {
+        Runnable task = () -> {
+            while (true) {
+                try {
+                    // Recupera i log aggiornati
+                    String logs = so.getWireguardManager().getLog();
+                    // Aggiorna logsArea sul thread JavaFX
+                    Platform.runLater(() -> {
+                        logsArea.clear();
+                        logsArea.setText(logs);
+                    });
+                    Thread.sleep(1000); // Attendi un secondo prima di aggiornare di nuovo
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    logger.error("Dynamic log update thread interrupted.");
+                    break;
+                } catch (Exception e) {
+                    logger.error("Error updating logs dynamically: ", e);
+                }
+            }
+        };
+
+        Thread logUpdateThread = new Thread(task);
+        logUpdateThread.setDaemon(true); // Assicura che il thread si fermi con l'applicazione
+        logUpdateThread.start();
+    }
+
 }
