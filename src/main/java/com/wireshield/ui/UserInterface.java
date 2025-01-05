@@ -242,28 +242,6 @@ public class UserInterface extends Application {
     }
 
     /**
-     * Checks if there are any files in the peer directory.
-     * 
-     * @return True if there are files in the directory, false otherwise.
-     */
-    protected boolean checkFilesInDirectory() {
-        String folderPath = FileManager.getProjectFolder() + FileManager.getConfigValue("PEER_STD_PATH");
-        File directory = new File(folderPath);
-
-        if (directory.exists() && directory.isDirectory()) {
-            File[] files = directory.listFiles();
-            if (files != null) {
-                for (File file : files) {
-                    if (file.isFile() && file.length() > 0) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
      * Handles the file selection event and copies the selected file to the peer directory.
      * 
      * @param event 
