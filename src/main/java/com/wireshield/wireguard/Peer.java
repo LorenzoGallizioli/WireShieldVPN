@@ -58,7 +58,7 @@ public class Peer {
      *   The ID of the peer.
      */
     public String getId() {
-        return id;
+        return this.id;
     }
 
     /**
@@ -147,7 +147,35 @@ public class Peer {
      * @return a unique identifier as a {@code String}
      * @see java.util.UUID#randomUUID()
      */
-    private String generateUniqueId() {
+    private static String generateUniqueId() {
         return UUID.randomUUID().toString();
     }
+    
+    @Override
+    public String toString() {
+        return String.format(
+            "[INFO] ID: %s\n" +
+            "[INFO] Name: %s\n" +
+            "[INFO] Private Key: %s\n" +
+            "[INFO] Address: %s\n" +
+            "[INFO] DNS: %s\n" +
+            "[INFO] MTU: %s\n" +
+            "[INFO] Public Key: %s\n" +
+            "[INFO] Preshared Key: %s\n" +
+            "[INFO] Endpoint: %s\n" +
+            "[INFO] Allowed IPs: %s",
+            id,
+            name,
+            privateKey,
+            address,
+            DNS,
+            MTU,
+            publicKey,
+            presharedKey,
+            endPoint,
+            allowedIPs
+        );
+    }
+
+
 }
