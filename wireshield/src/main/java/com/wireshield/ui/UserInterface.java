@@ -1,4 +1,5 @@
 package com.wireshield.ui;
+
 import com.wireshield.av.FileManager;
 import com.wireshield.av.ScanReport;
 import com.wireshield.enums.connectionStates;
@@ -15,6 +16,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -47,7 +49,7 @@ public class UserInterface extends Application {
      */
     @FXML
     protected Label avStatusLabel;
-    
+
     /**
      * JavaFX AnchorPanes.
      */
@@ -105,7 +107,7 @@ public class UserInterface extends Application {
     public void initialize() {
         viewHome();
         updatePeerList();
-        
+        startDynamicLogUpdate();
         // Imposta lo stato iniziale della ListView in base allo stato della VPN
         peerListView.setDisable(so.getConnectionStatus() == connectionStates.CONNECTED);
 
@@ -113,7 +115,7 @@ public class UserInterface extends Application {
         if (vpnButton.getText().equals("Start VPN")) {
             vpnButton.setDisable(true);
         }
-    
+
         if (peerListView != null) {
             peerListView.setItems(peerList);
             peerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -131,12 +133,11 @@ public class UserInterface extends Application {
                 }
             });
         }
-    
+
         if (avFilesListView != null) {
             avFilesListView.setItems(avFilesList);
         }
     }
-    
 
     /**
      * Main method to launch the WireShield application.
@@ -145,7 +146,7 @@ public class UserInterface extends Application {
      */
     public static void main(String[] args) {
         so = SystemOrchestrator.getInstance();
-        so.manageVPN(vpnOperations.STOP,null);
+        so.manageVPN(vpnOperations.STOP, null);
         launch(args);
     }
 
@@ -172,7 +173,7 @@ public class UserInterface extends Application {
      * Changes the state of the VPN.
      */
     @FXML
-    public void changeVPNState() { 
+    public void changeVPNState() {
 
         if (so.getConnectionStatus() == connectionStates.CONNECTED) {
             so.manageDownload(runningStates.DOWN);
@@ -215,8 +216,6 @@ public class UserInterface extends Application {
             logsArea.setText("No connection.\n");
             return;
         }
-        String logs = so.getWireguardManager().getLog();
-        logsArea.setText(logs + "\n");
     }
 
     /**
@@ -271,7 +270,7 @@ public class UserInterface extends Application {
     /**
      * Handles the file selection event and copies the selected file to the peer directory.
      * 
-     * @param event 
+     * @param event
      *   The action event triggered when a file is selected.
      */
     @FXML
@@ -324,4 +323,34 @@ public class UserInterface extends Application {
             }
         }
     }
+
+    /**
+     * Starts a thread that dynamically updates the logs area.
+     */
+    protected void startDynamicLogUpdate() {
+        Runnable task = () -> {
+            while (true) {
+                try {
+                    // Recupera i log aggiornati
+                    String logs = so.getWireguardManager().getLog();
+                    // Aggiorna logsArea sul thread JavaFX
+                    Platform.runLater(() -> {
+                        logsArea.setText(logs); // Sostituisce il contenuto di logsArea
+                    });
+                    Thread.sleep(1000); // Attendi un secondo prima di aggiornare di nuovo
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    logger.error("Dynamic log update thread interrupted.");
+                    break;
+                } catch (Exception e) {
+                    logger.error("Error updating logs dynamically: ", e);
+                }
+            }
+        };
+
+        Thread logUpdateThread = new Thread(task);
+        logUpdateThread.setDaemon(true); // Assicura che il thread si fermi con l'applicazione
+        logUpdateThread.start();
+    }
+
 }
