@@ -197,11 +197,6 @@ public class UserInterface extends Application {
     @FXML
     public void viewHome() {
         homePane.toFront();
-        if (!checkFilesInDirectory()) {
-            vpnButton.setDisable(true);
-        } else {
-            vpnButton.setDisable(false);
-        }
         updatePeerList();
     }
 
