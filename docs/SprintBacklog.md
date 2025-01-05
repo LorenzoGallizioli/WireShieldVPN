@@ -181,9 +181,12 @@
 |----------------------------------|--------------------------------------------------------------------------------------------------|--------------------------|
 | Terminare GUI | Terminare l'implementazione della GUI includendo correttamente tutti i log e testando il funzionamento nel complesso di Wireshield | Lorenzo Gallizioli |
 | Implementazione chiamate di Windows | Trovare il modo di implementare due chiamate su Windows. La prima deve consentire di effettuare l'accesso come amministratore nel caso in cui il programma venga avviato senza privilegi elevati, mostrando l'avviso di Windows per l'esecuzione come amministratore. La seconda deve consentire la cancellazione di un file dannoso | |
-| Migliorare la GUI | Migliorare l'estetica della GUI | |
-| Ricontrollo generale codice | Ricontrollare il codice sistemando con Sonarlint tutti gli avvisi, i warning e gli info, poi far girare i vari plugin richiesti dal professor per capire se il codice rispetta tutte i requisiti richiesti | |
+| Migliorare la GUI | Migliorare l'estetica della GUI | Thomas Paganelli |
+| Ricontrollo generale codice | Ricontrollare il codice sistemando con Sonarlint tutti gli avvisi, i warning e gli info, poi far girare i vari plugin richiesti dal professor per capire se il codice rispetta tutte i requisiti richiesti | Lorenzo Gallizioli |
 | Archiviare ClamAV | Capire come archiviare ClamAV nella cartella del progetto in quanto supera i limiti di caricamento di Github | Davide Bonsembiante |
-| Sistemare testing con Eclemma | Sistemare i testing runnando eclemma e aumentando la copertura | |
-| Riorganizzazione struttura progetto | Riorganizzare la struttura del progetto seguendo le indicazioni indicate dal profe | Davide Bonsembiante / Thomas Panagelli / Lorenzo Gallizioli |
+| Sistemare testing package AV, package localUtils e package Enums | Sistemare i package in questione runnando eclemma e aumentando la copertura ad una percentuale soddisfacente | Davide Bonsembiante |
+| Creare file di testing per SystemOrchestrator | Creare il file di testing per SystemOrchestrator tenendo una copertura di testing soddisfacente | Davide Bonsembiante |
+| Sistemare testing package Wireguard | Sistemare il package in questione runnando eclemma e aumentando la copertura ad una percentuale soddisfacente | Thomas Paganelli |
+| Creare testing package UI | Creare il file di testing per il package UI tenendo una copertura di testing soddisfacente | Davide Bonsembiante |
+| Riorganizzazione struttura progetto | Riorganizzare la struttura del progetto seguendo le indicazioni indicate dal profe | Lorenzo Gallizioli |
 
