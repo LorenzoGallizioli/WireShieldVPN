@@ -50,7 +50,7 @@ public class VirusTotal implements AVInterface{
 
 	// Load configuration from a JSON file
 	private void loadConfigFromJson() {
-		String configFilePath = "config/config.json"; // Path to the JSON configuration file
+		String configFilePath = "wireshield/config/config.json"; // Path to the JSON configuration file
 		ObjectMapper objectMapper = new ObjectMapper();
 
 		try {

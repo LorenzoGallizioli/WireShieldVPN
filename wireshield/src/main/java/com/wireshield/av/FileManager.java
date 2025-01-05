@@ -19,7 +19,7 @@ import org.apache.logging.log4j.Logger;
 public class FileManager {
 	
 	private static final Logger logger = LogManager.getLogger(FileManager.class);
-    private static String CONFIG_PATH = FileManager.getProjectFolder() + "\\config\\config.json";
+    private static String CONFIG_PATH = FileManager.getProjectFolder() + "\\wireshield\\config\\config.json";
 
 	
 	/**
