@@ -2,9 +2,7 @@ package com.wireshield.wireguard;
 
 import static org.junit.Assert.*;
 import java.io.File;
-import java.io.IOException;
 
-import org.json.simple.parser.ParseException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,31 +10,36 @@ import com.wireshield.av.FileManager;
 
 public class WireguardManagerTest {
 	
-	String configPath = "testPeer.conf";
+	String confName = "testPeer";
+	WireguardManager wireguardManager;
 
     @Before
     public void setUp() {
-        File file = new File(FileManager.getProjectFolder() + FileManager.getConfigValue("WIREGUARDEXE_STD_PATH"));
-        if (!file.exists() || !file.isFile()) {
-            fail("[ERR] WireGuard executable not found.");
-        }
+    	wireguardManager = WireguardManager.getInstance();
     }
     
     @Test
-    public void testSetInterfaceUp() {
-        WireguardManager wireguardManager = WireguardManager.getInstance();
-        assertTrue(wireguardManager.setInterfaceUp(configPath).booleanValue());
-    }
+    public void testSetInterface_UpDown() {
 
-    @Test
-    public void testSetInterfaceDown() {
-		try {
+    	String confPath = confName + ".conf";
+    	System.out.println(confPath);
+        assertTrue(wireguardManager.setInterfaceUp(confPath));
+        
+        try {
 			Thread.sleep(1000);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        WireguardManager wireguardManager = WireguardManager.getInstance();
+        
+        System.out.println(wireguardManager.getConnection().getActiveInterface());
+        assertEquals(wireguardManager.getConnection().getActiveInterface(), confName);
+
         assertTrue(wireguardManager.setInterfaceDown());
-    }
+        assertEquals(wireguardManager.getConnection().getActiveInterface(), null);
+
+    } 
 
 }
+
+
+
