@@ -9,7 +9,6 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import com.wireshield.av.FileManager;
 import com.wireshield.enums.connectionStates;
-import com.wireshield.enums.vpnOperations;
 
 /**
  * The WireguardManager class is responsible for managing the wireguard VPN.
@@ -38,7 +37,7 @@ public class WireguardManager {
         this.connection = Connection.getInstance();
         this.peerManager = PeerManager.getInstance();
         
-        //this.startUpdateWireguardLogs(); // Start log update thread
+        this.startUpdateWireguardLogs(); // Start log update thread
     }
     
     /**
@@ -68,7 +67,7 @@ public class WireguardManager {
     public Boolean setInterfaceUp(String configFileName) {
         String activeInterface = connection.getActiveInterface();
         if(activeInterface != null) {
-            logger.error("WireGuard interface is already up.");
+            logger.warn("WireGuard interface is already up.");
             return false; // Interface is up
         }
 
