@@ -114,7 +114,7 @@ public class WireguardManager {
         String interfaceName = connection.getActiveInterface();
 
         if(interfaceName == null) {
-            logger.error("No active WireGuard interface.");
+            logger.info("No active WireGuard interface.");
             return false;
         }
 
