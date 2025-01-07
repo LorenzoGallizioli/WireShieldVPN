@@ -1,275 +1,183 @@
 package com.wireshield.localfileutils;
 
-import com.wireshield.enums.runningStates;
-import org.junit.After;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.wireshield.enums.runningStates;
+import com.wireshield.av.AntivirusManager;
+import com.wireshield.enums.connectionStates;
+import com.wireshield.enums.vpnOperations;
+import com.wireshield.wireguard.WireguardManager;
 
-import static org.junit.Assert.*;
-
-/*
- * Unit test class for SystemOrchestrator.
- * This class tests various functionalities of the SystemOrchestrator class,
- * including managing VPN, AV, and download statuses, and retrieving system information.
- */
 public class SystemOrchestratorTest {
 
-    private static final Logger logger = LogManager.getLogger(SystemOrchestratorTest.class);
+    private SystemOrchestrator orchestrator;
+    private WireguardManager wireguardManager;
+    private DownloadManager downloadManager;
+    private AntivirusManager antivirusManager;
 
-    private SystemOrchestrator systemOrchestrator;
-
-    /*
-     * Sets up the test environment.
-     * This method is executed before each test and initializes the SystemOrchestrator instance.
-     */
     @Before
     public void setUp() {
-        systemOrchestrator = SystemOrchestrator.getInstance();
-        logger.info("SystemOrchestrator instance created");
+        // Instanza di SystemOrchestrator
+        orchestrator = SystemOrchestrator.getInstance();
+
+        // Creazione degli oggetti necessari
+        wireguardManager = wireguardManager.getInstance();
+        antivirusManager = antivirusManager.getInstance();
+        downloadManager = downloadManager.getInstance(antivirusManager);
+
+        // Impostiamo le dipendenze per il SystemOrchestrator
+        orchestrator.getWireguardManager(); // Non è necessario un mock
+        orchestrator.getDownloadManager();  // Non è necessario un mock
+        orchestrator.getAntivirusManager(); // Non è necessario un mock
     }
 
-    /*
-     * Cleans up the test environment.
-     * This method is executed after each test and destroys the SystemOrchestrator instance.
-     */
-    @After
-    public void tearDown() {
-        systemOrchestrator = null;
-        logger.info("SystemOrchestrator instance destroyed");
-    }
-
-    /*
-     * Tests the creation and initialization of the SystemOrchestrator.
-     * Currently, this test is not yet implemented.
-     */
+    // Test per il metodo manageVPN con operazione START
     @Test
-    public void testSystemOrchestrator() {
-        logger.info("Running testSystemOrchestrator...");
-        fail("Not yet implemented");
+    public void testManageVPNStart() {
+        // Eseguiamo il metodo con l'operazione START
+        orchestrator.manageVPN(vpnOperations.START, "testPeer.conf");
+
+        // Verifica se il metodo setInterfaceUp è stato chiamato
+        assertTrue("The VPN interface should be up", wireguardManager.getConnectionStatus() == connectionStates.CONNECTED);
     }
 
-    /*
-     * Tests the management of VPN connections.
-     * This test is not yet implemented.
-     */
+    // Test per il metodo manageVPN con operazione STOP
     @Test
-    public void testManageVPN() {
-        logger.info("Running testManageVPN...");
-        fail("Not yet implemented");
+    public void testManageVPNStop() {
+        // Eseguiamo il metodo con l'operazione STOP
+        orchestrator.manageVPN(vpnOperations.STOP, "Peer1");
+
+        // Verifica se il metodo setInterfaceDown è stato chiamato
+        assertTrue("The VPN interface should be down", wireguardManager.getConnectionStatus() == connectionStates.DISCONNECTED);
     }
 
-    /*
-     * Tests the management of antivirus (AV) status.
-     * This method verifies the ability to set and retrieve the AV status for values UP and DOWN.
-     */
+    // Test per il metodo manageDownload con stato UP
     @Test
-    public void testManageAV() {
-        logger.info("Running testManageAV...");
+    public void testManageDownloadUp() {
+        // Eseguiamo il metodo per avviare il monitoraggio
+        orchestrator.manageDownload(runningStates.UP);
 
-        // Test managing AV when it is UP
-        systemOrchestrator.manageAV(runningStates.UP);
-        assertEquals(runningStates.UP, systemOrchestrator.getAVStatus());
-        logger.info("AV status set to UP");
-
-        // Test managing AV when it is DOWN
-        systemOrchestrator.manageAV(runningStates.DOWN);
-        assertEquals(runningStates.DOWN, systemOrchestrator.getAVStatus());
-        logger.info("AV status set to DOWN");
+        // Verifica che il metodo startMonitoring sia stato chiamato correttamente
+        assertTrue("The download monitoring service should be running", downloadManager.getMonitorStatus() == runningStates.UP);
     }
 
-    /*
-     * Tests the management of download monitoring status.
-     * This method verifies the ability to set and retrieve the download monitoring status for values UP and DOWN.
-     */
+    // Test per il metodo manageDownload con stato DOWN
     @Test
-    public void testManageDownload() {
-        logger.info("Running testManageDownload...");
+    public void testManageDownloadDown() {
+        // Eseguiamo il metodo per fermare il monitoraggio
+        orchestrator.manageDownload(runningStates.DOWN);
 
-        // Test managing download monitoring when it is UP
-        systemOrchestrator.manageDownload(runningStates.UP);
-        assertEquals(runningStates.UP, systemOrchestrator.getMonitorStatus());
-        logger.info("Download monitoring status set to UP");
-
-        // Test managing download monitoring when it is DOWN
-        systemOrchestrator.manageDownload(runningStates.DOWN);
-        assertEquals(runningStates.DOWN, systemOrchestrator.getMonitorStatus());
-        logger.info("Download monitoring status set to DOWN");
+        // Verifica che il metodo stopMonitoring sia stato chiamato correttamente
+        assertTrue("The download monitoring service should be stopped", downloadManager.getMonitorStatus() == runningStates.DOWN);
     }
 
-    /*
-     * Tests the retrieval of connection statuses.
-     * This test is not yet implemented.
-     */
+    // Test per il metodo manageAV con stato UP
+    @Test
+    public void testManageAVUp() {
+        // Eseguiamo il metodo per avviare l'antivirus
+        orchestrator.manageAV(runningStates.UP);
+
+        // Verifica che il metodo startScan sia stato chiamato correttamente
+        assertTrue("The antivirus scan should be running", antivirusManager.getScannerStatus() == runningStates.UP);
+    }
+
+    // Test per il metodo manageAV con stato DOWN
+    @Test
+    public void testManageAVDown() {
+        // Eseguiamo il metodo per fermare l'antivirus
+        orchestrator.manageAV(runningStates.DOWN);
+
+        // Verifica che il metodo stopScan sia stato chiamato correttamente
+        assertTrue("The antivirus scan should be stopped", antivirusManager.getScannerStatus() == runningStates.DOWN);
+    }
+
+    // Test per il metodo getConnectionStatus
     @Test
     public void testGetConnectionStatus() {
-        logger.info("Running testGetConnectionStatus...");
-        fail("Not yet implemented");
+        // Chiamata al metodo
+        connectionStates status = orchestrator.getConnectionStatus();
+
+        // Verifica che lo stato di connessione sia quello previsto
+        assertEquals("The connection status should be CONNECTED", connectionStates.CONNECTED, status);
     }
 
-    /*
-     * Tests the retrieval of monitoring statuses.
-     * This test is not yet implemented.
-     */
+    // Test per il metodo getMonitorStatus
     @Test
     public void testGetMonitorStatus() {
-        logger.info("Running testGetMonitorStatus...");
-        fail("Not yet implemented");
+    	
+        orchestrator.manageDownload(runningStates.UP);
+    	
+        // Chiamata al metodo
+        runningStates status = orchestrator.getMonitorStatus();
+
+        // Verifica che lo stato di monitoraggio sia quello previsto
+        assertEquals("The monitor status should be UP", runningStates.UP, status);
     }
 
-    /*
-     * Tests the retrieval of antivirus (AV) statuses.
-     * This test is not yet implemented.
-     */
+    // Test per il metodo getAVStatus
     @Test
     public void testGetAVStatus() {
-        logger.info("Running testGetAVStatus...");
-        fail("Not yet implemented");
+    	
+        orchestrator.manageVPN(vpnOperations.START, "testPeer.conf");
+    	
+        // Chiamata al metodo
+        runningStates status = orchestrator.getAVStatus();
+
+        // Verifica che lo stato dell'antivirus sia quello previsto
+        assertEquals("The antivirus status should be UP", runningStates.UP, status);
     }
 
-    /*
-     * Tests the creation of a peer.
-     * This test is not yet implemented.
-     */
+    // Test per il metodo addPeer
     @Test
-    public void testCreatePeer() {
-        logger.info("Running testCreatePeer...");
-        fail("Not yet implemented");
+    public void testAddPeer() {
+        String peerData = "Sample Peer Data";
+        String peerName = "Peer1";
+
+        // Verifica che non ci siano errori quando aggiungiamo il peer
+        orchestrator.addPeer(peerData, peerName);
+        assertNotNull("Peer should be added", wireguardManager.getPeerManager());
     }
 
-    /*
-     * Tests the retrieval of report information.
-     * This test is not yet implemented.
-     */
+    // Test per il metodo getReportInfo
     @Test
     public void testGetReportInfo() {
-        logger.info("Running testGetReportInfo...");
-        fail("Not yet implemented");
+        String report = "SampleReport";
+
+        // Chiamata al metodo
+        String result = orchestrator.getReportInfo(report);
+
+        // Verifica che la risposta non sia nulla
+        assertNotNull("Report info should not be null", result);
     }
 
-  /* 
-   * Below are autogenerated or utility methods inherited from Object.
-   * Each test ensures that the corresponding method behaves as expected.
-   */
-
-    /*
-     * Tests the Object class method.
-     * This test is not yet implemented.
-     */
+    // Test per il metodo getWireguardManager
     @Test
-    public void testObject() {
-        logger.info("Running testObject...");
-        fail("Not yet implemented");
+    public void testGetWireguardManager() {
+        // Chiamata al metodo
+        WireguardManager manager = orchestrator.getWireguardManager();
+
+        // Verifica che venga restituito il WireguardManager
+        assertNotNull("WireguardManager should not be null", manager);
     }
 
-    /*
-     * Tests the getClass method.
-     * This test is not yet implemented.
-     */
+    // Test per il metodo getDownloadManager
     @Test
-    public void testGetClass() {
-        logger.info("Running testGetClass...");
-        fail("Not yet implemented");
+    public void testGetDownloadManager() {
+        // Chiamata al metodo
+        DownloadManager manager = orchestrator.getDownloadManager();
+
+        // Verifica che venga restituito il DownloadManager
+        assertNotNull("DownloadManager should not be null", manager);
     }
 
-    /*
-     * Tests the hashCode method.
-     * This test is not yet implemented.
-     */
+    // Test per il metodo getAntivirusManager
     @Test
-    public void testHashCode() {
-        logger.info("Running testHashCode...");
-        fail("Not yet implemented");
-    }
+    public void testGetAntivirusManager() {
+        // Chiamata al metodo
+        AntivirusManager manager = orchestrator.getAntivirusManager();
 
-    /*
-     * Tests the equals method.
-     * This test is not yet implemented.
-     */
-    @Test
-    public void testEquals() {
-        logger.info("Running testEquals...");
-        fail("Not yet implemented");
-    }
-
-    /*
-     * Tests the clone method.
-     * This test is not yet implemented.
-     */
-    @Test
-    public void testClone() {
-        logger.info("Running testClone...");
-        fail("Not yet implemented");
-    }
-
-    /*
-     * Tests the toString method.
-     * This test is not yet implemented.
-     */
-    @Test
-    public void testToString() {
-        logger.info("Running testToString...");
-        fail("Not yet implemented");
-    }
-
-    /*
-     * Tests the notify method.
-     * This test is not yet implemented.
-     */
-    @Test
-    public void testNotify() {
-        logger.info("Running testNotify...");
-        fail("Not yet implemented");
-    }
-
-    /*
-     * Tests the notifyAll method.
-     * This test is not yet implemented.
-     */
-    @Test
-    public void testNotifyAll() {
-        logger.info("Running testNotifyAll...");
-        fail("Not yet implemented");
-    }
-
-    /*
-     * Tests the wait method.
-     * This test is not yet implemented.
-     */
-    @Test
-    public void testWait() {
-        logger.info("Running testWait...");
-        fail("Not yet implemented");
-    }
-
-    /*
-     * Tests the wait method with a long parameter.
-     * This test is not yet implemented.
-     */
-    @Test
-    public void testWaitLong() {
-        logger.info("Running testWaitLong...");
-        fail("Not yet implemented");
-    }
-
-    /*
-     * Tests the wait method with long and int parameters.
-     * This test is not yet implemented.
-     */
-    @Test
-    public void testWaitLongInt() {
-        logger.info("Running testWaitLongInt...");
-        fail("Not yet implemented");
-    }
-
-    /*
-     * Tests the finalize method.
-     * This test is not yet implemented.
-     */
-    @Test
-    public void testFinalize() {
-        logger.info("Running testFinalize...");
-        fail("Not yet implemented");
+        // Verifica che venga restituito l'AntivirusManager
+        assertNotNull("AntivirusManager should not be null", manager);
     }
 }
