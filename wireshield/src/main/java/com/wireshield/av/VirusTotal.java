@@ -34,7 +34,8 @@ public class VirusTotal implements AVInterface{
 
 	// Constructor to load configuration from JSON
 	private VirusTotal() {
-		loadConfigFromJson(); // Load configuration from JSON file
+		this.API_KEY = FileManager.getConfigValue("api_key");
+		this.VIRUSTOTAL_URI = FileManager.getConfigValue("VIRUSTOTAL_URI");
 		if (this.API_KEY == null || this.API_KEY.trim().isEmpty()) {
 			logger.error("Invalid API key. Restart the program and enter a valid key.");
 		}
@@ -48,24 +49,6 @@ public class VirusTotal implements AVInterface{
 		return instance;
 	}
 
-	// Load configuration from a JSON file
-	private void loadConfigFromJson() {
-		String configFilePath = "wireshield/config/config.json"; // Path to the JSON configuration file
-		ObjectMapper objectMapper = new ObjectMapper();
-
-		try {
-			JsonNode configNode = objectMapper.readTree(new File(configFilePath));
-			this.API_KEY = configNode.path("api_key").asText();
-			this.VIRUSTOTAL_URI = configNode.path("VIRUSTOTAL_URI").asText();
-
-			logger.info("API Key loaded: {}", this.API_KEY);
-			logger.info("VirusTotal URI: {}", this.VIRUSTOTAL_URI);
-
-		} catch (Exception e) {
-			logger.error("Error loading the config file or reading the JSON.", e);
-			System.exit(1);
-		}
-	}
 
 	/**
 	 * Analyzes a file by uploading it to VirusTotal for a threat analysis. If the
