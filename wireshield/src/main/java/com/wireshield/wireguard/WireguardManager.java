@@ -29,13 +29,19 @@ public class WireguardManager {
         this.defaultPeerPath = FileManager.getProjectFolder() + FileManager.getConfigValue("PEER_STD_PATH");
         this.logDumpPath = FileManager.getProjectFolder() + FileManager.getConfigValue("LOGDUMP_STD_PATH");
     	
+        System.out.println(wireguardPath);
+        
+        
         File file = new File(wireguardPath);
         if (!file.exists() || !file.isFile()) {
             logger.error("WireGuard executable not found");
             return;
         }
-        this.connection = Connection.getInstance();
-        this.peerManager = PeerManager.getInstance();
+        
+        if (Connection.getInstance() != null) this.connection = Connection.getInstance();
+        else throw new IllegalStateException("Il costruttore di Connection ha restituito un oggetto null");
+        if (PeerManager.getInstance() != null) this.peerManager = PeerManager.getInstance();
+        else throw new IllegalStateException("Il costruttore di PeerManager ha restituito un oggetto null");
         
         this.startUpdateWireguardLogs(); // Start log update thread
     }
