@@ -22,9 +22,9 @@ public class SystemOrchestratorTest {
         orchestrator = SystemOrchestrator.getInstance();
 
         // Creazione degli oggetti necessari
-        wireguardManager = wireguardManager.getInstance();
-        antivirusManager = antivirusManager.getInstance();
-        downloadManager = downloadManager.getInstance(antivirusManager);
+        wireguardManager = WireguardManager.getInstance();
+        antivirusManager = AntivirusManager.getInstance();
+        downloadManager = DownloadManager.getInstance(antivirusManager);
 
         // Impostiamo le dipendenze per il SystemOrchestrator
         orchestrator.getWireguardManager(); // Non è necessario un mock
