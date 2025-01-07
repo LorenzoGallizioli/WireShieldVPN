@@ -129,12 +129,12 @@ public class SystemOrchestrator {
 
                 // Starting antivirus scan and providing progress
                 try {
-                    antivirusManager.startPerformScan(); // Start antivirus scan
+                    antivirusManager.startScan(); // Start antivirus scan
                     logger.info("Antivirus service started successfully.");
                 } catch (Exception e) {
                     logger.error("Error while starting antivirus service: {}", e.getMessage(), e);
                 }
-            } else {
+            } else { 
                 logger.info("Antivirus service is already running.");
             }
         } else {
@@ -143,7 +143,7 @@ public class SystemOrchestrator {
                 
                 // Stopping the scan
                 try {
-                    antivirusManager.stopPerformScan(); // Stop antivirus scan
+                    antivirusManager.stopScan(); // Stop antivirus scan
                     logger.info("Antivirus service stopped successfully.");
                 } catch (Exception e) {
                     logger.error("Error while stopping antivirus service: {}", e.getMessage(), e);

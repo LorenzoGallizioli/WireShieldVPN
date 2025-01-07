@@ -6,9 +6,11 @@ import org.junit.Test;
 
 public class runningStatesTest {
 
-	@Test
-	public void test() {
-		fail("Not yet implemented");
-	}
-
+    // Testa i valori dell'enum
+    @Test
+    public void testEnumValues() {
+        // Verifica che l'enum contenga i valori corretti
+        assertEquals(runningStates.UP, runningStates.valueOf("UP"));
+        assertEquals(runningStates.DOWN, runningStates.valueOf("DOWN"));
+    }
 }
