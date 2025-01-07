@@ -38,7 +38,6 @@
 | 4      | Implementazione UI/UX  | Implementazione di una dashboard funzionante che permetta l'utilizzo user-friendly del sistema e creazione di una sezione statistica per visualizzare i dettagli della connessione | Media        |
 | 5      | Controllo della cartella Download | Implementazione di un sistema che permetta di effettuare un controllo continuo e costante della cartella Download | Media         |
 
-
 &nbsp;
 
 ---
@@ -74,8 +73,6 @@
 
 &nbsp;
 
-
-
 # 2° Week Scrum 26 Novembre 2024
 
 | **Titolo**                      | **Compiti**                                                                                       | **Sviluppatore**         |
@@ -84,7 +81,6 @@
 | Diagramma di comunicazione   | Implementazione del diagramma di comunicazione       | Lorenzo Gallizioli         |
 | Diagramma di attività   | Implementazione del diagramma di attività      | Davide Bonsembiante      |
 | Aggiornamento Sprint Backlog   | Aggiornamento dello Sprint Backlog con le novità nate dal Week Scrum      | Davide Bonsembiante         |
-
 
 
 &nbsp;
@@ -129,7 +125,6 @@
 | Aggiornamento dei diagrammi | Aggiornamento dei diagrammi con le nuove assunzioni e i cambiamenti decisi durante lo sviluppo del progetto | Thomas Paganelli |
 | Implementazione gestione Wireguard | Implementazione del codice per avviare Wireguard e gestire le connessioni VPN | Lorenzo Gallizioli |
 
-&nbsp;
 
 &nbsp;
 ---
@@ -180,13 +175,38 @@
 | **Titolo**                      | **Compiti**                                                                                       | **Sviluppatore**         |
 |----------------------------------|--------------------------------------------------------------------------------------------------|--------------------------|
 | Terminare GUI | Terminare l'implementazione della GUI includendo correttamente tutti i log e testando il funzionamento nel complesso di Wireshield | Lorenzo Gallizioli |
-| Implementazione chiamate di Windows | Trovare il modo di implementare due chiamate su Windows. La prima deve consentire di effettuare l'accesso come amministratore nel caso in cui il programma venga avviato senza privilegi elevati, mostrando l'avviso di Windows per l'esecuzione come amministratore. La seconda deve consentire la cancellazione di un file dannoso | |
 | Migliorare la GUI | Migliorare l'estetica della GUI | Thomas Paganelli |
 | Ricontrollo generale codice | Ricontrollare il codice sistemando con Sonarlint tutti gli avvisi, i warning e gli info, poi far girare i vari plugin richiesti dal professor per capire se il codice rispetta tutte i requisiti richiesti | Lorenzo Gallizioli |
 | Archiviare ClamAV | Capire come archiviare ClamAV nella cartella del progetto in quanto supera i limiti di caricamento di Github | Davide Bonsembiante |
 | Sistemare testing package AV, package localUtils e package Enums | Sistemare i package in questione runnando eclemma e aumentando la copertura ad una percentuale soddisfacente | Davide Bonsembiante |
 | Creare file di testing per SystemOrchestrator | Creare il file di testing per SystemOrchestrator tenendo una copertura di testing soddisfacente | Davide Bonsembiante |
 | Sistemare testing package Wireguard | Sistemare il package in questione runnando eclemma e aumentando la copertura ad una percentuale soddisfacente | Thomas Paganelli |
-| Creare testing package UI | Creare il file di testing per il package UI tenendo una copertura di testing soddisfacente | Davide Bonsembiante |
+| Creare testing package UI | Creare il file di testing per il package UI tenendo una copertura di testing soddisfacente | Lorenzo Gallizioli |
 | Riorganizzazione struttura progetto | Riorganizzare la struttura del progetto seguendo le indicazioni indicate dal profe | Lorenzo Gallizioli |
 
+
+&nbsp;
+---
+# Sprint n°4: &nbsp;&nbsp; 10/01/2025 - 24/01/2025
+## **Ruoli del Team**
+
+- **Product Owner**: 
+  - Lorenzo Gallizioli
+  - Davide Bonsembiante
+  - Thomas Paganelli 
+
+- **Scrum Master**: Lorenzo Gallizioli - Facilitatore dei processi SCRUM.
+
+- **Team di Sviluppo**: 
+  - Lorenzo Gallizioli
+  - Davide Bonsembiante
+  - Thomas Paganelli
+
+- **Week Scrum**: ogni venerdì, orario da definirsi sul gruppo whatsapp.
+
+&nbsp;
+
+# 1° Week Scrum 10 Gennaio 2025
+| **Titolo**                      | **Compiti**                                                                                       | **Sviluppatore**         |
+|----------------------------------|--------------------------------------------------------------------------------------------------|--------------------------|
+| Implementazione chiamate di Windows | Trovare il modo di implementare due chiamate su Windows. La prima deve consentire di effettuare l'accesso come amministratore nel caso in cui il programma venga avviato senza privilegi elevati, mostrando l'avviso di Windows per l'esecuzione come amministratore. La seconda deve consentire la cancellazione di un file dannoso | |
