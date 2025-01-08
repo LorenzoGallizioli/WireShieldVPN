@@ -124,7 +124,6 @@ public class ClamAV implements AVInterface{
 			clamavReport.setThreatDetails("Error during scan: " + e.getMessage());
 			clamavReport.setWarningClass(warningClass.CLEAR); // Mark as clear due to error
 			logger.error("Error during scan: {}", e.getMessage(), e); // Log the error details
-
 		}
 	}
 

@@ -24,7 +24,7 @@ public class WireguardManagerTest {
     	String confPath = confName + ".conf";
     	System.out.println(confPath);
         assertTrue(wireguardManager.setInterfaceUp(confPath));
-        
+
         try {
 			Thread.sleep(1000);
 		} catch (Exception e) {

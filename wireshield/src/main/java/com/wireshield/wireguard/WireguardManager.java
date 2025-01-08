@@ -121,6 +121,7 @@ public class WireguardManager {
 
         if(interfaceName == null) {
             logger.info("No active WireGuard interface.");
+            connection.setStatus(connectionStates.DISCONNECTED);
             return false;
         }
 
