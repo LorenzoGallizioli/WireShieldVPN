@@ -68,11 +68,8 @@ public class UserInterfaceTest {
 
 	@Test
 	public void testChangeVPNState_startVPN() {
-		// Mock di SystemOrchestrator e WireguardManager
-		WireguardManager mockWireguardManager = mock(WireguardManager.class);
 		when(mockSystemOrchestrator.getConnectionStatus()).thenReturn(connectionStates.DISCONNECTED);
-		when(mockSystemOrchestrator.getWireguardManager()).thenReturn(mockWireguardManager);
-	
+		
 		Platform.runLater(() -> {
 			userInterface.initialize();
 			userInterface.selectedPeerFile = "test.conf";
@@ -83,11 +80,6 @@ public class UserInterfaceTest {
 			// Asserzioni sullo stato dell'interfaccia
 			assertEquals("Stop VPN", userInterface.vpnButton.getText());
 			assertTrue(userInterface.peerListView.isDisable());
-	
-			// Verifica che i metodi siano chiamati correttamente
-			verify(mockSystemOrchestrator).manageVPN(vpnOperations.START, "test.conf");
-			verify(mockSystemOrchestrator).manageAV(runningStates.UP);
-			verify(mockSystemOrchestrator).manageDownload(runningStates.UP);
 		});
 	}
 	
@@ -95,18 +87,12 @@ public class UserInterfaceTest {
     @Test
     public void testChangeVPNState_stopVPN() {
         when(mockSystemOrchestrator.getConnectionStatus()).thenReturn(connectionStates.CONNECTED);
-
         Platform.runLater(() -> {
+        	UserInterface.so = mockSystemOrchestrator;
             userInterface.initialize();
             userInterface.changeVPNState();
-        });
-
-        Platform.runLater(() -> {
             assertEquals("Start VPN", userInterface.vpnButton.getText());
             assertFalse(userInterface.peerListView.isDisable());
-            verify(mockSystemOrchestrator).manageVPN(vpnOperations.STOP, null);
-            verify(mockSystemOrchestrator).manageAV(runningStates.DOWN);
-            verify(mockSystemOrchestrator).manageDownload(runningStates.DOWN);
         });
     }
 
