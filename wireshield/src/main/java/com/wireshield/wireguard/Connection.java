@@ -16,15 +16,20 @@ public class Connection {
     private static final Logger logger = LogManager.getLogger(Connection.class);
 
     private static Connection instance;
-    private connectionStates status = connectionStates.DISCONNECTED;
+    private connectionStates status;
     private long sentTraffic;
     private long receivedTraffic;
     private long lastHandshakeTime;
-    private String ActiveInterface;
+    private String activeInterface;
     private String wgPath;
 
     private Connection() {
-    	this.wgPath = FileManager.getProjectFolder() + FileManager.getConfigValue("WGEXE_STD_PATH");
+    	wgPath = FileManager.getProjectFolder() + FileManager.getConfigValue("WGEXE_STD_PATH");
+    	status = connectionStates.DISCONNECTED;
+        sentTraffic = 0;
+        receivedTraffic = 0;
+        lastHandshakeTime = 0;
+        activeInterface = "";
     }
     
     /**
@@ -40,7 +45,7 @@ public class Connection {
         }
         return instance;
     }
-
+    
     /**
      * Updates the traffic of the connection.
      * 
@@ -77,7 +82,7 @@ public class Connection {
         	this.receivedTraffic = 0;
         }
     }
-
+    
     /**
      * Execute the wg show command for retrieving informations about the connection.
      * 
@@ -104,7 +109,7 @@ public class Connection {
             return null;
         }
     }
-
+    
     /**
      * Update the active interface variable.
      */
@@ -112,6 +117,7 @@ public class Connection {
     	
     	Process process = null;
         try {
+        	System.out.println(wgPath);
             ProcessBuilder processBuilder = new ProcessBuilder(wgPath, "show", "interfaces");
             process = processBuilder.start();
 
@@ -121,15 +127,15 @@ public class Connection {
                   
             while ((line = reader.readLine()) != null) {
                 if (!line.isEmpty()) {
-                    this.ActiveInterface = line; // Get only the first wg interface up and exit
+                    this.activeInterface = line; // Get only the first wg interface up and exit
                     return;
                 }
             }
-            this.ActiveInterface = null; // Interface is down
+            this.activeInterface = null; // Interface is down
             
         } catch (IOException e) {
             logger.error("Error getting active interface: " + e.getMessage());  
-            this.ActiveInterface = null;
+            this.activeInterface = null;
             
         } finally {
         	if (process != null) {
@@ -149,9 +155,9 @@ public class Connection {
      */
     protected String getActiveInterface() {
     	this.updateActiveInterface();
-    	return this.ActiveInterface;
+    	return this.activeInterface;
     }
-
+    
     /**
      * Retrieves the status of the connection.
      * 
@@ -171,7 +177,7 @@ public class Connection {
     public void setStatus(connectionStates status) {
         this.status = status;
     }
-
+    
     /**
      * Updates the last handshake time variable.
      */
@@ -198,7 +204,7 @@ public class Connection {
     public String toString() {
         return String.format(
             "[INFO] Interface: %s\n[INFO] Status: %s\n[INFO] Last handshake time: %s\n[INFO] Received traffic: %s\n[INFO] Sent traffic: %s",
-            this.ActiveInterface,
+            this.activeInterface,
             this.status,
             this.lastHandshakeTime,
             (long)this.receivedTraffic,
@@ -219,7 +225,7 @@ public class Connection {
 	}
 
 	protected void setActiveInterface(String activeInterface) {
-		ActiveInterface = activeInterface;
+		this.activeInterface = activeInterface;
 	}
 
 }
