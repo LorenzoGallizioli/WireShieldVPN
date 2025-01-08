@@ -24,13 +24,12 @@ public class Connection {
     private String wgPath;
 
     private Connection() {
-    	this.wgPath = FileManager.getProjectFolder() + FileManager.getConfigValue("WGEXE_STD_PATH");
+    	wgPath = FileManager.getProjectFolder() + FileManager.getConfigValue("WGEXE_STD_PATH");
     	status = connectionStates.DISCONNECTED;
         sentTraffic = 0;
         receivedTraffic = 0;
         lastHandshakeTime = 0;
         activeInterface = "";
-        wgPath = "";
     }
     
     /**
@@ -118,6 +117,7 @@ public class Connection {
     	
     	Process process = null;
         try {
+        	System.out.println(wgPath);
             ProcessBuilder processBuilder = new ProcessBuilder(wgPath, "show", "interfaces");
             process = processBuilder.start();
 
