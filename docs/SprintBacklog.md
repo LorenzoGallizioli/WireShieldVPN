@@ -176,11 +176,13 @@
 |----------------------------------|--------------------------------------------------------------------------------------------------|--------------------------|
 | Terminare GUI | Terminare l'implementazione della GUI includendo correttamente tutti i log e testando il funzionamento nel complesso di Wireshield | Lorenzo Gallizioli |
 | Migliorare la GUI | Migliorare l'estetica della GUI | Thomas Paganelli |
-| Ricontrollo generale codice | Ricontrollare il codice sistemando con Sonarlint tutti gli avvisi, i warning e gli info, poi far girare i vari plugin richiesti dal professor per capire se il codice rispetta tutte i requisiti richiesti | Lorenzo Gallizioli |
+| Ricontrollo generale codice con Sonarlint | Ricontrollare il codice sistemando con Sonarlint tutti gli avvisi, i warning e gli info | Davide Bonsembiante |
 | Archiviare ClamAV | Capire come archiviare ClamAV nella cartella del progetto in quanto supera i limiti di caricamento di Github | Davide Bonsembiante |
 | Sistemare testing package AV, package localUtils e package Enums | Sistemare i package in questione runnando eclemma e aumentando la copertura ad una percentuale soddisfacente | Davide Bonsembiante |
 | Creare file di testing per SystemOrchestrator | Creare il file di testing per SystemOrchestrator tenendo una copertura di testing soddisfacente | Davide Bonsembiante |
 | Sistemare testing package Wireguard | Sistemare il package in questione runnando eclemma e aumentando la copertura ad una percentuale soddisfacente | Thomas Paganelli |
+| Sistemare bug DownloadManager | Sistemare bug presente nella classe DownloadManager quando il folder Downloads manca nel OS Windows | Thomas Paganelli |
+| Creazione Thread per spegnimento forzato WireShield | Creare un thread che spegne praticamente il servizio Wireshield, quindi VPN, Download Monitoring e Antivirus quando almeno uno tra AntivirusManager, DownloadManager o VPN è in uno stato DOWN | Thomas Paganelli |
 | Creare testing package UI | Creare il file di testing per il package UI tenendo una copertura di testing soddisfacente | Lorenzo Gallizioli |
 | Riorganizzazione struttura progetto | Riorganizzare la struttura del progetto seguendo le indicazioni indicate dal profe | Lorenzo Gallizioli |
 
