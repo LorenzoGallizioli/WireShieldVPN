@@ -51,11 +51,11 @@ public class PeerManager {
         String Endpoint = peerData.get("Peer").get("Endpoint");
         String AllowedIPs = peerData.get("Peer").get("AllowedIPs");
         
-        Peer peer = new Peer(PrivateKey, Address, DNS, MTU, PublicKey, PresharedKey, Endpoint, AllowedIPs, name);
-        if (peer != null) {
-            peers.add(peer);
+        Peer p = new Peer(PrivateKey, Address, DNS, MTU, PublicKey, PresharedKey, Endpoint, AllowedIPs, name);
+        if (p != null) {
+            peers.add(p);
         }
-        return peer.getId();
+        return p.getId();
     }
 
     /**
@@ -64,10 +64,11 @@ public class PeerManager {
      * @param id
      *   The ID of the peer to be removed.
      */
-    public void removePeer(String id) {
-    	if (id != null) {
-            peers.removeIf(peer -> id.equals(peer.getId()));
+    public boolean removePeer(String id) {
+    	if (id != null && !id.isEmpty()) {
+            return peers.removeIf(p -> id.equals(p.getId()));
         }
+    	return false;
     }
 
     /**
@@ -80,10 +81,11 @@ public class PeerManager {
      *   The peer with the specified ID, or null if not found.
      */
     public Peer getPeerById(String id) {
-    	if (id != null) {
-    		for (Peer peer : peers) {
-                if (id.equals(peer.getId())) {
-                    return peer;
+    	if (id != null && !id.isEmpty()) {
+    		for (Peer p : peers) {
+    			//System.out.println(p.getId());
+                if (id.equals(p.getId())) {
+                    return p;
                 }
             }
     		
@@ -98,7 +100,8 @@ public class PeerManager {
      *   An array of all peers.
      */
     public Peer[] getPeers() {
-        return peers.toArray(new Peer[0]);
+    	Peer[] p = this.peers.toArray(new Peer[peers.size()]);
+        return p;
     }
     
 

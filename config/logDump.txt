@@ -1,0 +1,1120 @@
+2024-12-24 15:51:02.730186: [MGR] Starting WireGuard/0.5.3 (Windows 10.0.19045; amd64)
+2024-12-24 15:51:02.735193: [MGR] Build is not official, so updates are disabled
+2024-12-24 15:51:02.735741: [MGR] Starting UI process for user ‘thoma@EUSTACCHIO’ for session 5
+2024-12-24 15:51:24.650441: [TUN] [peer_4_Galliz] Starting WireGuard/0.5.3 (Windows 10.0.19045; amd64)
+2024-12-24 15:51:24.650441: [TUN] [peer_4_Galliz] Watching network interfaces
+2024-12-24 15:51:24.652579: [TUN] [peer_4_Galliz] Resolving DNS names
+2024-12-24 15:51:24.652648: [TUN] [peer_4_Galliz] Creating network adapter
+2024-12-24 15:51:24.740582: [TUN] [peer_4_Galliz] Installing driver 0.10
+2024-12-24 15:51:24.743035: [TUN] [peer_4_Galliz] Extracting driver
+2024-12-24 15:51:24.745243: [TUN] [peer_4_Galliz] Installing driver
+2024-12-24 15:51:28.252454: [TUN] [peer_4_Galliz] Creating adapter
+2024-12-24 15:51:28.589208: [TUN] [peer_4_Galliz] Using WireGuardNT/0.10
+2024-12-24 15:51:28.589208: [TUN] [peer_4_Galliz] Enabling firewall rules
+2024-12-24 15:51:28.541825: [TUN] [peer_4_Galliz] Interface created
+2024-12-24 15:51:28.612166: [TUN] [peer_4_Galliz] Dropping privileges
+2024-12-24 15:51:28.612566: [TUN] [peer_4_Galliz] Setting interface configuration
+2024-12-24 15:51:28.613105: [TUN] [peer_4_Galliz] Peer 1 created
+2024-12-24 15:51:28.613639: [TUN] [peer_4_Galliz] Setting device v4 addresses
+2024-12-24 15:51:28.613639: [TUN] [peer_4_Galliz] Interface up
+2024-12-24 15:51:28.636110: [TUN] [peer_4_Galliz] Setting device v6 addresses
+2024-12-24 15:51:28.638114: [TUN] [peer_4_Galliz] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 15:51:28.674807: [TUN] [peer_4_Galliz] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 15:51:28.674807: [TUN] [peer_4_Galliz] Keypair 1 created for peer 1
+2024-12-24 15:51:28.716713: [TUN] [peer_4_Galliz] Startup complete
+2024-12-24 15:51:38.286208: [MGR] Exited UI process for user 'thoma@EUSTACCHIO' for session 5 with status 0
+2024-12-24 15:51:43.728733: [TUN] [peer_4_Galliz] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 15:51:43.728733: [TUN] [peer_4_Galliz] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 15:51:43.751181: [TUN] [peer_4_Galliz] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 15:51:43.751181: [TUN] [peer_4_Galliz] Keypair 2 created for peer 1
+2024-12-24 15:51:43.751181: [TUN] [peer_4_Galliz] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 15:51:43.770004: [TUN] [peer_4_Galliz] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 15:51:58.970608: [TUN] [peer_4_Galliz] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 15:51:58.970608: [TUN] [peer_4_Galliz] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 15:51:58.990321: [TUN] [peer_4_Galliz] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 15:51:58.990321: [TUN] [peer_4_Galliz] Keypair 1 destroyed for peer 1
+2024-12-24 15:51:58.990321: [TUN] [peer_4_Galliz] Keypair 3 created for peer 1
+2024-12-24 15:51:58.990321: [TUN] [peer_4_Galliz] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 15:51:59.008641: [TUN] [peer_4_Galliz] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 15:52:14.115672: [TUN] [peer_4_Galliz] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 15:52:14.115672: [TUN] [peer_4_Galliz] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 15:52:14.142842: [TUN] [peer_4_Galliz] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 15:52:14.142842: [TUN] [peer_4_Galliz] Keypair 2 destroyed for peer 1
+2024-12-24 15:52:14.142842: [TUN] [peer_4_Galliz] Keypair 4 created for peer 1
+2024-12-24 15:52:14.142842: [TUN] [peer_4_Galliz] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 15:52:14.171786: [TUN] [peer_4_Galliz] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 15:52:29.281946: [TUN] [peer_4_Galliz] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 15:52:29.281946: [TUN] [peer_4_Galliz] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 15:52:29.306016: [TUN] [peer_4_Galliz] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 15:52:29.306016: [TUN] [peer_4_Galliz] Keypair 3 destroyed for peer 1
+2024-12-24 15:52:29.306016: [TUN] [peer_4_Galliz] Keypair 5 created for peer 1
+2024-12-24 15:52:29.306016: [TUN] [peer_4_Galliz] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 15:52:29.324742: [TUN] [peer_4_Galliz] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 15:52:45.335749: [TUN] [peer_4_Galliz] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 15:52:45.335749: [TUN] [peer_4_Galliz] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 15:52:45.359178: [TUN] [peer_4_Galliz] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 15:52:45.359178: [TUN] [peer_4_Galliz] Keypair 4 destroyed for peer 1
+2024-12-24 15:52:45.359178: [TUN] [peer_4_Galliz] Keypair 6 created for peer 1
+2024-12-24 15:52:45.359178: [TUN] [peer_4_Galliz] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 15:52:45.376428: [TUN] [peer_4_Galliz] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 15:53:01.282223: [TUN] [peer_4_Galliz] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 15:53:01.282223: [TUN] [peer_4_Galliz] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 15:53:01.306400: [TUN] [peer_4_Galliz] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 15:53:01.306400: [TUN] [peer_4_Galliz] Keypair 5 destroyed for peer 1
+2024-12-24 15:53:01.306400: [TUN] [peer_4_Galliz] Keypair 7 created for peer 1
+2024-12-24 15:53:01.306400: [TUN] [peer_4_Galliz] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 15:53:01.325829: [TUN] [peer_4_Galliz] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 15:53:16.396003: [TUN] [peer_4_Galliz] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 15:53:16.396003: [TUN] [peer_4_Galliz] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 15:53:16.417448: [TUN] [peer_4_Galliz] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 15:53:16.417448: [TUN] [peer_4_Galliz] Keypair 6 destroyed for peer 1
+2024-12-24 15:53:16.417448: [TUN] [peer_4_Galliz] Keypair 8 created for peer 1
+2024-12-24 15:53:16.417448: [TUN] [peer_4_Galliz] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 15:53:16.435199: [TUN] [peer_4_Galliz] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 15:53:34.060396: [TUN] [peer_4_Galliz] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 15:53:34.060396: [TUN] [peer_4_Galliz] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 15:53:34.079129: [TUN] [peer_4_Galliz] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 15:53:34.079129: [TUN] [peer_4_Galliz] Keypair 7 destroyed for peer 1
+2024-12-24 15:53:34.079129: [TUN] [peer_4_Galliz] Keypair 9 created for peer 1
+2024-12-24 15:53:34.079129: [TUN] [peer_4_Galliz] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 15:53:34.096965: [TUN] [peer_4_Galliz] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 15:53:49.303921: [TUN] [peer_4_Galliz] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 15:53:49.304035: [TUN] [peer_4_Galliz] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 15:53:49.353255: [TUN] [peer_4_Galliz] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 15:53:49.353255: [TUN] [peer_4_Galliz] Keypair 8 destroyed for peer 1
+2024-12-24 15:53:49.353255: [TUN] [peer_4_Galliz] Keypair 10 created for peer 1
+2024-12-24 15:53:49.353255: [TUN] [peer_4_Galliz] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 15:53:49.372034: [TUN] [peer_4_Galliz] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 15:54:05.056593: [TUN] [peer_4_Galliz] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 15:54:05.056593: [TUN] [peer_4_Galliz] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 15:54:05.090589: [TUN] [peer_4_Galliz] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 15:54:05.090589: [TUN] [peer_4_Galliz] Keypair 9 destroyed for peer 1
+2024-12-24 15:54:05.090589: [TUN] [peer_4_Galliz] Keypair 11 created for peer 1
+2024-12-24 15:54:05.090589: [TUN] [peer_4_Galliz] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 15:54:05.108068: [TUN] [peer_4_Galliz] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 15:54:20.296262: [TUN] [peer_4_Galliz] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 15:54:20.296262: [TUN] [peer_4_Galliz] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 15:54:20.323254: [TUN] [peer_4_Galliz] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 15:54:20.323254: [TUN] [peer_4_Galliz] Keypair 10 destroyed for peer 1
+2024-12-24 15:54:20.323254: [TUN] [peer_4_Galliz] Keypair 12 created for peer 1
+2024-12-24 15:54:20.323254: [TUN] [peer_4_Galliz] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 15:54:20.340603: [TUN] [peer_4_Galliz] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 15:54:29.634321: [MGR] Starting WireGuard/0.5.3 (Windows 10.0.19045; amd64)
+2024-12-24 15:54:29.639247: [MGR] Starting UI process for user ‘thoma@EUSTACCHIO’ for session 5
+2024-12-24 15:54:29.639247: [MGR] Build is not official, so updates are disabled
+2024-12-24 15:54:35.784059: [TUN] [peer_4_Galliz] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 15:54:35.784059: [TUN] [peer_4_Galliz] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 15:54:35.802341: [TUN] [peer_4_Galliz] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 15:54:35.802341: [TUN] [peer_4_Galliz] Keypair 11 destroyed for peer 1
+2024-12-24 15:54:35.802341: [TUN] [peer_4_Galliz] Keypair 13 created for peer 1
+2024-12-24 15:54:35.802341: [TUN] [peer_4_Galliz] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 15:54:35.825666: [TUN] [peer_4_Galliz] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 15:54:39.453288: [MGR] Exited UI process for user 'thoma@EUSTACCHIO' for session 5 with status 1
+2024-12-24 15:54:40.461688: [MGR] Starting UI process for user ‘thoma@EUSTACCHIO’ for session 5
+2024-12-24 15:54:51.835212: [TUN] [peer_4_Galliz] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 15:54:51.835323: [TUN] [peer_4_Galliz] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 15:54:51.865052: [TUN] [peer_4_Galliz] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 15:54:51.865052: [TUN] [peer_4_Galliz] Keypair 12 destroyed for peer 1
+2024-12-24 15:54:51.865052: [TUN] [peer_4_Galliz] Keypair 14 created for peer 1
+2024-12-24 15:54:51.865052: [TUN] [peer_4_Galliz] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 15:54:51.890093: [TUN] [peer_4_Galliz] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 15:55:07.838569: [TUN] [peer_4_Galliz] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 15:55:07.838569: [TUN] [peer_4_Galliz] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 15:55:07.865315: [TUN] [peer_4_Galliz] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 15:55:07.865315: [TUN] [peer_4_Galliz] Keypair 13 destroyed for peer 1
+2024-12-24 15:55:07.865315: [TUN] [peer_4_Galliz] Keypair 15 created for peer 1
+2024-12-24 15:55:07.865315: [TUN] [peer_4_Galliz] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 15:55:07.883659: [TUN] [peer_4_Galliz] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 15:55:23.078647: [TUN] [peer_4_Galliz] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 15:55:23.078647: [TUN] [peer_4_Galliz] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 15:55:23.105241: [TUN] [peer_4_Galliz] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 15:55:23.105241: [TUN] [peer_4_Galliz] Keypair 14 destroyed for peer 1
+2024-12-24 15:55:23.105241: [TUN] [peer_4_Galliz] Keypair 16 created for peer 1
+2024-12-24 15:55:23.105241: [TUN] [peer_4_Galliz] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 15:55:23.127149: [TUN] [peer_4_Galliz] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 15:55:38.423259: [TUN] [peer_4_Galliz] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 15:55:38.423259: [TUN] [peer_4_Galliz] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 15:55:38.445727: [TUN] [peer_4_Galliz] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 15:55:38.445727: [TUN] [peer_4_Galliz] Keypair 15 destroyed for peer 1
+2024-12-24 15:55:38.445727: [TUN] [peer_4_Galliz] Keypair 17 created for peer 1
+2024-12-24 15:55:38.445727: [TUN] [peer_4_Galliz] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 15:55:38.463728: [TUN] [peer_4_Galliz] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 15:55:53.599815: [TUN] [peer_4_Galliz] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 15:55:53.599815: [TUN] [peer_4_Galliz] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 15:55:53.635492: [TUN] [peer_4_Galliz] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 15:55:53.635492: [TUN] [peer_4_Galliz] Keypair 16 destroyed for peer 1
+2024-12-24 15:55:53.635492: [TUN] [peer_4_Galliz] Keypair 18 created for peer 1
+2024-12-24 15:55:53.635492: [TUN] [peer_4_Galliz] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 15:55:53.668904: [TUN] [peer_4_Galliz] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 15:56:09.299376: [TUN] [peer_4_Galliz] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 15:56:09.299376: [TUN] [peer_4_Galliz] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 15:56:09.337028: [TUN] [peer_4_Galliz] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 15:56:09.337028: [TUN] [peer_4_Galliz] Keypair 17 destroyed for peer 1
+2024-12-24 15:56:09.337028: [TUN] [peer_4_Galliz] Keypair 19 created for peer 1
+2024-12-24 15:56:09.337028: [TUN] [peer_4_Galliz] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 15:56:09.358996: [TUN] [peer_4_Galliz] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 15:56:27.436826: [TUN] [peer_4_Galliz] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 15:56:27.436826: [TUN] [peer_4_Galliz] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 15:56:27.455295: [TUN] [peer_4_Galliz] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 15:56:27.455295: [TUN] [peer_4_Galliz] Keypair 18 destroyed for peer 1
+2024-12-24 15:56:27.455295: [TUN] [peer_4_Galliz] Keypair 20 created for peer 1
+2024-12-24 15:56:27.455295: [TUN] [peer_4_Galliz] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 15:56:27.473067: [TUN] [peer_4_Galliz] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 15:56:43.073556: [TUN] [peer_4_Galliz] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 15:56:43.073745: [TUN] [peer_4_Galliz] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 15:56:43.102794: [TUN] [peer_4_Galliz] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 15:56:43.102794: [TUN] [peer_4_Galliz] Keypair 19 destroyed for peer 1
+2024-12-24 15:56:43.102794: [TUN] [peer_4_Galliz] Keypair 21 created for peer 1
+2024-12-24 15:56:43.102794: [TUN] [peer_4_Galliz] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 15:56:43.121131: [TUN] [peer_4_Galliz] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 16:36:34.155120: [MGR] Starting WireGuard/0.5.3 (Windows 10.0.19045; amd64)
+2024-12-24 16:36:34.160046: [MGR] Build is not official, so updates are disabled
+2024-12-24 16:36:34.160597: [MGR] Starting UI process for user ‘thoma@EUSTACCHIO’ for session 5
+2024-12-24 16:46:56.429955: [TUN] Unable to load configuration from path: open C:\Users\thoma\Nextcloud\UniBG\2024-2025\Ingegneria_del_Software\Pratica\WireShield\config\connection-configurations\peerTest.conf: The system cannot find the file specified.
+2024-12-24 16:46:56.429955: [TUN] Shutting down
+2024-12-24 16:47:28.666949: [MGR] Exited UI process for user 'thoma@EUSTACCHIO' for session 5 with status 0
+2024-12-24 16:48:41.669094: [TUN] Unable to load configuration from path: open C:\Users\thoma\Nextcloud\UniBG\2024-2025\Ingegneria_del_Software\Pratica\WireShield\config\connection-configurations\peerTest.conf: The system cannot find the file specified.
+2024-12-24 16:48:41.669094: [TUN] Shutting down
+2024-12-24 16:49:26.983624: [TUN] Unable to load configuration from path: open C:\Users\thoma\Nextcloud\UniBG\2024-2025\Ingegneria_del_Software\Pratica\WireShield\config\connection-configurations\peerTest.conf: The system cannot find the file specified.
+2024-12-24 16:49:26.983624: [TUN] Shutting down
+2024-12-24 16:49:40.702266: [TUN] Unable to load configuration from path: open C:\Users\thoma\Nextcloud\UniBG\2024-2025\Ingegneria_del_Software\Pratica\WireShield\config\connection-configurations\peerTest.conf: The system cannot find the file specified.
+2024-12-24 16:49:40.702266: [TUN] Shutting down
+2024-12-24 16:51:18.941334: [TUN] Unable to load configuration from path: open C:\Users\thoma\Nextcloud\UniBG\2024-2025\Ingegneria_del_Software\Pratica\WireShield\config\connection-configurations\peerTest.conf: The system cannot find the file specified.
+2024-12-24 16:51:18.941334: [TUN] Shutting down
+2024-12-24 16:52:52.278722: [TUN] Unable to load configuration from path: open C:\Users\thoma\Nextcloud\UniBG\2024-2025\Ingegneria_del_Software\Pratica\WireShield\config\connection-configurations\peerTest.conf: The system cannot find the file specified.
+2024-12-24 16:52:52.278813: [TUN] Shutting down
+2024-12-24 16:54:31.424872: [MGR] Starting WireGuard/0.5.3 (Windows 10.0.19045; amd64)
+2024-12-24 16:54:31.429151: [MGR] Build is not official, so updates are disabled
+2024-12-24 16:54:31.429673: [MGR] Starting UI process for user ‘thoma@EUSTACCHIO’ for session 5
+2024-12-24 16:54:55.262436: [TUN] [testPeer] Starting WireGuard/0.5.3 (Windows 10.0.19045; amd64)
+2024-12-24 16:54:55.262436: [TUN] [testPeer] Watching network interfaces
+2024-12-24 16:54:55.264608: [TUN] [testPeer] Resolving DNS names
+2024-12-24 16:54:55.264608: [TUN] [testPeer] Creating network adapter
+2024-12-24 16:54:55.351696: [TUN] [testPeer] Using existing driver 0.10
+2024-12-24 16:54:55.357419: [TUN] [testPeer] Creating adapter
+2024-12-24 16:54:55.638272: [TUN] [testPeer] Using WireGuardNT/0.10
+2024-12-24 16:54:55.638272: [TUN] [testPeer] Enabling firewall rules
+2024-12-24 16:54:55.548343: [TUN] [testPeer] Interface created
+2024-12-24 16:54:55.667271: [TUN] [testPeer] Dropping privileges
+2024-12-24 16:54:55.667271: [TUN] [testPeer] Setting interface configuration
+2024-12-24 16:54:55.667271: [TUN] [testPeer] Peer 1 created
+2024-12-24 16:54:55.669271: [TUN] [testPeer] Interface up
+2024-12-24 16:54:55.670271: [TUN] [testPeer] Setting device v4 addresses
+2024-12-24 16:54:55.680273: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 16:54:55.728506: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 16:54:55.728506: [TUN] [testPeer] Keypair 1 created for peer 1
+2024-12-24 16:54:55.750506: [TUN] [testPeer] Setting device v6 addresses
+2024-12-24 16:54:55.756508: [TUN] [testPeer] Startup complete
+2024-12-24 16:55:10.825578: [TUN] [testPeer] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 16:55:10.825578: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 16:55:10.847775: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 16:55:10.847775: [TUN] [testPeer] Keypair 2 created for peer 1
+2024-12-24 16:55:10.847775: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 16:55:10.866989: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 16:55:16.752176: [TUN] [testPeer] Shutting down
+2024-12-24 16:55:16.753173: [MGR] [testPeer] Tunnel service tracker finished
+2024-12-24 16:59:42.206274: [MGR] Exited UI process for user 'thoma@EUSTACCHIO' for session 5 with status 0
+2024-12-24 17:00:37.862035: [TUN] [testPeer] Starting WireGuard/0.5.3 (Windows 10.0.19045; amd64)
+2024-12-24 17:00:37.862548: [TUN] [testPeer] Watching network interfaces
+2024-12-24 17:00:37.864169: [TUN] [testPeer] Resolving DNS names
+2024-12-24 17:00:37.864169: [TUN] [testPeer] Creating network adapter
+2024-12-24 17:00:37.993681: [TUN] [testPeer] Using existing driver 0.10
+2024-12-24 17:00:38.001546: [TUN] [testPeer] Creating adapter
+2024-12-24 17:00:38.249226: [TUN] [testPeer] Using WireGuardNT/0.10
+2024-12-24 17:00:38.249226: [TUN] [testPeer] Enabling firewall rules
+2024-12-24 17:00:38.183504: [TUN] [testPeer] Interface created
+2024-12-24 17:00:38.256226: [TUN] [testPeer] Dropping privileges
+2024-12-24 17:00:38.256226: [TUN] [testPeer] Setting interface configuration
+2024-12-24 17:00:38.256226: [TUN] [testPeer] Peer 1 created
+2024-12-24 17:00:38.259227: [TUN] [testPeer] Setting device v4 addresses
+2024-12-24 17:00:38.259227: [TUN] [testPeer] Interface up
+2024-12-24 17:00:38.302247: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 17:00:38.324155: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 17:00:38.324155: [TUN] [testPeer] Keypair 1 created for peer 1
+2024-12-24 17:00:38.349153: [TUN] [testPeer] Setting device v6 addresses
+2024-12-24 17:00:38.387830: [TUN] [testPeer] Startup complete
+2024-12-24 17:00:53.382870: [TUN] [testPeer] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 17:00:53.382870: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 17:00:53.400955: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 17:00:53.400955: [TUN] [testPeer] Keypair 2 created for peer 1
+2024-12-24 17:00:53.400955: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 17:00:53.425019: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 17:00:55.771093: [MGR] Starting WireGuard/0.5.3 (Windows 10.0.19045; amd64)
+2024-12-24 17:00:55.775953: [MGR] Build is not official, so updates are disabled
+2024-12-24 17:00:55.776505: [MGR] Starting UI process for user ‘thoma@EUSTACCHIO’ for session 5
+2024-12-24 17:01:08.508790: [TUN] [testPeer] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 17:01:08.508790: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 17:01:08.528276: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 17:01:08.528276: [TUN] [testPeer] Keypair 1 destroyed for peer 1
+2024-12-24 17:01:08.528276: [TUN] [testPeer] Keypair 3 created for peer 1
+2024-12-24 17:01:08.528276: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 17:01:08.546849: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 17:01:23.651468: [TUN] [testPeer] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 17:01:23.651468: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 17:01:23.676319: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 17:01:23.676319: [TUN] [testPeer] Keypair 2 destroyed for peer 1
+2024-12-24 17:01:23.676319: [TUN] [testPeer] Keypair 4 created for peer 1
+2024-12-24 17:01:23.676319: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 17:01:23.694340: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 17:01:38.983214: [TUN] [testPeer] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 17:01:38.983214: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 17:01:39.006377: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 17:01:39.006377: [TUN] [testPeer] Keypair 3 destroyed for peer 1
+2024-12-24 17:01:39.006377: [TUN] [testPeer] Keypair 5 created for peer 1
+2024-12-24 17:01:39.006377: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 17:01:39.026779: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 17:01:54.206823: [TUN] [testPeer] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 17:01:54.206823: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 17:01:54.224548: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 17:01:54.224548: [TUN] [testPeer] Keypair 4 destroyed for peer 1
+2024-12-24 17:01:54.224548: [TUN] [testPeer] Keypair 6 created for peer 1
+2024-12-24 17:01:54.224548: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 17:01:54.242873: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 17:01:58.534033: [TUN] [testPeer] Shutting down
+2024-12-24 17:01:58.537551: [MGR] [testPeer] Tunnel service tracker finished
+2024-12-24 17:02:05.261005: [MGR] Exited UI process for user 'thoma@EUSTACCHIO' for session 5 with status 0
+2024-12-24 17:02:30.189407: [TUN] [testPeer] Starting WireGuard/0.5.3 (Windows 10.0.19045; amd64)
+2024-12-24 17:02:30.189407: [TUN] [testPeer] Watching network interfaces
+2024-12-24 17:02:30.191535: [TUN] [testPeer] Resolving DNS names
+2024-12-24 17:02:30.191535: [TUN] [testPeer] Creating network adapter
+2024-12-24 17:02:30.280059: [TUN] [testPeer] Using existing driver 0.10
+2024-12-24 17:02:30.285792: [TUN] [testPeer] Creating adapter
+2024-12-24 17:02:30.687269: [TUN] [testPeer] Using WireGuardNT/0.10
+2024-12-24 17:02:30.687269: [TUN] [testPeer] Enabling firewall rules
+2024-12-24 17:02:30.629477: [TUN] [testPeer] Interface created
+2024-12-24 17:02:30.693267: [TUN] [testPeer] Dropping privileges
+2024-12-24 17:02:30.693267: [TUN] [testPeer] Setting interface configuration
+2024-12-24 17:02:30.693267: [TUN] [testPeer] Peer 1 created
+2024-12-24 17:02:30.699278: [TUN] [testPeer] Setting device v4 addresses
+2024-12-24 17:02:30.699278: [TUN] [testPeer] Interface up
+2024-12-24 17:02:30.730881: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 17:02:30.766291: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 17:02:30.766291: [TUN] [testPeer] Keypair 1 created for peer 1
+2024-12-24 17:02:30.797516: [TUN] [testPeer] Setting device v6 addresses
+2024-12-24 17:02:30.818544: [TUN] [testPeer] Startup complete
+2024-12-24 17:02:45.813812: [TUN] [testPeer] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 17:02:45.813812: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 17:02:45.833134: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 17:02:45.833134: [TUN] [testPeer] Keypair 2 created for peer 1
+2024-12-24 17:02:45.833134: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 17:02:45.851157: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 17:03:00.974561: [TUN] [testPeer] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 17:03:00.974561: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 17:03:01.007198: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 17:03:01.007198: [TUN] [testPeer] Keypair 1 destroyed for peer 1
+2024-12-24 17:03:01.007198: [TUN] [testPeer] Keypair 3 created for peer 1
+2024-12-24 17:03:01.007198: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 17:03:01.025208: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 17:03:16.368598: [TUN] [testPeer] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 17:03:16.368598: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 17:03:16.397323: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 17:03:16.397323: [TUN] [testPeer] Keypair 2 destroyed for peer 1
+2024-12-24 17:03:16.397323: [TUN] [testPeer] Keypair 4 created for peer 1
+2024-12-24 17:03:16.397323: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 17:03:16.416267: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 17:03:31.516512: [TUN] [testPeer] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 17:03:31.516620: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 17:03:31.560518: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 17:03:31.560518: [TUN] [testPeer] Keypair 3 destroyed for peer 1
+2024-12-24 17:03:31.560518: [TUN] [testPeer] Keypair 5 created for peer 1
+2024-12-24 17:03:31.560518: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 17:03:31.582405: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 17:03:47.360200: [TUN] [testPeer] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 17:03:47.360200: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 17:03:47.382287: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 17:03:47.382287: [TUN] [testPeer] Keypair 4 destroyed for peer 1
+2024-12-24 17:03:47.382287: [TUN] [testPeer] Keypair 6 created for peer 1
+2024-12-24 17:03:47.382287: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 17:03:47.401075: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 17:04:02.495062: [TUN] [testPeer] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 17:04:02.495062: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 17:04:02.518817: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 17:04:02.518817: [TUN] [testPeer] Keypair 5 destroyed for peer 1
+2024-12-24 17:04:02.518817: [TUN] [testPeer] Keypair 7 created for peer 1
+2024-12-24 17:04:02.518817: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 17:04:02.536588: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 17:04:17.698354: [TUN] [testPeer] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 17:04:17.698354: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 17:04:17.741835: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 17:04:17.741835: [TUN] [testPeer] Keypair 6 destroyed for peer 1
+2024-12-24 17:04:17.741835: [TUN] [testPeer] Keypair 8 created for peer 1
+2024-12-24 17:04:17.741835: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 17:04:17.759287: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 17:04:33.975894: [TUN] [testPeer] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 17:04:33.975894: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 17:04:33.999696: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 17:04:33.999696: [TUN] [testPeer] Keypair 7 destroyed for peer 1
+2024-12-24 17:04:33.999696: [TUN] [testPeer] Keypair 9 created for peer 1
+2024-12-24 17:04:33.999696: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 17:04:34.021954: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 17:04:49.439253: [TUN] [testPeer] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 17:04:49.439253: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 17:04:49.462797: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 17:04:49.462797: [TUN] [testPeer] Keypair 8 destroyed for peer 1
+2024-12-24 17:04:49.462797: [TUN] [testPeer] Keypair 10 created for peer 1
+2024-12-24 17:04:49.462797: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 17:04:49.481880: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 17:05:04.552236: [TUN] [testPeer] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-24 17:05:04.552236: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-24 17:05:04.578061: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-24 17:05:04.578061: [TUN] [testPeer] Keypair 9 destroyed for peer 1
+2024-12-24 17:05:04.578061: [TUN] [testPeer] Keypair 11 created for peer 1
+2024-12-24 17:05:04.578061: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-24 17:05:04.597017: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-24 17:05:14.025752: [TUN] [testPeer] Shutting down
+2024-12-26 15:32:50.868340: [TUN] Unable to load configuration from path: open C:\Users\thoma\Nextcloud\UniBG\2024-2025\Ingegneria_del_Software\Pratica\WireShield\config\connection-configurations\peerTest.conf: The system cannot find the file specified.
+2024-12-26 15:32:50.869832: [TUN] Shutting down
+2024-12-26 15:32:50.932145: [MGR] Starting at boot WireGuard/0.5.3 (Windows 10.0.19045; amd64)
+2024-12-26 15:32:50.944298: [MGR] Build is not official, so updates are disabled
+2024-12-26 15:40:40.750723: [MGR] Starting UI process for user ‘thoma@EUSTACCHIO’ for session 1
+2024-12-26 16:04:26.868605: [TUN] [peer_4_Galliz] Starting WireGuard/0.5.3 (Windows 10.0.19045; amd64)
+2024-12-26 16:04:26.868605: [TUN] [peer_4_Galliz] Watching network interfaces
+2024-12-26 16:04:26.870739: [TUN] [peer_4_Galliz] Resolving DNS names
+2024-12-26 16:04:26.870739: [TUN] [peer_4_Galliz] Creating network adapter
+2024-12-26 16:04:27.090158: [TUN] [peer_4_Galliz] Using existing driver 0.10
+2024-12-26 16:04:27.096708: [TUN] [peer_4_Galliz] Creating adapter
+2024-12-26 16:04:27.367132: [TUN] [peer_4_Galliz] Using WireGuardNT/0.10
+2024-12-26 16:04:27.368049: [TUN] [peer_4_Galliz] Enabling firewall rules
+2024-12-26 16:04:27.312865: [TUN] [peer_4_Galliz] Interface created
+2024-12-26 16:04:27.375470: [TUN] [peer_4_Galliz] Dropping privileges
+2024-12-26 16:04:27.375470: [TUN] [peer_4_Galliz] Setting interface configuration
+2024-12-26 16:04:27.376471: [TUN] [peer_4_Galliz] Peer 1 created
+2024-12-26 16:04:27.377470: [TUN] [peer_4_Galliz] Setting device v6 addresses
+2024-12-26 16:04:27.377470: [TUN] [peer_4_Galliz] Interface up
+2024-12-26 16:04:27.383527: [TUN] [peer_4_Galliz] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 16:04:27.414562: [TUN] [peer_4_Galliz] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 16:04:27.414575: [TUN] [peer_4_Galliz] Keypair 1 created for peer 1
+2024-12-26 16:04:27.415657: [TUN] [peer_4_Galliz] Setting device v4 addresses
+2024-12-26 16:04:27.427281: [TUN] [peer_4_Galliz] Startup complete
+2024-12-26 16:04:32.159473: [TUN] [peer_4_Galliz] Shutting down
+2024-12-26 16:04:32.160172: [MGR] [peer_4_Galliz] Tunnel service tracker finished
+2024-12-26 16:05:38.437030: [TUN] [peer_4_Galliz] Starting WireGuard/0.5.3 (Windows 10.0.19045; amd64)
+2024-12-26 16:05:38.437030: [TUN] [peer_4_Galliz] Watching network interfaces
+2024-12-26 16:05:38.438665: [TUN] [peer_4_Galliz] Resolving DNS names
+2024-12-26 16:05:38.439172: [TUN] [peer_4_Galliz] Creating network adapter
+2024-12-26 16:05:38.523205: [TUN] [peer_4_Galliz] Using existing driver 0.10
+2024-12-26 16:05:38.530248: [TUN] [peer_4_Galliz] Creating adapter
+2024-12-26 16:05:38.766937: [TUN] [peer_4_Galliz] Using WireGuardNT/0.10
+2024-12-26 16:05:38.766937: [TUN] [peer_4_Galliz] Enabling firewall rules
+2024-12-26 16:05:38.707112: [TUN] [peer_4_Galliz] Interface created
+2024-12-26 16:05:38.771742: [TUN] [peer_4_Galliz] Dropping privileges
+2024-12-26 16:05:38.771742: [TUN] [peer_4_Galliz] Setting interface configuration
+2024-12-26 16:05:38.772279: [TUN] [peer_4_Galliz] Peer 1 created
+2024-12-26 16:05:38.774947: [TUN] [peer_4_Galliz] Setting device v4 addresses
+2024-12-26 16:05:38.774947: [TUN] [peer_4_Galliz] Interface up
+2024-12-26 16:05:38.819985: [TUN] [peer_4_Galliz] Setting device v6 addresses
+2024-12-26 16:05:38.820985: [TUN] [peer_4_Galliz] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 16:05:38.840985: [TUN] [peer_4_Galliz] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 16:05:38.840985: [TUN] [peer_4_Galliz] Keypair 1 created for peer 1
+2024-12-26 16:05:38.848985: [TUN] [peer_4_Galliz] Startup complete
+2024-12-26 16:05:41.989061: [TUN] [peer_4_Galliz] Shutting down
+2024-12-26 16:05:41.990061: [MGR] [peer_4_Galliz] Tunnel service tracker finished
+2024-12-26 16:06:52.004679: [TUN] [peer_4_Galliz] Starting WireGuard/0.5.3 (Windows 10.0.19045; amd64)
+2024-12-26 16:06:52.004679: [TUN] [peer_4_Galliz] Watching network interfaces
+2024-12-26 16:06:52.006318: [TUN] [peer_4_Galliz] Resolving DNS names
+2024-12-26 16:06:52.006690: [TUN] [peer_4_Galliz] Creating network adapter
+2024-12-26 16:06:52.091536: [TUN] [peer_4_Galliz] Using existing driver 0.10
+2024-12-26 16:06:52.098094: [TUN] [peer_4_Galliz] Creating adapter
+2024-12-26 16:06:52.371207: [TUN] [peer_4_Galliz] Using WireGuardNT/0.10
+2024-12-26 16:06:52.371207: [TUN] [peer_4_Galliz] Enabling firewall rules
+2024-12-26 16:06:52.313428: [TUN] [peer_4_Galliz] Interface created
+2024-12-26 16:06:52.378207: [TUN] [peer_4_Galliz] Dropping privileges
+2024-12-26 16:06:52.379208: [TUN] [peer_4_Galliz] Setting interface configuration
+2024-12-26 16:06:52.379208: [TUN] [peer_4_Galliz] Peer 1 created
+2024-12-26 16:06:52.383206: [TUN] [peer_4_Galliz] Setting device v4 addresses
+2024-12-26 16:06:52.383206: [TUN] [peer_4_Galliz] Interface up
+2024-12-26 16:06:52.389208: [TUN] [peer_4_Galliz] Setting device v6 addresses
+2024-12-26 16:06:52.391208: [TUN] [peer_4_Galliz] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 16:06:52.410207: [TUN] [peer_4_Galliz] Startup complete
+2024-12-26 16:06:52.418207: [TUN] [peer_4_Galliz] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 16:06:52.418207: [TUN] [peer_4_Galliz] Keypair 1 created for peer 1
+2024-12-26 16:07:03.216120: [TUN] [peer_4_Galliz] Shutting down
+2024-12-26 16:07:03.217120: [MGR] [peer_4_Galliz] Tunnel service tracker finished
+2024-12-26 16:07:07.826945: [TUN] [testPeer] Starting WireGuard/0.5.3 (Windows 10.0.19045; amd64)
+2024-12-26 16:07:07.826945: [TUN] [testPeer] Watching network interfaces
+2024-12-26 16:07:07.828583: [TUN] [testPeer] Resolving DNS names
+2024-12-26 16:07:07.828583: [TUN] [testPeer] Creating network adapter
+2024-12-26 16:07:07.918255: [TUN] [testPeer] Using existing driver 0.10
+2024-12-26 16:07:07.924809: [TUN] [testPeer] Creating adapter
+2024-12-26 16:07:08.114442: [TUN] [testPeer] Using WireGuardNT/0.10
+2024-12-26 16:07:08.114442: [TUN] [testPeer] Enabling firewall rules
+2024-12-26 16:07:08.064723: [TUN] [testPeer] Interface created
+2024-12-26 16:07:08.120456: [TUN] [testPeer] Dropping privileges
+2024-12-26 16:07:08.120456: [TUN] [testPeer] Setting interface configuration
+2024-12-26 16:07:08.120996: [TUN] [testPeer] Peer 1 created
+2024-12-26 16:07:08.132293: [TUN] [testPeer] Interface up
+2024-12-26 16:07:08.132293: [TUN] [testPeer] Setting device v4 addresses
+2024-12-26 16:07:08.139408: [TUN] [testPeer] Setting device v6 addresses
+2024-12-26 16:07:08.147872: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 16:07:08.161936: [TUN] [testPeer] Startup complete
+2024-12-26 16:07:08.178558: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 16:07:08.178558: [TUN] [testPeer] Keypair 1 created for peer 1
+2024-12-26 16:07:09.691783: [TUN] [testPeer] Shutting down
+2024-12-26 16:07:09.693043: [MGR] [testPeer] Tunnel service tracker finished
+2024-12-26 16:09:24.288452: [TUN] [test] Starting WireGuard/0.5.3 (Windows 10.0.19045; amd64)
+2024-12-26 16:09:24.288452: [TUN] [test] Watching network interfaces
+2024-12-26 16:09:24.290690: [TUN] [test] Resolving DNS names
+2024-12-26 16:09:24.290714: [TUN] [test] Creating network adapter
+2024-12-26 16:09:24.418521: [TUN] [test] Using existing driver 0.10
+2024-12-26 16:09:24.424521: [TUN] [test] Creating adapter
+2024-12-26 16:09:24.659443: [TUN] [test] Using WireGuardNT/0.10
+2024-12-26 16:09:24.659443: [TUN] [test] Enabling firewall rules
+2024-12-26 16:09:24.604220: [TUN] [test] Interface created
+2024-12-26 16:09:24.664787: [TUN] [test] Dropping privileges
+2024-12-26 16:09:24.665325: [TUN] [test] Setting interface configuration
+2024-12-26 16:09:24.665859: [TUN] [test] Peer 1 created
+2024-12-26 16:09:24.675450: [TUN] [test] Setting device v4 addresses
+2024-12-26 16:09:24.675450: [TUN] [test] Interface up
+2024-12-26 16:09:24.726419: [TUN] [test] Setting device v6 addresses
+2024-12-26 16:09:24.727420: [TUN] [test] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 16:09:24.759939: [TUN] [test] Startup complete
+2024-12-26 16:09:28.870900: [TUN] [test] Shutting down
+2024-12-26 16:09:28.871903: [MGR] [test] Tunnel service tracker finished
+2024-12-26 16:09:40.304547: [TUN] [test] Starting WireGuard/0.5.3 (Windows 10.0.19045; amd64)
+2024-12-26 16:09:40.304547: [TUN] [test] Watching network interfaces
+2024-12-26 16:09:40.306789: [TUN] [test] Resolving DNS names
+2024-12-26 16:09:40.306789: [TUN] [test] Creating network adapter
+2024-12-26 16:09:40.397283: [TUN] [test] Using existing driver 0.10
+2024-12-26 16:09:40.404332: [TUN] [test] Creating adapter
+2024-12-26 16:09:40.609446: [TUN] [test] Using WireGuardNT/0.10
+2024-12-26 16:09:40.609446: [TUN] [test] Enabling firewall rules
+2024-12-26 16:09:40.557857: [TUN] [test] Interface created
+2024-12-26 16:09:40.614843: [TUN] [test] Dropping privileges
+2024-12-26 16:09:40.615375: [TUN] [test] Setting interface configuration
+2024-12-26 16:09:40.615919: [TUN] [test] Peer 1 created
+2024-12-26 16:09:40.618613: [TUN] [test] Setting device v6 addresses
+2024-12-26 16:09:40.618613: [TUN] [test] Interface up
+2024-12-26 16:09:40.621701: [TUN] [test] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 16:09:40.642732: [TUN] [test] Setting device v4 addresses
+2024-12-26 16:09:40.649001: [TUN] [test] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 16:09:40.649001: [TUN] [test] Keypair 1 created for peer 1
+2024-12-26 16:09:40.666438: [TUN] [test] Startup complete
+2024-12-26 16:09:40.700018: [TUN] [test] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 16:10:38.857844: [TUN] [test] Shutting down
+2024-12-26 16:10:38.858379: [MGR] [test] Tunnel service tracker finished
+2024-12-26 16:11:02.213168: [TUN] [test] Starting WireGuard/0.5.3 (Windows 10.0.19045; amd64)
+2024-12-26 16:11:02.213168: [TUN] [test] Watching network interfaces
+2024-12-26 16:11:02.214792: [TUN] [test] Resolving DNS names
+2024-12-26 16:11:02.214792: [TUN] [test] Creating network adapter
+2024-12-26 16:11:02.302305: [TUN] [test] Using existing driver 0.10
+2024-12-26 16:11:02.310415: [TUN] [test] Creating adapter
+2024-12-26 16:11:02.559200: [TUN] [test] Using WireGuardNT/0.10
+2024-12-26 16:11:02.559370: [TUN] [test] Enabling firewall rules
+2024-12-26 16:11:02.500083: [TUN] [test] Interface created
+2024-12-26 16:11:02.564741: [TUN] [test] Dropping privileges
+2024-12-26 16:11:02.565282: [TUN] [test] Setting interface configuration
+2024-12-26 16:11:02.565817: [TUN] [test] Peer 1 created
+2024-12-26 16:11:02.567424: [TUN] [test] Setting device v4 addresses
+2024-12-26 16:11:02.567424: [TUN] [test] Interface up
+2024-12-26 16:11:02.569469: [TUN] [test] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 16:11:02.594559: [TUN] [test] Setting device v6 addresses
+2024-12-26 16:11:02.593563: [TUN] [test] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 16:11:02.593563: [TUN] [test] Keypair 1 created for peer 1
+2024-12-26 16:11:02.618011: [TUN] [test] Startup complete
+2024-12-26 16:11:02.619010: [TUN] [test] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 16:11:57.020359: [TUN] [test] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-26 16:11:57.020359: [TUN] [test] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 16:11:57.041553: [TUN] [test] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 16:11:57.041553: [TUN] [test] Keypair 2 created for peer 1
+2024-12-26 16:11:57.041553: [TUN] [test] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 16:11:57.066272: [TUN] [test] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 16:12:00.459950: [TUN] [test] Shutting down
+2024-12-26 16:12:00.460494: [MGR] [test] Tunnel service tracker finished
+2024-12-26 16:12:00.718986: [TUN] [test] Starting WireGuard/0.5.3 (Windows 10.0.19045; amd64)
+2024-12-26 16:12:00.718986: [TUN] [test] Watching network interfaces
+2024-12-26 16:12:00.721141: [TUN] [test] Resolving DNS names
+2024-12-26 16:12:00.721141: [TUN] [test] Creating network adapter
+2024-12-26 16:12:00.842850: [TUN] [test] Using existing driver 0.10
+2024-12-26 16:12:00.848234: [TUN] [test] Creating adapter
+2024-12-26 16:12:01.045093: [TUN] [test] Using WireGuardNT/0.10
+2024-12-26 16:12:01.045093: [TUN] [test] Enabling firewall rules
+2024-12-26 16:12:00.998873: [TUN] [test] Interface created
+2024-12-26 16:12:01.049918: [TUN] [test] Dropping privileges
+2024-12-26 16:12:01.049918: [TUN] [test] Setting interface configuration
+2024-12-26 16:12:01.050446: [TUN] [test] Peer 1 created
+2024-12-26 16:12:01.052560: [TUN] [test] Setting device v4 addresses
+2024-12-26 16:12:01.052560: [TUN] [test] Interface up
+2024-12-26 16:12:01.083270: [TUN] [test] Setting device v6 addresses
+2024-12-26 16:12:01.086237: [TUN] [test] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 16:12:01.093214: [TUN] [test] Startup complete
+2024-12-26 16:12:01.112570: [TUN] [test] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 16:12:01.112570: [TUN] [test] Keypair 1 created for peer 1
+2024-12-26 16:12:01.139798: [TUN] [test] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 16:14:01.212701: [TUN] [test] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 16:14:04.759625: [TUN] [test] Retrying handshake with peer 1 (152.67.83.184:51820) because we stopped hearing back after 15 seconds
+2024-12-26 16:14:06.220549: [TUN] [test] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 16:14:06.245457: [TUN] [test] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 16:14:06.245457: [TUN] [test] Keypair 2 created for peer 1
+2024-12-26 16:14:06.245457: [TUN] [test] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 16:14:06.268931: [TUN] [test] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 16:14:08.820715: [TUN] [test] Shutting down
+2024-12-26 16:14:08.820715: [MGR] [test] Tunnel service tracker finished
+2024-12-26 19:15:12.599430: [MGR] Exited UI process for user 'thoma@EUSTACCHIO' for session 1 with status 0
+2024-12-26 19:17:51.622658: [TUN] [testPeer] Starting WireGuard/0.5.3 (Windows 10.0.19045; amd64)
+2024-12-26 19:17:51.622658: [TUN] [testPeer] Watching network interfaces
+2024-12-26 19:17:51.624764: [TUN] [testPeer] Resolving DNS names
+2024-12-26 19:17:51.624780: [TUN] [testPeer] Creating network adapter
+2024-12-26 19:17:51.767079: [TUN] [testPeer] Using existing driver 0.10
+2024-12-26 19:17:51.775280: [TUN] [testPeer] Creating adapter
+2024-12-26 19:17:52.015821: [TUN] [testPeer] Using WireGuardNT/0.10
+2024-12-26 19:17:52.015821: [TUN] [testPeer] Enabling firewall rules
+2024-12-26 19:17:51.960630: [TUN] [testPeer] Interface created
+2024-12-26 19:17:52.030875: [TUN] [testPeer] Dropping privileges
+2024-12-26 19:17:52.030875: [TUN] [testPeer] Setting interface configuration
+2024-12-26 19:17:52.031877: [TUN] [testPeer] Peer 1 created
+2024-12-26 19:17:52.036874: [TUN] [testPeer] Setting device v6 addresses
+2024-12-26 19:17:52.036874: [TUN] [testPeer] Interface up
+2024-12-26 19:17:52.038878: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 19:17:52.048224: [TUN] [testPeer] Setting device v4 addresses
+2024-12-26 19:17:52.053229: [TUN] [testPeer] Startup complete
+2024-12-26 19:17:52.066543: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 19:17:52.066543: [TUN] [testPeer] Keypair 1 created for peer 1
+2024-12-26 19:17:52.143509: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 19:19:52.631080: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 19:19:52.655952: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 19:19:52.655952: [TUN] [testPeer] Keypair 2 created for peer 1
+2024-12-26 19:19:52.655952: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 19:19:52.684991: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 19:21:52.822394: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 19:21:52.845399: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 19:21:52.845399: [TUN] [testPeer] Keypair 1 destroyed for peer 1
+2024-12-26 19:21:52.845399: [TUN] [testPeer] Keypair 3 created for peer 1
+2024-12-26 19:21:52.845399: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 19:21:52.873413: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 19:23:53.144096: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 19:23:53.180172: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 19:23:53.180172: [TUN] [testPeer] Keypair 2 destroyed for peer 1
+2024-12-26 19:23:53.180172: [TUN] [testPeer] Keypair 4 created for peer 1
+2024-12-26 19:23:53.180172: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 19:23:53.229620: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 19:25:53.383346: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 19:25:53.405843: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 19:25:53.405843: [TUN] [testPeer] Keypair 3 destroyed for peer 1
+2024-12-26 19:25:53.405843: [TUN] [testPeer] Keypair 5 created for peer 1
+2024-12-26 19:25:53.405843: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 19:25:53.428833: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 19:27:54.877332: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 19:27:54.897205: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 19:27:54.897205: [TUN] [testPeer] Keypair 4 destroyed for peer 1
+2024-12-26 19:27:54.897205: [TUN] [testPeer] Keypair 6 created for peer 1
+2024-12-26 19:27:54.897205: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 19:27:54.926933: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 19:29:55.007654: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 19:29:55.036366: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 19:29:55.036366: [TUN] [testPeer] Keypair 5 destroyed for peer 1
+2024-12-26 19:29:55.036366: [TUN] [testPeer] Keypair 7 created for peer 1
+2024-12-26 19:29:55.036366: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 19:29:55.051769: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 19:31:55.095764: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 19:31:55.143661: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 19:31:55.143661: [TUN] [testPeer] Keypair 6 destroyed for peer 1
+2024-12-26 19:31:55.143661: [TUN] [testPeer] Keypair 8 created for peer 1
+2024-12-26 19:31:55.143661: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 19:31:55.162122: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 19:33:55.201058: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 19:33:55.233627: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 19:33:55.233627: [TUN] [testPeer] Keypair 7 destroyed for peer 1
+2024-12-26 19:33:55.233627: [TUN] [testPeer] Keypair 9 created for peer 1
+2024-12-26 19:33:55.233627: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 19:33:55.293756: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 19:34:58.841243: [TUN] [testPeer] Shutting down
+2024-12-26 19:39:10.986778: [TUN] [testPeer] Starting WireGuard/0.5.3 (Windows 10.0.19045; amd64)
+2024-12-26 19:39:10.986778: [TUN] [testPeer] Watching network interfaces
+2024-12-26 19:39:10.988406: [TUN] [testPeer] Resolving DNS names
+2024-12-26 19:39:10.988406: [TUN] [testPeer] Creating network adapter
+2024-12-26 19:39:11.118133: [TUN] [testPeer] Using existing driver 0.10
+2024-12-26 19:39:11.124445: [TUN] [testPeer] Creating adapter
+2024-12-26 19:39:11.480288: [TUN] [testPeer] Using WireGuardNT/0.10
+2024-12-26 19:39:11.480288: [TUN] [testPeer] Enabling firewall rules
+2024-12-26 19:39:11.429649: [TUN] [testPeer] Interface created
+2024-12-26 19:39:11.485261: [TUN] [testPeer] Dropping privileges
+2024-12-26 19:39:11.486263: [TUN] [testPeer] Setting interface configuration
+2024-12-26 19:39:11.486263: [TUN] [testPeer] Peer 1 created
+2024-12-26 19:39:11.488264: [TUN] [testPeer] Setting device v4 addresses
+2024-12-26 19:39:11.488264: [TUN] [testPeer] Interface up
+2024-12-26 19:39:11.512907: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 19:39:11.551399: [TUN] [testPeer] Setting device v6 addresses
+2024-12-26 19:39:11.558110: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 19:39:11.558110: [TUN] [testPeer] Keypair 1 created for peer 1
+2024-12-26 19:39:11.567236: [TUN] [testPeer] Startup complete
+2024-12-26 19:41:12.626194: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 19:41:12.651382: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 19:41:12.651382: [TUN] [testPeer] Keypair 2 created for peer 1
+2024-12-26 19:41:12.651382: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 19:41:12.702509: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 19:43:12.833960: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 19:43:12.870990: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 19:43:12.870990: [TUN] [testPeer] Keypair 1 destroyed for peer 1
+2024-12-26 19:43:12.870990: [TUN] [testPeer] Keypair 3 created for peer 1
+2024-12-26 19:43:12.870990: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 19:43:12.892782: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 19:45:12.957589: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 19:45:12.990606: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 19:45:12.990606: [TUN] [testPeer] Keypair 2 destroyed for peer 1
+2024-12-26 19:45:12.990606: [TUN] [testPeer] Keypair 4 created for peer 1
+2024-12-26 19:45:12.990606: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 19:45:13.010474: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 19:47:13.130440: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 19:47:13.149533: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 19:47:13.149533: [TUN] [testPeer] Keypair 3 destroyed for peer 1
+2024-12-26 19:47:13.149533: [TUN] [testPeer] Keypair 5 created for peer 1
+2024-12-26 19:47:13.149533: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 19:47:13.169518: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 19:49:13.877630: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 19:49:13.925556: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 19:49:13.925556: [TUN] [testPeer] Keypair 4 destroyed for peer 1
+2024-12-26 19:49:13.925556: [TUN] [testPeer] Keypair 6 created for peer 1
+2024-12-26 19:49:13.925556: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 19:49:13.949041: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 19:51:13.960269: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 19:51:13.992930: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 19:51:13.992930: [TUN] [testPeer] Keypair 5 destroyed for peer 1
+2024-12-26 19:51:13.992930: [TUN] [testPeer] Keypair 7 created for peer 1
+2024-12-26 19:51:13.992930: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 19:51:14.012079: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 19:53:11.161800: [TUN] [testPeer] Keypair 6 destroyed for peer 1
+2024-12-26 19:53:11.161800: [TUN] [testPeer] Keypair 7 destroyed for peer 1
+2024-12-26 21:02:05.061762: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:02:10.110112: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:02:10.143041: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:02:10.143041: [TUN] [testPeer] Keypair 8 created for peer 1
+2024-12-26 21:02:10.165133: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:04:10.456016: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:04:10.478215: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:04:10.478215: [TUN] [testPeer] Keypair 9 created for peer 1
+2024-12-26 21:04:10.478215: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 21:04:10.496832: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:06:11.981812: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:06:12.002022: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:06:12.002022: [TUN] [testPeer] Keypair 8 destroyed for peer 1
+2024-12-26 21:06:12.002022: [TUN] [testPeer] Keypair 10 created for peer 1
+2024-12-26 21:06:12.002022: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 21:06:12.020205: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:08:12.307007: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:08:12.327423: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:08:12.327423: [TUN] [testPeer] Keypair 9 destroyed for peer 1
+2024-12-26 21:08:12.327423: [TUN] [testPeer] Keypair 11 created for peer 1
+2024-12-26 21:08:12.327423: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 21:08:12.345589: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:10:13.757888: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:10:13.778248: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:10:13.778248: [TUN] [testPeer] Keypair 10 destroyed for peer 1
+2024-12-26 21:10:13.778248: [TUN] [testPeer] Keypair 12 created for peer 1
+2024-12-26 21:10:13.778248: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 21:10:13.796384: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:12:14.070944: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:12:14.096106: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:12:14.096106: [TUN] [testPeer] Keypair 11 destroyed for peer 1
+2024-12-26 21:12:14.096106: [TUN] [testPeer] Keypair 13 created for peer 1
+2024-12-26 21:12:14.096106: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 21:12:14.116168: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:14:14.341728: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:14:14.439587: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:14:14.439587: [TUN] [testPeer] Keypair 12 destroyed for peer 1
+2024-12-26 21:14:14.439587: [TUN] [testPeer] Keypair 14 created for peer 1
+2024-12-26 21:14:14.439587: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 21:14:14.472947: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:16:15.524089: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:16:15.548004: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:16:15.548004: [TUN] [testPeer] Keypair 13 destroyed for peer 1
+2024-12-26 21:16:15.548004: [TUN] [testPeer] Keypair 15 created for peer 1
+2024-12-26 21:16:15.548004: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 21:16:15.568994: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:18:15.631774: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:18:15.657737: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:18:15.657737: [TUN] [testPeer] Keypair 14 destroyed for peer 1
+2024-12-26 21:18:15.657737: [TUN] [testPeer] Keypair 16 created for peer 1
+2024-12-26 21:18:15.657737: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 21:18:15.687805: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:20:15.753528: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:20:15.921784: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:20:15.921784: [TUN] [testPeer] Keypair 15 destroyed for peer 1
+2024-12-26 21:20:15.921784: [TUN] [testPeer] Keypair 17 created for peer 1
+2024-12-26 21:20:15.921784: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 21:20:15.939799: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:22:17.058046: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:22:17.081773: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:22:17.081773: [TUN] [testPeer] Keypair 16 destroyed for peer 1
+2024-12-26 21:22:17.081773: [TUN] [testPeer] Keypair 18 created for peer 1
+2024-12-26 21:22:17.081773: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 21:22:17.099600: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:24:17.096356: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:24:17.164180: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:24:17.164180: [TUN] [testPeer] Keypair 17 destroyed for peer 1
+2024-12-26 21:24:17.164180: [TUN] [testPeer] Keypair 19 created for peer 1
+2024-12-26 21:24:17.164180: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 21:24:17.205410: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:26:19.840267: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:26:19.869165: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:26:19.869165: [TUN] [testPeer] Keypair 18 destroyed for peer 1
+2024-12-26 21:26:19.869165: [TUN] [testPeer] Keypair 20 created for peer 1
+2024-12-26 21:26:19.869165: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 21:26:19.886099: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:28:20.173294: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:28:20.192137: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:28:20.192137: [TUN] [testPeer] Keypair 19 destroyed for peer 1
+2024-12-26 21:28:20.193135: [TUN] [testPeer] Keypair 21 created for peer 1
+2024-12-26 21:28:20.193135: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 21:28:20.211244: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:30:22.828626: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:30:22.854758: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:30:22.854758: [TUN] [testPeer] Keypair 20 destroyed for peer 1
+2024-12-26 21:30:22.854758: [TUN] [testPeer] Keypair 22 created for peer 1
+2024-12-26 21:30:22.854758: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 21:30:22.871644: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:32:23.544353: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:32:23.563181: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:32:23.563181: [TUN] [testPeer] Keypair 21 destroyed for peer 1
+2024-12-26 21:32:23.563181: [TUN] [testPeer] Keypair 23 created for peer 1
+2024-12-26 21:32:23.563181: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 21:32:23.582269: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:34:26.154576: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:34:26.176349: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:34:26.176349: [TUN] [testPeer] Keypair 22 destroyed for peer 1
+2024-12-26 21:34:26.176349: [TUN] [testPeer] Keypair 24 created for peer 1
+2024-12-26 21:34:26.176349: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 21:34:26.196283: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:36:28.188291: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:36:28.207673: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:36:28.207673: [TUN] [testPeer] Keypair 23 destroyed for peer 1
+2024-12-26 21:36:28.207673: [TUN] [testPeer] Keypair 25 created for peer 1
+2024-12-26 21:36:28.207673: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 21:36:28.224093: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:38:29.081061: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:38:29.099277: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:38:29.099277: [TUN] [testPeer] Keypair 24 destroyed for peer 1
+2024-12-26 21:38:29.099277: [TUN] [testPeer] Keypair 26 created for peer 1
+2024-12-26 21:38:29.099277: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 21:38:29.116470: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:40:29.172873: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:40:29.194039: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:40:29.194039: [TUN] [testPeer] Keypair 25 destroyed for peer 1
+2024-12-26 21:40:29.194039: [TUN] [testPeer] Keypair 27 created for peer 1
+2024-12-26 21:40:29.194039: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 21:40:29.211134: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:42:31.986528: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:42:32.005668: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:42:32.005668: [TUN] [testPeer] Keypair 26 destroyed for peer 1
+2024-12-26 21:42:32.005668: [TUN] [testPeer] Keypair 28 created for peer 1
+2024-12-26 21:42:32.005668: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 21:42:32.024337: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:44:32.414154: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:44:32.436198: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:44:32.436198: [TUN] [testPeer] Keypair 27 destroyed for peer 1
+2024-12-26 21:44:32.436198: [TUN] [testPeer] Keypair 29 created for peer 1
+2024-12-26 21:44:32.436198: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 21:44:32.470958: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:46:33.265608: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:46:33.289517: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:46:33.289517: [TUN] [testPeer] Keypair 28 destroyed for peer 1
+2024-12-26 21:46:33.289517: [TUN] [testPeer] Keypair 30 created for peer 1
+2024-12-26 21:46:33.289517: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 21:46:33.305516: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:48:34.369509: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:48:34.391546: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:48:34.391546: [TUN] [testPeer] Keypair 29 destroyed for peer 1
+2024-12-26 21:48:34.391546: [TUN] [testPeer] Keypair 31 created for peer 1
+2024-12-26 21:48:34.391546: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 21:48:34.409555: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:50:35.041800: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:50:35.064636: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:50:35.064636: [TUN] [testPeer] Keypair 30 destroyed for peer 1
+2024-12-26 21:50:35.064636: [TUN] [testPeer] Keypair 32 created for peer 1
+2024-12-26 21:50:35.064636: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 21:50:35.102344: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:52:35.550894: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:52:35.576525: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:52:35.576525: [TUN] [testPeer] Keypair 31 destroyed for peer 1
+2024-12-26 21:52:35.576525: [TUN] [testPeer] Keypair 33 created for peer 1
+2024-12-26 21:52:35.576525: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 21:52:35.649735: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:54:39.839286: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 21:54:39.873013: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 21:54:39.873013: [TUN] [testPeer] Keypair 32 destroyed for peer 1
+2024-12-26 21:54:39.873013: [TUN] [testPeer] Keypair 34 created for peer 1
+2024-12-26 21:54:39.873013: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 21:54:39.887672: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 21:55:57.261594: [TUN] [testPeer] Keypair 33 destroyed for peer 1
+2024-12-26 21:55:57.261594: [TUN] [testPeer] Keypair 34 destroyed for peer 1
+2024-12-26 22:39:06.050826: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 22:39:11.097470: [TUN] [testPeer] Handshake for peer 1 (152.67.83.184:51820) did not complete after 5 seconds, retrying (try 2)
+2024-12-26 22:39:11.097470: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 22:39:11.117980: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 22:39:11.117980: [TUN] [testPeer] Keypair 35 created for peer 1
+2024-12-26 22:39:11.139985: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 22:41:11.120848: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 22:41:11.152274: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 22:41:11.152274: [TUN] [testPeer] Keypair 36 created for peer 1
+2024-12-26 22:41:11.152274: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 22:41:11.172163: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 22:43:11.534307: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 22:43:11.562017: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 22:43:11.562017: [TUN] [testPeer] Keypair 35 destroyed for peer 1
+2024-12-26 22:43:11.562017: [TUN] [testPeer] Keypair 37 created for peer 1
+2024-12-26 22:43:11.562017: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 22:43:11.580479: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 22:44:10.984922: [TUN] [testPeer] Shutting down
+2024-12-26 22:44:19.985029: [TUN] [testPeer] Starting WireGuard/0.5.3 (Windows 10.0.19045; amd64)
+2024-12-26 22:44:19.985029: [TUN] [testPeer] Watching network interfaces
+2024-12-26 22:44:19.986639: [TUN] [testPeer] Resolving DNS names
+2024-12-26 22:44:19.986639: [TUN] [testPeer] Creating network adapter
+2024-12-26 22:44:20.080113: [TUN] [testPeer] Using existing driver 0.10
+2024-12-26 22:44:20.086725: [TUN] [testPeer] Creating adapter
+2024-12-26 22:44:20.429877: [TUN] [testPeer] Using WireGuardNT/0.10
+2024-12-26 22:44:20.429877: [TUN] [testPeer] Enabling firewall rules
+2024-12-26 22:44:20.380759: [TUN] [testPeer] Interface created
+2024-12-26 22:44:20.434877: [TUN] [testPeer] Dropping privileges
+2024-12-26 22:44:20.435878: [TUN] [testPeer] Setting interface configuration
+2024-12-26 22:44:20.435878: [TUN] [testPeer] Peer 1 created
+2024-12-26 22:44:20.439877: [TUN] [testPeer] Interface up
+2024-12-26 22:44:20.439877: [TUN] [testPeer] Setting device v4 addresses
+2024-12-26 22:44:20.457876: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 22:44:20.484261: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 22:44:20.484261: [TUN] [testPeer] Keypair 1 created for peer 1
+2024-12-26 22:44:20.504766: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 22:44:20.533400: [TUN] [testPeer] Setting device v6 addresses
+2024-12-26 22:44:20.570996: [TUN] [testPeer] Startup complete
+2024-12-26 22:46:20.600795: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 22:46:20.622181: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 22:46:20.622181: [TUN] [testPeer] Keypair 2 created for peer 1
+2024-12-26 22:46:20.622181: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 22:46:20.639498: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 22:48:21.885393: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 22:48:21.908444: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 22:48:21.908444: [TUN] [testPeer] Keypair 1 destroyed for peer 1
+2024-12-26 22:48:21.908444: [TUN] [testPeer] Keypair 3 created for peer 1
+2024-12-26 22:48:21.908444: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 22:48:21.932442: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 22:50:22.879527: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 22:50:22.896271: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 22:50:22.896271: [TUN] [testPeer] Keypair 2 destroyed for peer 1
+2024-12-26 22:50:22.896271: [TUN] [testPeer] Keypair 4 created for peer 1
+2024-12-26 22:50:22.896271: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 22:50:22.924565: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 22:52:22.962273: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 22:52:22.979607: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 22:52:22.979607: [TUN] [testPeer] Keypair 3 destroyed for peer 1
+2024-12-26 22:52:22.979607: [TUN] [testPeer] Keypair 5 created for peer 1
+2024-12-26 22:52:22.979607: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 22:52:22.998210: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 22:54:23.167853: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 22:54:23.190022: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 22:54:23.190022: [TUN] [testPeer] Keypair 4 destroyed for peer 1
+2024-12-26 22:54:23.190022: [TUN] [testPeer] Keypair 6 created for peer 1
+2024-12-26 22:54:23.190022: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 22:54:23.210099: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 22:55:20.651141: [TUN] [testPeer] Shutting down
+2024-12-26 22:55:29.786404: [TUN] [testPeer] Starting WireGuard/0.5.3 (Windows 10.0.19045; amd64)
+2024-12-26 22:55:29.786404: [TUN] [testPeer] Watching network interfaces
+2024-12-26 22:55:29.787992: [TUN] [testPeer] Resolving DNS names
+2024-12-26 22:55:29.787992: [TUN] [testPeer] Creating network adapter
+2024-12-26 22:55:29.873390: [TUN] [testPeer] Using existing driver 0.10
+2024-12-26 22:55:29.878927: [TUN] [testPeer] Creating adapter
+2024-12-26 22:55:30.264210: [TUN] [testPeer] Using WireGuardNT/0.10
+2024-12-26 22:55:30.264210: [TUN] [testPeer] Enabling firewall rules
+2024-12-26 22:55:30.205207: [TUN] [testPeer] Interface created
+2024-12-26 22:55:30.269658: [TUN] [testPeer] Dropping privileges
+2024-12-26 22:55:30.270194: [TUN] [testPeer] Setting interface configuration
+2024-12-26 22:55:30.270726: [TUN] [testPeer] Peer 1 created
+2024-12-26 22:55:30.272522: [TUN] [testPeer] Setting device v4 addresses
+2024-12-26 22:55:30.272522: [TUN] [testPeer] Interface up
+2024-12-26 22:55:30.323140: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 22:55:30.347105: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 22:55:30.347105: [TUN] [testPeer] Keypair 1 created for peer 1
+2024-12-26 22:55:30.368518: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 22:55:30.397504: [TUN] [testPeer] Setting device v6 addresses
+2024-12-26 22:55:30.420582: [TUN] [testPeer] Startup complete
+2024-12-26 22:57:11.242016: [TUN] [testPeer] Shutting down
+2024-12-26 22:59:48.907718: [TUN] [testPeer] Starting WireGuard/0.5.3 (Windows 10.0.19045; amd64)
+2024-12-26 22:59:48.907718: [TUN] [testPeer] Watching network interfaces
+2024-12-26 22:59:48.909380: [TUN] [testPeer] Resolving DNS names
+2024-12-26 22:59:48.909380: [TUN] [testPeer] Creating network adapter
+2024-12-26 22:59:49.040199: [TUN] [testPeer] Using existing driver 0.10
+2024-12-26 22:59:49.045799: [TUN] [testPeer] Creating adapter
+2024-12-26 22:59:49.426984: [TUN] [testPeer] Using WireGuardNT/0.10
+2024-12-26 22:59:49.426984: [TUN] [testPeer] Enabling firewall rules
+2024-12-26 22:59:49.375109: [TUN] [testPeer] Interface created
+2024-12-26 22:59:49.433965: [TUN] [testPeer] Dropping privileges
+2024-12-26 22:59:49.433965: [TUN] [testPeer] Setting interface configuration
+2024-12-26 22:59:49.435036: [TUN] [testPeer] Peer 1 created
+2024-12-26 22:59:49.437707: [TUN] [testPeer] Setting device v4 addresses
+2024-12-26 22:59:49.437707: [TUN] [testPeer] Interface up
+2024-12-26 22:59:49.454359: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 22:59:49.487358: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 22:59:49.487358: [TUN] [testPeer] Keypair 1 created for peer 1
+2024-12-26 22:59:49.499642: [TUN] [testPeer] Setting device v6 addresses
+2024-12-26 22:59:49.517897: [TUN] [testPeer] Startup complete
+2024-12-26 23:01:50.042508: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 23:01:50.076499: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 23:01:50.076499: [TUN] [testPeer] Keypair 2 created for peer 1
+2024-12-26 23:01:50.076499: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 23:01:50.094931: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 23:03:50.432986: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 23:03:50.457803: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 23:03:50.457803: [TUN] [testPeer] Keypair 1 destroyed for peer 1
+2024-12-26 23:03:50.457803: [TUN] [testPeer] Keypair 3 created for peer 1
+2024-12-26 23:03:50.457803: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 23:03:50.480861: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 23:05:50.524349: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 23:05:50.548215: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 23:05:50.548215: [TUN] [testPeer] Keypair 2 destroyed for peer 1
+2024-12-26 23:05:50.548215: [TUN] [testPeer] Keypair 4 created for peer 1
+2024-12-26 23:05:50.548215: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 23:05:50.566891: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 23:07:51.828747: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 23:07:51.852796: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 23:07:51.852796: [TUN] [testPeer] Keypair 3 destroyed for peer 1
+2024-12-26 23:07:51.852796: [TUN] [testPeer] Keypair 5 created for peer 1
+2024-12-26 23:07:51.852796: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 23:07:51.870226: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 23:09:51.910412: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 23:09:51.929953: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 23:09:51.929953: [TUN] [testPeer] Keypair 4 destroyed for peer 1
+2024-12-26 23:09:51.929953: [TUN] [testPeer] Keypair 6 created for peer 1
+2024-12-26 23:09:51.929953: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 23:09:51.947514: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 23:11:52.028849: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 23:11:52.063651: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 23:11:52.063651: [TUN] [testPeer] Keypair 5 destroyed for peer 1
+2024-12-26 23:11:52.063651: [TUN] [testPeer] Keypair 7 created for peer 1
+2024-12-26 23:11:52.063651: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 23:11:52.100878: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 23:13:52.157413: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 23:13:52.181715: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 23:13:52.181715: [TUN] [testPeer] Keypair 6 destroyed for peer 1
+2024-12-26 23:13:52.181715: [TUN] [testPeer] Keypair 8 created for peer 1
+2024-12-26 23:13:52.181715: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 23:13:52.218426: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 23:15:52.223757: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 23:15:52.309911: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 23:15:52.309911: [TUN] [testPeer] Keypair 7 destroyed for peer 1
+2024-12-26 23:15:52.309911: [TUN] [testPeer] Keypair 9 created for peer 1
+2024-12-26 23:15:52.309911: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 23:15:52.384050: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 23:17:54.548948: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 23:17:54.566333: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 23:17:54.566333: [TUN] [testPeer] Keypair 8 destroyed for peer 1
+2024-12-26 23:17:54.566333: [TUN] [testPeer] Keypair 10 created for peer 1
+2024-12-26 23:17:54.566333: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 23:17:54.584944: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 23:19:54.658977: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 23:19:54.684355: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 23:19:54.684355: [TUN] [testPeer] Keypair 9 destroyed for peer 1
+2024-12-26 23:19:54.684355: [TUN] [testPeer] Keypair 11 created for peer 1
+2024-12-26 23:19:54.684355: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 23:19:54.718115: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 23:21:55.760704: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 23:21:55.799834: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 23:21:55.800830: [TUN] [testPeer] Keypair 10 destroyed for peer 1
+2024-12-26 23:21:55.800830: [TUN] [testPeer] Keypair 12 created for peer 1
+2024-12-26 23:21:55.800830: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 23:21:55.819647: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 23:23:56.085321: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 23:23:56.104803: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 23:23:56.104803: [TUN] [testPeer] Keypair 11 destroyed for peer 1
+2024-12-26 23:23:56.104803: [TUN] [testPeer] Keypair 13 created for peer 1
+2024-12-26 23:23:56.104803: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 23:23:56.125369: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 23:25:56.348602: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 23:25:56.371906: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 23:25:56.371906: [TUN] [testPeer] Keypair 12 destroyed for peer 1
+2024-12-26 23:25:56.371906: [TUN] [testPeer] Keypair 14 created for peer 1
+2024-12-26 23:25:56.371906: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 23:25:56.422558: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 23:27:24.649212: [TUN] [testPeer] Packet has invalid nonce 905 (max 923)
+2024-12-26 23:27:24.653261: [TUN] [testPeer] Packet has invalid nonce 906 (max 923)
+2024-12-26 23:27:24.653261: [TUN] [testPeer] Packet has invalid nonce 907 (max 923)
+2024-12-26 23:27:24.653261: [TUN] [testPeer] Packet has invalid nonce 908 (max 923)
+2024-12-26 23:27:24.653261: [TUN] [testPeer] Packet has invalid nonce 909 (max 923)
+2024-12-26 23:27:24.653261: [TUN] [testPeer] Packet has invalid nonce 910 (max 923)
+2024-12-26 23:27:24.653261: [TUN] [testPeer] Packet has invalid nonce 911 (max 923)
+2024-12-26 23:27:24.654333: [TUN] [testPeer] Packet has invalid nonce 912 (max 923)
+2024-12-26 23:27:24.654333: [TUN] [testPeer] Packet has invalid nonce 913 (max 923)
+2024-12-26 23:27:24.654865: [TUN] [testPeer] Packet has invalid nonce 914 (max 923)
+2024-12-26 23:27:24.654865: [TUN] [testPeer] Packet has invalid nonce 915 (max 923)
+2024-12-26 23:27:56.689107: [TUN] [testPeer] 7 log lines swallowed by rate limiting
+2024-12-26 23:27:56.689107: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 23:27:56.797122: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 23:27:56.797122: [TUN] [testPeer] Keypair 13 destroyed for peer 1
+2024-12-26 23:27:56.797122: [TUN] [testPeer] Keypair 15 created for peer 1
+2024-12-26 23:27:56.797122: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 23:27:56.818126: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 23:29:57.051155: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 23:29:57.072070: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 23:29:57.072070: [TUN] [testPeer] Keypair 14 destroyed for peer 1
+2024-12-26 23:29:57.072070: [TUN] [testPeer] Keypair 16 created for peer 1
+2024-12-26 23:29:57.072070: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 23:29:57.089451: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 23:31:11.758404: [TUN] [testPeer] Packet has invalid nonce 3504 (max 3522)
+2024-12-26 23:31:11.760030: [TUN] [testPeer] Packet has invalid nonce 3505 (max 3522)
+2024-12-26 23:31:11.760030: [TUN] [testPeer] Packet has invalid nonce 3506 (max 3522)
+2024-12-26 23:31:11.760030: [TUN] [testPeer] Packet has invalid nonce 3507 (max 3522)
+2024-12-26 23:31:11.760030: [TUN] [testPeer] Packet has invalid nonce 3508 (max 3522)
+2024-12-26 23:31:11.760206: [TUN] [testPeer] Packet has invalid nonce 3509 (max 3522)
+2024-12-26 23:31:11.760206: [TUN] [testPeer] Packet has invalid nonce 3510 (max 3522)
+2024-12-26 23:31:11.761248: [TUN] [testPeer] Packet has invalid nonce 3511 (max 3522)
+2024-12-26 23:31:11.761774: [TUN] [testPeer] Packet has invalid nonce 3512 (max 3522)
+2024-12-26 23:31:11.761774: [TUN] [testPeer] Packet has invalid nonce 3513 (max 3522)
+2024-12-26 23:31:11.762332: [TUN] [testPeer] Packet has invalid nonce 3514 (max 3522)
+2024-12-26 23:31:57.386845: [TUN] [testPeer] 7 log lines swallowed by rate limiting
+2024-12-26 23:31:57.386845: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 23:31:57.405167: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 23:31:57.405167: [TUN] [testPeer] Keypair 15 destroyed for peer 1
+2024-12-26 23:31:57.405167: [TUN] [testPeer] Keypair 17 created for peer 1
+2024-12-26 23:31:57.405167: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 23:31:57.429963: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 23:33:57.465741: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 23:33:57.488385: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 23:33:57.488385: [TUN] [testPeer] Keypair 16 destroyed for peer 1
+2024-12-26 23:33:57.488385: [TUN] [testPeer] Keypair 18 created for peer 1
+2024-12-26 23:33:57.488385: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 23:33:57.512080: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 23:34:24.969068: [TUN] [testPeer] Packet has invalid nonce 624 (max 631)
+2024-12-26 23:34:24.969989: [TUN] [testPeer] Packet has invalid nonce 625 (max 631)
+2024-12-26 23:34:24.969989: [TUN] [testPeer] Packet has invalid nonce 626 (max 631)
+2024-12-26 23:34:24.969989: [TUN] [testPeer] Packet has invalid nonce 627 (max 631)
+2024-12-26 23:34:24.969989: [TUN] [testPeer] Packet has invalid nonce 628 (max 631)
+2024-12-26 23:34:24.969989: [TUN] [testPeer] Packet has invalid nonce 629 (max 631)
+2024-12-26 23:34:24.969989: [TUN] [testPeer] Packet has invalid nonce 630 (max 631)
+2024-12-26 23:35:59.062356: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 23:35:59.087372: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 23:35:59.087372: [TUN] [testPeer] Keypair 17 destroyed for peer 1
+2024-12-26 23:35:59.087372: [TUN] [testPeer] Keypair 19 created for peer 1
+2024-12-26 23:35:59.087372: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 23:35:59.118620: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 23:38:00.044965: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 23:38:00.063460: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 23:38:00.063460: [TUN] [testPeer] Keypair 18 destroyed for peer 1
+2024-12-26 23:38:00.063460: [TUN] [testPeer] Keypair 20 created for peer 1
+2024-12-26 23:38:00.063460: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 23:38:00.082743: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 23:40:00.084993: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 23:40:00.109994: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 23:40:00.109994: [TUN] [testPeer] Keypair 19 destroyed for peer 1
+2024-12-26 23:40:00.109994: [TUN] [testPeer] Keypair 21 created for peer 1
+2024-12-26 23:40:00.109994: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 23:40:00.132991: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 23:42:00.479284: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 23:42:00.499952: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 23:42:00.499952: [TUN] [testPeer] Keypair 20 destroyed for peer 1
+2024-12-26 23:42:00.499952: [TUN] [testPeer] Keypair 22 created for peer 1
+2024-12-26 23:42:00.499952: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 23:42:00.517054: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 23:44:00.810216: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 23:44:00.826784: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 23:44:00.826784: [TUN] [testPeer] Keypair 21 destroyed for peer 1
+2024-12-26 23:44:00.826784: [TUN] [testPeer] Keypair 23 created for peer 1
+2024-12-26 23:44:00.826784: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 23:44:00.846426: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 23:46:00.834670: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 23:46:00.854350: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 23:46:00.854350: [TUN] [testPeer] Keypair 22 destroyed for peer 1
+2024-12-26 23:46:00.854350: [TUN] [testPeer] Keypair 24 created for peer 1
+2024-12-26 23:46:00.854350: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 23:46:00.869111: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
+2024-12-26 23:48:01.071716: [TUN] [testPeer] Sending handshake initiation to peer 1 (152.67.83.184:51820)
+2024-12-26 23:48:01.094100: [TUN] [testPeer] Receiving handshake response from peer 1 (152.67.83.184:51820)
+2024-12-26 23:48:01.094100: [TUN] [testPeer] Keypair 23 destroyed for peer 1
+2024-12-26 23:48:01.094100: [TUN] [testPeer] Keypair 25 created for peer 1
+2024-12-26 23:48:01.094100: [TUN] [testPeer] Sending keepalive packet to peer 1 (152.67.83.184:51820)
+2024-12-26 23:48:01.113696: [TUN] [testPeer] Receiving keepalive packet from peer 1 (152.67.83.184:51820)
