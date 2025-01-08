@@ -63,9 +63,9 @@ public class SystemOrchestratorTest {
 
 	// Test per il metodo manageVPN con operazione STOP
 	@Test
-	public void testManageVPNStop() {
+	public void testManageVPNStop() throws InterruptedException {
 		// Eseguiamo il metodo con l'operazione STOP
-		orchestrator.manageVPN(vpnOperations.STOP, "Peer1");
+		orchestrator.manageVPN(vpnOperations.STOP, null);
 
 		// Verifica se il metodo setInterfaceDown è stato chiamato
 		assertTrue("The VPN interface should be down",
@@ -117,6 +117,9 @@ public class SystemOrchestratorTest {
 	// Test per il metodo getConnectionStatus
 	@Test
 	public void testGetConnectionStatus() {
+
+		orchestrator.manageVPN(vpnOperations.START, "testPeer.conf");
+
 		// Chiamata al metodo
 		connectionStates status = orchestrator.getConnectionStatus();
 
