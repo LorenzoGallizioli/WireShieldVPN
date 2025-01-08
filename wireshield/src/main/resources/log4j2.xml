@@ -7,7 +7,7 @@
         </Console>
 
         <!-- Appender File -->
-        <File name="File" fileName="logs/app.log">
+        <File name="File" fileName="wireshield/logs/app.log">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n" />
         </File>
     </Appenders>

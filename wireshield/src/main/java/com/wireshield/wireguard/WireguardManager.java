@@ -9,7 +9,6 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import com.wireshield.av.FileManager;
 import com.wireshield.enums.connectionStates;
-import com.wireshield.enums.vpnOperations;
 
 /**
  * The WireguardManager class is responsible for managing the wireguard VPN.
@@ -30,13 +29,19 @@ public class WireguardManager {
         this.defaultPeerPath = FileManager.getProjectFolder() + FileManager.getConfigValue("PEER_STD_PATH");
         this.logDumpPath = FileManager.getProjectFolder() + FileManager.getConfigValue("LOGDUMP_STD_PATH");
     	
+        System.out.println(wireguardPath);
+        
+        
         File file = new File(wireguardPath);
         if (!file.exists() || !file.isFile()) {
             logger.error("WireGuard executable not found");
             return;
         }
-        this.connection = Connection.getInstance();
-        this.peerManager = PeerManager.getInstance();
+        
+        if (Connection.getInstance() != null) this.connection = Connection.getInstance();
+        else throw new IllegalStateException("Il costruttore di Connection ha restituito un oggetto null");
+        if (PeerManager.getInstance() != null) this.peerManager = PeerManager.getInstance();
+        else throw new IllegalStateException("Il costruttore di PeerManager ha restituito un oggetto null");
         
         this.startUpdateWireguardLogs(); // Start log update thread
     }
@@ -68,7 +73,7 @@ public class WireguardManager {
     public Boolean setInterfaceUp(String configFileName) {
         String activeInterface = connection.getActiveInterface();
         if(activeInterface != null) {
-            logger.error("WireGuard interface is already up.");
+            logger.warn("WireGuard interface is already up.");
             return false; // Interface is up
         }
 
