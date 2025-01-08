@@ -87,7 +87,7 @@ public class AntivirusManagerTest {
 	 * @throws InterruptedException 
 	 */
 	@Test
-	public void testAddFileToScanBuffer() throws IOException, InterruptedException {
+	public void testAddFileToScanBuffer() throws IOException {
 		
 		// Crea un oggetto File che fa riferimento a un file inesistente
 		File fakeFile = new File("fakeFile.txt");

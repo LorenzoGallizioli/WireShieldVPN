@@ -61,7 +61,7 @@ public class AntivirusManager {
 		if (!scanBuffer.contains(file)) {
 			scanBuffer.add(file);
 			logger.info("File added to scan buffer: {}", file.getName());
-			notify(); // Notify scanning thread of new file
+			notifyAll(); // Notify scanning thread of new file
 		} else {
 			logger.warn("File is already in the scan buffer: {}", file.getName());
 		}
