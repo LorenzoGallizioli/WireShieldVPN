@@ -54,7 +54,7 @@ public class SystemOrchestratorTest {
 	@Test
 	public void testManageVPNStart() {
 		// Eseguiamo il metodo con l'operazione START
-		orchestrator.manageVPN(vpnOperations.START, "config/testPeer.conf");
+		orchestrator.manageVPN(vpnOperations.START, "testPeer.conf");
 
 		// Verifica se il metodo setInterfaceUp è stato chiamato
 		assertTrue("The VPN interface should be up",
@@ -141,7 +141,7 @@ public class SystemOrchestratorTest {
 	@Test
 	public void testGetAVStatus() {
 
-		orchestrator.manageVPN(vpnOperations.START, "testPeer.conf");
+		orchestrator.manageAV(runningStates.UP);
 
 		// Chiamata al metodo
 		runningStates status = orchestrator.getAVStatus();
