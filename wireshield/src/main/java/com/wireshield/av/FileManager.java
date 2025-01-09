@@ -19,7 +19,7 @@ import org.apache.logging.log4j.Logger;
 public class FileManager {
 	
 	private static final Logger logger = LogManager.getLogger(FileManager.class);
-    private static String CONFIG_PATH = FileManager.getProjectFolder() + "\\config\\config.json";
+    static String CONFIG_PATH = FileManager.getProjectFolder() + "\\config\\config.json";
 
 	
 	/**
@@ -187,7 +187,6 @@ public class FileManager {
         } catch(Exception e) {
         	return null;
         }
-        	
     }
     
     /**
@@ -212,6 +211,7 @@ public class FileManager {
                 jsonObject = (JSONObject) parser.parse(reader);
             } catch (Exception e) {
             	logger.error("Error during JSON");
+            	return false;
             }
         } else {
             // If the file does not exist, initialize a new JSON object

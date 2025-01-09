@@ -7,6 +7,10 @@ import static org.junit.Assert.*;
 import java.io.File;
 import com.wireshield.enums.warningClass;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+
 /*
  * Test class for ScanReport.
  * This class tests the functionality of the ScanReport class, including its constructors, setters, getters, 
@@ -23,6 +27,7 @@ public class ScanReportTest {
     @Before
     public void setUp() {
         scanReport = new ScanReport(); // Initialize the ScanReport object before each test
+        scanReport = new ScanReport("scan123", new File("testfile.txt")); // Inizializziamo l'oggetto ScanReport con un scanId e un file
     }
 
     /*
@@ -152,7 +157,55 @@ public class ScanReportTest {
         scanReport.setSha256("1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef");
 
         // Expected string representation
-        String expectedString = "ScanReport {scanId='', file=testfile.txt, SHA256 Hash=1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef, threatDetected=true, threatDetails='Malware detected', warningClass=SUSPICIOUS, isValid=false, maliciousCount=0, harmlessCount=0, suspiciousCount=0, undetectedCount=0}";
+        String expectedString = "ScanReport {scanId='scan123', file=testfile.txt, SHA256 Hash=1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef, threatDetected=true, threatDetails='Malware detected', warningClass=SUSPICIOUS, isValid=false, maliciousCount=0, harmlessCount=0, suspiciousCount=0, undetectedCount=0}";
         assertEquals(expectedString, scanReport.toString());  // Verifies that toString() returns the correct string representation
+    }
+    
+    @Test
+    public void testPrintReport() {
+        // Impostazione dei valori per il test
+        File file = new File("testfile.txt");
+        scanReport.setFile(file);
+        scanReport.setSha256("1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef");
+        scanReport.setThreatDetected(true);
+        scanReport.setThreatDetails("Malware detected");
+        scanReport.setWarningClass(warningClass.SUSPICIOUS);
+        scanReport.setValid(false);
+        scanReport.setMaliciousCount(1);
+        scanReport.setHarmlessCount(0);
+        scanReport.setSuspiciousCount(2);
+        scanReport.setUndetectedCount(3);
+
+        // Crea un ByteArrayOutputStream per catturare l'output stampato
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalSystemOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+
+        // Chiamata al metodo printReport
+        scanReport.printReport();
+
+        // Reset di System.out
+        System.setOut(originalSystemOut);
+
+        // Verifica l'output stampato
+        String printedReport = outputStream.toString();
+
+        // Controlla che l'output contenga le informazioni previste
+        assertTrue(printedReport.contains("File                : testfile.txt"));
+        assertTrue(printedReport.contains("SHA256 Hash         : 1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"));
+        assertTrue(printedReport.contains("Threat Detected     : Yes"));
+        assertTrue(printedReport.contains("Threat Details      : Malware detected"));
+        assertTrue(printedReport.contains("Warning Class       : SUSPICIOUS"));
+        assertTrue(printedReport.contains("Report Status       : Invalid"));
+        assertTrue(printedReport.contains("Malicious Count     : 1"));
+        assertTrue(printedReport.contains("Harmless Count      : 0"));
+        assertTrue(printedReport.contains("Suspicious Count    : 2"));
+        assertTrue(printedReport.contains("Undetected Count    : 3"));
+    }
+
+    // Test for getScanId()
+    @Test
+    public void testGetScanId() {
+        assertEquals("scan123", scanReport.getScanId());  // Verifica che scanId sia correttamente impostato
     }
 }

@@ -6,9 +6,11 @@ import org.junit.Test;
 
 public class vpnOperationsTest {
 
-	@Test
-	public void test() {
-		fail("Not yet implemented");
-	}
-
+    // Testa i valori dell'enum
+    @Test
+    public void testEnumValues() {
+        // Verifica che l'enum contenga i valori corretti
+        assertEquals(vpnOperations.START, vpnOperations.valueOf("START"));
+        assertEquals(vpnOperations.STOP, vpnOperations.valueOf("STOP"));
+    }
 }
