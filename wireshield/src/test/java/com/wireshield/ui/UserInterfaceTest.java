@@ -52,9 +52,7 @@ public class UserInterfaceTest {
     @Mock
     private Label mockAvStatusLabel;
     @Mock
-    private AnchorPane mockAvPane;
-    @Mock
-    private AnchorPane mockSettingsPane;
+    private AnchorPane mockAvPane, mockSettingsPane, mockLogsPane;
     
     @Before
     public void setUp() {
@@ -63,7 +61,7 @@ public class UserInterfaceTest {
             Platform.startup(() -> {});
             isToolkitInitialized = true;
         }        
-        userInterface = new UserInterface();
+        userInterface = spy(new UserInterface());
         MockitoAnnotations.initMocks(this);
         Scene mockScene = mock(Scene.class);
         mockStage = mock(Stage.class);
@@ -88,6 +86,10 @@ public class UserInterfaceTest {
         // Setup mock settingsPane.
         mockSettingsPane = mock(AnchorPane.class);
         userInterface.settingsPane = mockSettingsPane;
+        
+        // Setup mock settingsPane.
+        mockLogsPane = mock(AnchorPane.class);
+        userInterface.logsPane = mockLogsPane;
         
         // Setup mock systemOchestrator.
         UserInterface.so = mockSystemOrchestrator;
@@ -237,7 +239,20 @@ public class UserInterfaceTest {
 
         Platform.runLater(() -> userInterface.handleFileSelection(null));
     }
+    
+    @Test
+    public void testViewLogs() {
 
+        // Act
+        userInterface.viewLogs();
+
+        // Assert: Check if toFront() has been called.
+        verify(mockLogsPane).toFront();
+
+        // Check if startDynamicLogUpdate has been called.
+        verify(userInterface).startDynamicLogUpdate();;
+    }
+    
     @Test
     public void testViewSettings() {
         // Act
