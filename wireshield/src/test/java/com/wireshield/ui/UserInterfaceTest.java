@@ -6,9 +6,11 @@ import static org.junit.Assert.*;
 import java.util.concurrent.CountDownLatch;
 
 import javafx.application.Platform;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Label;
 import org.junit.After;
@@ -27,26 +29,40 @@ public class UserInterfaceTest {
 
     @Mock
     private SystemOrchestrator mockSystemOrchestrator;
-
     @Mock
     private WireguardManager mockWireguardManager;
-
+    @Mock
+    private Button mockMinimizeButton;
+    @Mock
+    private Button mockCloseButton;
+    @Mock
+    private Stage mockStage;
+    
     @Before
     public void setUp() {
-        // Inizializza JavaFX toolkit una sola volta
+        // Initialize JavaFX toolkit only once.
         if (!isToolkitInitialized) {
             Platform.startup(() -> {});
             isToolkitInitialized = true;
-        }
-
-        MockitoAnnotations.initMocks(this);
-
+        }        
         userInterface = new UserInterface();
-
-        // Inizializza i mock
+        MockitoAnnotations.initMocks(this);
+        Scene mockScene = mock(Scene.class);
+        mockStage = mock(Stage.class);
+        when(mockScene.getWindow()).thenReturn(mockStage);
+        // Setup the minimize button mock.
+        mockMinimizeButton = mock(Button.class);
+        when(mockMinimizeButton.getScene()).thenReturn(mockScene);
+        userInterface.minimizeButton = mockMinimizeButton;
+        
+        // Setup the close button mock.
+        mockCloseButton = mock(Button.class);
+        when(mockCloseButton.getScene()).thenReturn(mockScene);
+        userInterface.closeButton = mockCloseButton;
+        
+        // Setup mock systemOchestrator.
         UserInterface.so = mockSystemOrchestrator;
-
-        // Inizializza i componenti JavaFX
+        // Initialize JavaFX components.
         Platform.runLater(() -> {
             userInterface.vpnButton = new Button("Start VPN");
             userInterface.peerListView = new ListView<>();
@@ -62,6 +78,14 @@ public class UserInterfaceTest {
         reset(mockSystemOrchestrator, mockWireguardManager);
     }
 
+    @Test
+    public void testMinimizeWindow() throws InterruptedException {
+        // Act: Call method.
+        userInterface.minimizeWindow();
+        // Assert: Verify if setIconified has been called.
+        verify(mockStage).setIconified(true);
+    }
+    
     @Test
     public void testInitialize_disablesPeerListWhenConnected() throws InterruptedException {
         when(mockSystemOrchestrator.getConnectionStatus()).thenReturn(connectionStates.CONNECTED);
@@ -141,6 +165,7 @@ public class UserInterfaceTest {
         Platform.runLater(() -> userInterface.handleFileSelection(null));
     }
 
+    
     @Test
     public void testStartDynamicLogUpdate_logsUpdated() throws InterruptedException {
         when(mockWireguardManager.getLog()).thenReturn("Test Log");
@@ -148,7 +173,7 @@ public class UserInterfaceTest {
 
         Platform.runLater(() -> userInterface.startDynamicLogUpdate());
 
-        // Attendi l'aggiornamento dei log
+        // Wait for the log update.
         Thread.sleep(2000);
 
         Platform.runLater(() -> assertEquals("Test Log", userInterface.logsArea.getText()));
