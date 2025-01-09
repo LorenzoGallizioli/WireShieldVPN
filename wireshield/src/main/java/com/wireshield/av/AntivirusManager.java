@@ -81,6 +81,13 @@ public class AntivirusManager {
 
         scanThread = new Thread(() -> {
             while (scannerStatus == runningStates.UP) {
+            	
+            	if (clamAV == null) {
+                	logger.error("ClamAV object not exists - Shutting down scanner"); 
+                	scannerStatus = runningStates.DOWN;
+                	Thread.currentThread().interrupt();
+                }
+            	
                 File fileToScan;
 
                 // Retrieve the next file to scan from the buffer
@@ -107,30 +114,31 @@ public class AntivirusManager {
                 // Perform the file scanning
                 ScanReport finalReport = new ScanReport();
                 finalReport.setFile(fileToScan);
-
-                if (clamAV != null) {
-                    clamAV.analyze(fileToScan);
-                    ScanReport clamAVReport = clamAV.getReport();
-                    if (clamAVReport != null) {
-                        mergeReports(finalReport, clamAVReport);
-                    }
+               
+                // ClamAV execution
+                clamAV.analyze(fileToScan);
+                ScanReport clamAVReport = clamAV.getReport();
+                if (clamAVReport != null) {
+                    mergeReports(finalReport, clamAVReport);
                 }
-
-                if (finalReport.isThreatDetected() && virusTotal != null && fileToScan.length() <= MAX_FILE_SIZE) {
-                    virusTotal.analyze(fileToScan);
-                    ScanReport virusTotalReport = virusTotal.getReport();
-                    if (virusTotalReport != null) {
-                        mergeReports(finalReport, virusTotalReport);
-                    }
-                } else if (fileToScan.length() > MAX_FILE_SIZE) {
-                    logger.warn("File is too large for VirusTotal analysis: {}", fileToScan.getName());
+                
+                // VirusTotal execution
+                if(virusTotal != null) {
+                	if (finalReport.isThreatDetected() && fileToScan.length() <= MAX_FILE_SIZE) {
+                		virusTotal.analyze(fileToScan);
+                		ScanReport virusTotalReport = virusTotal.getReport();
+                		if (virusTotalReport != null) {
+                			mergeReports(finalReport, virusTotalReport);
+                		}
+                	} else if (fileToScan.length() > MAX_FILE_SIZE) {
+                		logger.warn("File is too large for VirusTotal analysis: {}", fileToScan.getName());
+                	}
                 }
-
+                
                 // Add the report to final results
                 finalReports.add(finalReport);
 
-                if (finalReport.getWarningClass() == warningClass.DANGEROUS
-                        || finalReport.getWarningClass() == warningClass.SUSPICIOUS) {
+                if (finalReport.getWarningClass() == warningClass.DANGEROUS || finalReport.getWarningClass() == warningClass.SUSPICIOUS) {
                     logger.warn("Threat detected in file: {}", fileToScan.getName());
                     JOptionPane.showMessageDialog(null, "Threat detected in file: " + fileToScan.getName(),"Threat Detected", JOptionPane.WARNING_MESSAGE); // Show warning dialog
                     filesToRemove.add(fileToScan);
@@ -154,7 +162,7 @@ public class AntivirusManager {
     /*
      * Stops the ongoing antivirus scan process gracefully.
      */
-    public void stopPerformScan() {
+    public void forceStopPerformScan() {
         if (scannerStatus == runningStates.DOWN) {
             logger.warn("No scan process is running.");
             return;
@@ -223,7 +231,7 @@ public class AntivirusManager {
      * @param target the target report to be updated.
      * @param source the source report to merge from.
      */
-    void mergeReports(ScanReport target, ScanReport source) {
+    protected void mergeReports(ScanReport target, ScanReport source) {
         if (source != null && source.isThreatDetected()) {
             target.setThreatDetected(true);
             target.setThreatDetails(source.getThreatDetails());

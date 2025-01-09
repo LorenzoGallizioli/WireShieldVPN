@@ -99,6 +99,7 @@ public class SystemOrchestrator {
                     logger.info("Download monitoring service started successfully.");
                 } catch (IOException e) {
                     logger.error("Error starting the download monitoring service: {}", e.getMessage(), e);
+                    this.monitorStatus = runningStates.DOWN;
                 }
             } else {
                 logger.info("Download monitoring service is already running.");
@@ -106,7 +107,7 @@ public class SystemOrchestrator {
         } else {
             if (downloadManager.getMonitorStatus() != runningStates.DOWN) {
                 logger.info("Stopping download monitoring service...");
-                downloadManager.stopMonitoring(); // Stop monitoring downloads
+                downloadManager.forceStopMonitoring(); // Stop monitoring downloads
 				logger.info("Download monitoring service stopped successfully.");
             } else {
                 logger.info("Download monitoring service is already stopped.");
@@ -129,10 +130,11 @@ public class SystemOrchestrator {
 
                 // Starting antivirus scan and providing progress
                 try {
-                    antivirusManager.startPerformScan(); // Start antivirus scan
+                    antivirusManager.startPerformScan(); 
                     logger.info("Antivirus service started successfully.");
                 } catch (Exception e) {
                     logger.error("Error while starting antivirus service: {}", e.getMessage(), e);
+                    this.avStatus = antivirusManager.getScannerStatus();
                 }
             } else {
                 logger.info("Antivirus service is already running.");
@@ -143,10 +145,11 @@ public class SystemOrchestrator {
                 
                 // Stopping the scan
                 try {
-                    antivirusManager.stopPerformScan(); // Stop antivirus scan
+                    antivirusManager.forceStopPerformScan(); 
                     logger.info("Antivirus service stopped successfully.");
                 } catch (Exception e) {
                     logger.error("Error while stopping antivirus service: {}", e.getMessage(), e);
+                    this.avStatus = antivirusManager.getScannerStatus();
                 }
             } else {
                 logger.info("Antivirus service is already stopped.");

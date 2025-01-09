@@ -34,6 +34,7 @@ public class VirusTotal implements AVInterface{
 
 	// Constructor to load configuration from JSON
 	private VirusTotal() {
+		
 		this.API_KEY = FileManager.getConfigValue("api_key");
 		this.VIRUSTOTAL_URI = FileManager.getConfigValue("VIRUSTOTAL_URI");
 		if (this.API_KEY == null || this.API_KEY.trim().isEmpty()) {
@@ -43,9 +44,14 @@ public class VirusTotal implements AVInterface{
 
 	// Static method to get the Singleton instance of VirusTotal
 	public static synchronized VirusTotal getInstance() {
-		if (instance == null) {
-			instance = new VirusTotal();
+		
+		instance = null;
+		if(!FileManager.getConfigValue("api_key").isEmpty() || FileManager.getConfigValue("api_key").length() != 64) {
+			if (instance == null) {
+				instance = new VirusTotal();
+			}
 		}
+		
 		return instance;
 	}
 

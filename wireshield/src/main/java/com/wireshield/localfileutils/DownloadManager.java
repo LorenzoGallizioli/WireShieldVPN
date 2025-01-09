@@ -142,13 +142,14 @@ public class DownloadManager {
 	/*
 	 * Stops monitoring the download directory and terminates the monitoring thread.
 	 */
-	public void stopMonitoring() {
+	public void forceStopMonitoring() {
 		if (monitorStatus == runningStates.DOWN) {
 			logger.warn("Monitoring is already stopped.");
 			return; // Monitoring already stopped
 		}
 
 		monitorStatus = runningStates.DOWN; // Set monitoring status to DOWN (inactive)
+		
 		try {
 			// Stop the monitor thread and close WatchService
 			if (monitorThread != null && monitorThread.isAlive()) {

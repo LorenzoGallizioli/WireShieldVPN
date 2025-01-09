@@ -269,7 +269,7 @@ public class AntivirusManagerTest {
 	    }
 
 	    // Ferma la scansione
-	    antivirusManager.stopPerformScan();
+	    antivirusManager.forceStopPerformScan();
 
 	    // Attendi che lo stato della scansione cambi in DOWN (indicando che la scansione è fermata)
 	    while (antivirusManager.getScannerStatus() != runningStates.DOWN) {

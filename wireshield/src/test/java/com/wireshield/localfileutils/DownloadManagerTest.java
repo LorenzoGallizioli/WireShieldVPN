@@ -156,7 +156,7 @@ public class DownloadManagerTest {
         Thread.sleep(2000);
 
         // Stop the monitoring thread
-        downloadManager.stopMonitoring();
+        downloadManager.forceStopMonitoring();
         assertFalse("Monitoring should be stopped", downloadManager.getMonitorStatus() == runningStates.UP);
 
         // Ensure the monitoring thread is actually stopped
