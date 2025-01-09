@@ -53,6 +53,8 @@ public class UserInterfaceTest {
     private Label mockAvStatusLabel;
     @Mock
     private AnchorPane mockAvPane;
+    @Mock
+    private AnchorPane mockSettingsPane;
     
     @Before
     public void setUp() {
@@ -82,6 +84,10 @@ public class UserInterfaceTest {
         mockAvStatusLabel = mock(Label.class);
         mockAvPane = mock(AnchorPane.class);
         when(mockSystemOrchestrator.getAntivirusManager()).thenReturn(mockAntivirusManager);
+        
+        // Setup mock settingsPane.
+        mockSettingsPane = mock(AnchorPane.class);
+        userInterface.settingsPane = mockSettingsPane;
         
         // Setup mock systemOchestrator.
         UserInterface.so = mockSystemOrchestrator;
@@ -232,6 +238,14 @@ public class UserInterfaceTest {
         Platform.runLater(() -> userInterface.handleFileSelection(null));
     }
 
+    @Test
+    public void testViewSettings() {
+        // Act
+        userInterface.viewSettings();
+
+        // Assert
+        verify(mockSettingsPane).toFront();
+    }
     
     @Test
     public void testStartDynamicLogUpdate_logsUpdated() throws InterruptedException {
