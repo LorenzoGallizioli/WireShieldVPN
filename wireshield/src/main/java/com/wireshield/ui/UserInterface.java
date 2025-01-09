@@ -334,9 +334,9 @@ public class UserInterface extends Application {
             }
         };
 
-        Thread logUpdateThread = new Thread(task);
-        logUpdateThread.setDaemon(true); // Assicura che il thread si fermi con l'applicazione
-        logUpdateThread.start();
+        Thread Thread = new Thread(task);
+        //logUpdateThread.setDaemon(true); // Assicura che il thread si fermi con l'applicazione
+        Thread.start();
     }
     
     /**
@@ -374,6 +374,8 @@ public class UserInterface extends Application {
             			so.manageVPN(vpnOperations.STOP,null);
             		}
             	}
+            	
+            	logger.info("componentStatesGuardian: " + so.getConnectionStatus() + so.getAVStatus() + so.getMonitorStatus());
                 try {
                     Thread.sleep(200); // wait
                 } catch (InterruptedException e) {
