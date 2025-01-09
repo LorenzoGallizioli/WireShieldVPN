@@ -125,6 +125,8 @@ public class DownloadManager {
 						// Handle interruption gracefully, but don't stop the monitoring thread
 						if (monitorStatus == runningStates.UP) {
 							logger.info("Monitoring interrupted, but continuing...");
+							
+							monitorStatus = runningStates.DOWN;
 							Thread.currentThread().interrupt(); // Preserve interruption flag
 						}
 					}
@@ -136,6 +138,7 @@ public class DownloadManager {
 
 		} catch (IOException e) {
 			logger.error("Error creating WatchService: {}", e.getMessage(), e);
+			monitorStatus = runningStates.DOWN;
 		}
 	}
 
