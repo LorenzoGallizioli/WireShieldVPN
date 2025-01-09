@@ -76,16 +76,16 @@ L’applicazione tiene traccia di tutte le operazioni e fornisce notifiche in te
 ## 🛠️ Come Usare l'Applicazione
 
 ### 1. Clona WireShield
-git clone https://github.com/LorenzoGallizioli/WireShield.git
+`git clone https://github.com/LorenzoGallizioli/WireShield.git`
 
 ### 2. Segui la guida per installare ClamAV sul tuo PC
 [ClamAV.md](https://github.com/LorenzoGallizioli/WireShield/blob/7e6f6c54f63fd79cc4b99bfd91c4ab223ffa6286/wireshield/bin/ClamAV.md)
 
 ### 3. Avvia l'applicazione
-All'avvio non sarà presente nessun peer.
+Al primo avvio non sarà presente nessun peer.
 
-### 4. Carica un peer nella sezione settings
-Il peer deve essere un file di configurazione wireguard (.conf).
+### 4. Carica un peer
+Il peer deve essere caricando nella sezione settings e deve essere un file di configurazione wireguard (.conf).
 
 ### 4. Avvia la connessione VPN
 Puoi avviare o interrompere la connessione VPN direttamente dalla scheda **Home** dell'interfaccia utente e controllare i log nella scehda **Logs**.
