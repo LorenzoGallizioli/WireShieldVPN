@@ -29,7 +29,7 @@ public class AntivirusManager {
 	private runningStates scannerStatus;
 
 	private Thread scanThread;
-	static final long MAX_FILE_SIZE = 10 * 1024 * 1024; // Maximum file size for VirusTotal analysis (10 MB)
+	static final long MAX_FILE_SIZE = 10L * 1024 * 1024; // Maximum file size for VirusTotal analysis (10 MB)
 
 	private AntivirusManager() {
 		logger.info("AntivirusManager initialized.");

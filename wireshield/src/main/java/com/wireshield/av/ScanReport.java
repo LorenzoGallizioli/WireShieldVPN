@@ -227,16 +227,16 @@ public class ScanReport {
         System.out.println(separator);
         
         // Display all information in a tabular format
-        System.out.printf("%-20s: %s\n", "File", file.getName());
-        System.out.printf("%-20s: %s\n", "SHA256 Hash", getSha256() != null ? getSha256() : "Not Available");
-        System.out.printf("%-20s: %s\n", "Threat Detected", isThreatDetected() ? "Yes" : "No");
-        System.out.printf("%-20s: %s\n", "Threat Details", threatDetails);
-        System.out.printf("%-20s: %s\n", "Warning Class", warningState);
-        System.out.printf("%-20s: %s\n", "Report Status", isValidReport() ? "Valid" : "Invalid");
-        System.out.printf("%-20s: %d\n", "Malicious Count", maliciousCount);
-        System.out.printf("%-20s: %d\n", "Harmless Count", harmlessCount);
-        System.out.printf("%-20s: %d\n", "Suspicious Count", suspiciousCount);
-        System.out.printf("%-20s: %d\n", "Undetected Count", undetectedCount);
+        System.out.printf("%-20s: %s%n", "File", file.getName());
+        System.out.printf("%-20s: %s%n", "SHA256 Hash", getSha256() != null ? getSha256() : "Not Available");
+        System.out.printf("%-20s: %s%n", "Threat Detected", isThreatDetected() ? "Yes" : "No");
+        System.out.printf("%-20s: %s%n", "Threat Details", threatDetails);
+        System.out.printf("%-20s: %s%n", "Warning Class", warningState);
+        System.out.printf("%-20s: %s%n", "Report Status", isValidReport() ? "Valid" : "Invalid");
+        System.out.printf("%-20s: %d%n", "Malicious Count", maliciousCount);
+        System.out.printf("%-20s: %d%n", "Harmless Count", harmlessCount);
+        System.out.printf("%-20s: %d%n", "Suspicious Count", suspiciousCount);
+        System.out.printf("%-20s: %d%n", "Undetected Count", undetectedCount);
         
         System.out.println(separator);
     }

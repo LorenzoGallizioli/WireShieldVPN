@@ -125,7 +125,7 @@ public class ClamAVTest {
 	 * Verifies that the report contains the correct details for the analyzed file.
 	 */
 	@Test
-	public void testGetReport() throws IOException {
+	public void testGetReport() {
 		// First, analyze the valid file
 		clamAV.analyze(validFile);
 

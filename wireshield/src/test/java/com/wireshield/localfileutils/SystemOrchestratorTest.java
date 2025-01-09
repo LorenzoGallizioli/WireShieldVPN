@@ -162,9 +162,8 @@ public class SystemOrchestratorTest {
 		Peer[] p = pm.getPeers();
 
 		assertTrue("Peers list is empty", p.length > 0);
-		assertTrue("First peer does not match the peer retrieved by ID",
-				p[p.length - 1].equals(pm.getPeerById(peerId)));
-	}
+		assertEquals(p[p.length - 1], pm.getPeerById(peerId));
+	} 
 
 	// Test per il metodo getReportInfo
 	@Test

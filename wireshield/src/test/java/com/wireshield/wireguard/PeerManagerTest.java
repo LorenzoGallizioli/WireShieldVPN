@@ -38,17 +38,14 @@ public class PeerManagerTest {
 	@Test
 	public void testRemovePeer() {
 		peerId = pm.createPeer(extDatas, "A");
-		//System.out.println(peerId);
 		
 		assertFalse(pm.removePeer(null));
 		assertFalse(pm.removePeer(""));
 		
 		Peer[] p_before = pm.getPeers();
-		//System.out.println(p_before[0].toString());
 		assertTrue(pm.removePeer(peerId));
 		
 		Peer[] p_after = pm.getPeers();
-		//System.out.println(p_after[0].toString());
 		assertNotEquals(p_after, p_before);
 		
 	}
@@ -56,37 +53,31 @@ public class PeerManagerTest {
 	@Test
 	public void testAddAndGetPeers() {
 	    peerId = pm.createPeer(extDatas, "B");
-		//System.out.println(peerId);
 
 	    Peer[] p = pm.getPeers();
 
 	    assertTrue("Peers list is empty", p.length > 0);
-	    assertTrue("First peer does not match the peer retrieved by ID", p[p.length - 1].equals(pm.getPeerById(peerId)));
+	    assertEquals(p[p.length - 1], pm.getPeerById(peerId));
 	}
 
 	@Test
 	public void testGetPeerById() {
 	    peerId = pm.createPeer(extDatas, "C");
-		//System.out.println(peerId);
 
 	    Peer peer = pm.getPeerById("");
 	    assertNull(peer);
 	    peer = pm.getPeerById(null);
 	    assertNull(peer);
 	    peer = pm.getPeerById(peerId);
-	    //System.out.println(peer.toString());
 	    
 	    Peer[] p = pm.getPeers();
-	    //System.out.println(p[0].toString());
 
 	    assertEquals("Peer retrieved by ID does not match the first peer in the list", p[p.length - 1], peer);
-	}
+	} 
 	
 
 	@Test
 	public void testParsePeerConfig() {
-	    Map<String, Map<String, String>> extDatas = PeerManager.parsePeerConfig(testString);
-
 	    assertEquals("PrivateKey mismatch", "cIm09yQB5PUxKIhUwyK8TwL6ulaemcllbuzSCaOG0UM=", extDatas.get("Interface").get("PrivateKey"));
 	    assertEquals("Address mismatch", "172.0.0.6/32", extDatas.get("Interface").get("Address"));
 	    assertEquals("DNS mismatch", "172.0.0.1", extDatas.get("Interface").get("DNS"));
