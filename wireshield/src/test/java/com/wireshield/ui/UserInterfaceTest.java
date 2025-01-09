@@ -3,9 +3,13 @@ package com.wireshield.ui;
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -19,7 +23,11 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import com.wireshield.av.AntivirusManager;
+import com.wireshield.av.ScanReport;
 import com.wireshield.enums.connectionStates;
+import com.wireshield.enums.runningStates;
+import com.wireshield.enums.warningClass;
 import com.wireshield.localfileutils.SystemOrchestrator;
 import com.wireshield.wireguard.WireguardManager;
 
@@ -37,6 +45,14 @@ public class UserInterfaceTest {
     private Button mockCloseButton;
     @Mock
     private Stage mockStage;
+    @Mock
+    private AntivirusManager mockAntivirusManager;
+    @Mock
+    private ObservableList<String> mockAvFilesList;
+    @Mock
+    private Label mockAvStatusLabel;
+    @Mock
+    private AnchorPane mockAvPane;
     
     @Before
     public void setUp() {
@@ -59,9 +75,19 @@ public class UserInterfaceTest {
         mockCloseButton = mock(Button.class);
         when(mockCloseButton.getScene()).thenReturn(mockScene);
         userInterface.closeButton = mockCloseButton;
+                
+        // Setup mock antivirusManager.
+        mockAntivirusManager = mock(AntivirusManager.class);
+        mockAvFilesList = mock(ObservableList.class);
+        mockAvStatusLabel = mock(Label.class);
+        mockAvPane = mock(AnchorPane.class);
+        when(mockSystemOrchestrator.getAntivirusManager()).thenReturn(mockAntivirusManager);
         
         // Setup mock systemOchestrator.
         UserInterface.so = mockSystemOrchestrator;
+        userInterface.avFilesList = mockAvFilesList;
+        userInterface.avStatusLabel = mockAvStatusLabel;
+        userInterface.avPane = mockAvPane;
         // Initialize JavaFX components.
         Platform.runLater(() -> {
             userInterface.vpnButton = new Button("Start VPN");
@@ -150,7 +176,48 @@ public class UserInterfaceTest {
 
         assertTrue("Timeout nel thread JavaFX", latch.await(5, java.util.concurrent.TimeUnit.SECONDS));
     }
+    @Test
+    public void testViewAv_withAVUpStatus() {
+        // Set UP Status.
+        runningStates avStatus = runningStates.UP;
+        when(mockSystemOrchestrator.getAVStatus()).thenReturn(avStatus);
 
+        ScanReport report1 = mock(ScanReport.class);
+        when(report1.getFile()).thenReturn(new File("file1.txt"));
+        when(report1.getWarningClass()).thenReturn(warningClass.DANGEROUS);
+
+        ScanReport report2 = mock(ScanReport.class);
+        when(report2.getFile()).thenReturn(new File("file2.txt"));
+        when(report2.getWarningClass()).thenReturn(warningClass.CLEAR);
+
+        List<ScanReport> reports = Arrays.asList(report1, report2);
+        when(mockAntivirusManager.getFinalReports()).thenReturn(reports);
+
+        // Act: execcute viewAV function.
+        userInterface.viewAv();
+
+        // Assert
+        verify(mockAvStatusLabel).setText("UP");
+        verify(mockAvFilesList).clear();
+
+    }
+
+    @Test
+    public void testViewAv_withAVDownStatus() {
+        // Arrange
+        runningStates avStatus = runningStates.DOWN;
+        when(mockSystemOrchestrator.getAVStatus()).thenReturn(avStatus);
+
+        // Act
+        userInterface.viewAv();
+
+        // Assert
+        verify(mockAvStatusLabel).setText("DOWN");
+        verify(mockAvFilesList, never()).clear();
+        verify(mockAvFilesList, never()).addAll(anyList());
+        verify(mockAvPane).toFront();
+    }
+    
     @Test
     public void testHandleFileSelection_noFileSelected() throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(1);
