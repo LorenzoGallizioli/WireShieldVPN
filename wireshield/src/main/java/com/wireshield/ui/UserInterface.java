@@ -106,7 +106,6 @@ public class UserInterface extends Application {
     public void initialize() {
         viewHome();
         updatePeerList();
-        startDynamicLogUpdate();
         // Imposta lo stato iniziale della ListView in base allo stato della VPN
         peerListView.setDisable(so.getConnectionStatus() == connectionStates.CONNECTED);
 
@@ -211,6 +210,7 @@ public class UserInterface extends Application {
     @FXML
     public void viewLogs() {
         logsPane.toFront();
+        startDynamicLogUpdate();
     }
 
     /**
