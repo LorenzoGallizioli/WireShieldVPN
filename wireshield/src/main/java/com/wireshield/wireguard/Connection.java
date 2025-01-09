@@ -91,7 +91,7 @@ public class Connection {
      * @return
      */
     protected String wgShow(String param) {
-        String activeInterface = this.getActiveInterface();
+        activeInterface = this.getActiveInterface();
         if (activeInterface == null || param == null) return null;
         
         try {

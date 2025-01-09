@@ -57,7 +57,7 @@ public class SystemOrchestratorTest {
 		orchestrator.manageVPN(vpnOperations.START, "testPeer.conf");
 
 		// Verifica se il metodo setInterfaceUp è stato chiamato
-		assertTrue("The VPN interface should be up",
+		assertSame("The VPN interface should be up",
 				wireguardManager.getConnectionStatus() == connectionStates.CONNECTED);
 	}
 
@@ -68,7 +68,7 @@ public class SystemOrchestratorTest {
 		orchestrator.manageVPN(vpnOperations.STOP, null);
 
 		// Verifica se il metodo setInterfaceDown è stato chiamato
-		assertTrue("The VPN interface should be down",
+		assertSame("The VPN interface should be down",
 				wireguardManager.getConnectionStatus() == connectionStates.DISCONNECTED);
 	}
 
@@ -79,7 +79,7 @@ public class SystemOrchestratorTest {
 		orchestrator.manageDownload(runningStates.UP);
 
 		// Verifica che il metodo startMonitoring sia stato chiamato correttamente
-		assertTrue("The download monitoring service should be running",
+		assertSame("The download monitoring service should be running",
 				downloadManager.getMonitorStatus() == runningStates.UP);
 	}
 
@@ -90,7 +90,7 @@ public class SystemOrchestratorTest {
 		orchestrator.manageDownload(runningStates.DOWN);
 
 		// Verifica che il metodo stopMonitoring sia stato chiamato correttamente
-		assertTrue("The download monitoring service should be stopped",
+		assertSame("The download monitoring service should be stopped",
 				downloadManager.getMonitorStatus() == runningStates.DOWN);
 	}
 
@@ -101,7 +101,7 @@ public class SystemOrchestratorTest {
 		orchestrator.manageAV(runningStates.UP);
 
 		// Verifica che il metodo startScan sia stato chiamato correttamente
-		assertTrue("The antivirus scan should be running", antivirusManager.getScannerStatus() == runningStates.UP);
+		assertSame("The antivirus scan should be running", antivirusManager.getScannerStatus() == runningStates.UP);
 	}
 
 	// Test per il metodo manageAV con stato DOWN
@@ -111,7 +111,7 @@ public class SystemOrchestratorTest {
 		orchestrator.manageAV(runningStates.DOWN);
 
 		// Verifica che il metodo stopScan sia stato chiamato correttamente
-		assertTrue("The antivirus scan should be stopped", antivirusManager.getScannerStatus() == runningStates.DOWN);
+		assertSame("The antivirus scan should be stopped", antivirusManager.getScannerStatus() == runningStates.DOWN);
 	}
 
 	// Test per il metodo getConnectionStatus

@@ -37,7 +37,6 @@ public class FileManagerTest {
 
 	private static final String CONFIG_PATH = FileManager.getProjectFolder() + "\\config\\config.json";
     private static final String TEMP_CONFIG_PATH = FileManager.getProjectFolder() + "\\config\\config_backup.json";
-    private static final String API_KEY = "895b6aece66d9a168c9822eb4254f2f44993e347c5ea0ddf90708982e857d613";
 	
 	/*
 	 * Setup method that initializes the test file path before each test. This
@@ -67,7 +66,7 @@ public class FileManagerTest {
 	 * run after every test to ensure that there are no leftover files.
 	 */
 	@After
-	public void tearDown() throws FileNotFoundException, IOException {
+	public void tearDown() throws IOException {
 		File file = new File(testFilePath);
 		if (file.exists()) {
 			file.delete(); // Delete the test file if it exists
@@ -251,7 +250,7 @@ public class FileManagerTest {
 
 	// Test del blocco try (quando il file è stabile)
 	@Test
-	public void testIsFileStable_Try() throws InterruptedException, IOException {
+	public void testIsFileStable_Try() throws IOException {
 		// Crea e scrivi nel file stabile
 		stableFile = new File("stableFile.txt");
 		stableFile.createNewFile();
@@ -263,7 +262,7 @@ public class FileManagerTest {
 
 	// Test del blocco catch (quando il thread è interrotto)
 	@Test
-	public void testIsFileStable_Catch() throws InterruptedException, IOException {
+	public void testIsFileStable_Catch() throws IOException {
 		// Crea il file vuoto
 		emptyFile = new File("emptyFile.txt");
 		emptyFile.createNewFile();
@@ -341,7 +340,7 @@ public class FileManagerTest {
 	 *
 	 */
 	@Test
-	public void testGetConfigValueValidKey() throws IOException {
+	public void testGetConfigValueValidKey() {
 				
 		String api_key = FileManager.getConfigValue("api_key");
 		assertNull("895b6aece66d9a168c9822eb4254f2f44993e347c5ea0ddf90708982e857d613", api_key);

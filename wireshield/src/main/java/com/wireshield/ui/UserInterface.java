@@ -53,19 +53,24 @@ public class UserInterface extends Application {
      * JavaFX AnchorPanes.
      */
     @FXML
-    protected AnchorPane homePane, logsPane, avPane, settingsPane;
+    protected AnchorPane homePane; 
+    protected AnchorPane logsPane;
+    protected AnchorPane avPane;
+    protected AnchorPane settingsPane;
 
     /**
      * JavaFX TextAreas.
      */
     @FXML
-    protected TextArea logsArea, avFilesArea;
+    protected TextArea logsArea;
+    protected TextArea avFilesArea;
 
     /**
      * JavaFX HBox Buttons.
      */
     @FXML
-    protected Button minimizeButton, closeButton;
+    protected Button minimizeButton;
+    protected Button closeButton;
 
     /**
      * JavaFX ListViews.
