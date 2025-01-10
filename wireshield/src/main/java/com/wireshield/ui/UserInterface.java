@@ -76,7 +76,7 @@ public class UserInterface extends Application {
     @FXML
     protected ListView<String> avFilesListView;
     protected ObservableList<String> avFilesList = FXCollections.observableArrayList();
-    private String selectedPeerFile; // Variabile per memorizzare il file selezionato.
+    protected String selectedPeerFile; // Variabile per memorizzare il file selezionato.
 
     /**
      * Start the application.
