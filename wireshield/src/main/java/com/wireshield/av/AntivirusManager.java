@@ -79,6 +79,11 @@ public class AntivirusManager {
 		scanThread = new Thread(() -> {
 			try {
 				performScan();
+			} catch (InterruptedException e) {
+	            Thread.currentThread().interrupt();  // Ripristina l'interruzione
+	            logger.error("Scan process was interrupted.", e);
+	            return;  // Termina l'esecuzione del thread
+	            
 			} finally {
 				synchronized (this) {
 					scannerStatus = runningStates.DOWN;
@@ -90,7 +95,7 @@ public class AntivirusManager {
 		scanThread.start();
 	}
 
-	private void performScan() {
+	private void performScan() throws InterruptedException {
 		while (scannerStatus == runningStates.UP) {
 			File fileToScan;
 

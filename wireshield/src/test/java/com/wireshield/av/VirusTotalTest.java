@@ -100,7 +100,7 @@ public class VirusTotalTest {
 	 * - Valid file - Suspicious file - Non-existent file
 	 */
 	@Test
-	public void testAnalyzeAndGetReport() {
+	public void testAnalyzeAndGetReport() throws InterruptedException {
 		// Test for the valid file
 		virusTotal.analyze(validFile);
 		ScanReport validReport = virusTotal.getReport();
@@ -251,7 +251,7 @@ public class VirusTotalTest {
 	}
 
 	@Test
-	public void testAnalyzeRequestLimitExceeded() {
+	public void testAnalyzeRequestLimitExceeded() throws InterruptedException {
 		// Simulate filling the request queue to reach the limit
 		long currentTime = System.currentTimeMillis();
 		for (int i = 0; i < VirusTotal.REQUEST_LIMIT; i++) {

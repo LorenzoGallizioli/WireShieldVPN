@@ -164,6 +164,10 @@ public class DownloadManager {
 
 		} catch (IOException | InterruptedException e) {
 			logger.error("Error stopping monitoring: {}", e.getMessage(), e);
+			// Ri-interrompi il thread per preservare lo stato di interruzione
+			if (e instanceof InterruptedException) {
+				Thread.currentThread().interrupt(); // Resta consapevole dell'interruzione
+			}
 		}
 	}
 

@@ -7,7 +7,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.client.HttpClient;
 import org.apache.http.HttpResponse;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
@@ -21,7 +20,7 @@ import java.net.URI;
 import java.util.Queue;
 import java.util.LinkedList;
 
-public class VirusTotal implements AVInterface{
+public class VirusTotal implements AVInterface {
 
 	private static final Logger logger = LogManager.getLogger(VirusTotal.class);
 
@@ -49,7 +48,6 @@ public class VirusTotal implements AVInterface{
 		}
 		return instance;
 	}
-
 
 	/**
 	 * Analyzes a file by uploading it to VirusTotal for a threat analysis. If the
@@ -127,16 +125,17 @@ public class VirusTotal implements AVInterface{
 	 *
 	 * @return The ScanReport containing the analysis results, or null if an error
 	 *         occurred.
+	 * @throws InterruptedException
 	 */
 
-	public ScanReport getReport() {
+	public ScanReport getReport() throws InterruptedException {
 		// Ensure a valid scan report exists
 		if (scanReport == null || scanReport.getScanId() == null) {
 			logger.warn("No report available. Please perform an analysis first.");
 			return null;
 		}
 
-	    try (CloseableHttpClient client = HttpClients.createDefault()) {
+		try (CloseableHttpClient client = HttpClients.createDefault()) {
 			URI uri = new URIBuilder(virustotalUri + "/analyses/" + scanReport.getScanId()).build();
 			boolean isCompleted = false;
 			logger.info("Waiting for the report...");
@@ -172,7 +171,8 @@ public class VirusTotal implements AVInterface{
 
 						// Determine the threat level
 						if (maliciousCount > 0) {
-							double totalScans = (double) maliciousCount + harmlessCount + suspiciousCount + undetectedCount;
+							double totalScans = (double) maliciousCount + harmlessCount + suspiciousCount
+									+ undetectedCount;
 							double maliciousPercentage = (maliciousCount / totalScans) * 100;
 
 							scanReport.setThreatDetected(true);
@@ -198,6 +198,9 @@ public class VirusTotal implements AVInterface{
 					return null;
 				}
 			}
+		} catch (InterruptedException e) {
+			logger.error("Thread was interrupted while retrieving the report.", e);
+			throw e; // Rethrow the InterruptedException
 		} catch (Exception e) {
 			logger.error("Exception while getting the analysis report.", e);
 		}
@@ -237,10 +240,10 @@ public class VirusTotal implements AVInterface{
 	 */
 	String getApiKey() {
 
-		String apiKey;
-		apiKey = FileManager.getConfigValue("api_key");
-		if (apiKey != null) {
-			return apiKey.trim(); // Remove extra spaces
+		String userApiKey;
+		userApiKey = FileManager.getConfigValue("api_key");
+		if (userApiKey != null) {
+			return userApiKey.trim(); // Remove extra spaces
 		}
 		return null;
 	}
@@ -263,14 +266,14 @@ public class VirusTotal implements AVInterface{
 		logger.info("API key file is missing or empty. Please enter your API key:");
 
 		try (java.util.Scanner scanner = new java.util.Scanner(System.in)) {
-			String apiKey = null;
+			String userApiKey = null;
 
 			// Continua a chiedere finché non viene inserita una chiave non vuota
-			while (apiKey == null || apiKey.trim().isEmpty()) {
-				apiKey = scanner.nextLine().trim();
+			while (userApiKey == null || userApiKey.trim().isEmpty()) {
+				userApiKey = scanner.nextLine().trim();
 
 				// Se l'utente inserisce una chiave vuota, chiedi di nuovo
-				if (apiKey.isEmpty()) {
+				if (userApiKey.isEmpty()) {
 					logger.error("Invalid input. The API key cannot be empty. Please enter a valid API key.");
 					logger.info("Please try again.");
 				}
@@ -290,14 +293,12 @@ public class VirusTotal implements AVInterface{
 			// Verifica che la chiave sia valida prima di proseguire
 			if (this.apiKey == null || this.apiKey.trim().isEmpty()) {
 				logger.error("Invalid API key. Please restart the program and provide a valid key.");
-				return;
 			} else {
 				logger.info("API key loaded: {}", this.apiKey);
 			}
 
 		} catch (Exception e) {
-			logger.error("Error during API key input: " + e.getMessage(), e);
-			return; // Esci dalla funzione in caso di errore
+			logger.error("Error during API key input: {}", e.getMessage(), e);
 		}
 	}
 }

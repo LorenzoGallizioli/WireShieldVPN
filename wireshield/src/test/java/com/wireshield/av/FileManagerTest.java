@@ -259,7 +259,12 @@ public class FileManagerTest {
 		assertTrue("Il file dovrebbe essere stabile", FileManager.isFileStable(stableFile));
 	}
 
-	// Test del blocco catch (quando il thread è interrotto)
+	/**
+	 * Questo test verifica che il metodo `isFileStable` gestisca correttamente
+	 * l'interruzione di un thread. In particolare, si verifica che, se il thread 
+	 * viene interrotto prima che `isFileStable` venga eseguito, l'interruzione 
+	 * venga correttamente gestita senza causare un blocco indefinito.
+	 */
 	@Test
 	public void testIsFileStable_Catch() throws IOException {
 		// Crea il file vuoto
@@ -273,8 +278,12 @@ public class FileManagerTest {
 		// Testa se il metodo gestisce l'interruzione del thread
 		assertFalse("Il metodo dovrebbe gestire l'interruzione", FileManager.isFileStable(emptyFile));
 	}
-
-	// Testa il blocco catch (simulando un errore di calcolo SHA256)
+	
+	/*
+	 * Testa il comportamento del metodo calculateSHA256 quando viene passato un file che non esiste.
+	 * In particolare, questo test verifica che il metodo gestisca correttamente gli errori restituendo
+	 * null in caso di errore, come quando il file non può essere letto.
+	 */
 	@Test
 	public void testCalculateSHA256_Catch() {
 		// Crea un file non esistente o che non può essere letto

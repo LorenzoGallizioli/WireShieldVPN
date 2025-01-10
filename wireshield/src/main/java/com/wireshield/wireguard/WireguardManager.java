@@ -175,6 +175,7 @@ public class WireguardManager {
 
 		// Wait that while the interface is actually up
 		while (connection.getActiveInterface() == null) {
+	        // Interfaccia non attiva, controlla di nuovo subito dopo
 		}
 
 		// Update active interface

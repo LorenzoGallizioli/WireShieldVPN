@@ -37,11 +37,6 @@ public class ConnectionTest {
         assertEquals(0, (long)traffic[0]);
         assertEquals(0, (long)traffic[1]);
     }
-    
-    @Test
-    public void testWgShow() {
-    	// not tested, we had tried but Mockito is not applicable --> need run wireguard.exe and wg.exe with a valid peer 
-    }
 
     @Test
     public void testSetStatusAndGetStatus() {

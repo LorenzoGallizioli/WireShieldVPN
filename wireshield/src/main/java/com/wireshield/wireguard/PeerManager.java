@@ -77,7 +77,6 @@ public class PeerManager {
 	public Peer getPeerById(String id) {
 		if (id != null && !id.isEmpty()) {
 			for (Peer p : peers) {
-				// System.out.println(p.getId());
 				if (id.equals(p.getId())) {
 					return p;
 				}
@@ -93,8 +92,7 @@ public class PeerManager {
 	 * @return Peer[] An array of all peers.
 	 */
 	public Peer[] getPeers() {
-		Peer[] p = this.peers.toArray(new Peer[peers.size()]);
-		return p;
+		return this.peers.toArray(new Peer[peers.size()]);
 	}
 
 	/**

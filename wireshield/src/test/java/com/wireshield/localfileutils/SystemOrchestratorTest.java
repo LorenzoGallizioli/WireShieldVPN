@@ -21,11 +21,19 @@ public class SystemOrchestratorTest {
 	private DownloadManager downloadManager;
 	private AntivirusManager antivirusManager;
 
-	String testString = "[Interface]\r\n" + "PrivateKey = cIm09yQB5PUxKIhUwyK8TwL6ulaemcllbuzSCaOG0UM=\r\n"
-			+ "Address = 172.0.0.6/32\r\n" + "DNS = 172.0.0.1\r\n" + "MTU = 1420\r\n" + "\r\n" + "[Peer]\r\n"
-			+ "PublicKey = DlaMue3dkdiExmuYtQVAPlreolMWXP5zg9l1omRUDDA=\r\n"
-			+ "PresharedKey = 0GYNNk24bSVUKBVGQU2tS1+tu5wT/RV2dQ3Z2gFxrNU=\r\n" + "AllowedIPs = 0.0.0.0/0, ::/0\r\n"
-			+ "Endpoint = 140.238.212.179:51820\r\n";
+	String testString = """
+		    [Interface]
+		    PrivateKey = cIm09yQB5PUxKIhUwyK8TwL6ulaemcllbuzSCaOG0UM=
+		    Address = 172.0.0.6/32
+		    DNS = 172.0.0.1
+		    MTU = 1420
+
+		    [Peer]
+		    PublicKey = DlaMue3dkdiExmuYtQVAPlreolMWXP5zg9l1omRUDDA=
+		    PresharedKey = 0GYNNk24bSVUKBVGQU2tS1+tu5wT/RV2dQ3Z2gFxrNU=
+		    AllowedIPs = 0.0.0.0/0, ::/0
+		    Endpoint = 140.238.212.179:51820
+		    """;
 
 	Map<String, Map<String, String>> extDatas = PeerManager.parsePeerConfig(testString);
 
@@ -57,8 +65,7 @@ public class SystemOrchestratorTest {
 		orchestrator.manageVPN(vpnOperations.START, "testPeer.conf");
 
 		// Verifica se il metodo setInterfaceUp è stato chiamato
-		assertSame("The VPN interface should be up",
-				wireguardManager.getConnectionStatus() == connectionStates.CONNECTED);
+		assertTrue("The VPN interface should be up", wireguardManager.getConnectionStatus() == connectionStates.CONNECTED);
 	}
 
 	// Test per il metodo manageVPN con operazione STOP
@@ -68,7 +75,7 @@ public class SystemOrchestratorTest {
 		orchestrator.manageVPN(vpnOperations.STOP, null);
 
 		// Verifica se il metodo setInterfaceDown è stato chiamato
-		assertSame("The VPN interface should be down",
+		assertTrue("The VPN interface should be down",
 				wireguardManager.getConnectionStatus() == connectionStates.DISCONNECTED);
 	}
 
@@ -79,7 +86,7 @@ public class SystemOrchestratorTest {
 		orchestrator.manageDownload(runningStates.UP);
 
 		// Verifica che il metodo startMonitoring sia stato chiamato correttamente
-		assertSame("The download monitoring service should be running",
+		assertTrue("The download monitoring service should be running",
 				downloadManager.getMonitorStatus() == runningStates.UP);
 	}
 
@@ -90,7 +97,7 @@ public class SystemOrchestratorTest {
 		orchestrator.manageDownload(runningStates.DOWN);
 
 		// Verifica che il metodo stopMonitoring sia stato chiamato correttamente
-		assertSame("The download monitoring service should be stopped",
+		assertTrue("The download monitoring service should be stopped",
 				downloadManager.getMonitorStatus() == runningStates.DOWN);
 	}
 
@@ -101,7 +108,7 @@ public class SystemOrchestratorTest {
 		orchestrator.manageAV(runningStates.UP);
 
 		// Verifica che il metodo startScan sia stato chiamato correttamente
-		assertSame("The antivirus scan should be running", antivirusManager.getScannerStatus() == runningStates.UP);
+		assertTrue("The antivirus scan should be running", antivirusManager.getScannerStatus() == runningStates.UP);
 	}
 
 	// Test per il metodo manageAV con stato DOWN
@@ -111,7 +118,7 @@ public class SystemOrchestratorTest {
 		orchestrator.manageAV(runningStates.DOWN);
 
 		// Verifica che il metodo stopScan sia stato chiamato correttamente
-		assertSame("The antivirus scan should be stopped", antivirusManager.getScannerStatus() == runningStates.DOWN);
+		assertTrue("The antivirus scan should be stopped", antivirusManager.getScannerStatus() == runningStates.DOWN);
 	}
 
 	// Test per il metodo getConnectionStatus

@@ -30,7 +30,6 @@ public class SystemOrchestrator {
     private VirusTotal virusTotal;             // Analyzes files with VirusTotal
     private runningStates avStatus = runningStates.DOWN; // Antivirus service status
     private runningStates monitorStatus;       // Download monitoring service status
-    private connectionStates connectionStatus; // VPN connection status
 
     /*
      * Initializes the SystemOrchestrator instance with necessary components.
@@ -171,7 +170,7 @@ public class SystemOrchestrator {
      * @return The current VPN connection status.
      */
     public connectionStates getConnectionStatus() {
-        this.connectionStatus = wireguardManager.getConnectionStatus();
+    	connectionStates connectionStatus = wireguardManager.getConnectionStatus();
         logger.debug("Retrieving connection status: {}", connectionStatus);
         return connectionStatus;
     }
