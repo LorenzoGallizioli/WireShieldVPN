@@ -81,7 +81,7 @@ public class UserInterface extends Application {
     @FXML
     protected ListView<String> avFilesListView;
     protected ObservableList<String> avFilesList = FXCollections.observableArrayList();
-    private String selectedPeerFile; // Variabile per memorizzare il file selezionato.
+    protected String selectedPeerFile; // Variabile per memorizzare il file selezionato.
 
     /**
      * Start the application.
@@ -111,7 +111,6 @@ public class UserInterface extends Application {
     public void initialize() {
         viewHome();
         updatePeerList();
-        startDynamicLogUpdate();
         // Imposta lo stato iniziale della ListView in base allo stato della VPN
         peerListView.setDisable(so.getConnectionStatus() == connectionStates.CONNECTED);
 
@@ -215,6 +214,7 @@ public class UserInterface extends Application {
     @FXML
     public void viewLogs() {
         logsPane.toFront();
+        startDynamicLogUpdate();
     }
 
     /**

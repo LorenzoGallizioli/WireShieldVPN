@@ -29,10 +29,15 @@ public class Main {
      */
     private static boolean isRunningAsAdmin() {
         try {
-            Process process = Runtime.getRuntime().exec("net session");
+            ProcessBuilder processBuilder = new ProcessBuilder("net", "session");
+            processBuilder.redirectErrorStream(true);
+            Process process = processBuilder.start();
             process.waitFor();
             return process.exitValue() == 0;
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {           
+            return false;
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             return false;
         }
     }
