@@ -77,7 +77,8 @@
                         <!-- Peer list -->
                         <VBox spacing="10.0">
                            <Label text="Available peers:" />
-                           <ListView fx:id="peerListView" prefHeight="200.0" prefWidth="400.0" styleClass="black-listview"/>
+                           <ListView fx:id="peerListView" prefHeight="110.0" prefWidth="400.0" styleClass="black-listview"/>
+                           <Label fx:id="connLabel" text="" />
                         </VBox>
                      </HBox>
                      <!-- VPN Button -->

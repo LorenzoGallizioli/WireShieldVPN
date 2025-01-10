@@ -272,6 +272,9 @@ public class WireguardManager {
      *   The connection logs. 
      */
     public String getConnectionLogs(){
+        connection.updateActiveInterface();
+        connection.updateTraffic();
+        connection.updateLastHandshakeTime();
         return connection.toString();
     }
 

@@ -47,7 +47,7 @@ public class UserInterface extends Application {
      * JavaFX Labels.
      */
     @FXML
-    protected Label avStatusLabel;
+    protected Label avStatusLabel, connLabel;
     
     /**
      * JavaFX AnchorPanes.
@@ -201,6 +201,7 @@ public class UserInterface extends Application {
     @FXML
     public void viewHome() {
         homePane.toFront();
+        startDynamicConnectionLogsUpdate();
         updatePeerList();
     }
 
@@ -318,6 +319,36 @@ public class UserInterface extends Application {
                     break;
                 } catch (Exception e) {
                     logger.error("Error updating logs dynamically: ", e);
+                }
+            }
+        };
+
+        Thread logUpdateThread = new Thread(task);
+        logUpdateThread.setDaemon(true); // Assicura che il thread si fermi con l'applicazione
+        logUpdateThread.start();
+    }
+
+     /**
+     * Starts a thread that dynamically updates the logs area.
+     */
+    protected void startDynamicConnectionLogsUpdate() {
+        Runnable task = () -> {
+            while (true) {
+                try {
+                    // Recupera i log aggiornati
+                    String logs = so.getWireguardManager().getConnectionLogs();
+                    // Aggiorna logsArea sul thread JavaFX
+                    Platform.runLater(() -> {
+                        connLabel.setText("");;
+                        connLabel.setText(logs);
+                    });
+                    Thread.sleep(1000); // Attendi un secondo prima di aggiornare di nuovo
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    logger.error("Dynamic connection logs update thread interrupted.");
+                    break;
+                } catch (Exception e) {
+                    logger.error("Error updating connection logs: ", e);
                 }
             }
         };

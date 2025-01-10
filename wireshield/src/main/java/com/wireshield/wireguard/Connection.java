@@ -203,7 +203,7 @@ public class Connection {
     @Override
     public String toString() {
         return String.format(
-            "[INFO] Interface: %s\n[INFO] Status: %s\n[INFO] Last handshake time: %s\n[INFO] Received traffic: %s\n[INFO] Sent traffic: %s",
+            "Interface: %s\nStatus: %s\nLast handshake time: %s\nReceived traffic: %s\nSent traffic: %s",
             this.activeInterface,
             this.status,
             this.lastHandshakeTime,
