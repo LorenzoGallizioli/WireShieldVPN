@@ -52,6 +52,8 @@ public class UserInterfaceTest {
     @Mock
     private AnchorPane mockAvPane, mockSettingsPane, mockLogsPane;
     
+    private AutoCloseable closeable;
+    
     @Before
     public void setUp() {
         // Initialize JavaFX toolkit only once.
@@ -60,8 +62,7 @@ public class UserInterfaceTest {
             isToolkitInitialized = true;
         }        
         userInterface = spy(new UserInterface());
-        MockitoAnnotations.initMocks(this);
-        
+        closeable = MockitoAnnotations.openMocks(this);        
         // Setup mocks.
         Scene mockScene = mock(Scene.class);
         mockStage = mock(Stage.class);
@@ -97,13 +98,14 @@ public class UserInterfaceTest {
     }
 
     @After
-    public void tearDown() {
+    public void tearDown() throws Exception {
         // Resetta i mock dopo ogni test
         reset(mockSystemOrchestrator, mockWireguardManager);
+        closeable.close();
     }
 
     @Test
-    public void testMinimizeWindow() throws InterruptedException {
+    public void testMinimizeWindow() {
         // Act: Call method.
         userInterface.minimizeWindow();
         // Assert: Verify if setIconified has been called.
@@ -240,7 +242,7 @@ public class UserInterfaceTest {
         verify(mockLogsPane).toFront();
 
         // Check if startDynamicLogUpdate has been called.
-        verify(userInterface).startDynamicLogUpdate();;
+        verify(userInterface).startDynamicLogUpdate();
     }
     
     @Test
