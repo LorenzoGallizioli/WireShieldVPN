@@ -40,9 +40,7 @@ public class UserInterfaceTest {
     @Mock
     private WireguardManager mockWireguardManager;
     @Mock
-    private Button mockMinimizeButton;
-    @Mock
-    private Button mockCloseButton;
+    private Button mockMinimizeButton, mockCloseButton;
     @Mock
     private Stage mockStage;
     @Mock
@@ -63,39 +61,31 @@ public class UserInterfaceTest {
         }        
         userInterface = spy(new UserInterface());
         MockitoAnnotations.initMocks(this);
+        
+        // Setup mocks.
         Scene mockScene = mock(Scene.class);
         mockStage = mock(Stage.class);
-        when(mockScene.getWindow()).thenReturn(mockStage);
-        // Setup the minimize button mock.
         mockMinimizeButton = mock(Button.class);
-        when(mockMinimizeButton.getScene()).thenReturn(mockScene);
-        userInterface.minimizeButton = mockMinimizeButton;
-        
-        // Setup the close button mock.
         mockCloseButton = mock(Button.class);
-        when(mockCloseButton.getScene()).thenReturn(mockScene);
-        userInterface.closeButton = mockCloseButton;
-                
-        // Setup mock antivirusManager.
         mockAntivirusManager = mock(AntivirusManager.class);
         mockAvFilesList = mock(ObservableList.class);
         mockAvStatusLabel = mock(Label.class);
         mockAvPane = mock(AnchorPane.class);
-        when(mockSystemOrchestrator.getAntivirusManager()).thenReturn(mockAntivirusManager);
-        
-        // Setup mock settingsPane.
         mockSettingsPane = mock(AnchorPane.class);
-        userInterface.settingsPane = mockSettingsPane;
-        
-        // Setup mock settingsPane.
         mockLogsPane = mock(AnchorPane.class);
-        userInterface.logsPane = mockLogsPane;
-        
-        // Setup mock systemOchestrator.
-        UserInterface.so = mockSystemOrchestrator;
+        when(mockScene.getWindow()).thenReturn(mockStage);
+        when(mockMinimizeButton.getScene()).thenReturn(mockScene);
+        when(mockCloseButton.getScene()).thenReturn(mockScene);
+        when(mockSystemOrchestrator.getAntivirusManager()).thenReturn(mockAntivirusManager);
+        userInterface.minimizeButton = mockMinimizeButton;
+        userInterface.closeButton = mockCloseButton;
+        userInterface.settingsPane = mockSettingsPane;
+        userInterface.logsPane = mockLogsPane;        
         userInterface.avFilesList = mockAvFilesList;
         userInterface.avStatusLabel = mockAvStatusLabel;
         userInterface.avPane = mockAvPane;
+        UserInterface.so = mockSystemOrchestrator;
+        
         // Initialize JavaFX components.
         Platform.runLater(() -> {
             userInterface.vpnButton = new Button("Start VPN");
