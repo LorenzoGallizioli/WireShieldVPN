@@ -201,9 +201,11 @@ public class Connection {
      */
     @Override
     public String toString() {
+        String interfaceName = this.activeInterface == null ? "None" : this.activeInterface;
+
         return String.format(
             "Interface: %s\nStatus: %s\nLast handshake time: %s\nReceived traffic: %s\nSent traffic: %s",
-            this.activeInterface,
+            interfaceName,
             this.status,
             this.lastHandshakeTime,
             (long)this.receivedTraffic,
