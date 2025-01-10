@@ -117,7 +117,6 @@ public class Connection {
     	
     	Process process = null;
         try {
-        	System.out.println(wgPath);
             ProcessBuilder processBuilder = new ProcessBuilder(wgPath, "show", "interfaces");
             process = processBuilder.start();
 

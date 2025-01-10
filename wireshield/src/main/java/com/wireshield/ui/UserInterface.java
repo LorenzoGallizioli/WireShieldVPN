@@ -5,6 +5,7 @@ import com.wireshield.enums.connectionStates;
 import com.wireshield.enums.runningStates;
 import com.wireshield.enums.vpnOperations;
 import com.wireshield.localfileutils.SystemOrchestrator;
+import com.wireshield.wireguard.WireguardManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,6 +37,7 @@ public class UserInterface extends Application {
 
     private static final Logger logger = LogManager.getLogger(SystemOrchestrator.class);
     protected static SystemOrchestrator so;
+    protected static WireguardManager wg;
 
     /**
      * JavaFX Buttons.
@@ -53,7 +55,7 @@ public class UserInterface extends Application {
      * JavaFX AnchorPanes.
      */
     @FXML
-    protected AnchorPane homePane, logsPane, avPane, settingsPane;
+    protected AnchorPane homePane, logsPane, avPane;
 
     /**
      * JavaFX TextAreas.
@@ -106,6 +108,8 @@ public class UserInterface extends Application {
     public void initialize() {
         viewHome();
         updatePeerList();
+        startDynamicConnectionLogsUpdate();
+        startDynamicLogUpdate();
         // Imposta lo stato iniziale della ListView in base allo stato della VPN
         peerListView.setDisable(so.getConnectionStatus() == connectionStates.CONNECTED);
 
@@ -146,6 +150,7 @@ public class UserInterface extends Application {
     public static void main(String[] args) {
         so = SystemOrchestrator.getInstance();
         so.manageVPN(vpnOperations.STOP,null);
+        wg = so.getWireguardManager();
         launch(args);
     }
 
@@ -201,7 +206,6 @@ public class UserInterface extends Application {
     @FXML
     public void viewHome() {
         homePane.toFront();
-        startDynamicConnectionLogsUpdate();
         updatePeerList();
     }
 
@@ -211,7 +215,7 @@ public class UserInterface extends Application {
     @FXML
     public void viewLogs() {
         logsPane.toFront();
-        startDynamicLogUpdate();
+        logger.info("Viewing logs...");
     }
 
     /**
@@ -231,14 +235,6 @@ public class UserInterface extends Application {
             }
         }
         avPane.toFront();
-    }
-
-    /**
-     * Displays the settings page.
-     */
-    @FXML
-    public void viewSettings() {
-        settingsPane.toFront();
     }
 
     /**
@@ -306,7 +302,7 @@ public class UserInterface extends Application {
             while (true) {
                 try {
                     // Recupera i log aggiornati
-                    String logs = so.getWireguardManager().getLog();
+                    String logs = wg.getLog();
                     // Aggiorna logsArea sul thread JavaFX
                     Platform.runLater(() -> {
                         logsArea.clear();
@@ -336,7 +332,7 @@ public class UserInterface extends Application {
             while (true) {
                 try {
                     // Recupera i log aggiornati
-                    String logs = so.getWireguardManager().getConnectionLogs();
+                    String logs = wg.getConnectionLogs();
                     // Aggiorna logsArea sul thread JavaFX
                     Platform.runLater(() -> {
                         connLabel.setText("");;
