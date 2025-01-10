@@ -162,12 +162,12 @@ public class DownloadManager {
 
 			logger.info("Stopped monitoring the directory.");
 
-		} catch (IOException | InterruptedException e) {
-			logger.error("Error stopping monitoring: {}", e.getMessage(), e);
+		} catch (IOException e) {
+			logger.error("Error stopping monitoring due to IO issue: {}", e.getMessage(), e);
+		} catch (InterruptedException e) {
+			logger.error("Thread interrupted while stopping monitoring: {}", e.getMessage(), e);
 			// Ri-interrompi il thread per preservare lo stato di interruzione
-			if (e instanceof InterruptedException) {
-				Thread.currentThread().interrupt(); // Resta consapevole dell'interruzione
-			}
+			Thread.currentThread().interrupt();
 		}
 	}
 
