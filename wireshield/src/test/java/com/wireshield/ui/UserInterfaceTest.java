@@ -50,7 +50,7 @@ public class UserInterfaceTest {
     @Mock
     private Label mockAvStatusLabel;
     @Mock
-    private AnchorPane mockAvPane, mockSettingsPane, mockLogsPane;
+    private AnchorPane mockAvPane, mockLogsPane;
     
     @Before
     public void setUp() {
@@ -71,7 +71,6 @@ public class UserInterfaceTest {
         mockAvFilesList = mock(ObservableList.class);
         mockAvStatusLabel = mock(Label.class);
         mockAvPane = mock(AnchorPane.class);
-        mockSettingsPane = mock(AnchorPane.class);
         mockLogsPane = mock(AnchorPane.class);
         when(mockScene.getWindow()).thenReturn(mockStage);
         when(mockMinimizeButton.getScene()).thenReturn(mockScene);
@@ -79,7 +78,6 @@ public class UserInterfaceTest {
         when(mockSystemOrchestrator.getAntivirusManager()).thenReturn(mockAntivirusManager);
         userInterface.minimizeButton = mockMinimizeButton;
         userInterface.closeButton = mockCloseButton;
-        userInterface.settingsPane = mockSettingsPane;
         userInterface.logsPane = mockLogsPane;        
         userInterface.avFilesList = mockAvFilesList;
         userInterface.avStatusLabel = mockAvStatusLabel;
@@ -240,16 +238,7 @@ public class UserInterfaceTest {
         verify(mockLogsPane).toFront();
 
         // Check if startDynamicLogUpdate has been called.
-        verify(userInterface).startDynamicLogUpdate();;
-    }
-    
-    @Test
-    public void testViewSettings() {
-        // Act
-        userInterface.viewSettings();
-
-        // Assert
-        verify(mockSettingsPane).toFront();
+        verify(userInterface).startDynamicLogUpdate();
     }
     
     @Test

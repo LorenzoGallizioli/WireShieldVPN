@@ -117,7 +117,6 @@ public class Connection {
     	
     	Process process = null;
         try {
-        	System.out.println(wgPath);
             ProcessBuilder processBuilder = new ProcessBuilder(wgPath, "show", "interfaces");
             process = processBuilder.start();
 
@@ -202,9 +201,11 @@ public class Connection {
      */
     @Override
     public String toString() {
+        String interfaceName = this.activeInterface == null ? "None" : this.activeInterface;
+
         return String.format(
-            "[INFO] Interface: %s\n[INFO] Status: %s\n[INFO] Last handshake time: %s\n[INFO] Received traffic: %s\n[INFO] Sent traffic: %s",
-            this.activeInterface,
+            "Interface: %s\nStatus: %s\nLast handshake time: %s\nReceived traffic: %s\nSent traffic: %s",
+            interfaceName,
             this.status,
             this.lastHandshakeTime,
             (long)this.receivedTraffic,
