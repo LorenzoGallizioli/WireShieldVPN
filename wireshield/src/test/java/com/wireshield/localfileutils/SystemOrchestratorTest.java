@@ -63,7 +63,7 @@ public class SystemOrchestratorTest {
 
 	// Test per il metodo manageVPN con operazione STOP
 	@Test
-	public void testManageVPNStop() throws InterruptedException {
+	public void testManageVPNStop() {
 		// Eseguiamo il metodo con l'operazione STOP
 		orchestrator.manageVPN(vpnOperations.STOP, null);
 
@@ -157,7 +157,6 @@ public class SystemOrchestratorTest {
 	@Test
 	public void testAddPeer() {
 		peerId = pm.createPeer(extDatas, "B");
-		// System.out.println(peerId);
 
 		Peer[] p = pm.getPeers();
 

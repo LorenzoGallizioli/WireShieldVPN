@@ -34,7 +34,7 @@ import javafx.scene.control.ListView;
 
 public class UserInterface extends Application {
 
-    private static final Logger logger = LogManager.getLogger(SystemOrchestrator.class);
+    private static final Logger logger = LogManager.getLogger(UserInterface.class);
     protected static SystemOrchestrator so;
 
     /**

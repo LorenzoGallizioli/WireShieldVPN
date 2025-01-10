@@ -42,11 +42,11 @@ public class PeerManagerTest {
 		assertFalse(pm.removePeer(null));
 		assertFalse(pm.removePeer(""));
 		
-		Peer[] p_before = pm.getPeers();
+		Peer[] pBefore = pm.getPeers();
 		assertTrue(pm.removePeer(peerId));
 		
-		Peer[] p_after = pm.getPeers();
-		assertNotEquals(p_after, p_before);
+		Peer[] pAfter = pm.getPeers();
+		assertNotEquals(pAfter, pBefore);
 		
 	}
 

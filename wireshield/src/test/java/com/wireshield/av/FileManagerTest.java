@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -342,8 +341,8 @@ public class FileManagerTest {
 	@Test
 	public void testGetConfigValueValidKey() {
 				
-		String api_key = FileManager.getConfigValue("api_key");
-		assertNull("895b6aece66d9a168c9822eb4254f2f44993e347c5ea0ddf90708982e857d613", api_key);
+		String apiKey = FileManager.getConfigValue("api_key");
+		assertNull("895b6aece66d9a168c9822eb4254f2f44993e347c5ea0ddf90708982e857d613", apiKey);
 		
 	}
 
@@ -422,7 +421,7 @@ public class FileManagerTest {
     public void testWriteConfigValue_IOError() {
         // Imposta un percorso non scrivibile
         String invalidPath = "C:\\nonexistent\\config.json";
-        FileManager.CONFIG_PATH = invalidPath;
+        FileManager.configPath = invalidPath;
 
         // Test della funzione
         boolean result = FileManager.writeConfigValue("key", "value");

@@ -84,8 +84,6 @@ public class WireguardManager {
 			ProcessBuilder processBuilder = new ProcessBuilder(wireguardPath, "/installtunnelservice",
 					defaultPeerPath + configFileName);
 
-			// System.out.println(wireguardPath + " /installtunnelservice " +
-			// defaultPeerPath + configFileName);
 			Process process = processBuilder.start();
 
 			// Reads the output.
@@ -105,8 +103,12 @@ public class WireguardManager {
 				logger.error("Error starting WireGuard interface.");
 				return false;
 			}
-		} catch (IOException | InterruptedException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
+			return false;
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt(); // Reinterrompe il thread
+			logger.error("Thread was interrupted while stopping the WireGuard interface.");
 			return false;
 		}
 	}

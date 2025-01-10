@@ -12,10 +12,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 
 public class VirusTotalTest {
 
@@ -27,7 +23,7 @@ public class VirusTotalTest {
 	private File invalidFile;
 
 	// API Key
-	private static final String testApiKey = "895b6aece66d9a168c9822eb4254f2f44993e347c5ea0ddf90708982e857d613";
+	private static final String TEST_API_KEY = "895b6aece66d9a168c9822eb4254f2f44993e347c5ea0ddf90708982e857d613";
 
 	// CONFIG PATH
 	private static final String CONFIG_PATH = "config/config.json"; // Percorso del file config.json
@@ -82,16 +78,12 @@ public class VirusTotalTest {
 		updateConfigWithEmptyApiKey(); // Imposta la API_KEY vuota nel file
 
 		// Reset l'istanza di VirusTotal per testare la creazione di una nuova istanza
-		resetVirusTotalInstance(); // Usa la riflessione per resettare l'istanza
-
-		// Fase 1: Controlliamo che il logger invii un errore quando la API_KEY è vuota
-		VirusTotal tempVirusTotal = VirusTotal.getInstance(); // Crea l'istanza, il costruttore verrà chiamato e
-																// verificherà
-																// la API_KEY vuota
+		resetVirusTotalInstance();
 
 		// Fase 2: Ora reinseriamo una API_KEY valida nel file config.json
 		updateConfigWithValidApiKey();
 
+		
 		resetVirusTotalInstance(); // Usa la riflessione per resettare l'istanza
 
 		// Eseguiamo di nuovo il costruttore VirusTotal con la API_KEY valida
@@ -108,7 +100,7 @@ public class VirusTotalTest {
 	 * - Valid file - Suspicious file - Non-existent file
 	 */
 	@Test
-	public void testAnalyzeAndGetReport() throws IOException {
+	public void testAnalyzeAndGetReport() {
 		// Test for the valid file
 		virusTotal.analyze(validFile);
 		ScanReport validReport = virusTotal.getReport();
@@ -139,7 +131,7 @@ public class VirusTotalTest {
 	 * Test for uploading and receiving the scan ID via VirusTotal's API.
 	 */
 	@Test
-	public void testUploadAndGetScanId() throws IOException, InterruptedException {
+	public void testUploadAndGetScanId() throws InterruptedException {
 		// Upload the file to VirusTotal and get the report
 		virusTotal.analyze(validFile);
 		ScanReport report = virusTotal.getReport();
@@ -182,7 +174,7 @@ public class VirusTotalTest {
 		// Simulate reading an API key from the file
 		String apiKey = virusTotal.getApiKey();
 		assertNotNull(apiKey); // Ensure the API key is not null
-		assertEquals(testApiKey, apiKey); // Check if it matches the expected API key	
+		assertEquals(TEST_API_KEY, apiKey); // Check if it matches the expected API key	
 	}
 	
 	/*
@@ -206,12 +198,7 @@ public class VirusTotalTest {
 
 		updateConfigWithEmptyApiKey(); // Imposta la API_KEY vuota nel file
 
-		System.out.println(
-			    "\n" +
-			    "1) You must insert an empty API key to trigger the logger message: INVALID INPUT.\n" +
-			    "2) Then, you must enter the correct API key to proceed."
-			    + "\n"
-			);
+		System.out.println("\n 1) You must insert an empty API key to trigger the logger message: INVALID INPUT.\n 2) Then, you must enter the correct API key to proceed. \n");
 		
 		// Simulate the case where the API key file doesn't exist or is empty
 		virusTotal.ensureApiKeyFileExists();
@@ -331,7 +318,7 @@ public class VirusTotalTest {
 		JsonNode configNode = objectMapper.readTree(new File(CONFIG_PATH));
 
 		// Imposta la API_KEY valida
-		((com.fasterxml.jackson.databind.node.ObjectNode) configNode).put("api_key", testApiKey);
+		((com.fasterxml.jackson.databind.node.ObjectNode) configNode).put("api_key", TEST_API_KEY);
 
 		// Scrivi nuovamente nel file config.json
 		objectMapper.writeValue(new File(CONFIG_PATH), configNode);

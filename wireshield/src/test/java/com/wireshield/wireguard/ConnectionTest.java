@@ -10,7 +10,6 @@ import com.wireshield.enums.connectionStates;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.io.IOException;
 import org.mockito.Mockito;
 import org.mockito.Spy;
@@ -101,15 +100,12 @@ public class ConnectionTest {
         String expected = conn.toString();
         
         String actual = String.format(
-            "[INFO] Interface: %s\n[INFO] Status: %s\n[INFO] Last handshake time: %s\n[INFO] Received traffic: %s\n[INFO] Sent traffic: %s",
+            "[INFO] Interface: %s%n[INFO] Status: %s%n[INFO] Last handshake time: %s%n[INFO] Received traffic: %s%n[INFO] Sent traffic: %s",
             activeInterface,
             status,
             lastHandshakeTime,
             (long)receivedTraffic,
             (long)sentTraffic);
-        
-        //System.out.println(expected);
-        //System.out.println(actual);
 
         assertEquals(expected, actual);
     }

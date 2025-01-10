@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wireshield.enums.warningClass;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.client.HttpClient;
 import org.apache.http.HttpResponse;
@@ -25,18 +26,18 @@ public class VirusTotal implements AVInterface{
 	private static final Logger logger = LogManager.getLogger(VirusTotal.class);
 
 	private static VirusTotal instance;
-	private String API_KEY; // API Key for accessing the VirusTotal API
-	private String VIRUSTOTAL_URI; // URI for VirusTotal API
+	private String apiKey; // API Key for accessing the VirusTotal API
+	private String virustotalUri; // URI for VirusTotal API
 	static final int REQUEST_LIMIT = 4; // Maximum requests allowed per minute
-	private static final long ONE_MINUTE_IN_MILLIS = 60 * 1000; // Duration of one minute in milliseconds
+	private static final long ONE_MINUTE_IN_MILLIS = 60L * 1000; // Duration of one minute in milliseconds
 	Queue<Long> requestTimestamps = new LinkedList<>(); // Tracks timestamps of API requests
 	private ScanReport scanReport; // Stores the scan report for the last analyzed file
 
 	// Constructor to load configuration from JSON
 	private VirusTotal() {
-		this.API_KEY = FileManager.getConfigValue("api_key");
-		this.VIRUSTOTAL_URI = FileManager.getConfigValue("VIRUSTOTAL_URI");
-		if (this.API_KEY == null || this.API_KEY.trim().isEmpty()) {
+		this.apiKey = FileManager.getConfigValue("api_key");
+		this.virustotalUri = FileManager.getConfigValue("VIRUSTOTAL_URI");
+		if (this.apiKey == null || this.apiKey.trim().isEmpty()) {
 			logger.error("Invalid API key. Restart the program and enter a valid key.");
 		}
 	}
@@ -82,11 +83,10 @@ public class VirusTotal implements AVInterface{
 			logger.error("Error calculating SHA256.");
 		}
 
-		try {
-			HttpClient client = HttpClients.createDefault();
-			URI uri = new URIBuilder(VIRUSTOTAL_URI + "/files").build();
+		try (CloseableHttpClient client = HttpClients.createDefault()) {
+			URI uri = new URIBuilder(virustotalUri + "/files").build();
 			HttpPost post = new HttpPost(uri);
-			post.addHeader("x-apikey", API_KEY);
+			post.addHeader("x-apikey", apiKey);
 
 			MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 			builder.addPart("file", new FileBody(file));
@@ -136,14 +136,13 @@ public class VirusTotal implements AVInterface{
 			return null;
 		}
 
-		try {
-			HttpClient client = HttpClients.createDefault();
-			URI uri = new URIBuilder(VIRUSTOTAL_URI + "/analyses/" + scanReport.getScanId()).build();
+	    try (CloseableHttpClient client = HttpClients.createDefault()) {
+			URI uri = new URIBuilder(virustotalUri + "/analyses/" + scanReport.getScanId()).build();
 			boolean isCompleted = false;
 			logger.info("Waiting for the report...");
 			while (!isCompleted) {
 				HttpGet get = new HttpGet(uri);
-				get.addHeader("x-apikey", API_KEY);
+				get.addHeader("x-apikey", apiKey);
 
 				HttpResponse response = client.execute(get);
 				int statusCode = response.getStatusLine().getStatusCode();
@@ -173,7 +172,7 @@ public class VirusTotal implements AVInterface{
 
 						// Determine the threat level
 						if (maliciousCount > 0) {
-							double totalScans = maliciousCount + harmlessCount + suspiciousCount + undetectedCount;
+							double totalScans = (double) maliciousCount + harmlessCount + suspiciousCount + undetectedCount;
 							double maliciousPercentage = (maliciousCount / totalScans) * 100;
 
 							scanReport.setThreatDetected(true);
@@ -286,14 +285,14 @@ public class VirusTotal implements AVInterface{
 			}
 
 			// Ora la chiave è stata salvata. Carica di nuovo la chiave dal file
-			this.API_KEY = FileManager.getConfigValue("api_key");
+			this.apiKey = FileManager.getConfigValue("api_key");
 
 			// Verifica che la chiave sia valida prima di proseguire
-			if (this.API_KEY == null || this.API_KEY.trim().isEmpty()) {
+			if (this.apiKey == null || this.apiKey.trim().isEmpty()) {
 				logger.error("Invalid API key. Please restart the program and provide a valid key.");
 				return;
 			} else {
-				logger.info("API key loaded: {}", this.API_KEY);
+				logger.info("API key loaded: {}", this.apiKey);
 			}
 
 		} catch (Exception e) {
