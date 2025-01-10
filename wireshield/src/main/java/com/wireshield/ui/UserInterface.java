@@ -54,8 +54,11 @@ public class UserInterface extends Application {
      */
     @FXML
     protected AnchorPane homePane; 
+    @FXML
     protected AnchorPane logsPane;
+    @FXML
     protected AnchorPane avPane;
+    @FXML
     protected AnchorPane settingsPane;
 
     /**
@@ -63,6 +66,7 @@ public class UserInterface extends Application {
      */
     @FXML
     protected TextArea logsArea;
+    @FXML
     protected TextArea avFilesArea;
 
     /**
@@ -70,6 +74,7 @@ public class UserInterface extends Application {
      */
     @FXML
     protected Button minimizeButton;
+    @FXML
     protected Button closeButton;
 
     /**
