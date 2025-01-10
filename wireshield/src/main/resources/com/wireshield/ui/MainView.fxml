@@ -23,9 +23,8 @@
                <VBox fx:id="vBox" prefHeight="530.0" prefWidth="178.0" BorderPane.alignment="CENTER">
                   <children>
                      <Button id="homeButton" mnemonicParsing="false" onAction="#viewHome" prefHeight="105.0" prefWidth="178.0" text="Home" />
-                     <Button id="logsButton" mnemonicParsing="false" onAction="#viewLogs" prefHeight="105.0" prefWidth="178.0" text="Logs" />
                      <Button id="avButton" mnemonicParsing="false" onAction="#viewAv" prefHeight="105.0" prefWidth="178.0" text="Antivirus" />
-                     <Button id="settingsButton" mnemonicParsing="false" onAction="#viewSettings" prefHeight="105.0" prefWidth="178.0" text="Settings" />
+                     <Button id="logsButton" mnemonicParsing="false" onAction="#viewLogs" prefHeight="105.0" prefWidth="178.0" text="Logs" />
                   </children>
                </VBox>
             </left>
@@ -42,13 +41,6 @@
          </BorderPane>
          <Pane layoutX="178.0" layoutY="39.0" prefHeight="495.0" prefWidth="662.0">
             <children>
-               <!-- Settings panel --> 
-               <AnchorPane fx:id="settingsPane" prefHeight="495.0" prefWidth="662.0" styleClass="black-pane">
-                  <children>
-                     <Label text="Upload new peers: " layoutX="14.0" layoutY="20.0"/>
-                     <Button fx:id="uploadPeerButton" text="Upload files (.conf)" onAction="#handleFileSelection" layoutX="14.0" layoutY="47.0" styleClass="btn-primary"/>
-                  </children>
-               </AnchorPane>
                <!-- AntiVirus panel --> 
                <AnchorPane fx:id="avPane" prefHeight="495.0" prefWidth="662.0" styleClass="black-pane">
                   <children>
@@ -67,7 +59,7 @@
                <!-- Home panel --> 
                <AnchorPane fx:id="homePane" prefHeight="495.0" prefWidth="662.0" styleClass="black-pane">
                   <children>
-                     <HBox layoutX="14.0" layoutY="80.0" spacing="20.0">
+                     <HBox layoutX="14.0" layoutY="60.0" spacing="20.0">
                         <!-- Logo -->
                         <ImageView fitHeight="200.0" fitWidth="225.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -76,8 +68,13 @@
                         </ImageView>
                         <!-- Peer list -->
                         <VBox spacing="10.0">
-                           <Label text="Available peers:" />
-                           <ListView fx:id="peerListView" prefHeight="200.0" prefWidth="400.0" styleClass="black-listview"/>
+                           <HBox alignment="BOTTOM_LEFT" spacing="10.0">
+                              <Label text="Available peers:" />
+                              <Region HBox.hgrow="ALWAYS" />
+                              <Button fx:id="uploadPeerButton" text="+" onAction="#handleFileSelection" styleClass="btn-primary"/>
+                           </HBox>
+                           <ListView fx:id="peerListView" prefHeight="110.0" prefWidth="400.0" styleClass="black-listview"/>
+                           <Label fx:id="connLabel" text="" />
                         </VBox>
                      </HBox>
                      <!-- VPN Button -->

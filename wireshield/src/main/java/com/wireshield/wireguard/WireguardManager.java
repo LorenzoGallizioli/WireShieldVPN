@@ -258,6 +258,18 @@ public class WireguardManager {
 		Thread thread = new Thread(task);
 		thread.start();
 	}
+    /**
+     * Returns the connection logs.
+     * 
+     * @return String
+     *   The connection logs. 
+     */
+    public String getConnectionLogs(){
+        connection.updateActiveInterface();
+        connection.updateTraffic();
+        connection.updateLastHandshakeTime();
+        return connection.toString();
+    }
 
 	/**
 	 * Returns the connection.
@@ -266,15 +278,6 @@ public class WireguardManager {
 	 */
 	public connectionStates getConnectionStatus() {
 		return connection.getStatus();
-	}
-
-	/**
-	 * Returns the connection logs.
-	 * 
-	 * @return String The connection logs.
-	 */
-	public String getConnectionLogs() {
-		return connection.toString();
 	}
 
 	/**
