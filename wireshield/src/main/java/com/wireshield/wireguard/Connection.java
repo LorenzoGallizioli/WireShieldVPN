@@ -204,7 +204,7 @@ public class Connection {
         String interfaceName = this.activeInterface == null ? "None" : this.activeInterface;
 
         return String.format(
-            "Interface: %s\nStatus: %s\nLast handshake time: %s\nReceived traffic: %s\nSent traffic: %s",
+            "Interface: %s\nStatus: %s\nLast handshake time: %s\nReceived traffic: %s byte \nSent traffic: %s byte",
             interfaceName,
             this.status,
             this.lastHandshakeTime,
