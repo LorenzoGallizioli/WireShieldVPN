@@ -11,7 +11,7 @@ import com.wireshield.enums.runningStates;
 import com.wireshield.enums.warningClass;
 import javax.swing.JOptionPane;
 
-/**
+/*
  * Manages antivirus scanning tasks and orchestrates file analysis using ClamAV
  * and VirusTotal. This class is implemented as a singleton.
  */
