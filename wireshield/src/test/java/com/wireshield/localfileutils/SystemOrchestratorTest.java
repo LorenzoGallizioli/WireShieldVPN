@@ -21,11 +21,19 @@ public class SystemOrchestratorTest {
 	private DownloadManager downloadManager;
 	private AntivirusManager antivirusManager;
 
-	String testString = "[Interface]\r\n" + "PrivateKey = cIm09yQB5PUxKIhUwyK8TwL6ulaemcllbuzSCaOG0UM=\r\n"
-			+ "Address = 172.0.0.6/32\r\n" + "DNS = 172.0.0.1\r\n" + "MTU = 1420\r\n" + "\r\n" + "[Peer]\r\n"
-			+ "PublicKey = DlaMue3dkdiExmuYtQVAPlreolMWXP5zg9l1omRUDDA=\r\n"
-			+ "PresharedKey = 0GYNNk24bSVUKBVGQU2tS1+tu5wT/RV2dQ3Z2gFxrNU=\r\n" + "AllowedIPs = 0.0.0.0/0, ::/0\r\n"
-			+ "Endpoint = 140.238.212.179:51820\r\n";
+	String testString = """
+		    [Interface]
+		    PrivateKey = cIm09yQB5PUxKIhUwyK8TwL6ulaemcllbuzSCaOG0UM=
+		    Address = 172.0.0.6/32
+		    DNS = 172.0.0.1
+		    MTU = 1420
+
+		    [Peer]
+		    PublicKey = DlaMue3dkdiExmuYtQVAPlreolMWXP5zg9l1omRUDDA=
+		    PresharedKey = 0GYNNk24bSVUKBVGQU2tS1+tu5wT/RV2dQ3Z2gFxrNU=
+		    AllowedIPs = 0.0.0.0/0, ::/0
+		    Endpoint = 140.238.212.179:51820
+		    """;
 
 	Map<String, Map<String, String>> extDatas = PeerManager.parsePeerConfig(testString);
 
@@ -57,13 +65,12 @@ public class SystemOrchestratorTest {
 		orchestrator.manageVPN(vpnOperations.START, "testPeer.conf");
 
 		// Verifica se il metodo setInterfaceUp è stato chiamato
-		assertTrue("The VPN interface should be up",
-				wireguardManager.getConnectionStatus() == connectionStates.CONNECTED);
+		assertTrue("The VPN interface should be up", wireguardManager.getConnectionStatus() == connectionStates.CONNECTED);
 	}
 
 	// Test per il metodo manageVPN con operazione STOP
 	@Test
-	public void testManageVPNStop() throws InterruptedException {
+	public void testManageVPNStop() {
 		// Eseguiamo il metodo con l'operazione STOP
 		orchestrator.manageVPN(vpnOperations.STOP, null);
 
@@ -157,14 +164,12 @@ public class SystemOrchestratorTest {
 	@Test
 	public void testAddPeer() {
 		peerId = pm.createPeer(extDatas, "B");
-		// System.out.println(peerId);
 
 		Peer[] p = pm.getPeers();
 
 		assertTrue("Peers list is empty", p.length > 0);
-		assertTrue("First peer does not match the peer retrieved by ID",
-				p[p.length - 1].equals(pm.getPeerById(peerId)));
-	}
+		assertEquals(p[p.length - 1], pm.getPeerById(peerId));
+	} 
 
 	// Test per il metodo getReportInfo
 	@Test

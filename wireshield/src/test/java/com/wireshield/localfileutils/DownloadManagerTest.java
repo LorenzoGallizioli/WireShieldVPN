@@ -1,11 +1,9 @@
 package com.wireshield.localfileutils;
 
 import com.wireshield.av.AntivirusManager;
-import com.wireshield.av.FileManager;
 import com.wireshield.enums.runningStates;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.util.FileWatcher;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +23,6 @@ public class DownloadManagerTest {
 
 	private DownloadManager downloadManager;
 	private AntivirusManager antivirusManager;
-	private Thread monitorThread;
 
 	/**
 	 * Sets up the test environment before each test. This method initializes the

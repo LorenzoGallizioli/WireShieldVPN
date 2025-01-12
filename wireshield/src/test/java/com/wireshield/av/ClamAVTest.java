@@ -83,7 +83,7 @@ public class ClamAVTest {
 	 * - Valid file - Suspicious file - Non-existent file
 	 */
 	@Test
-	public void testAnalyze() throws IOException {
+	public void testAnalyze() {
 		// Test for the valid file
 		clamAV.analyze(validFile);
 		ScanReport validReport = clamAV.getReport();
@@ -125,7 +125,7 @@ public class ClamAVTest {
 	 * Verifies that the report contains the correct details for the analyzed file.
 	 */
 	@Test
-	public void testGetReport() throws IOException {
+	public void testGetReport() {
 		// First, analyze the valid file
 		clamAV.analyze(validFile);
 

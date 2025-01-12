@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -37,7 +36,6 @@ public class FileManagerTest {
 
 	private static final String CONFIG_PATH = FileManager.getProjectFolder() + "\\config\\config.json";
     private static final String TEMP_CONFIG_PATH = FileManager.getProjectFolder() + "\\config\\config_backup.json";
-    private static final String API_KEY = "895b6aece66d9a168c9822eb4254f2f44993e347c5ea0ddf90708982e857d613";
 	
 	/*
 	 * Setup method that initializes the test file path before each test. This
@@ -67,7 +65,7 @@ public class FileManagerTest {
 	 * run after every test to ensure that there are no leftover files.
 	 */
 	@After
-	public void tearDown() throws FileNotFoundException, IOException {
+	public void tearDown() throws IOException {
 		File file = new File(testFilePath);
 		if (file.exists()) {
 			file.delete(); // Delete the test file if it exists
@@ -251,7 +249,7 @@ public class FileManagerTest {
 
 	// Test del blocco try (quando il file è stabile)
 	@Test
-	public void testIsFileStable_Try() throws InterruptedException, IOException {
+	public void testIsFileStable_Try() throws IOException {
 		// Crea e scrivi nel file stabile
 		stableFile = new File("stableFile.txt");
 		stableFile.createNewFile();
@@ -261,9 +259,14 @@ public class FileManagerTest {
 		assertTrue("Il file dovrebbe essere stabile", FileManager.isFileStable(stableFile));
 	}
 
-	// Test del blocco catch (quando il thread è interrotto)
+	/**
+	 * Questo test verifica che il metodo `isFileStable` gestisca correttamente
+	 * l'interruzione di un thread. In particolare, si verifica che, se il thread 
+	 * viene interrotto prima che `isFileStable` venga eseguito, l'interruzione 
+	 * venga correttamente gestita senza causare un blocco indefinito.
+	 */
 	@Test
-	public void testIsFileStable_Catch() throws InterruptedException, IOException {
+	public void testIsFileStable_Catch() throws IOException {
 		// Crea il file vuoto
 		emptyFile = new File("emptyFile.txt");
 		emptyFile.createNewFile();
@@ -275,8 +278,12 @@ public class FileManagerTest {
 		// Testa se il metodo gestisce l'interruzione del thread
 		assertFalse("Il metodo dovrebbe gestire l'interruzione", FileManager.isFileStable(emptyFile));
 	}
-
-	// Testa il blocco catch (simulando un errore di calcolo SHA256)
+	
+	/*
+	 * Testa il comportamento del metodo calculateSHA256 quando viene passato un file che non esiste.
+	 * In particolare, questo test verifica che il metodo gestisca correttamente gli errori restituendo
+	 * null in caso di errore, come quando il file non può essere letto.
+	 */
 	@Test
 	public void testCalculateSHA256_Catch() {
 		// Crea un file non esistente o che non può essere letto
@@ -341,10 +348,10 @@ public class FileManagerTest {
 	 *
 	 */
 	@Test
-	public void testGetConfigValueValidKey() throws IOException {
+	public void testGetConfigValueValidKey() {
 				
-		String api_key = FileManager.getConfigValue("api_key");
-		assertNull("895b6aece66d9a168c9822eb4254f2f44993e347c5ea0ddf90708982e857d613", api_key);
+		String apiKey = FileManager.getConfigValue("api_key");
+		assertNull("895b6aece66d9a168c9822eb4254f2f44993e347c5ea0ddf90708982e857d613", apiKey);
 		
 	}
 
@@ -423,7 +430,7 @@ public class FileManagerTest {
     public void testWriteConfigValue_IOError() {
         // Imposta un percorso non scrivibile
         String invalidPath = "C:\\nonexistent\\config.json";
-        FileManager.CONFIG_PATH = invalidPath;
+        FileManager.configPath = invalidPath;
 
         // Test della funzione
         boolean result = FileManager.writeConfigValue("key", "value");

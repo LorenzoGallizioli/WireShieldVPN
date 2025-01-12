@@ -29,7 +29,7 @@ public class AntivirusManager {
 	private runningStates scannerStatus;
 
 	private Thread scanThread;
-	static final long MAX_FILE_SIZE = 10 * 1024 * 1024; // Maximum file size for VirusTotal analysis (10 MB)
+	static final long MAX_FILE_SIZE = 10L * 1024 * 1024; // Maximum file size for VirusTotal analysis (10 MB)
 
 	private AntivirusManager() {
 		logger.info("AntivirusManager initialized.");
@@ -61,7 +61,7 @@ public class AntivirusManager {
 		if (!scanBuffer.contains(file)) {
 			scanBuffer.add(file);
 			logger.info("File added to scan buffer: {}", file.getName());
-			notify(); // Notify scanning thread of new file
+			notifyAll(); // Notify scanning thread of new file
 		} else {
 			logger.warn("File is already in the scan buffer: {}", file.getName());
 		}
@@ -79,6 +79,11 @@ public class AntivirusManager {
 		scanThread = new Thread(() -> {
 			try {
 				performScan();
+			} catch (InterruptedException e) {
+	            Thread.currentThread().interrupt();  // Ripristina l'interruzione
+	            logger.error("Scan process was interrupted.", e);
+	            return;  // Termina l'esecuzione del thread
+	            
 			} finally {
 				synchronized (this) {
 					scannerStatus = runningStates.DOWN;
@@ -90,7 +95,7 @@ public class AntivirusManager {
 		scanThread.start();
 	}
 
-	private void performScan() {
+	private void performScan() throws InterruptedException {
 		while (scannerStatus == runningStates.UP) {
 			File fileToScan;
 

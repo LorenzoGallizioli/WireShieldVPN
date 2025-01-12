@@ -8,8 +8,8 @@ import java.util.UUID;
 public class Peer {
     private String privateKey;
     private String address;
-    private String DNS;
-    private String MTU;
+    private String dns;
+    private String mtu;
     private String publicKey;
     private String presharedKey;
     private String endPoint;
@@ -30,14 +30,16 @@ public class Peer {
      * @param name
      * 
      */
-    public Peer(String PrivateKey, String Address, String DNS, String MTU, String PublicKey, String PresharedKey, String Endpoint, String AllowedIPs, String name) {
-    	this.privateKey = PrivateKey;
-    	this.address = Address;
-    	this.DNS = DNS;
-    	this.MTU = MTU;
-    	this.publicKey = PublicKey;
-    	this.presharedKey = PresharedKey;
-    	this.endPoint = Endpoint;
+    public Peer(String privateKey, String address, String dns, String mtu, String publicKey, String presharedKey, String endpoint, String allowedIPs, String name) {
+    	this.privateKey = privateKey;
+    	this.address = address;
+    	this.dns = dns;
+    	this.mtu = mtu;
+    	this.publicKey = publicKey;
+    	this.presharedKey = presharedKey;
+    	this.endPoint = endpoint;
+    	this.allowedIPs = allowedIPs;
+    	this.name = name;
     	this.id = generateUniqueId();
     }
 
@@ -126,7 +128,7 @@ public class Peer {
      * @return the DNS as a String.
      */
     public String getDNS() {
-        return DNS;
+        return dns;
     }
 
     /**
@@ -135,7 +137,7 @@ public class Peer {
      * @return the MTU as a String.
      */
     public String getMTU() {
-        return MTU;
+        return mtu;
     }
     
     /**
@@ -154,22 +156,22 @@ public class Peer {
     @Override
     public String toString() {
         return String.format(
-            "[INFO] ID: %s\n" +
-            "[INFO] Name: %s\n" +
-            "[INFO] Private Key: %s\n" +
-            "[INFO] Address: %s\n" +
-            "[INFO] DNS: %s\n" +
-            "[INFO] MTU: %s\n" +
-            "[INFO] Public Key: %s\n" +
-            "[INFO] Preshared Key: %s\n" +
-            "[INFO] Endpoint: %s\n" +
+            "[INFO] ID: %s%n" +
+            "[INFO] Name: %s%n" +
+            "[INFO] Private Key: %s%n" +
+            "[INFO] Address: %s%n" +
+            "[INFO] DNS: %s%n" +
+            "[INFO] MTU: %s%n" +
+            "[INFO] Public Key: %s%n" +
+            "[INFO] Preshared Key: %s%n" +
+            "[INFO] Endpoint: %s%n" +
             "[INFO] Allowed IPs: %s",
             id,
             name,
             privateKey,
             address,
-            DNS,
-            MTU,
+            dns,
+            mtu,
             publicKey,
             presharedKey,
             endPoint,

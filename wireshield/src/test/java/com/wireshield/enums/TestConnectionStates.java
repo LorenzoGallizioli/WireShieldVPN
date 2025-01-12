@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class connectionStatesTest {
+public class TestConnectionStates {
 
     // Testa i valori dell'enum
     @Test

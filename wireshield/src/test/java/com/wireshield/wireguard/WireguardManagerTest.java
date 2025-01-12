@@ -1,12 +1,9 @@
 package com.wireshield.wireguard;
 
 import static org.junit.Assert.*;
-import java.io.File;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import com.wireshield.av.FileManager;
 
 public class WireguardManagerTest {
 	
@@ -35,7 +32,7 @@ public class WireguardManagerTest {
         assertEquals(wireguardManager.getConnection().getActiveInterface(), confName);
 
         assertTrue(wireguardManager.setInterfaceDown());
-        assertEquals(wireguardManager.getConnection().getActiveInterface(), null);
+        assertEquals(null, wireguardManager.getConnection().getActiveInterface());
 
     } 
 

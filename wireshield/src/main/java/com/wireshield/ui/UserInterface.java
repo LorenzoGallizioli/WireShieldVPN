@@ -55,19 +55,27 @@ public class UserInterface extends Application {
      * JavaFX AnchorPanes.
      */
     @FXML
-    protected AnchorPane homePane, logsPane, avPane;
+    protected AnchorPane homePane; 
+    @FXML
+    protected AnchorPane logsPane;
+    @FXML
+    protected AnchorPane avPane;
 
     /**
      * JavaFX TextAreas.
      */
     @FXML
-    protected TextArea logsArea, avFilesArea;
+    protected TextArea logsArea;
+    @FXML
+    protected TextArea avFilesArea;
 
     /**
      * JavaFX HBox Buttons.
      */
     @FXML
-    protected Button minimizeButton, closeButton;
+    protected Button minimizeButton;
+    @FXML
+    protected Button closeButton;
 
     /**
      * JavaFX ListViews.
@@ -117,8 +125,7 @@ public class UserInterface extends Application {
         if (vpnButton.getText().equals("Start VPN")) {
             vpnButton.setDisable(true);
         }
-    
-        if (peerListView != null) {
+
             peerListView.setItems(peerList);
             peerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue != null) {
@@ -126,7 +133,7 @@ public class UserInterface extends Application {
                     if (vpnButton.getText().equals("Start VPN")) {
                         vpnButton.setDisable(false); // Abilita il pulsante solo se il testo è "Start VPN"
                     }
-                    logger.info("File selezionato nella peer list: " + selectedPeerFile);
+                    logger.info("File selezionato nella peer list: {}", selectedPeerFile);
                 } else {
                     if (vpnButton.getText().equals("Start VPN")) {
                         vpnButton.setDisable(true); // Disabilita il pulsante solo se non c'è selezione e il testo è "Start VPN"
@@ -134,7 +141,7 @@ public class UserInterface extends Application {
                     logger.info("Nessun file selezionato.");
                 }
             });
-        }
+    
     
         if (avFilesListView != null) {
             avFilesListView.setItems(avFilesList);
@@ -260,7 +267,7 @@ public class UserInterface extends Application {
                 Path targetPath = Path.of(defaultPeerPath, selectedFile.getName());
                 Files.createDirectories(targetPath.getParent());
                 Files.copy(selectedFile.toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
-                logger.debug("File copied to: " + targetPath.toAbsolutePath());
+                logger.debug("File copied to: {}", targetPath.toAbsolutePath());
                 updatePeerList();
                 logger.info("File copied successfully.");
             } catch (IOException e) {
@@ -286,7 +293,7 @@ public class UserInterface extends Application {
                 for (File file : files) {
                     if (file.isFile() && file.length() > 0) {
                         peerList.add(file.getName()); // Aggiungi il nome del file alla lista
-                        logger.debug("File added to peer list: " + file.getName());
+                        logger.debug("File added to peer list: {}", file.getName());
                         logger.info("Peer list updated.");
                     }
                 }

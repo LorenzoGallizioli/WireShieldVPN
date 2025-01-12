@@ -7,6 +7,8 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -19,8 +21,11 @@ import org.apache.logging.log4j.Logger;
 public class FileManager {
 	
 	private static final Logger logger = LogManager.getLogger(FileManager.class);
-    static String CONFIG_PATH = FileManager.getProjectFolder() + "\\config\\config.json";
+    static String configPath = FileManager.getProjectFolder() + "\\config\\config.json";
 
+    private FileManager() {
+        // Costruttore privato per evitare istanziazione
+    }
 	
 	/**
      * Creates a new file at the specified path.
@@ -32,14 +37,14 @@ public class FileManager {
         File file = new File(filePath);
         try {
             if (file.createNewFile()) {
-                logger.info("File created: " + file.getName());
+                logger.info("File created: {}", file.getName());
                 return true;
             } else {
                 logger.debug("File already exists.");
                 return false;
             }
         } catch (IOException e) {
-        	logger.error("Error occured during file creation: " + e.getMessage());
+        	logger.error("Error occured during file creation: {}", e.getMessage());
             return false;
         }
     }
@@ -76,7 +81,7 @@ public class FileManager {
                 content.append(line).append("\n");
             }
         } catch (IOException e) {
-        	logger.error("Errore durante la lettura del file: " + e.getMessage());
+            logger.error("Errore durante la lettura del file: {}", e.getMessage());
             return null;
         }
         return content.toString();
@@ -89,12 +94,12 @@ public class FileManager {
      * @return true if the file is successfully deleted, false if an error occurs or the file does not exist
      */
     public static boolean deleteFile(String filePath) {
-        File file = new File(filePath);
-        if (file.delete()) {
-        	logger.info("File eliminato: " + file.getName());
+        try {
+            Files.delete(Paths.get(filePath)); // Elimina il file usando Files.delete
+            logger.info("File eliminato: {}", filePath);
             return true;
-        } else {
-        	logger.debug("Errore durante l'eliminazione del file.");
+        } catch (IOException e) {
+            logger.error("Errore durante l'eliminazione del file {}: {}", filePath, e.getMessage());
             return false;
         }
     }
@@ -173,7 +178,7 @@ public class FileManager {
     public static String getConfigValue(String key){
         // Parse the JSON file
         JSONParser parser = new JSONParser();
-        try (FileReader reader = new FileReader(CONFIG_PATH)) {
+        try (FileReader reader = new FileReader(configPath)) {
             // Read the JSON object from the file
             JSONObject jsonObject = (JSONObject) parser.parse(reader);
 
@@ -203,7 +208,7 @@ public class FileManager {
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = null;
 
-        File file = new File(CONFIG_PATH);
+        File file = new File(configPath);
 
         // Load existing JSON data if the file exists
         if (file.exists()) {

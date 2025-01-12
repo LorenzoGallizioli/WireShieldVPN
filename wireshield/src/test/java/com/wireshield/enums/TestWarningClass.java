@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class warningClassTest {
+public class TestWarningClass {
 
     // Testa i valori dell'enum
     @Test

@@ -53,7 +53,13 @@ public class ClamAV implements AVInterface{
 			clamavReport.setValid(false);
 			clamavReport.setThreatDetails("File does not exist.");
 			clamavReport.setWarningClass(warningClass.CLEAR); // Mark the file as clear (no threat)
-			logger.warn("File does not exist: {}", file.getAbsolutePath());
+			
+			if (file == null) {
+				logger.warn("il file è nullo.");
+			} else {
+				logger.warn("File does not exist: {}", file.getAbsolutePath());
+			}
+			
 			return;
 		}
 
