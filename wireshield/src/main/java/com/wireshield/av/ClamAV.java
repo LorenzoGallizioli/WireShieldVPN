@@ -11,40 +11,52 @@ import org.apache.logging.log4j.Logger;
 import com.wireshield.enums.warningClass;
 
 /*
- * This class uses ClamAV to scan files for threats, analyzing files via the ClamAV command-line tool (`clamscan.exe`)
- * and generating scan reports based on the results.
+ * Implements antivirus scanning functionality using ClamAV.
+ * This class uses the ClamAV command-line tool (`clamscan.exe`) to analyze files
+ * for potential threats. It processes the output from ClamAV to generate detailed
+ * scan reports.
+ * This class follows the Singleton design pattern to ensure a single instance is used
+ * throughout the application.
  */
-public class ClamAV implements AVInterface{
+public class ClamAV implements AVInterface {
 
-	// Logger for ClamAV-related logs
+	// Logger for logging ClamAV-related information and errors.
 	private static final Logger logger = LogManager.getLogger(ClamAV.class);
-	
-    private static ClamAV instance;
+
+	// Singleton instance of ClamAV.
+	private static ClamAV instance;
+	// Scan report generated after the most recent file analysis.
 	private ScanReport clamavReport;
 
-	// Constructor for initializing ClamAV
+	/*
+	 * Private constructor to enforce Singleton pattern.
+	 * Initializes ClamAV and logs the creation of the instance.
+	 */
 	private ClamAV() {
-		this.clamavReport = null;
+		this.clamavReport = null; // Initialize the scan report as null
 		logger.info("ClamAV initialized.");
 	}
-	
-	/**
-     * Public static method to get the Singleton instance of ClamAV.
-     *
-     * @return the single instance of ClamAV.
-     */
-    public static synchronized ClamAV getInstance() {
-        if (instance == null) {
-            instance = new ClamAV();
-        }
-        return instance;
-    }
 
-	/**
-	 * Analyzes a file with ClamAV to check for threats.
-	 * 
-	 * @param file The file to be scanned.
-	 */
+    /**
+     * Retrieves the Singleton instance of ClamAV.
+     * Ensures that only one instance of this class is created and used throughout the application.
+     * 
+     * @return The single instance of ClamAV.
+     */
+	public static synchronized ClamAV getInstance() {
+		if (instance == null) {
+			instance = new ClamAV();
+		}
+		return instance;
+	}
+
+    /**
+     * Analyzes a file for potential threats using ClamAV.
+     * This method interacts with the ClamAV command-line tool (`clamscan.exe`) to scan
+     * the specified file. The scan results are processed and stored in a scan report.
+     * 
+     * @param file The file to be analyzed. It must not be null and must exist on the filesystem.
+     */
 	public void analyze(File file) {
 		// Check if the file exists before proceeding
 		if (file == null || !file.exists()) {
@@ -53,13 +65,13 @@ public class ClamAV implements AVInterface{
 			clamavReport.setValid(false);
 			clamavReport.setThreatDetails("File does not exist.");
 			clamavReport.setWarningClass(warningClass.CLEAR); // Mark the file as clear (no threat)
-			
+
 			if (file == null) {
 				logger.warn("il file è nullo.");
 			} else {
 				logger.warn("File does not exist: {}", file.getAbsolutePath());
 			}
-			
+
 			return;
 		}
 
@@ -90,8 +102,8 @@ public class ClamAV implements AVInterface{
 					threatDetails = line.substring(line.indexOf(":") + 2, line.lastIndexOf("FOUND")).trim();
 					logger.info("Threat detected: {}", threatDetails);
 					break; // Stop processing after a threat is found
-					
-				}else if (line.contains("suspicious")) { // Check if ClamAV has detected suspicious activity
+
+				} else if (line.contains("suspicious")) { // Check if ClamAV has detected suspicious activity
 					suspiciousDetected = true;
 					threatDetails = line.substring(line.indexOf(":") + 2).trim();
 					logger.info("Suspicious activity detected: {}", threatDetails);
@@ -103,7 +115,8 @@ public class ClamAV implements AVInterface{
 			clamavReport = new ScanReport();
 			clamavReport.setFile(file);
 			clamavReport.setValid(true); // Mark the report as valid
-			clamavReport.setThreatDetected(threatDetected || suspiciousDetected); // Mark as true if any threat or suspicious activity detected
+			clamavReport.setThreatDetected(threatDetected || suspiciousDetected); // Mark as true if any threat or
+																					// suspicious activity detected
 
 			// Handle the detected threats or suspicious activity
 			if (threatDetected) {
