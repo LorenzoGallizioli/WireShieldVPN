@@ -19,6 +19,8 @@ Dopo aver scaricato il file, segui questi semplici passaggi per posizionarlo cor
    ```
    C:\Program Files\
    ```
+4. A questo punto recarsi nella cartella appena importata, aprire CMD o PowerShell all'interno della stessa ed eseguire il comando `freshclam`. questo passaggio e' necessario per l'aggiornamento dei database dell'antivirus.
+   
 
 ## ✅ Configurazione Completa
 
