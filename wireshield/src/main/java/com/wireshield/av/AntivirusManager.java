@@ -49,11 +49,11 @@ public class AntivirusManager {
 		return instance;
 	}
 
-    /**
-     * Adds a file to the scan buffer for later analysis.
-     *
-     * @param file the file to add to the scan buffer.
-     */
+	/**
+	 * Adds a file to the scan buffer for later analysis.
+	 *
+	 * @param file the file to add to the scan buffer.
+	 */
 	public synchronized void addFileToScanBuffer(File file) {
 		if (file == null || !file.exists()) {
 			logger.error("Invalid file or file does not exist.");
@@ -68,10 +68,10 @@ public class AntivirusManager {
 		}
 	}
 
-    /*
-     * Starts the antivirus scan process in a separate thread.
-     * If a scan is already running, it logs a warning and exits.
-     */
+	/*
+	 * Starts the antivirus scan process in a separate thread. If a scan is already
+	 * running, it logs a warning and exits.
+	 */
 	public void startScan() {
 		if (scannerStatus == runningStates.UP) {
 			logger.warn("Scan process is already running.");
@@ -100,12 +100,12 @@ public class AntivirusManager {
 		scanThread.start();
 	}
 
-	 /**
-     * Performs the actual scanning of files in the buffer.
-     * Uses both ClamAV and VirusTotal for analysis if applicable.
-     *
-     * @throws InterruptedException if the scanning thread is interrupted.
-     */
+	/**
+	 * Performs the actual scanning of files in the buffer. Uses both ClamAV and
+	 * VirusTotal for analysis if applicable.
+	 *
+	 * @throws InterruptedException if the scanning thread is interrupted.
+	 */
 	private void performScan() throws InterruptedException {
 		while (scannerStatus == runningStates.UP) {
 			File fileToScan;
@@ -131,11 +131,11 @@ public class AntivirusManager {
 				continue;
 			}
 
-            // Create a new scan report for the file
+			// Create a new scan report for the file
 			ScanReport finalReport = new ScanReport();
 			finalReport.setFile(fileToScan);
 
-            // Analyze the file using ClamAV
+			// Analyze the file using ClamAV
 			if (clamAV != null) {
 				clamAV.analyze(fileToScan);
 				ScanReport clamAVReport = clamAV.getReport();
@@ -144,7 +144,7 @@ public class AntivirusManager {
 				}
 			}
 
-            // If a threat is detected and the file is small enough, use VirusTotal
+			// If a threat is detected and the file is small enough, use VirusTotal
 			if (finalReport.isThreatDetected() && virusTotal != null && fileToScan.length() <= MAX_FILE_SIZE) {
 				virusTotal.analyze(fileToScan);
 				ScanReport virusTotalReport = virusTotal.getReport();
@@ -155,10 +155,10 @@ public class AntivirusManager {
 				logger.warn("File is too large for VirusTotal analysis: {}", fileToScan.getName());
 			}
 
-            // Add the final report to the results list
+			// Add the final report to the results list
 			finalReports.add(finalReport);
 
-            // If the file is dangerous or suspicious, take action
+			// If the file is dangerous or suspicious, take action
 			if (finalReport.getWarningClass() == warningClass.DANGEROUS
 					|| finalReport.getWarningClass() == warningClass.SUSPICIOUS) {
 				logger.warn("Threat detected in file: {}", fileToScan.getName());

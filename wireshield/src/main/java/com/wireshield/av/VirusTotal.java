@@ -24,7 +24,7 @@ public class VirusTotal implements AVInterface {
 
 	private static final Logger logger = LogManager.getLogger(VirusTotal.class);
 
-	private static VirusTotal instance;
+	private static VirusTotal instance; // Singleton instance
 	private String apiKey; // API Key for accessing the VirusTotal API
 	private String virustotalUri; // URI for VirusTotal API
 	static final int REQUEST_LIMIT = 4; // Maximum requests allowed per minute
@@ -32,7 +32,10 @@ public class VirusTotal implements AVInterface {
 	Queue<Long> requestTimestamps = new LinkedList<>(); // Tracks timestamps of API requests
 	private ScanReport scanReport; // Stores the scan report for the last analyzed file
 
-	// Constructor to load configuration from JSON
+	/*
+	 * Private constructor that initializes the VirusTotal instance with
+	 * configuration data.
+	 */
 	private VirusTotal() {
 		this.apiKey = FileManager.getConfigValue("api_key");
 		this.virustotalUri = FileManager.getConfigValue("VIRUSTOTAL_URI");
@@ -41,7 +44,11 @@ public class VirusTotal implements AVInterface {
 		}
 	}
 
-	// Static method to get the Singleton instance of VirusTotal
+	/**
+	 * Retrieves the singleton instance of VirusTotal.
+	 *
+	 * @return The singleton VirusTotal instance.
+	 */
 	public static synchronized VirusTotal getInstance() {
 		if (instance == null) {
 			instance = new VirusTotal();
@@ -55,7 +62,6 @@ public class VirusTotal implements AVInterface {
 	 *
 	 * @param file The file to analyze.
 	 */
-
 	public void analyze(File file) {
 		// Check request limits
 		if (!canMakeRequest()) {
@@ -82,37 +88,52 @@ public class VirusTotal implements AVInterface {
 		}
 
 		try (CloseableHttpClient client = HttpClients.createDefault()) {
+			// Build the URI for the VirusTotal "files" endpoint
 			URI uri = new URIBuilder(virustotalUri + "/files").build();
-			HttpPost post = new HttpPost(uri);
-			post.addHeader("x-apikey", apiKey);
 
+			// Create an HTTP POST request to upload the file
+			HttpPost post = new HttpPost(uri);
+			post.addHeader("x-apikey", apiKey); // Add the API key as a header for authentication
+
+			// Create a multipart entity to attach the file to the POST request
 			MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-			builder.addPart("file", new FileBody(file));
+			builder.addPart("file", new FileBody(file)); // Add the file as a part of the request
 			post.setEntity(builder.build());
 
+			// Execute the POST request and get the response
 			HttpResponse response = client.execute(post);
-			int statusCode = response.getStatusLine().getStatusCode();
+			int statusCode = response.getStatusLine().getStatusCode(); // Extract the HTTP status code
 
+			// Handle the response based on the status code
 			if (statusCode == 200) {
+				// If the response is successful, parse the response body
 				InputStream responseStream = response.getEntity().getContent();
 				ObjectMapper objectMapper = new ObjectMapper();
 				JsonNode responseJson = objectMapper.readTree(responseStream);
+
+				// Extract the scan ID from the response JSON
 				String scanId = responseJson.path("data").path("id").asText();
 
 				logger.info("Analysis completed. Scan ID: {}", scanId);
+
+				// Create a new ScanReport and set its details
 				scanReport = new ScanReport(scanId, file);
 				scanReport.setSha256(fileHash);
 
-				// Record the timestamp of the request
+				// Record the timestamp of this request to enforce the API rate limit
 				requestTimestamps.add(System.currentTimeMillis());
 			} else {
+				// If the response indicates an error, log it and create an invalid ScanReport
 				logger.error("Error during analysis. HTTP Status Code: {}", statusCode);
 				scanReport = new ScanReport();
 				scanReport.setValid(false);
 				scanReport.setThreatDetails("Error analyzing the file.");
 			}
 		} catch (Exception e) {
+			// Handle exceptions that occur during the file analysis
 			logger.error("Exception during file analysis.", e);
+
+			// Create an invalid ScanReport with error details
 			scanReport = new ScanReport();
 			scanReport.setValid(false);
 			scanReport.setThreatDetails("Error analyzing the file.");
@@ -125,9 +146,9 @@ public class VirusTotal implements AVInterface {
 	 *
 	 * @return The ScanReport containing the analysis results, or null if an error
 	 *         occurred.
-	 * @throws InterruptedException
+	 * @throws InterruptedException if the thread is interrupted while waiting for
+	 *                              the report.
 	 */
-
 	public ScanReport getReport() throws InterruptedException {
 		// Ensure a valid scan report exists
 		if (scanReport == null || scanReport.getScanId() == null) {
@@ -158,18 +179,20 @@ public class VirusTotal implements AVInterface {
 					if ("completed".equalsIgnoreCase(status)) {
 						JsonNode statsNode = attributesNode.path("stats");
 
+						// Parse detection counts
 						int maliciousCount = statsNode.path("malicious").asInt();
 						int harmlessCount = statsNode.path("harmless").asInt();
 						int suspiciousCount = statsNode.path("suspicious").asInt();
 						int undetectedCount = statsNode.path("undetected").asInt();
 
+						// Update the ScanReport
 						scanReport.setValid(true);
 						scanReport.setMaliciousCount(maliciousCount);
 						scanReport.setHarmlessCount(harmlessCount);
 						scanReport.setSuspiciousCount(suspiciousCount);
 						scanReport.setUndetectedCount(undetectedCount);
 
-						// Determine the threat level
+						// Determine threat level
 						if (maliciousCount > 0) {
 							double totalScans = (double) maliciousCount + harmlessCount + suspiciousCount
 									+ undetectedCount;
@@ -214,7 +237,6 @@ public class VirusTotal implements AVInterface {
 	 *
 	 * @return true if a request can be made, false otherwise.
 	 */
-
 	boolean canMakeRequest() {
 		long currentTime = System.currentTimeMillis();
 
@@ -256,41 +278,38 @@ public class VirusTotal implements AVInterface {
 	void ensureApiKeyFileExists() {
 		String apiKeyContent = FileManager.getConfigValue("api_key");
 
-		// Se la chiave API esiste nel file di configurazione, salta il processo
+		// If the API key exists, skip the process
 		if (apiKeyContent != null && !apiKeyContent.trim().isEmpty()) {
 			logger.info("API key exists and is valid: skipped.");
 			return; // La chiave è già presente, non è necessario fare nulla
 		}
 
-		// Se la chiave API non esiste, chiedi all'utente di inserirla
 		logger.info("API key file is missing or empty. Please enter your API key:");
 
 		try (java.util.Scanner scanner = new java.util.Scanner(System.in)) {
 			String userApiKey = null;
 
-			// Continua a chiedere finché non viene inserita una chiave non vuota
+			// Keep prompting until a non-empty key is provided
 			while (userApiKey == null || userApiKey.trim().isEmpty()) {
 				userApiKey = scanner.nextLine().trim();
 
-				// Se l'utente inserisce una chiave vuota, chiedi di nuovo
 				if (userApiKey.isEmpty()) {
 					logger.error("Invalid input. The API key cannot be empty. Please enter a valid API key.");
 					logger.info("Please try again.");
 				}
 			}
 
-			// Salva la chiave nel file di configurazione
+			// Save the API key to the configuration file
 			if (FileManager.writeConfigValue("api_key", apiKey)) {
 				logger.info("API key saved successfully!");
 			} else {
 				logger.error("Error saving the API key. Please ensure the configuration file is writable.");
-				return; // Esci dalla funzione se non riesci a salvare la chiave
+				return;
 			}
 
-			// Ora la chiave è stata salvata. Carica di nuovo la chiave dal file
+			// Reload the API key from the configuration file
 			this.apiKey = FileManager.getConfigValue("api_key");
 
-			// Verifica che la chiave sia valida prima di proseguire
 			if (this.apiKey == null || this.apiKey.trim().isEmpty()) {
 				logger.error("Invalid API key. Please restart the program and provide a valid key.");
 			} else {
