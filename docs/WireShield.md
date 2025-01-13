@@ -212,32 +212,31 @@ I seguenti diagrammi UML sono stati utilizzati per progettare il sistema:
 
 #### ***Diagramma dei Casi d’Uso***
 ---
-[image]
-
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/UseCaseDiagram/UseCaseWireShield.png)
 
 #### ***Diagramma delle Classi***
 ---
-[image]
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/ClassDiagram/ClassDiagram.png)
 
 #### ***Diagramma delle Macchine a Stati***
 ---
-[image]
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/StateMachineDiagram/StateMachineWireShield.png)
 
 #### ***Diagramma di Sequenza***
 ---
-[image]
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/sequenceDiagram/sequenceDiagram.png)
 
 #### ***Diagramma di Comunicazione***
 ---
-[image]
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/CommunicationDiagram/CommunicationWireShield.png)
 
 #### ***Diagramma di Attività***
 ---
-[image]
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/activityDiagram/activityDiagram.png)
 
 #### ***Diagramma dei Componenti***
 ---
-[image]
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/ComponentDiagram/ComponentDiagram.png)
 
 
 &nbsp;
@@ -288,16 +287,38 @@ La superclasse `ScanReport` stabilisce i passi comuni per la creazione di un rep
 
 &nbsp;
 ## 10. 🔍 **Software Testing**
+### Metodologia di Testing del Software
 
-    PUO’ avere un documento di plan per l’attività di test
-    DEVE contenere dei casi di test di unità implementati con la loro descrizione nel documento
-    DOVREBBE avere qualche misura di copertura per i casi di test
+Abbiamo implementato una strategia di testing mirata a garantire un’elevata qualità del codice e una copertura dei test il più ampia possibile. Di seguito, vengono descritte le principali attività svolte:
+
+#### Sviluppo del Codice di Test
+
+- Per ciascun metodo implementato nel progetto, è stato creato un corrispondente codice di test, ad eccezione di alcuni metodi contenenti thread. Questi ultimi si sono rivelati difficili da testare singolarmente senza eseguire l’intero codice del programma, rendendo impraticabile una verifica isolata.
+
+#### Strumenti Utilizzati
+
+- **JUnit**: È stato utilizzato come framework principale per scrivere e organizzare i test unitari.
+- **EclEmma**: Lo strumento è stato impiegato per misurare la copertura del codice durante l’esecuzione dei test, con l’obiettivo di raggiungere una copertura del 100%.
+- **SonarLint**: Questo strumento è stato utilizzato per identificare i "code smells" all’interno del codice. Le problematiche rilevate sono state analizzate in modo granulare e risolte manualmente.
+
+#### Descrizione dei Casi di Test
+
+- Ogni caso di test è stato accompagnato da una breve descrizione per migliorarne la comprensibilità, fornita attraverso commenti Javadoc o direttamente nel nome del metodo di test. Ciò ha facilitato la tracciabilità e la comprensione dei test stessi.
+
+#### Test Avanzati con Mockito
+
+- Per garantire una verifica più approfondita di alcuni comportamenti, è stato utilizzato **Mockito**, un framework per la simulazione di componenti e dipendenze. Questo ha permesso di isolare i metodi testati e di verificare scenari specifici.
+
+L’approccio adottato ha permesso di mantenere un elevato livello di affidabilità del software, assicurandosi che il codice fosse robusto, privo di anomalie evidenti e ben documentato.
 
 &nbsp;
 ## 11. 🔧 **Software Maintenance**
+### Manutenzione del Progetto
 
-    POTREBBE contenere un di attività di reverse engineering (se si è partiti da codice esistente)
-    DOVREBBE documentare alcune attività di refactoring che sono state fatte.
+Per garantire la longevità, l'efficienza e la qualità del progetto, intendiamo manutenere il codice mantenendo un monitoraggio continuo per l'individuazione di bug. Continueremo ad utilizzare GitHub per  versioning e segnalazioni basate sulla priorità, in modo da risolvere tempestivamente i problemi più critici. L'obiettivo è realizzare aggiornamenti costanti che introducano maggiore stabilità, una grafica migliorata e funzionalità sempre più avanzate.
 
+Vogliamo adattare il codice alle continue mutazioni delle esigenze degli utenti, raccogliendo feedback e implementando estensioni mirate, con un'attenzione particolare alla sicurezza informatica. Inoltre, applicheremo una manutenzione preventiva, che consisterà in verifiche complete del codice per assicurarci che, durante le continue trasformazioni, non siano stati introdotti difetti. 
+
+Con questa strategia di manutenzione, intendiamo garantire un software affidabile, aggiornato e capace di rispondere alle sfide future, mantenendo al contempo un alto livello di soddisfazione degli utenti.
 &nbsp;
 
