@@ -269,6 +269,10 @@
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="__Wh9EMUAEe-Gd_JuCkNrIw" value="*"/>
       </ownedAttribute>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_MyQ1gMUZEe-Vsbu9EtnGjQ" name="ScanReport" type="_NqeuYKyYEe-sEdR3uXJgNg" association="_MyKH0MUZEe-Vsbu9EtnGjQ"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_HT_hotHgEe-CkfWN-R_sOg" name="virustotal" type="_2Rp6IKwQEe-xgaz8Fc6Tmg" association="_HT-TgNHgEe-CkfWN-R_sOg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_HUAIsNHgEe-CkfWN-R_sOg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_HUAIsdHgEe-CkfWN-R_sOg" value="1"/>
+      </ownedAttribute>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_KcZo0KyYEe-sEdR3uXJgNg" name="startPerformScan" visibility="public"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_kDoskK2nEe-r0tXGBdOuIw" name="addFileToScanBuffer">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_rXk0QK2nEe-r0tXGBdOuIw" type="_qzL00KyWEe-sEdR3uXJgNg"/>
@@ -837,5 +841,11 @@
       <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_XYeHUNHfEe-CkfWN-R_sOg" key="nature" value="UML_Nature"/>
     </eAnnotations>
     <ownedEnd xmi:type="uml:Property" xmi:id="_XYeuYtHfEe-CkfWN-R_sOg" name="systemorchestrator" type="_15Yg4KwMEe-xgaz8Fc6Tmg" association="_XYcSINHfEe-CkfWN-R_sOg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_HT-TgNHgEe-CkfWN-R_sOg" memberEnd="_HT_hotHgEe-CkfWN-R_sOg _HUAIstHgEe-CkfWN-R_sOg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_HT_hoNHgEe-CkfWN-R_sOg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_HT_hodHgEe-CkfWN-R_sOg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_HUAIstHgEe-CkfWN-R_sOg" name="antivirusmanager" type="_hiNPkKwQEe-xgaz8Fc6Tmg" association="_HT-TgNHgEe-CkfWN-R_sOg"/>
   </packagedElement>
 </uml:Model>
