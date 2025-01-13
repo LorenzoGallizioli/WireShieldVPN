@@ -1,13 +1,24 @@
 package com.wireshield.localfileutils;
 
+import com.wireshield.av.AntivirusManager;
+import com.wireshield.enums.connectionStates;
 import com.wireshield.enums.runningStates;
+import com.wireshield.wireguard.WireguardManager;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /*
  * Unit test class for SystemOrchestrator.
@@ -18,7 +29,16 @@ public class SystemOrchestratorTest {
 
     private static final Logger logger = LogManager.getLogger(SystemOrchestratorTest.class);
 
-    private SystemOrchestrator systemOrchestrator;
+    private SystemOrchestrator orchestrator;
+
+    @Mock
+    private WireguardManager wireguardManager;
+
+    @Mock
+    private DownloadManager downloadManager;
+
+    @Mock
+    private AntivirusManager antivirusManager;
 
     /*
      * Sets up the test environment.
@@ -26,38 +46,11 @@ public class SystemOrchestratorTest {
      */
     @Before
     public void setUp() {
-        systemOrchestrator = SystemOrchestrator.getInstance();
-        logger.info("SystemOrchestrator instance created");
-    }
+    	MockitoAnnotations.openMocks(this);
+        orchestrator = SystemOrchestrator.getInstance();
+        orchestrator.setGuardianState(runningStates.DOWN); // Ensure guardian is stopped
 
-    /*
-     * Cleans up the test environment.
-     * This method is executed after each test and destroys the SystemOrchestrator instance.
-     */
-    @After
-    public void tearDown() {
-        systemOrchestrator = null;
-        logger.info("SystemOrchestrator instance destroyed");
-    }
-
-    /*
-     * Tests the creation and initialization of the SystemOrchestrator.
-     * Currently, this test is not yet implemented.
-     */
-    @Test
-    public void testSystemOrchestrator() {
-        logger.info("Running testSystemOrchestrator...");
-        fail("Not yet implemented");
-    }
-
-    /*
-     * Tests the management of VPN connections.
-     * This test is not yet implemented.
-     */
-    @Test
-    public void testManageVPN() {
-        logger.info("Running testManageVPN...");
-        fail("Not yet implemented");
+        orchestrator.setObjects(wireguardManager, antivirusManager, downloadManager);
     }
 
     /*
@@ -69,13 +62,13 @@ public class SystemOrchestratorTest {
         logger.info("Running testManageAV...");
 
         // Test managing AV when it is UP
-        systemOrchestrator.manageAV(runningStates.UP);
-        assertEquals(runningStates.UP, systemOrchestrator.getAVStatus());
+        orchestrator.manageAV(runningStates.UP);
+        assertEquals(runningStates.UP, orchestrator.getAVStatus());
         logger.info("AV status set to UP");
 
         // Test managing AV when it is DOWN
-        systemOrchestrator.manageAV(runningStates.DOWN);
-        assertEquals(runningStates.DOWN, systemOrchestrator.getAVStatus());
+        orchestrator.manageAV(runningStates.DOWN);
+        assertEquals(runningStates.DOWN, orchestrator.getAVStatus());
         logger.info("AV status set to DOWN");
     }
 
@@ -88,188 +81,107 @@ public class SystemOrchestratorTest {
         logger.info("Running testManageDownload...");
 
         // Test managing download monitoring when it is UP
-        systemOrchestrator.manageDownload(runningStates.UP);
-        assertEquals(runningStates.UP, systemOrchestrator.getMonitorStatus());
+        orchestrator.manageDownload(runningStates.UP);
+        assertEquals(runningStates.UP, orchestrator.getMonitorStatus());
         logger.info("Download monitoring status set to UP");
 
         // Test managing download monitoring when it is DOWN
-        systemOrchestrator.manageDownload(runningStates.DOWN);
-        assertEquals(runningStates.DOWN, systemOrchestrator.getMonitorStatus());
+        orchestrator.manageDownload(runningStates.DOWN);
+        assertEquals(runningStates.DOWN, orchestrator.getMonitorStatus());
         logger.info("Download monitoring status set to DOWN");
     }
+    
 
-    /*
-     * Tests the retrieval of connection statuses.
-     * This test is not yet implemented.
-     */
     @Test
-    public void testGetConnectionStatus() {
-        logger.info("Running testGetConnectionStatus...");
-        fail("Not yet implemented");
+    public void testStatesGuardian_NormalOperation() throws InterruptedException {
+        // Mock normal operation
+        when(wireguardManager.getConnectionStatus()).thenReturn(connectionStates.CONNECTED);
+        when(antivirusManager.getScannerStatus()).thenReturn(runningStates.UP);
+        when(downloadManager.getMonitorStatus()).thenReturn(runningStates.UP);
+
+        orchestrator.setGuardianState(runningStates.UP);
+        orchestrator.statesGuardian();
+
+        // Allow some time for the thread to execute
+        Thread.sleep(500);
+
+        // Verify no actions taken
+        verify(wireguardManager, never()).setInterfaceDown();
+        verify(downloadManager, never()).forceStopMonitoring();
+        verify(antivirusManager, never()).forceStopPerformScan();
+
+        orchestrator.setGuardianState(runningStates.DOWN); // Stop the guardian thread
     }
-
-    /*
-     * Tests the retrieval of monitoring statuses.
-     * This test is not yet implemented.
+    
+    /**
+     * Test method. Simulate a AV failure and detects if GuardianState Thread takes action.
+     * It is not possible to verify effectiveness but only that it invokes the designated functions.
      */
     @Test
-    public void testGetMonitorStatus() {
-        logger.info("Running testGetMonitorStatus...");
-        fail("Not yet implemented");
+    public void testStatesGuardian_AVComponentFailure() throws InterruptedException {
+        // Mock antivirus failure
+        when(orchestrator.getWireguardManager().getConnectionStatus()).thenReturn(connectionStates.CONNECTED);
+        when(orchestrator.getAntivirusManager().getScannerStatus()).thenReturn(runningStates.DOWN);
+        when(orchestrator.getDownloadManager().getMonitorStatus()).thenReturn(runningStates.UP);
+
+        orchestrator.statesGuardian();
+
+        // Allow some time for the thread to detect the failure
+        Thread.sleep(500);
+
+        // Verify actions taken
+        verify(orchestrator.getDownloadManager(), atLeast(1)).forceStopMonitoring();
+        verify(orchestrator.getWireguardManager(), atLeast(1)).setInterfaceDown();
+
+        orchestrator.setGuardianState(runningStates.DOWN); // Stop the guardian thread
     }
-
-    /*
-     * Tests the retrieval of antivirus (AV) statuses.
-     * This test is not yet implemented.
+    
+    /**
+     * Test method. Simulate a DowmloadMonitor failure and detects if GuardianState Thread takes action.
+     * It is not possible to verify effectiveness but only that it invokes the designated functions.
      */
     @Test
-    public void testGetAVStatus() {
-        logger.info("Running testGetAVStatus...");
-        fail("Not yet implemented");
+    public void testStatesGuardian_DownloadComponentFailure() throws InterruptedException {
+        // Mock antivirus failure
+        when(orchestrator.getWireguardManager().getConnectionStatus()).thenReturn(connectionStates.CONNECTED);
+        when(orchestrator.getAntivirusManager().getScannerStatus()).thenReturn(runningStates.UP);
+        when(orchestrator.getDownloadManager().getMonitorStatus()).thenReturn(runningStates.DOWN);
+
+        orchestrator.statesGuardian();
+
+        // Allow some time for the thread to detect the failure
+        Thread.sleep(500);
+
+        // Verify actions taken
+        verify(orchestrator.getAntivirusManager(), atLeast(1)).forceStopPerformScan();
+        verify(orchestrator.getWireguardManager(), atLeast(1)).setInterfaceDown();
+
+        orchestrator.setGuardianState(runningStates.DOWN); // Stop the guardian thread
     }
-
-    /*
-     * Tests the creation of a peer.
-     * This test is not yet implemented.
-     */
+    
     @Test
-    public void testCreatePeer() {
-        logger.info("Running testCreatePeer...");
-        fail("Not yet implemented");
+    public void testStatesGuardian_ThreadRunningControls() throws InterruptedException {
+        orchestrator.statesGuardian();
+        
+        // Allow the thread to start
+        Thread.sleep(200);
+        
+        assertEquals(runningStates.UP, orchestrator.getGuardianState());
+        orchestrator.setGuardianState(runningStates.DOWN);
+
+        // Allow the thread to terminate gracefully
+        Thread.sleep(200);
+
+        assertEquals(runningStates.DOWN, orchestrator.getGuardianState());
     }
-
-    /*
-     * Tests the retrieval of report information.
-     * This test is not yet implemented.
-     */
+    
     @Test
-    public void testGetReportInfo() {
-        logger.info("Running testGetReportInfo...");
-        fail("Not yet implemented");
-    }
+    public void testSetAndGetGuardianState() {
+        // Set state and verify
+    	orchestrator.setGuardianState(runningStates.UP);
+        assertEquals(runningStates.UP, orchestrator.getGuardianState());
 
-  /* 
-   * Below are autogenerated or utility methods inherited from Object.
-   * Each test ensures that the corresponding method behaves as expected.
-   */
-
-    /*
-     * Tests the Object class method.
-     * This test is not yet implemented.
-     */
-    @Test
-    public void testObject() {
-        logger.info("Running testObject...");
-        fail("Not yet implemented");
-    }
-
-    /*
-     * Tests the getClass method.
-     * This test is not yet implemented.
-     */
-    @Test
-    public void testGetClass() {
-        logger.info("Running testGetClass...");
-        fail("Not yet implemented");
-    }
-
-    /*
-     * Tests the hashCode method.
-     * This test is not yet implemented.
-     */
-    @Test
-    public void testHashCode() {
-        logger.info("Running testHashCode...");
-        fail("Not yet implemented");
-    }
-
-    /*
-     * Tests the equals method.
-     * This test is not yet implemented.
-     */
-    @Test
-    public void testEquals() {
-        logger.info("Running testEquals...");
-        fail("Not yet implemented");
-    }
-
-    /*
-     * Tests the clone method.
-     * This test is not yet implemented.
-     */
-    @Test
-    public void testClone() {
-        logger.info("Running testClone...");
-        fail("Not yet implemented");
-    }
-
-    /*
-     * Tests the toString method.
-     * This test is not yet implemented.
-     */
-    @Test
-    public void testToString() {
-        logger.info("Running testToString...");
-        fail("Not yet implemented");
-    }
-
-    /*
-     * Tests the notify method.
-     * This test is not yet implemented.
-     */
-    @Test
-    public void testNotify() {
-        logger.info("Running testNotify...");
-        fail("Not yet implemented");
-    }
-
-    /*
-     * Tests the notifyAll method.
-     * This test is not yet implemented.
-     */
-    @Test
-    public void testNotifyAll() {
-        logger.info("Running testNotifyAll...");
-        fail("Not yet implemented");
-    }
-
-    /*
-     * Tests the wait method.
-     * This test is not yet implemented.
-     */
-    @Test
-    public void testWait() {
-        logger.info("Running testWait...");
-        fail("Not yet implemented");
-    }
-
-    /*
-     * Tests the wait method with a long parameter.
-     * This test is not yet implemented.
-     */
-    @Test
-    public void testWaitLong() {
-        logger.info("Running testWaitLong...");
-        fail("Not yet implemented");
-    }
-
-    /*
-     * Tests the wait method with long and int parameters.
-     * This test is not yet implemented.
-     */
-    @Test
-    public void testWaitLongInt() {
-        logger.info("Running testWaitLongInt...");
-        fail("Not yet implemented");
-    }
-
-    /*
-     * Tests the finalize method.
-     * This test is not yet implemented.
-     */
-    @Test
-    public void testFinalize() {
-        logger.info("Running testFinalize...");
-        fail("Not yet implemented");
+        orchestrator.setGuardianState(runningStates.DOWN);
+        assertEquals(runningStates.DOWN, orchestrator.getGuardianState());
     }
 }

@@ -41,10 +41,9 @@ public class SystemOrchestrator {
     private SystemOrchestrator() {
         this.wireguardManager = WireguardManager.getInstance(); // Initialize WireguardManager
         this.antivirusManager = AntivirusManager.getInstance(); // Initialize AntivirusManager
+        this.downloadManager = DownloadManager.getInstance(antivirusManager);
         this.clamAV = ClamAV.getInstance(); // Initialize ClamAV
         this.virusTotal = VirusTotal.getInstance(); // Initialize VirusTotal
-        this.wireguardManager = WireguardManager.getInstance();
-        this.downloadManager = DownloadManager.getInstance(antivirusManager);
         antivirusManager.setClamAV(clamAV);
         antivirusManager.setVirusTotal(virusTotal);
 
@@ -61,6 +60,19 @@ public class SystemOrchestrator {
             instance = new SystemOrchestrator();
         }
         return instance;
+    }
+    
+    /**
+     * Sets the necessary managers for the test class functionality.
+     *
+     * @param wireguardManager the WireGuard manager to be configured
+     * @param antivirusManager the Antivirus manager to be configured
+     * @param downloadManager the Download manager to be configured
+     */
+    protected void setObjects(WireguardManager wireguardManager, AntivirusManager antivirusManager, DownloadManager downloadManager) {
+    	this.wireguardManager = wireguardManager;
+    	this.antivirusManager = antivirusManager;
+    	this.downloadManager = downloadManager;
     }
 
     /**
@@ -281,9 +293,9 @@ public class SystemOrchestrator {
             			
             			logger.error("An essential component has encountered an error - Shutting down services...");
             			
-            			if(antivirusManager.getScannerStatus() == runningStates.DOWN) {
+            			if(antivirusManager.getScannerStatus() == runningStates.DOWN && downloadManager.getMonitorStatus() == runningStates.UP) {
             				manageDownload(runningStates.DOWN);
-            			} else if(downloadManager.getMonitorStatus() == runningStates.DOWN) {
+            			} else if(downloadManager.getMonitorStatus() == runningStates.DOWN && antivirusManager.getScannerStatus() == runningStates.UP) {
             				manageAV(runningStates.DOWN);
             			}
             			
