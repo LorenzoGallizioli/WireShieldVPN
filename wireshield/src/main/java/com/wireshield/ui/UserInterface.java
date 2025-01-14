@@ -320,10 +320,12 @@ public class UserInterface extends Application {
                     String logs = wg.getLog();
                     // Aggiorna logsArea sul thread JavaFX
                     Platform.runLater(() -> {
+                        double scrollPosition = logsArea.getScrollTop();
                         logsArea.clear();
                         logsArea.setText(logs);
+                        logsArea.setScrollTop(scrollPosition);
                     });
-                    Thread.sleep(1000); // Attendi un secondo prima di aggiornare di nuovo
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     logger.error("Dynamic log update thread interrupted.");
