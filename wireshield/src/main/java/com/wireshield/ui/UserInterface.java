@@ -191,6 +191,10 @@ public class UserInterface extends Application {
     public void changeVPNState() { 
 
         if (so.getConnectionStatus() == connectionStates.CONNECTED) {
+        	
+        	// Stop execution componentStatesGuardian thread
+        	so.setGuardianState(runningStates.DOWN);
+        	
             so.manageDownload(runningStates.DOWN);
             so.manageAV(runningStates.DOWN);
             so.manageVPN(vpnOperations.STOP, null);
@@ -201,12 +205,16 @@ public class UserInterface extends Application {
             so.manageVPN(vpnOperations.START, selectedPeerFile);
             so.manageAV(runningStates.UP);
             so.manageDownload(runningStates.UP);
+            
+            // Start execution componentStatesGuardian thread
+            so.statesGuardian();
+            
             vpnButton.setText("Stop VPN");
             peerListView.setDisable(true); // Disabilita la selezione dei peer.
             logger.info("All services started successfully.");
         }
     }
-
+   
     /**
      * Displays the home page.
      */
@@ -326,9 +334,9 @@ public class UserInterface extends Application {
             }
         };
 
-        Thread logUpdateThread = new Thread(task);
-        logUpdateThread.setDaemon(true); // Assicura che il thread si fermi con l'applicazione
-        logUpdateThread.start();
+        Thread Thread = new Thread(task);
+        //logUpdateThread.setDaemon(true); // Assicura che il thread si fermi con l'applicazione
+        Thread.start();
     }
 
      /**
