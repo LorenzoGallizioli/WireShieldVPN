@@ -8,7 +8,6 @@ import com.wireshield.enums.vpnOperations;
 import com.wireshield.wireguard.Peer;
 import com.wireshield.wireguard.PeerManager;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -17,10 +16,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.longThat;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 

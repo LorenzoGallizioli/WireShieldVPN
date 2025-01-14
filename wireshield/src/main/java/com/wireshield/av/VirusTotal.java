@@ -24,7 +24,7 @@ public class VirusTotal implements AVInterface {
 
 	private static final Logger logger = LogManager.getLogger(VirusTotal.class);
 
-	private static VirusTotal instance;
+	private static VirusTotal instance = null;
 	private String apiKey; // API Key for accessing the VirusTotal API
 	private String virustotalUri; // URI for VirusTotal API
 	static final int REQUEST_LIMIT = 4; // Maximum requests allowed per minute
@@ -44,11 +44,13 @@ public class VirusTotal implements AVInterface {
 	// Static method to get the Singleton instance of VirusTotal
 	public static synchronized VirusTotal getInstance() {
 		
-		instance = null;
-		if(!FileManager.getConfigValue("api_key").isEmpty() || FileManager.getConfigValue("api_key").length() != 64) {
-			if (instance == null) {
-				instance = new VirusTotal();
-			}
+		if(FileManager.getConfigValue("api_key").isEmpty() || FileManager.getConfigValue("api_key").length() != 64) {
+			return null;
+		}
+		
+		if (instance == null) {
+			logger.info("Run VirusTotal costructor");
+			instance = new VirusTotal();
 		}
 		
 		return instance;
@@ -60,7 +62,6 @@ public class VirusTotal implements AVInterface {
 	 *
 	 * @param file The file to analyze.
 	 */
-
 	public void analyze(File file) {
 		// Check request limits
 		if (!canMakeRequest()) {
@@ -132,7 +133,6 @@ public class VirusTotal implements AVInterface {
 	 *         occurred.
 	 * @throws InterruptedException
 	 */
-
 	public ScanReport getReport() throws InterruptedException {
 		// Ensure a valid scan report exists
 		if (scanReport == null || scanReport.getScanId() == null) {
@@ -219,7 +219,6 @@ public class VirusTotal implements AVInterface {
 	 *
 	 * @return true if a request can be made, false otherwise.
 	 */
-
 	boolean canMakeRequest() {
 		long currentTime = System.currentTimeMillis();
 
