@@ -282,7 +282,7 @@ Questo diagramma rappresenta le **relazioni d'uso** tra le componenti del sistem
 #### **2. Vista Componenti e Connettori**
 Questa vista illustra i componenti principali e le loro interazioni, descrivendo come comunicano tramite connettori come richieste API o invocazioni di metodi. In questo può venirci in aiuto il Diagramma di sequenza precedentemente illustrato che rappresenta i **processi** che, sommati tra loro vanno a rappresentare la **vista dinamica** del sistema.
 
-![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/SequenceDiagram/SequenceDiagram.png)
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/sequenceDiagram/sequenceDiagram.png)
 
 Componenti principali:
    - **UserInterface**: Responsabile per l'interazione con l'utente.
