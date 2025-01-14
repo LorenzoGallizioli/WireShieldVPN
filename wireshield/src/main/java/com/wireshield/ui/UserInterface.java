@@ -5,6 +5,7 @@ import com.wireshield.enums.connectionStates;
 import com.wireshield.enums.runningStates;
 import com.wireshield.enums.vpnOperations;
 import com.wireshield.localfileutils.SystemOrchestrator;
+import com.wireshield.wireguard.WireguardManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,9 +35,9 @@ import javafx.scene.control.ListView;
 
 public class UserInterface extends Application {
 
-    private static final Logger logger = LogManager.getLogger(SystemOrchestrator.class);
+    private static final Logger logger = LogManager.getLogger(UserInterface.class);
     protected static SystemOrchestrator so;
-    
+    protected static WireguardManager wg;
 
     /**
      * JavaFX Buttons.
@@ -48,25 +49,33 @@ public class UserInterface extends Application {
      * JavaFX Labels.
      */
     @FXML
-    protected Label avStatusLabel;
+    protected Label avStatusLabel, connLabel;
     
     /**
      * JavaFX AnchorPanes.
      */
     @FXML
-    protected AnchorPane homePane, logsPane, avPane, settingsPane;
+    protected AnchorPane homePane; 
+    @FXML
+    protected AnchorPane logsPane;
+    @FXML
+    protected AnchorPane avPane;
 
     /**
      * JavaFX TextAreas.
      */
     @FXML
-    protected TextArea logsArea, avFilesArea;
+    protected TextArea logsArea;
+    @FXML
+    protected TextArea avFilesArea;
 
     /**
      * JavaFX HBox Buttons.
      */
     @FXML
-    protected Button minimizeButton, closeButton;
+    protected Button minimizeButton;
+    @FXML
+    protected Button closeButton;
 
     /**
      * JavaFX ListViews.
@@ -77,8 +86,7 @@ public class UserInterface extends Application {
     @FXML
     protected ListView<String> avFilesListView;
     protected ObservableList<String> avFilesList = FXCollections.observableArrayList();
-    private String selectedPeerFile; // Variabile per memorizzare il file selezionato.
-    
+    protected String selectedPeerFile; // Variabile per memorizzare il file selezionato.
 
     /**
      * Start the application.
@@ -108,6 +116,7 @@ public class UserInterface extends Application {
     public void initialize() {
         viewHome();
         updatePeerList();
+        startDynamicConnectionLogsUpdate();
         startDynamicLogUpdate();
         // Imposta lo stato iniziale della ListView in base allo stato della VPN
         peerListView.setDisable(so.getConnectionStatus() == connectionStates.CONNECTED);
@@ -116,8 +125,7 @@ public class UserInterface extends Application {
         if (vpnButton.getText().equals("Start VPN")) {
             vpnButton.setDisable(true);
         }
-    
-        if (peerListView != null) {
+
             peerListView.setItems(peerList);
             peerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue != null) {
@@ -125,7 +133,7 @@ public class UserInterface extends Application {
                     if (vpnButton.getText().equals("Start VPN")) {
                         vpnButton.setDisable(false); // Abilita il pulsante solo se il testo è "Start VPN"
                     }
-                    logger.info("File selezionato nella peer list: " + selectedPeerFile);
+                    logger.info("File selezionato nella peer list: {}", selectedPeerFile);
                 } else {
                     if (vpnButton.getText().equals("Start VPN")) {
                         vpnButton.setDisable(true); // Disabilita il pulsante solo se non c'è selezione e il testo è "Start VPN"
@@ -133,7 +141,7 @@ public class UserInterface extends Application {
                     logger.info("Nessun file selezionato.");
                 }
             });
-        }
+    
     
         if (avFilesListView != null) {
             avFilesListView.setItems(avFilesList);
@@ -149,6 +157,7 @@ public class UserInterface extends Application {
     public static void main(String[] args) {
         so = SystemOrchestrator.getInstance();
         so.manageVPN(vpnOperations.STOP,null);
+        wg = so.getWireguardManager();
         launch(args);
     }
 
@@ -221,6 +230,7 @@ public class UserInterface extends Application {
     @FXML
     public void viewLogs() {
         logsPane.toFront();
+        logger.info("Viewing logs...");
     }
 
     /**
@@ -240,14 +250,6 @@ public class UserInterface extends Application {
             }
         }
         avPane.toFront();
-    }
-
-    /**
-     * Displays the settings page.
-     */
-    @FXML
-    public void viewSettings() {
-        settingsPane.toFront();
     }
 
     /**
@@ -273,7 +275,7 @@ public class UserInterface extends Application {
                 Path targetPath = Path.of(defaultPeerPath, selectedFile.getName());
                 Files.createDirectories(targetPath.getParent());
                 Files.copy(selectedFile.toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
-                logger.debug("File copied to: " + targetPath.toAbsolutePath());
+                logger.debug("File copied to: {}", targetPath.toAbsolutePath());
                 updatePeerList();
                 logger.info("File copied successfully.");
             } catch (IOException e) {
@@ -299,7 +301,7 @@ public class UserInterface extends Application {
                 for (File file : files) {
                     if (file.isFile() && file.length() > 0) {
                         peerList.add(file.getName()); // Aggiungi il nome del file alla lista
-                        logger.debug("File added to peer list: " + file.getName());
+                        logger.debug("File added to peer list: {}", file.getName());
                         logger.info("Peer list updated.");
                     }
                 }
@@ -315,7 +317,7 @@ public class UserInterface extends Application {
             while (true) {
                 try {
                     // Recupera i log aggiornati
-                    String logs = so.getWireguardManager().getLog();
+                    String logs = wg.getLog();
                     // Aggiorna logsArea sul thread JavaFX
                     Platform.runLater(() -> {
                         logsArea.clear();
@@ -336,4 +338,35 @@ public class UserInterface extends Application {
         //logUpdateThread.setDaemon(true); // Assicura che il thread si fermi con l'applicazione
         Thread.start();
     }
+
+     /**
+     * Starts a thread that dynamically updates the logs area.
+     */
+    protected void startDynamicConnectionLogsUpdate() {
+        Runnable task = () -> {
+            while (true) {
+                try {
+                    // Recupera i log aggiornati
+                    String logs = wg.getConnectionLogs();
+                    // Aggiorna logsArea sul thread JavaFX
+                    Platform.runLater(() -> {
+                        connLabel.setText("");;
+                        connLabel.setText(logs);
+                    });
+                    Thread.sleep(1000); // Attendi un secondo prima di aggiornare di nuovo
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    logger.error("Dynamic connection logs update thread interrupted.");
+                    break;
+                } catch (Exception e) {
+                    logger.error("Error updating connection logs: ", e);
+                }
+            }
+        };
+
+        Thread logUpdateThread = new Thread(task);
+        logUpdateThread.setDaemon(true); // Assicura che il thread si fermi con l'applicazione
+        logUpdateThread.start();
+    }
+
 }

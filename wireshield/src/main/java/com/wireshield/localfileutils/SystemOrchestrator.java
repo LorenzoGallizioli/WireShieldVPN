@@ -30,7 +30,6 @@ public class SystemOrchestrator {
     private VirusTotal virusTotal;             // Analyzes files with VirusTotal
     private runningStates avStatus = runningStates.DOWN; // Antivirus service status
     private runningStates monitorStatus;       // Download monitoring service status
-    private connectionStates connectionStatus; // VPN connection status
     
     // Control variable for componentStatesGuardian thread --> runningStates.UP let the thread to continue running, runningStates.DOWN stops the thread execution
     private runningStates guardianState = runningStates.DOWN; 
@@ -145,13 +144,13 @@ public class SystemOrchestrator {
 
                 // Starting antivirus scan and providing progress
                 try {
-                    antivirusManager.startPerformScan(); 
+                    antivirusManager.startScan(); 
                     logger.info("Antivirus service started successfully.");
                 } catch (Exception e) {
                     logger.error("Error while starting antivirus service: {}", e.getMessage(), e);
                     this.avStatus = antivirusManager.getScannerStatus();
                 }
-            } else {
+            } else { 
                 logger.info("Antivirus service is already running.");
             }
         } else {
@@ -189,7 +188,7 @@ public class SystemOrchestrator {
      * @return The current VPN connection status.
      */
     public connectionStates getConnectionStatus() {
-        this.connectionStatus = wireguardManager.getConnectionStatus();
+    	connectionStates connectionStatus = wireguardManager.getConnectionStatus();
         logger.debug("Retrieving connection status: {}", connectionStatus);
         return connectionStatus;
     }

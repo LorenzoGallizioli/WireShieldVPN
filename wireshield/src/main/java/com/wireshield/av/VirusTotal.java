@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wireshield.enums.warningClass;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.client.HttpClient;
 import org.apache.http.HttpResponse;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
@@ -20,24 +20,23 @@ import java.net.URI;
 import java.util.Queue;
 import java.util.LinkedList;
 
-public class VirusTotal implements AVInterface{
+public class VirusTotal implements AVInterface {
 
 	private static final Logger logger = LogManager.getLogger(VirusTotal.class);
 
 	private static VirusTotal instance;
-	private String API_KEY; // API Key for accessing the VirusTotal API
-	private String VIRUSTOTAL_URI; // URI for VirusTotal API
+	private String apiKey; // API Key for accessing the VirusTotal API
+	private String virustotalUri; // URI for VirusTotal API
 	static final int REQUEST_LIMIT = 4; // Maximum requests allowed per minute
-	private static final long ONE_MINUTE_IN_MILLIS = 60 * 1000; // Duration of one minute in milliseconds
+	private static final long ONE_MINUTE_IN_MILLIS = 60L * 1000; // Duration of one minute in milliseconds
 	Queue<Long> requestTimestamps = new LinkedList<>(); // Tracks timestamps of API requests
 	private ScanReport scanReport; // Stores the scan report for the last analyzed file
 
 	// Constructor to load configuration from JSON
 	private VirusTotal() {
-		
-		this.API_KEY = FileManager.getConfigValue("api_key");
-		this.VIRUSTOTAL_URI = FileManager.getConfigValue("VIRUSTOTAL_URI");
-		if (this.API_KEY == null || this.API_KEY.trim().isEmpty()) {
+		this.apiKey = FileManager.getConfigValue("api_key");
+		this.virustotalUri = FileManager.getConfigValue("VIRUSTOTAL_URI");
+		if (this.apiKey == null || this.apiKey.trim().isEmpty()) {
 			logger.error("Invalid API key. Restart the program and enter a valid key.");
 		}
 	}
@@ -54,7 +53,6 @@ public class VirusTotal implements AVInterface{
 		
 		return instance;
 	}
-
 
 	/**
 	 * Analyzes a file by uploading it to VirusTotal for a threat analysis. If the
@@ -88,11 +86,10 @@ public class VirusTotal implements AVInterface{
 			logger.error("Error calculating SHA256.");
 		}
 
-		try {
-			HttpClient client = HttpClients.createDefault();
-			URI uri = new URIBuilder(VIRUSTOTAL_URI + "/files").build();
+		try (CloseableHttpClient client = HttpClients.createDefault()) {
+			URI uri = new URIBuilder(virustotalUri + "/files").build();
 			HttpPost post = new HttpPost(uri);
-			post.addHeader("x-apikey", API_KEY);
+			post.addHeader("x-apikey", apiKey);
 
 			MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 			builder.addPart("file", new FileBody(file));
@@ -133,23 +130,23 @@ public class VirusTotal implements AVInterface{
 	 *
 	 * @return The ScanReport containing the analysis results, or null if an error
 	 *         occurred.
+	 * @throws InterruptedException
 	 */
 
-	public ScanReport getReport() {
+	public ScanReport getReport() throws InterruptedException {
 		// Ensure a valid scan report exists
 		if (scanReport == null || scanReport.getScanId() == null) {
 			logger.warn("No report available. Please perform an analysis first.");
 			return null;
 		}
 
-		try {
-			HttpClient client = HttpClients.createDefault();
-			URI uri = new URIBuilder(VIRUSTOTAL_URI + "/analyses/" + scanReport.getScanId()).build();
+		try (CloseableHttpClient client = HttpClients.createDefault()) {
+			URI uri = new URIBuilder(virustotalUri + "/analyses/" + scanReport.getScanId()).build();
 			boolean isCompleted = false;
 			logger.info("Waiting for the report...");
 			while (!isCompleted) {
 				HttpGet get = new HttpGet(uri);
-				get.addHeader("x-apikey", API_KEY);
+				get.addHeader("x-apikey", apiKey);
 
 				HttpResponse response = client.execute(get);
 				int statusCode = response.getStatusLine().getStatusCode();
@@ -179,7 +176,8 @@ public class VirusTotal implements AVInterface{
 
 						// Determine the threat level
 						if (maliciousCount > 0) {
-							double totalScans = maliciousCount + harmlessCount + suspiciousCount + undetectedCount;
+							double totalScans = (double) maliciousCount + harmlessCount + suspiciousCount
+									+ undetectedCount;
 							double maliciousPercentage = (maliciousCount / totalScans) * 100;
 
 							scanReport.setThreatDetected(true);
@@ -205,6 +203,9 @@ public class VirusTotal implements AVInterface{
 					return null;
 				}
 			}
+		} catch (InterruptedException e) {
+			logger.error("Thread was interrupted while retrieving the report.", e);
+			throw e; // Rethrow the InterruptedException
 		} catch (Exception e) {
 			logger.error("Exception while getting the analysis report.", e);
 		}
@@ -244,10 +245,10 @@ public class VirusTotal implements AVInterface{
 	 */
 	String getApiKey() {
 
-		String apiKey;
-		apiKey = FileManager.getConfigValue("api_key");
-		if (apiKey != null) {
-			return apiKey.trim(); // Remove extra spaces
+		String userApiKey;
+		userApiKey = FileManager.getConfigValue("api_key");
+		if (userApiKey != null) {
+			return userApiKey.trim(); // Remove extra spaces
 		}
 		return null;
 	}
@@ -270,14 +271,14 @@ public class VirusTotal implements AVInterface{
 		logger.info("API key file is missing or empty. Please enter your API key:");
 
 		try (java.util.Scanner scanner = new java.util.Scanner(System.in)) {
-			String apiKey = null;
+			String userApiKey = null;
 
 			// Continua a chiedere finché non viene inserita una chiave non vuota
-			while (apiKey == null || apiKey.trim().isEmpty()) {
-				apiKey = scanner.nextLine().trim();
+			while (userApiKey == null || userApiKey.trim().isEmpty()) {
+				userApiKey = scanner.nextLine().trim();
 
 				// Se l'utente inserisce una chiave vuota, chiedi di nuovo
-				if (apiKey.isEmpty()) {
+				if (userApiKey.isEmpty()) {
 					logger.error("Invalid input. The API key cannot be empty. Please enter a valid API key.");
 					logger.info("Please try again.");
 				}
@@ -292,19 +293,17 @@ public class VirusTotal implements AVInterface{
 			}
 
 			// Ora la chiave è stata salvata. Carica di nuovo la chiave dal file
-			this.API_KEY = FileManager.getConfigValue("api_key");
+			this.apiKey = FileManager.getConfigValue("api_key");
 
 			// Verifica che la chiave sia valida prima di proseguire
-			if (this.API_KEY == null || this.API_KEY.trim().isEmpty()) {
+			if (this.apiKey == null || this.apiKey.trim().isEmpty()) {
 				logger.error("Invalid API key. Please restart the program and provide a valid key.");
-				return;
 			} else {
-				logger.info("API key loaded: {}", this.API_KEY);
+				logger.info("API key loaded: {}", this.apiKey);
 			}
 
 		} catch (Exception e) {
-			logger.error("Error during API key input: " + e.getMessage(), e);
-			return; // Esci dalla funzione in caso di errore
+			logger.error("Error during API key input: {}", e.getMessage(), e);
 		}
 	}
 }

@@ -8,7 +8,7 @@ Clicca sul link qui sotto per scaricare la cartella ClamAV pronta per l'uso:
 
 👉 [Scarica ClamAV per WireShield](https://drive.google.com/drive/folders/1srrjI6aMa1skvOCG3KF0JDBUV0KL4it4?usp=sharing)
 
-## 📦 Posizione della Cartella
+## 📦 Posizione della Cartella e aggiornamento database
 
 Dopo aver scaricato il file, segui questi semplici passaggi per posizionarlo correttamente:
 
@@ -19,6 +19,8 @@ Dopo aver scaricato il file, segui questi semplici passaggi per posizionarlo cor
    ```
    C:\Program Files\
    ```
+4. A questo punto recarsi nella cartella appena importata, aprire CMD o PowerShell all'interno della stessa ed eseguire il comando `freshclam`. questo passaggio e' necessario per l'aggiornamento dei database dell'antivirus.
+   
 
 ## ✅ Configurazione Completa
 
