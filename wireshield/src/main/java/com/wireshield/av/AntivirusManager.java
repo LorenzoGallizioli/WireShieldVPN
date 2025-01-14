@@ -170,7 +170,7 @@ public class AntivirusManager {
     /*
      * Stops the ongoing antivirus scan process gracefully.
      */
-    public void forceStopPerformScan() {
+    public void stopScan() {
         if (scannerStatus == runningStates.DOWN) {
             logger.warn("No scan process is running.");
             return;

@@ -159,7 +159,7 @@ public class SystemOrchestrator {
                 
                 // Stopping the scan
                 try {
-                    antivirusManager.forceStopPerformScan(); 
+                    antivirusManager.stopScan(); 
                     logger.info("Antivirus service stopped successfully.");
                 } catch (Exception e) {
                     logger.error("Error while stopping antivirus service: {}", e.getMessage(), e);
