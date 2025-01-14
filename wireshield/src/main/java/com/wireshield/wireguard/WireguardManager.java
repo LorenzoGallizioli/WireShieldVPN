@@ -267,15 +267,10 @@ public class WireguardManager {
 	public void startUpdateWireguardLogs() {
 		Runnable task = () -> {
 			while (true) {
-				
-				// Update this.logs
-				String[] command = {
-			            "cmd.exe", "/c", wireguardPath + " /dumplog > " + logDumpPath
-			    };
+				String[] command = {"cmd.exe", "/c", wireguardPath + " /dumplog > " + logDumpPath};
 				updateWireguardLogs(command);
-
 				try {
-					Thread.sleep(500); // wait
+					Thread.sleep(500);
 				} catch (InterruptedException e) {
 					Thread.currentThread().interrupt();
 					logger.error("startUpdateWireguardLogs() thread unexpecly interrupted");
