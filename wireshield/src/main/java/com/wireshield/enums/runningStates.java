@@ -1,7 +1,7 @@
 package com.wireshield.enums;
 
-/*
- * The runningStates enum represents the possible states of a running process.
+/**
+ * The runningStates enum represents the possible states of Download Manager and Antivirus Manager process.
  * It is used to indicate whether a process or system component is operational or not.
  */
 public enum runningStates {

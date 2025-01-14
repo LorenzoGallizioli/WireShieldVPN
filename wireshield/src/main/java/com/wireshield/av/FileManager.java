@@ -16,7 +16,7 @@ import org.json.simple.parser.JSONParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/*
+/**
  * Utility class for managing files, including creation, reading, writing,
  * deletion, and hash computation. Provides methods for interacting with JSON
  * configuration files and checking file states (e.g., temporary, stable).
@@ -29,7 +29,9 @@ public class FileManager {
 	// Path to the configuration file.
 	static String configPath = FileManager.getProjectFolder() + "\\config\\config.json";
 
-	/** Private constructor to prevent instantiation of this utility class. */
+	/**
+	 * Private constructor to prevent instantiation of this utility class.
+	 */
 	private FileManager() {
 		// Prevent instantiation
 	}

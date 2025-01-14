@@ -11,7 +11,7 @@ import com.wireshield.enums.runningStates;
 import com.wireshield.enums.warningClass;
 import javax.swing.JOptionPane;
 
-/*
+/**
  * Manages antivirus scanning tasks and orchestrates file analysis using ClamAV
  * and VirusTotal. Implements a singleton pattern to ensure a single instance
  * manages all scanning operations.
@@ -68,7 +68,7 @@ public class AntivirusManager {
 		}
 	}
 
-	/*
+	/**
 	 * Starts the antivirus scan process in a separate thread. If a scan is already
 	 * running, it logs a warning and exits.
 	 */
@@ -173,7 +173,7 @@ public class AntivirusManager {
 		}
 	}
 
-	/*
+	/**
 	 * Stops the ongoing antivirus scan process gracefully.
 	 */
 	public void stopScan() {

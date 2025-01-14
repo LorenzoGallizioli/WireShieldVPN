@@ -1,4 +1,5 @@
 package com.wireshield.ui;
+
 import com.wireshield.av.FileManager;
 import com.wireshield.av.ScanReport;
 import com.wireshield.enums.connectionStates;
@@ -33,332 +34,347 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 
+/**
+ * The main user interface class for the Wireshield application, implemented using JavaFX.
+ * This class handles the initialization, layout, and interaction of UI components such as
+ * buttons, labels, and panes. It also provides methods for managing the VPN state, updating logs,
+ * and interacting with peer configuration files.
+ */
 public class UserInterface extends Application {
 
-    private static final Logger logger = LogManager.getLogger(UserInterface.class);
-    protected static SystemOrchestrator so;
-    protected static WireguardManager wg;
+	// Logger for recording application events.
+	private static final Logger logger = LogManager.getLogger(UserInterface.class);
 
-    /**
-     * JavaFX Buttons.
-     */
-    @FXML
-    protected Button vpnButton;
+	// Singleton instances for system orchestration and WireGuard management.
+	protected static SystemOrchestrator so;
+	protected static WireguardManager wg;
 
-    /**
-     * JavaFX Labels.
-     */
-    @FXML
-    protected Label avStatusLabel, connLabel;
-    
-    /**
-     * JavaFX AnchorPanes.
-     */
-    @FXML
-    protected AnchorPane homePane; 
-    @FXML
-    protected AnchorPane logsPane;
-    @FXML
-    protected AnchorPane avPane;
+	// JavaFX Buttons.
+	@FXML
+	protected Button vpnButton;
 
-    /**
-     * JavaFX TextAreas.
-     */
-    @FXML
-    protected TextArea logsArea;
-    @FXML
-    protected TextArea avFilesArea;
+	// JavaFX Labels.
+	@FXML
+	protected Label avStatusLabel, connLabel;
 
-    /**
-     * JavaFX HBox Buttons.
-     */
-    @FXML
-    protected Button minimizeButton;
-    @FXML
-    protected Button closeButton;
+	// JavaFX AnchorPanes.
+	@FXML
+	protected AnchorPane homePane;
+	@FXML
+	protected AnchorPane logsPane;
+	@FXML
+	protected AnchorPane avPane;
 
-    /**
-     * JavaFX ListViews.
-     */
-    @FXML
-    protected ListView<String> peerListView;
-    protected ObservableList<String> peerList = FXCollections.observableArrayList();
-    @FXML
-    protected ListView<String> avFilesListView;
-    protected ObservableList<String> avFilesList = FXCollections.observableArrayList();
-    protected String selectedPeerFile; // Variabile per memorizzare il file selezionato.
+	// JavaFX TextAreas.
+	@FXML
+	protected TextArea logsArea;
+	@FXML
+	protected TextArea avFilesArea;
 
-    /**
-     * Start the application.
-     */
-    @Override
-    public void start(Stage primaryStage) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("MainView.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
-            primaryStage.initStyle(StageStyle.UNDECORATED);
-            primaryStage.setTitle("Wireshield");
-            primaryStage.setScene(scene);
-            primaryStage.show();
-            logger.info("Main view loaded successfully.");
-        } catch (IOException e) {
-            e.printStackTrace();
-            logger.error("Failed to load the main view.");
-        }
-    }
+	// JavaFX HBox Buttons.
+	@FXML
+	protected Button minimizeButton;
+	@FXML
+	protected Button closeButton;
 
-    /**
-     * Initialize the user interface.
-     */
-    @FXML
-    public void initialize() {
-        viewHome();
-        updatePeerList();
-        startDynamicConnectionLogsUpdate();
-        startDynamicLogUpdate();
-        // Imposta lo stato iniziale della ListView in base allo stato della VPN
-        peerListView.setDisable(so.getConnectionStatus() == connectionStates.CONNECTED);
+	// Observable lists for UI updates
+	@FXML
+	protected ListView<String> peerListView;
+	protected ObservableList<String> peerList = FXCollections.observableArrayList();
 
-        // Disabilita il pulsante solo se il testo è "Start VPN" e non è selezionato alcun file
-        if (vpnButton.getText().equals("Start VPN")) {
-            vpnButton.setDisable(true);
-        }
+	@FXML
+	protected ListView<String> avFilesListView;
+	protected ObservableList<String> avFilesList = FXCollections.observableArrayList();
 
-            peerListView.setItems(peerList);
-            peerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-                if (newValue != null) {
-                    selectedPeerFile = newValue; // Memorizza il file selezionato
-                    if (vpnButton.getText().equals("Start VPN")) {
-                        vpnButton.setDisable(false); // Abilita il pulsante solo se il testo è "Start VPN"
-                    }
-                    logger.info("File selezionato nella peer list: {}", selectedPeerFile);
-                } else {
-                    if (vpnButton.getText().equals("Start VPN")) {
-                        vpnButton.setDisable(true); // Disabilita il pulsante solo se non c'è selezione e il testo è "Start VPN"
-                    }
-                    logger.info("Nessun file selezionato.");
-                }
-            });
-    
-    
-        if (avFilesListView != null) {
-            avFilesListView.setItems(avFilesList);
-        }
-    }
-    
+	// Stores the file selected from the peer list
+	protected String selectedPeerFile;
 
-    /**
-     * Main method to launch the WireShield application.
-     * 
-     * @param args Command line arguments.
-     */
-    public static void main(String[] args) {
-        so = SystemOrchestrator.getInstance();
-        so.manageVPN(vpnOperations.STOP,null);
-        wg = so.getWireguardManager();
-        launch(args);
-    }
+	/**
+	 * Entry point for launching the JavaFX application. This method loads the main
+	 * FXML layout, applies styles, and displays the primary stage.
+	 *
+	 * @param primaryStage the main stage for the application.
+	 */
+	@Override
+	public void start(Stage primaryStage) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("MainView.fxml"));
+			Parent root = loader.load();
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
-    /**
-     * Minimizes the application window.
-     */
-    @FXML
-    public void minimizeWindow() {
-        Stage stage = (Stage) minimizeButton.getScene().getWindow();
-        stage.setIconified(true);
-        logger.info("Window minimized.");
-    }
+			// Configure stage appearance
+			primaryStage.initStyle(StageStyle.UNDECORATED);
+			primaryStage.setTitle("Wireshield");
+			primaryStage.setScene(scene);
+			primaryStage.show();
 
-    /**
-     * Closes the application window.
-     */
-    @FXML
-    public void closeWindow() {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
-        so.manageDownload(runningStates.DOWN);
-        so.manageAV(runningStates.DOWN);
-        so.manageVPN(vpnOperations.STOP, null);
-        System.exit(0);
-    }
+			logger.info("Main view loaded successfully.");
+		} catch (IOException e) {
+			e.printStackTrace();
+			logger.error("Failed to load the main view.");
+		}
+	}
 
-    /**
-     * Changes the state of the VPN.
-     */
-    @FXML
-    public void changeVPNState() { 
+	/**
+	 * Initializes the user interface and its components. Sets up event listeners,
+	 * initializes lists, and configures UI behavior based on the current state of
+	 * the application.
+	 */
+	@FXML
+	public void initialize() {
+		viewHome(); // Show the home pane on startup
+		updatePeerList(); // Populate the peer list from available files
+		startDynamicConnectionLogsUpdate(); // Start updating the connection logs dynamically
+		startDynamicLogUpdate(); // Start updating the general logs dynamically
 
-        if (so.getConnectionStatus() == connectionStates.CONNECTED) {
-            so.manageDownload(runningStates.DOWN);
-            so.manageAV(runningStates.DOWN);
-            so.manageVPN(vpnOperations.STOP, null);
-            vpnButton.setText("Start VPN");
-            peerListView.setDisable(false); // Rendi i peer selezionabili.
-            logger.info("All services are stopped.");
-        } else {
-            so.manageVPN(vpnOperations.START, selectedPeerFile);
-            so.manageAV(runningStates.UP);
-            so.manageDownload(runningStates.UP);
-            vpnButton.setText("Stop VPN");
-            peerListView.setDisable(true); // Disabilita la selezione dei peer.
-            logger.info("All services started successfully.");
-        }
-    }
+		// Disable the peer list if the VPN is currently connected
+		peerListView.setDisable(so.getConnectionStatus() == connectionStates.CONNECTED);
 
-    /**
-     * Displays the home page.
-     */
-    @FXML
-    public void viewHome() {
-        homePane.toFront();
-        updatePeerList();
-    }
+		if (vpnButton.getText().equals("Start VPN")) {
+			vpnButton.setDisable(true);
+		}
 
-    /**
-     * Displays the logs page.
-     */
-    @FXML
-    public void viewLogs() {
-        logsPane.toFront();
-        logger.info("Viewing logs...");
-    }
+		// Monitor selection changes in the peer list
+		peerListView.setItems(peerList);
+		peerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> { // Store the selected file
+			if (newValue != null) {
+				selectedPeerFile = newValue; // Store the selected file
+				if (vpnButton.getText().equals("Start VPN")) {
+					// Disable VPN button if no file is selected
+					vpnButton.setDisable(false);
+				}
+				logger.info("File selezionato nella peer list: {}", selectedPeerFile);
+			} else {
+				if (vpnButton.getText().equals("Start VPN")) {
+					vpnButton.setDisable(true); // Disable the button only if there is no selection and the text is "Start VPN"
+				}
+				logger.info("Nessun file selezionato.");
+			}
+		});
 
-    /**
-     * Displays the antivirus page.
-     */
-    @FXML
-    public void viewAv() {
-        runningStates avStatus = so.getAVStatus();
-        avStatusLabel.setText(avStatus.toString());
-        if (avStatus == runningStates.UP) {
-            avFilesList.clear();
-            List<ScanReport> reports = so.getAntivirusManager().getFinalReports();
-            for (ScanReport report : reports) {
-                String fileName = report.getFile().getName();
-                String warningClass = report.getWarningClass().toString();
-                avFilesList.add(fileName + " - " + warningClass);
-            }
-        }
-        avPane.toFront();
-    }
+		// Populate antivirus file list if the list view exists
+		if (avFilesListView != null) {
+			avFilesListView.setItems(avFilesList);
+		}
+	}
 
-    /**
-     * Handles the file selection event and copies the selected file to the peer directory.
-     * 
-     * @param event 
-     *   The action event triggered when a file is selected.
-     */
-    @FXML
-    public void handleFileSelection(ActionEvent event) {
-        String defaultPeerPath = FileManager.getProjectFolder() + FileManager.getConfigValue("PEER_STD_PATH");
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select a File");
-        fileChooser.getExtensionFilters().add(
-            new FileChooser.ExtensionFilter("WireGuard Config Files (*.conf)", "*.conf")
-        );
+	/**
+	 * Launches the Wireshield application.
+	 *
+	 * @param args command-line arguments.
+	 */
+	public static void main(String[] args) {
+		// Initialize the system orchestrator and stop any running VPN on startup
+		so = SystemOrchestrator.getInstance();
+		so.manageVPN(vpnOperations.STOP, null);
+		wg = so.getWireguardManager();
+		launch(args);
+	}
 
-        Stage stage = new Stage();
-        File selectedFile = fileChooser.showOpenDialog(stage);
+	/**
+	 * Minimizes the application window.
+	 */
+	@FXML
+	public void minimizeWindow() {
+		Stage stage = (Stage) minimizeButton.getScene().getWindow();
+		stage.setIconified(true);
+		logger.info("Window minimized.");
+	}
 
-        if (selectedFile != null) {
-            try {
-                Path targetPath = Path.of(defaultPeerPath, selectedFile.getName());
-                Files.createDirectories(targetPath.getParent());
-                Files.copy(selectedFile.toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
-                logger.debug("File copied to: {}", targetPath.toAbsolutePath());
-                updatePeerList();
-                logger.info("File copied successfully.");
-            } catch (IOException e) {
-                e.printStackTrace();
-                logger.error("Failed to copy the file.");
-            }
-        } else {
-            logger.info("No file selected.");
-        }
-    }
+	/**
+	 * Closes the application window and stops all running services.
+	 */
+	@FXML
+	public void closeWindow() {
+		Stage stage = (Stage) closeButton.getScene().getWindow();
+		stage.close();
 
-    /**
-     * Updates the peer list based on the files in the peer directory.
-     */
-    protected void updatePeerList() {
-        String folderPath = FileManager.getProjectFolder() + FileManager.getConfigValue("PEER_STD_PATH");
-        File directory = new File(folderPath);
+		// Stop all background services
+		so.manageDownload(runningStates.DOWN);
+		so.manageAV(runningStates.DOWN);
+		so.manageVPN(vpnOperations.STOP, null);
+		System.exit(0);
+	}
 
-        if (directory.exists() && directory.isDirectory()) {
-            File[] files = directory.listFiles();
-            if (files != null) {
-                peerList.clear(); // Svuota la lista attuale
-                for (File file : files) {
-                    if (file.isFile() && file.length() > 0) {
-                        peerList.add(file.getName()); // Aggiungi il nome del file alla lista
-                        logger.debug("File added to peer list: {}", file.getName());
-                        logger.info("Peer list updated.");
-                    }
-                }
-            }
-        }
-    }
+	/**
+	 * Toggles the state of the VPN between connected and disconnected.
+	 */
+	@FXML
+	public void changeVPNState() {
 
-    /**
-     * Starts a thread that dynamically updates the logs area.
-     */
-    protected void startDynamicLogUpdate() {
-        Runnable task = () -> {
-            while (true) {
-                try {
-                    // Recupera i log aggiornati
-                    String logs = wg.getLog();
-                    // Aggiorna logsArea sul thread JavaFX
-                    Platform.runLater(() -> {
-                        logsArea.clear();
-                        logsArea.setText(logs);
-                    });
-                    Thread.sleep(1000); // Attendi un secondo prima di aggiornare di nuovo
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    logger.error("Dynamic log update thread interrupted.");
-                    break;
-                } catch (Exception e) {
-                    logger.error("Error updating logs dynamically: ", e);
-                }
-            }
-        };
+		if (so.getConnectionStatus() == connectionStates.CONNECTED) {
+			so.manageDownload(runningStates.DOWN);
+			so.manageAV(runningStates.DOWN);
+			so.manageVPN(vpnOperations.STOP, null);
+			vpnButton.setText("Start VPN");
+			peerListView.setDisable(false); // Stop VPN and related services
+			logger.info("All services are stopped.");
+		} else {
+			so.manageVPN(vpnOperations.START, selectedPeerFile);
+			so.manageAV(runningStates.UP);
+			so.manageDownload(runningStates.UP);
+			vpnButton.setText("Stop VPN");
+			peerListView.setDisable(true); // Start VPN and related services
+			logger.info("All services started successfully.");
+		}
+	}
 
-        Thread logUpdateThread = new Thread(task);
-        logUpdateThread.setDaemon(true); // Assicura che il thread si fermi con l'applicazione
-        logUpdateThread.start();
-    }
+	/**
+	 * Displays the home pane and updates the peer list.
+	 */
+	@FXML
+	public void viewHome() {
+		homePane.toFront();
+		updatePeerList();
+	}
 
-     /**
-     * Starts a thread that dynamically updates the logs area.
-     */
-    protected void startDynamicConnectionLogsUpdate() {
-        Runnable task = () -> {
-            while (true) {
-                try {
-                    // Recupera i log aggiornati
-                    String logs = wg.getConnectionLogs();
-                    // Aggiorna logsArea sul thread JavaFX
-                    Platform.runLater(() -> {
-                        connLabel.setText("");;
-                        connLabel.setText(logs);
-                    });
-                    Thread.sleep(1000); // Attendi un secondo prima di aggiornare di nuovo
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    logger.error("Dynamic connection logs update thread interrupted.");
-                    break;
-                } catch (Exception e) {
-                    logger.error("Error updating connection logs: ", e);
-                }
-            }
-        };
+	/**
+	 * Displays the logs pane.
+	 */
+	@FXML
+	public void viewLogs() {
+		logsPane.toFront();
+		logger.info("Viewing logs...");
+	}
 
-        Thread logUpdateThread = new Thread(task);
-        logUpdateThread.setDaemon(true); // Assicura che il thread si fermi con l'applicazione
-        logUpdateThread.start();
-    }
+	/**
+	 * Displays the antivirus pane and populates the file list if antivirus is
+	 * running.
+	 */
+	@FXML
+	public void viewAv() {
+		runningStates avStatus = so.getAVStatus();
+		avStatusLabel.setText(avStatus.toString());
+		if (avStatus == runningStates.UP) {
+			avFilesList.clear();
+			List<ScanReport> reports = so.getAntivirusManager().getFinalReports();
+			for (ScanReport report : reports) {
+				String fileName = report.getFile().getName();
+				String warningClass = report.getWarningClass().toString();
+				avFilesList.add(fileName + " - " + warningClass);
+			}
+		}
+		avPane.toFront();
+	}
 
+	/**
+	 * Opens a file chooser to select a peer configuration file and copies it to the
+	 * peer directory.
+	 *
+	 * @param event the action event triggered by the file selection button.
+	 */
+	@FXML
+	public void handleFileSelection(ActionEvent event) {
+		String defaultPeerPath = FileManager.getProjectFolder() + FileManager.getConfigValue("PEER_STD_PATH");
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Select a File");
+		fileChooser.getExtensionFilters()
+				.add(new FileChooser.ExtensionFilter("WireGuard Config Files (*.conf)", "*.conf"));
+
+		Stage stage = new Stage();
+		File selectedFile = fileChooser.showOpenDialog(stage);
+
+		if (selectedFile != null) {
+			try {
+				Path targetPath = Path.of(defaultPeerPath, selectedFile.getName());
+				Files.createDirectories(targetPath.getParent());
+				Files.copy(selectedFile.toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
+				logger.debug("File copied to: {}", targetPath.toAbsolutePath());
+				updatePeerList();
+				logger.info("File copied successfully.");
+			} catch (IOException e) {
+				e.printStackTrace();
+				logger.error("Failed to copy the file.");
+			}
+		} else {
+			logger.info("No file selected.");
+		}
+	}
+
+	/**
+	 * Copies the selected peer configuration file to the application's peer
+	 * directory.
+	 *
+	 * @param selectedFile the file to be copied.
+	 */
+	protected void updatePeerList() {
+		String folderPath = FileManager.getProjectFolder() + FileManager.getConfigValue("PEER_STD_PATH");
+		File directory = new File(folderPath);
+
+		if (directory.exists() && directory.isDirectory()) {
+			File[] files = directory.listFiles();
+			if (files != null) {
+				peerList.clear(); // Svuota la lista attuale
+				for (File file : files) {
+					if (file.isFile() && file.length() > 0) {
+						peerList.add(file.getName()); // Aggiungi il nome del file alla lista
+						logger.debug("File added to peer list: {}", file.getName());
+						logger.info("Peer list updated.");
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * Updates the peer list by reading configuration files from the peer directory.
+	 */
+	protected void startDynamicLogUpdate() {
+		Runnable task = () -> {
+			while (true) {
+				try {
+					// Retrieve updated logs
+					String logs = wg.getLog();
+					// Update logsArea on the JavaFX thread
+					Platform.runLater(() -> {
+						logsArea.clear();
+						logsArea.setText(logs);
+					});
+					Thread.sleep(1000); // Wait one second before updating again
+				} catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+					logger.error("Dynamic log update thread interrupted.");
+					break;
+				} catch (Exception e) {
+					logger.error("Error updating logs dynamically: ", e);
+				}
+			}
+		};
+
+		Thread logUpdateThread = new Thread(task);
+		logUpdateThread.setDaemon(true); // Ensure the thread stops with the application
+		logUpdateThread.start();
+	}
+
+	/**
+	 * Starts a background thread to dynamically update the logs area.
+	 */
+	protected void startDynamicConnectionLogsUpdate() {
+		Runnable task = () -> {
+			while (true) {
+				try {
+					// Retrieve updated logs
+					String logs = wg.getConnectionLogs();
+					// Update logsArea on the JavaFX thread
+					Platform.runLater(() -> {
+						connLabel.setText("");
+						;
+						connLabel.setText(logs);
+					});
+					Thread.sleep(1000); // Wait one second before updating again
+				} catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+					logger.error("Dynamic connection logs update thread interrupted.");
+					break;
+				} catch (Exception e) {
+					logger.error("Error updating connection logs: ", e);
+				}
+			}
+		};
+
+		Thread logUpdateThread = new Thread(task);
+		logUpdateThread.setDaemon(true); // Ensure the thread stops with the application
+		logUpdateThread.start();
+	}
 }

@@ -20,6 +20,11 @@ import java.net.URI;
 import java.util.Queue;
 import java.util.LinkedList;
 
+/**
+ * The VirusTotal class interacts with the VirusTotal API for file threat analysis.
+ * It provides methods to upload files for analysis, retrieve reports, and manage API rate limits.
+ * The class is implemented as a Singleton to ensure only one instance exists.
+ */
 public class VirusTotal implements AVInterface {
 
 	private static final Logger logger = LogManager.getLogger(VirusTotal.class);
@@ -32,7 +37,7 @@ public class VirusTotal implements AVInterface {
 	Queue<Long> requestTimestamps = new LinkedList<>(); // Tracks timestamps of API requests
 	private ScanReport scanReport; // Stores the scan report for the last analyzed file
 
-	/*
+	/**
 	 * Private constructor that initializes the VirusTotal instance with
 	 * configuration data.
 	 */
@@ -270,7 +275,7 @@ public class VirusTotal implements AVInterface {
 		return null;
 	}
 
-	/*
+	/**
 	 * Ensures that the section api_key in config.json file exists. If the file does
 	 * not exist or is empty, prompts the user to enter the API key and saves it to
 	 * the file.

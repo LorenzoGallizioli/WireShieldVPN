@@ -1,6 +1,6 @@
 package com.wireshield.enums;
 
-/*
+/**
  * The warningClass enum represents the different levels of warnings that can be
  * assigned based on file analysis results.
  */

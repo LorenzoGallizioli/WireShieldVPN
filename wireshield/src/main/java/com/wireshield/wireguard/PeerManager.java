@@ -6,25 +6,26 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The PeerManager class is responsible for managing WireGuard peers.
+ * The PeerManager class manages WireGuard peers, providing functionality 
+ * for creating, removing, and retrieving peers.
  */
 public class PeerManager {
 
 	private static PeerManager instance;
 	private List<Peer> peers;
 
-	/**
-	 * The constructor for the PeerManager class.
-	 */
+    /**
+     * Private constructor for the PeerManager class. Initializes the peer list.
+     */
 	private PeerManager() {
 		this.peers = new ArrayList<>();
 	}
 
-	/**
-	 * Public method to get the Singleton instance.
-	 * 
-	 * @return the single instance of PeerManager.
-	 */
+    /**
+     * Provides the Singleton instance of PeerManager.
+     * 
+     * @return The single instance of PeerManager.
+     */
 	public static synchronized PeerManager getInstance() {
 		if (instance == null) {
 			instance = new PeerManager();
@@ -32,14 +33,14 @@ public class PeerManager {
 		return instance;
 	}
 
-	/**
-	 * Retrive datas from Map, create Peer object and add it to peerManager peer
-	 * array.
-	 * 
-	 * @param Map    <String, Map> peer info
-	 * 
-	 * @param String peer name
-	 */
+    /**
+     * Creates a new Peer object using the provided peer data and adds it to the peer list.
+     * 
+     * @param peerData A map containing peer information.
+     * @param name The name of the peer.
+     * 
+     * @return The ID of the newly created peer.
+     */
 	public String createPeer(Map<String, Map<String, String>> peerData, String name) {
 		String privateKey = peerData.get("Interface").get("PrivateKey");
 		String address = peerData.get("Interface").get("Address");
@@ -55,11 +56,13 @@ public class PeerManager {
 		return p.getId();
 	}
 
-	/**
-	 * Removes a peer.
-	 * 
-	 * @param id The ID of the peer to be removed.
-	 */
+    /**
+     * Removes a peer from the list by its ID.
+     * 
+     * @param id The ID of the peer to remove.
+     * 
+     * @return true if the peer was removed, false otherwise.
+     */
 	public boolean removePeer(String id) {
 		if (id != null && !id.isEmpty()) {
 			return peers.removeIf(p -> id.equals(p.getId()));
@@ -67,13 +70,13 @@ public class PeerManager {
 		return false;
 	}
 
-	/**
-	 * Finds and returns a peer by ID.
-	 * 
-	 * @param id The ID of the peer to find.
-	 * 
-	 * @return Peer The peer with the specified ID, or null if not found.
-	 */
+    /**
+     * Finds and returns a peer by its ID.
+     * 
+     * @param id The ID of the peer to find.
+     * 
+     * @return The peer with the specified ID, or null if not found.
+     */
 	public Peer getPeerById(String id) {
 		if (id != null && !id.isEmpty()) {
 			for (Peer p : peers) {
@@ -86,24 +89,23 @@ public class PeerManager {
 		return null;
 	}
 
-	/**
-	 * Returns the peers.
-	 * 
-	 * @return Peer[] An array of all peers.
-	 */
+    /**
+     * Returns all the peers.
+     * 
+     * @return An array of all peers.
+     */
 	public Peer[] getPeers() {
 		return this.peers.toArray(new Peer[peers.size()]);
 	}
 
-	/**
-	 * Parses a configuration string into a map containing sections and their
-	 * key-value pairs.
-	 *
-	 * @param config the configuration string to parse.
-	 * @return a map where each key is the name of a section (e.g., "Interface",
-	 *         "Peer") and the value is another map containing key-value pairs
-	 *         within that section.
-	 */
+    /**
+     * Parses a configuration string and returns a map of sections and their key-value pairs.
+     * 
+     * @param config The configuration string to parse.
+     * 
+     * @return A map where each section name (e.g., "Interface", "Peer") is mapped to a 
+     *         map of key-value pairs for that section.
+     */
 	public static Map<String, Map<String, String>> parsePeerConfig(String config) {
 		Map<String, Map<String, String>> configSections = new HashMap<>();
 

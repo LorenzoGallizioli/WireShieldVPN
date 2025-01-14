@@ -10,8 +10,7 @@ import com.wireshield.enums.warningClass;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-
-/*
+/**
  * Test class for ScanReport.
  * This class tests the functionality of the ScanReport class, including its constructors, setters, getters, 
  * and the toString method.
@@ -20,17 +19,17 @@ public class ScanReportTest {
 
     private ScanReport scanReport;
 
-    /*
+    /**
      * Sets up the test environment before each test.
      * Initializes a new ScanReport object.
      */
     @Before
     public void setUp() {
         scanReport = new ScanReport(); // Initialize the ScanReport object before each test
-        scanReport = new ScanReport("scan123", new File("testfile.txt")); // Inizializziamo l'oggetto ScanReport con un scanId e un file
+        scanReport = new ScanReport("scan123", new File("testfile.txt")); // Initialize ScanReport with a scanId and a file
     }
 
-    /*
+    /**
      * Tests the default constructor of the ScanReport class.
      * Verifies the default values of the fields.
      */

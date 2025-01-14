@@ -4,7 +4,7 @@ import com.wireshield.ui.*;
 import javax.swing.JOptionPane;
 import java.io.IOException;
 
-/*
+/**
  * The Main class serves as the entry point for the WireShield application.
  * It ensures the application is running with administrative privileges 
  * and then launches the user interface.

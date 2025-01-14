@@ -3,7 +3,7 @@ package com.wireshield.av;
 import java.io.File;
 import com.wireshield.enums.warningClass;
 
-/*
+/**
  * Represents the scan report for a file, including threat detection results and details.
  */
 public class ScanReport {
@@ -22,7 +22,7 @@ public class ScanReport {
 	private int suspiciousCount;
 	private int undetectedCount;
 
-	/*
+	/**
 	 * Default constructor initializing default values for the scan report.
 	 */
 	public ScanReport() {
@@ -238,7 +238,7 @@ public class ScanReport {
 		this.undetectedCount = undetectedCount;
 	}
 
-	/*
+	/**
 	 * Prints the scan report in a structured format.
 	 */
 	public void printReport() {

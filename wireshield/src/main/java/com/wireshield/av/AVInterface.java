@@ -2,7 +2,7 @@ package com.wireshield.av;
 
 import java.io.File;
 
-/*
+/**
  * Represents the interface for antivirus scanning operations.
  * Implementations of this interface are responsible for analyzing files
  * for potential threats using specific antivirus software.

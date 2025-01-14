@@ -3,7 +3,7 @@ package com.wireshield.wireguard;
 import java.util.UUID;
 
 /**
- * The Peer class is a representation of a WireGuard peer.
+ * The Peer class represents a WireGuard peer, storing information such as keys, address, DNS, and other configurations.
  */
 public class Peer {
     private String privateKey;
@@ -18,17 +18,17 @@ public class Peer {
     private String id;
 
     /**
-     * The constructor of the Peer class.
-     * @param PrivateKey
-     * @param Address
-     * @param DNS 
-     * @param MTU
-     * @param PublicKey
-     * @param PresharedKey
-     * @param Endpoint
-     * @param AllowedIPs
-     * @param name
+     * Constructs a new Peer with specified configuration parameters.
      * 
+     * @param privateKey The private key of the peer.
+     * @param address The address of the peer.
+     * @param dns The DNS of the peer.
+     * @param mtu The MTU (Maximum Transmission Unit) of the peer.
+     * @param publicKey The public key of the peer.
+     * @param presharedKey The preshared key of the peer.
+     * @param endPoint The endpoint address of the peer.
+     * @param allowedIPs The allowed IPs for the peer.
+     * @param name The name of the peer.
      */
     public Peer(String privateKey, String address, String dns, String mtu, String publicKey, String presharedKey, String endpoint, String allowedIPs, String name) {
     	this.privateKey = privateKey;
@@ -40,14 +40,13 @@ public class Peer {
     	this.endPoint = endpoint;
     	this.allowedIPs = allowedIPs;
     	this.name = name;
-    	this.id = generateUniqueId();
+    	this.id = generateUniqueId(); // Generate unique ID for the peer.
     }
 
     /**
      * Returns the name of the peer.
      * 
-     * @return String
-     *   The name of the peer.
+     * @return The name of the peer.
      */
     public String getName() {
         return name;
@@ -56,18 +55,16 @@ public class Peer {
     /**
      * Returns the ID of the peer.
      * 
-     * @return String
-     *   The ID of the peer.
+     * @return The ID of the peer.
      */
     public String getId() {
         return this.id;
     }
 
     /**
-     * Returns the endPoint of the peer.
+     * Returns the endpoint of the peer.
      * 
-     * @return String
-     *   The endPoint of the peer. 
+     * @return The endpoint address of the peer.
      */
     public String getEndPoint() {
         return endPoint;
@@ -76,8 +73,7 @@ public class Peer {
     /**
      * Returns the public key of the peer.
      * 
-     * @return String
-     *   The public key of the peer.
+     * @return The public key of the peer.
      */
     public String getPublicKeyPath() {
         return publicKey;
@@ -86,73 +82,72 @@ public class Peer {
     /**
      * Returns the preshared key of the peer.
      * 
-     * @return String
-     *   The preshared key of the peer.
+     * @return The preshared key of the peer.
      */
     public String getPresharedKeyPath() {
         return presharedKey;
     }
 
     /**
-     * Returns the allowed IP addresses of the peer.
+     * Returns the allowed IP addresses for the peer.
      * 
-     * @return String
-     *   The allowed IP addresses of the peer.
-     *   
+     * @return The allowed IPs for the peer.
      */
     public String getAllowedIps() {
         return allowedIPs;
     }
     
     /**
-     * Retrieves the private key.
+     * Retrieves the private key of the peer.
      * 
-     * @return the private key as a String.
+     * @return The private key of the peer.
      */
     public String getPrivateKey() {
         return privateKey;
     }
 
     /**
-     * Retrieves the address.
+     * Retrieves the address of the peer.
      * 
-     * @return the address as a String.
+     * @return The address of the peer.
      */
     public String getAddress() {
         return address;
     }
 
     /**
-     * Retrieves the DNS.
+     * Retrieves the DNS of the peer.
      * 
-     * @return the DNS as a String.
+     * @return The DNS of the peer.
      */
     public String getDNS() {
         return dns;
     }
 
     /**
-     * Retrieves the MTU.
+     * Retrieves the MTU (Maximum Transmission Unit) of the peer.
      * 
-     * @return the MTU as a String.
+     * @return The MTU of the peer.
      */
     public String getMTU() {
         return mtu;
     }
     
     /**
-     * Generates a unique identifier as a String using the UUID class.
-     * This method creates a new universally unique identifier (UUID) and 
-     * returns it in its string representation. The generated UUID is of type 4,
-     * which is based on random numbers, ensuring a very low probability of collisions.
-     *
-     * @return a unique identifier as a {@code String}
+     * Generates a unique identifier for the peer using UUID.
+     * 
+     * @return A unique identifier string for the peer.
      * @see java.util.UUID#randomUUID()
      */
     private static String generateUniqueId() {
         return UUID.randomUUID().toString();
     }
     
+    /**
+     * Provides a string representation of the Peer object.
+     * 
+     * @return A string representation of the peer's configuration.
+     */
     @Override
     public String toString() {
         return String.format(

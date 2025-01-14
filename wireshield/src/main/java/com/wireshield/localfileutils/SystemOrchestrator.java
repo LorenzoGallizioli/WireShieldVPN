@@ -15,32 +15,40 @@ import com.wireshield.enums.runningStates;
 import com.wireshield.enums.connectionStates;
 import com.wireshield.enums.vpnOperations;
 
-/*
- * Orchestrates various system components, including antivirus, download monitoring, and VPN connections.
+/**
+ * The SystemOrchestrator class is responsible for orchestrating multiple system components:
+ * - Managing VPN connections.
+ * - Managing antivirus operations.
+ * - Managing download monitoring.
+ * 
+ * This class implements the Singleton design pattern to ensure only one orchestrator
+ * is controlling the system's processes.
  */
 public class SystemOrchestrator {
 
     private static final Logger logger = LogManager.getLogger(SystemOrchestrator.class);
-    private static SystemOrchestrator instance;
+    private static SystemOrchestrator instance; // Singleton instance
 
     private WireguardManager wireguardManager; // Manages VPN connections
     private DownloadManager downloadManager;   // Manages download monitoring
     private AntivirusManager antivirusManager; // Manages antivirus operations
-    private ClamAV clamAV;                     // Analyzes files with ClamAV
-    private VirusTotal virusTotal;             // Analyzes files with VirusTotal
-    private runningStates avStatus = runningStates.DOWN; // Antivirus service status
-    private runningStates monitorStatus;       // Download monitoring service status
+    private ClamAV clamAV;                     // Integrates ClamAV for file scanning
+    private VirusTotal virusTotal;             // Integrates VirusTotal for file scanning
+    private runningStates avStatus = runningStates.DOWN; // Current antivirus status
+    private runningStates monitorStatus;       // Current download monitoring status
 
-    /*
-     * Initializes the SystemOrchestrator instance with necessary components.
+    /**
+     * Private constructor to initialize the SystemOrchestrator instance.
+     * Configures all necessary components.
      */
     private SystemOrchestrator() {
         this.wireguardManager = WireguardManager.getInstance(); // Initialize WireguardManager
         this.antivirusManager = AntivirusManager.getInstance(); // Initialize AntivirusManager
         this.clamAV = ClamAV.getInstance(); // Initialize ClamAV
         this.virusTotal = VirusTotal.getInstance(); // Initialize VirusTotal
-        this.wireguardManager = WireguardManager.getInstance();
+        this.wireguardManager = WireguardManager.getInstance(); // Link DownloadManager
         this.downloadManager = DownloadManager.getInstance(antivirusManager);
+        
         antivirusManager.setClamAV(clamAV);
         antivirusManager.setVirusTotal(virusTotal);
 
@@ -48,9 +56,9 @@ public class SystemOrchestrator {
     }
     
     /**
-     * Static method to get the Singleton instance of SystemOrchestrator.
+     * Retrieves the Singleton instance of SystemOrchestrator.
      *
-     * @return the single instance of SystemOrchestrator.
+     * @return The single instance of SystemOrchestrator.
      */
     public static synchronized SystemOrchestrator getInstance() {
         if (instance == null) {
@@ -60,9 +68,10 @@ public class SystemOrchestrator {
     }
 
     /**
-     * Manages the VPN connection.
+     * Manages VPN connections by starting or stopping the VPN.
      * 
-     * @param operation The operation to be performed (START or STOP).
+     * @param operation The VPN operation to perform (START or STOP).
+     * @param peer The peer to connect to (if applicable).
      */
     public void manageVPN(vpnOperations operation, String peer) {
 
@@ -82,9 +91,9 @@ public class SystemOrchestrator {
     }
 
     /**
-     * Manages the download monitoring service.
+     * Manages the download monitoring service by starting or stopping it.
      * 
-     * @param status The desired state of the download monitoring service (UP or DOWN).
+     * @param status The desired state of the monitoring service (UP or DOWN).
      */
     public void manageDownload(runningStates status) {
         this.monitorStatus = status; // Update download monitoring status
@@ -114,7 +123,7 @@ public class SystemOrchestrator {
     }
 
     /**
-     * Manages the antivirus service.
+     * Manages the antivirus service by starting or stopping it.
      * 
      * @param status The desired state of the antivirus service (UP or DOWN).
      */
@@ -152,21 +161,21 @@ public class SystemOrchestrator {
             }
         }
 
-        // Print final scan reports using printReport() method
+        // Display final scan reports
         List<ScanReport> finalReports = antivirusManager.getFinalReports();
         if (finalReports.isEmpty()) {
             logger.info("No scan reports available.");
         } else {
             logger.info("Printing final scan reports:");
             for (ScanReport report : finalReports) {
-                report.printReport();  // Use printReport method to print the report
+                report.printReport();  // Display each report
             }
         }
     }
 
     /**
      * Retrieves the current VPN connection status.
-     * 
+     *
      * @return The current VPN connection status.
      */
     public connectionStates getConnectionStatus() {
@@ -176,9 +185,9 @@ public class SystemOrchestrator {
     }
 
     /**
-     * Retrieves the current download monitoring status.
-     * 
-     * @return The current download monitoring status.
+     * Retrieves the current download monitoring service status.
+     *
+     * @return The current monitoring status.
      */
     public runningStates getMonitorStatus() {
         logger.debug("Retrieving monitoring status: {}", monitorStatus);
@@ -186,8 +195,8 @@ public class SystemOrchestrator {
     }
 
     /**
-     * Retrieves the current antivirus status.
-     * 
+     * Retrieves the current antivirus service status.
+     *
      * @return The current antivirus status.
      */
     public runningStates getAVStatus() {
@@ -198,8 +207,8 @@ public class SystemOrchestrator {
     /**
      * Adds a new peer to the VPN configuration.
      * 
-     * @param peerData The peer configuration data.
-     * @param peerName The name of the peer to be added.
+     * @param peerData Configuration data for the peer.
+     * @param peerName The name of the peer.
      */
     public void addPeer(String peerData, String peerName) {
         logger.info("Adding new peer with name: {}", peerName);

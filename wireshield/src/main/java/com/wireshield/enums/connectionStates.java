@@ -1,6 +1,6 @@
 package com.wireshield.enums;
 
-/*
+/**
  * The connectionStates enum represents the possible states of a connection. It
  * is used to manage and track the connection status in a system.
  */

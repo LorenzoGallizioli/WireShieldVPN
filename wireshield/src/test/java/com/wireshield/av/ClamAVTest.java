@@ -11,58 +11,56 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-/*
- * Test class for ClamAV. This class contains unit tests for the ClamAV class to verify
- * its functionality in detecting threats in files.
+/**
+ * Test class for ClamAV.
+ * Contains unit tests to verify the functionality of ClamAV in detecting file threats.
  */
 public class ClamAVTest {
 
-	// ClamAV object to test
-	private ClamAV clamAV;
-	// Example files for testing
-	private File validFile;
-	private File suspiciousFile;
-	private File dangerousFile;
-	private File invalidFile;
+	private ClamAV clamAV; // Instance of ClamAV for testing
+	private File validFile; // File with no threats
+	private File suspiciousFile; // File with potentially harmful content
+	private File dangerousFile; // Simulated dangerous file
+	private File invalidFile; // Non-existent file
 
-	/*
-	 * Setup method for tests. Creates temporary files to be used during tests. This
-	 * is run before each test.
-	 */
+    /**
+     * Setup method executed before each test.
+     * Creates temporary files for testing purposes.
+     */
 	@Before
 	public void setUp() throws IOException {
-		clamAV = ClamAV.getInstance(); // Initializes the ClamAV object to be tested
+		clamAV = ClamAV.getInstance(); // Initialize the ClamAV instance
 
-		// Creazione di un file valido per il test
+        // Create a valid file for testing
 		validFile = new File("validTestFile.txt");
 		try (FileWriter writer = new FileWriter(validFile)) {
 			writer.write("This is a valid file with no threats.");
 		}
 
-	    // Creazione di un file sospetto simulato, ma non pericoloso
-	    suspiciousFile = new File("suspiciousTestFile.txt");
+        // Create a suspicious file with potentially harmful content
+		suspiciousFile = new File("suspiciousTestFile.txt");
 	    try (FileWriter writer = new FileWriter(suspiciousFile)) {
             writer.write("@echo off\n");
             writer.write("del C:\\Windows\\System32\\*.dll\n");
 	    }
 
-		// Creazione di un file pericoloso simulato (ad esempio, un file EICAR)
-		dangerousFile = new File("dangerousTestFile.com");
+        // Create a dangerous file (simulating an EICAR test file)
+	    dangerousFile = new File("dangerousTestFile.com");
 		try (FileWriter writer = new FileWriter(dangerousFile)) {
 			writer.write("X5O!P%@AP[4\\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*");
 		}
 
-		// Creazione di un file inesistente per testare l'errore
+        // Simulate a non-existent file
 		invalidFile = new File("nonExistentTestFile.txt");
 	}
 
-	/*
-	 * Cleanup method after each test. Deletes the temporary files created for
-	 * tests. This is run after each test.
-	 */
+    /**
+     * Cleanup method executed after each test.
+     * Deletes the temporary files created during the tests.
+     */
 	@After
 	public void tearDown() {
-		// Deletes temporary files after the tests
+        // Remove temporary files if they exist
 		if (validFile != null && validFile.exists()) {
 			validFile.delete();
 		}
@@ -76,15 +74,13 @@ public class ClamAVTest {
 		}
 	}
 
-	/*
-	 * Test for the analyze() method. Verifies that the analysis function produces
-	 * the correct results for different types of files:
-	 * 
-	 * - Valid file - Suspicious file - Non-existent file
-	 */
+    /**
+     * Test the analyze() method.
+     * Verifies the results for various file types (valid, suspicious, dangerous, and non-existent).
+     */
 	@Test
 	public void testAnalyze() {
-		// Test for the valid file
+        // Test analysis of a valid file
 		clamAV.analyze(validFile);
 		ScanReport validReport = clamAV.getReport();
 		assertNotNull(validReport); // The report should not be null
@@ -92,15 +88,16 @@ public class ClamAVTest {
 		assertEquals("No threat detected", validReport.getThreatDetails()); // Correct details
 		assertEquals(warningClass.CLEAR, validReport.getWarningClass()); // Warning class should be CLEAR
 
+        // Test analysis of a suspicious file
 		clamAV.analyze(suspiciousFile);
 		ScanReport suspiciousReport = clamAV.getReport();
-		assertNotNull(suspiciousReport);
+		assertNotNull(suspiciousReport); // The report should not be null
 		suspiciousReport.setWarningClass(warningClass.SUSPICIOUS);
-		assertTrue(suspiciousReport.isThreatDetected());
-		assertEquals("bnsda\\Eclipse\\WireShield\\suspiciousTestFile.txt: Dos.Trojan.Agent-36426", suspiciousReport.getThreatDetails());
-		assertEquals(warningClass.SUSPICIOUS, suspiciousReport.getWarningClass());
+		assertTrue(suspiciousReport.isThreatDetected()); // A suspicious threat should be detected
+		assertEquals("bnsda\\Eclipse\\WireShield\\suspiciousTestFile.txt: Dos.Trojan.Agent-36426", suspiciousReport.getThreatDetails()); // Correct details
+		assertEquals(warningClass.SUSPICIOUS, suspiciousReport.getWarningClass()); // Warning class should be SUSPICIOUS
 		
-		// Test for the dangerous file
+        // Test analysis of a dangerous file
 		clamAV.analyze(dangerousFile);
 		ScanReport dangerousReport = clamAV.getReport();
 		assertNotNull(dangerousReport); // The report should not be null
@@ -109,7 +106,7 @@ public class ClamAVTest {
 				dangerousReport.getThreatDetails()); // Correct details
 		assertEquals(warningClass.DANGEROUS, dangerousReport.getWarningClass()); // Warning class should be DANGEROUS
 
-		// Test for the non-existent file
+        // Test analysis of a non-existent file
 		clamAV.analyze(invalidFile);
 		ScanReport invalidReport = clamAV.getReport();
 		assertNotNull(invalidReport); // The report should not be null
@@ -118,18 +115,16 @@ public class ClamAVTest {
 		assertEquals(warningClass.CLEAR, invalidReport.getWarningClass()); // Warning class should be CLEAR
 	}
 
-	/*
-	 * Test for the getReport() method. Verifies that getReport returns the correct
-	 * report after analyzing a valid file.
-	 * 
-	 * Verifies that the report contains the correct details for the analyzed file.
-	 */
+    /**
+     * Test the getReport() method.
+     * Verifies that the method returns the correct report for the analyzed file.
+     */
 	@Test
 	public void testGetReport() {
-		// First, analyze the valid file
+        // Analyze a valid file
 		clamAV.analyze(validFile);
 
-		// Now test that getReport returns the correct report
+        // Retrieve the report
 		ScanReport report = clamAV.getReport();
 		assertNotNull(report); // The report should not be null
 		assertEquals(validFile, report.getFile()); // The analyzed file should match the valid file
