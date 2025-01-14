@@ -3,10 +3,13 @@ package com.wireshield.wireguard;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.parser.ParseException;
-import java.io.IOException;
 import com.wireshield.av.FileManager;
 import com.wireshield.enums.connectionStates;
 
@@ -233,7 +236,6 @@ public class WireguardManager {
 		        	Process process = processBuilder.start();
 					process.waitFor();
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 	        	
@@ -327,11 +329,14 @@ public class WireguardManager {
 	}
 
 	/**
-	 * Returns wg logs.
+	 * Returns reversed wg logs.
 	 * 
 	 * @return String wireguard logs.
 	 */
 	public String getLog() {
+    	String[] lines = this.logs.split("\n");
+    	Collections.reverse(Arrays.asList(lines));
+    	this.logs = String.join("\n", lines);
 		return this.logs;
 	}
 }
