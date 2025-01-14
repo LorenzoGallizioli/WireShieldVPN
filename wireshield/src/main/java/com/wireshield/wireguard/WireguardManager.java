@@ -202,8 +202,10 @@ public class WireguardManager {
 	public void startUpdateConnectionStats() {
 		Runnable task = () -> {
 			while (connection.getStatus() == connectionStates.CONNECTED) { // Check interface is up
+				
+				// Update connection stats
 				updateConnectionStats();
-				logger.info(connection.toString());
+				
 				try {
 					Thread.sleep(1000); // wait
 				} catch (InterruptedException e) {
@@ -218,6 +220,38 @@ public class WireguardManager {
 		Thread thread = new Thread(task);
 		thread.start();
 	}
+	
+	private void updateWireguardLogs(String[] command) {
+		try {
+			File logFile = new File(logDumpPath);
+	        if (logFile.exists() && logFile.isFile()) {
+	        	
+	        	ProcessBuilder processBuilder = new ProcessBuilder(command);
+				processBuilder.redirectErrorStream(true);
+				
+		        try {
+		        	Process process = processBuilder.start();
+					process.waitFor();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	        	
+	            String logDump = FileManager.readFile(logDumpPath);
+	            this.logs = logDump;
+	        } else {
+	        	logger.error(logDumpPath + " not exits - Creating... ");
+	        	if(FileManager.createFile(logDumpPath)) {
+	        		logger.info(logDumpPath + " created.");
+	        	} else {
+	        		logger.error("Error occured during " + logDumpPath + " creation.");	        		
+	        	}
+	        }
+	        
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Starts a thread to continuously update WireGuard logs.
@@ -231,33 +265,27 @@ public class WireguardManager {
 	public void startUpdateWireguardLogs() {
 		Runnable task = () -> {
 			while (true) {
-				try {
-					ProcessBuilder processBuilder = new ProcessBuilder();
-					processBuilder.command(wireguardPath, "/dumplog > " + this.logDumpPath);
-					processBuilder.redirectErrorStream(true);
-					processBuilder.start();
-
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-				String logDump = FileManager.readFile(this.logDumpPath);
-				this.logs = logDump;
+				
+				// Update this.logs
+				String[] command = {
+			            "cmd.exe", "/c", wireguardPath + " /dumplog > " + logDumpPath
+			    };
+				updateWireguardLogs(command);
 
 				try {
-					Thread.sleep(1000); // wait
+					Thread.sleep(500); // wait
 				} catch (InterruptedException e) {
 					Thread.currentThread().interrupt();
 					logger.error("startUpdateWireguardLogs() thread unexpecly interrupted");
 					break;
 				}
 			}
-			// Code
 		};
 
 		Thread thread = new Thread(task);
 		thread.start();
 	}
+	
     /**
      * Returns the connection logs.
      * 
