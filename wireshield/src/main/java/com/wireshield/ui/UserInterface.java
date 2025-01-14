@@ -126,21 +126,21 @@ public class UserInterface extends Application {
             vpnButton.setDisable(true);
         }
 
-            peerListView.setItems(peerList);
-            peerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-                if (newValue != null) {
-                    selectedPeerFile = newValue; // Memorizza il file selezionato
-                    if (vpnButton.getText().equals("Start VPN")) {
-                        vpnButton.setDisable(false); // Abilita il pulsante solo se il testo è "Start VPN"
-                    }
-                    logger.info("File selezionato nella peer list: {}", selectedPeerFile);
-                } else {
-                    if (vpnButton.getText().equals("Start VPN")) {
-                        vpnButton.setDisable(true); // Disabilita il pulsante solo se non c'è selezione e il testo è "Start VPN"
-                    }
-                    logger.info("Nessun file selezionato.");
+        peerListView.setItems(peerList);
+        peerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                selectedPeerFile = newValue; // Memorizza il file selezionato
+                if (vpnButton.getText().equals("Start VPN")) {
+                    vpnButton.setDisable(false); // Abilita il pulsante solo se il testo è "Start VPN"
                 }
-            });
+                logger.info("File selezionato nella peer list: {}", selectedPeerFile);
+            } else {
+                if (vpnButton.getText().equals("Start VPN")) {
+                    vpnButton.setDisable(true); // Disabilita il pulsante solo se non c'è selezione e il testo è "Start VPN"
+                }
+                logger.info("Nessun file selezionato.");
+            }
+        });
     
     
         if (avFilesListView != null) {
@@ -200,6 +200,9 @@ public class UserInterface extends Application {
             so.manageVPN(vpnOperations.STOP, null);
             vpnButton.setText("Start VPN");
             peerListView.setDisable(false); // Rendi i peer selezionabili.
+            if(selectedPeerFile == null) {
+                vpnButton.setDisable(true);
+            }
             logger.info("All services are stopped.");
         } else {
             so.manageVPN(vpnOperations.START, selectedPeerFile);
