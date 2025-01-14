@@ -30,6 +30,9 @@ public class SystemOrchestrator {
     private VirusTotal virusTotal;             // Analyzes files with VirusTotal
     private runningStates avStatus = runningStates.DOWN; // Antivirus service status
     private runningStates monitorStatus;       // Download monitoring service status
+    
+    // Control variable for componentStatesGuardian thread --> runningStates.UP let the thread to continue running, runningStates.DOWN stops the thread execution
+    private runningStates guardianState = runningStates.DOWN; 
 
     /*
      * Initializes the SystemOrchestrator instance with necessary components.
@@ -37,10 +40,9 @@ public class SystemOrchestrator {
     private SystemOrchestrator() {
         this.wireguardManager = WireguardManager.getInstance(); // Initialize WireguardManager
         this.antivirusManager = AntivirusManager.getInstance(); // Initialize AntivirusManager
+        this.downloadManager = DownloadManager.getInstance(antivirusManager);
         this.clamAV = ClamAV.getInstance(); // Initialize ClamAV
         this.virusTotal = VirusTotal.getInstance(); // Initialize VirusTotal
-        this.wireguardManager = WireguardManager.getInstance();
-        this.downloadManager = DownloadManager.getInstance(antivirusManager);
         antivirusManager.setClamAV(clamAV);
         antivirusManager.setVirusTotal(virusTotal);
 
@@ -57,6 +59,19 @@ public class SystemOrchestrator {
             instance = new SystemOrchestrator();
         }
         return instance;
+    }
+    
+    /**
+     * Sets the necessary managers for the test class functionality.
+     *
+     * @param wireguardManager the WireGuard manager to be configured
+     * @param antivirusManager the Antivirus manager to be configured
+     * @param downloadManager the Download manager to be configured
+     */
+    protected void setObjects(WireguardManager wireguardManager, AntivirusManager antivirusManager, DownloadManager downloadManager) {
+    	this.wireguardManager = wireguardManager;
+    	this.antivirusManager = antivirusManager;
+    	this.downloadManager = downloadManager;
     }
 
     /**
@@ -98,6 +113,7 @@ public class SystemOrchestrator {
                     logger.info("Download monitoring service started successfully.");
                 } catch (IOException e) {
                     logger.error("Error starting the download monitoring service: {}", e.getMessage(), e);
+                    this.monitorStatus = runningStates.DOWN;
                 }
             } else {
                 logger.info("Download monitoring service is already running.");
@@ -105,7 +121,7 @@ public class SystemOrchestrator {
         } else {
             if (downloadManager.getMonitorStatus() != runningStates.DOWN) {
                 logger.info("Stopping download monitoring service...");
-                downloadManager.stopMonitoring(); // Stop monitoring downloads
+                downloadManager.forceStopMonitoring(); // Stop monitoring downloads
 				logger.info("Download monitoring service stopped successfully.");
             } else {
                 logger.info("Download monitoring service is already stopped.");
@@ -128,10 +144,11 @@ public class SystemOrchestrator {
 
                 // Starting antivirus scan and providing progress
                 try {
-                    antivirusManager.startScan(); // Start antivirus scan
+                    antivirusManager.startScan(); 
                     logger.info("Antivirus service started successfully.");
                 } catch (Exception e) {
                     logger.error("Error while starting antivirus service: {}", e.getMessage(), e);
+                    this.avStatus = antivirusManager.getScannerStatus();
                 }
             } else { 
                 logger.info("Antivirus service is already running.");
@@ -142,10 +159,11 @@ public class SystemOrchestrator {
                 
                 // Stopping the scan
                 try {
-                    antivirusManager.stopScan(); // Stop antivirus scan
+                    antivirusManager.stopScan(); 
                     logger.info("Antivirus service stopped successfully.");
                 } catch (Exception e) {
                     logger.error("Error while stopping antivirus service: {}", e.getMessage(), e);
+                    this.avStatus = antivirusManager.getScannerStatus();
                 }
             } else {
                 logger.info("Antivirus service is already stopped.");
@@ -203,8 +221,8 @@ public class SystemOrchestrator {
      */
     public void addPeer(String peerData, String peerName) {
         logger.info("Adding new peer with name: {}", peerName);
-        Map<String, Map<String, String>> peer = PeerManager.parsePeerConfig(peerName);
-        wireguardManager.getPeerManager().createPeer(peer, peerName);
+        Map<String, Map<String, String>> Data = PeerManager.parsePeerConfig(peerName);
+        wireguardManager.getPeerManager().createPeer(Data, peerName);
         logger.info("Peer added successfully: {}", peerName);
     }
 
@@ -246,4 +264,77 @@ public class SystemOrchestrator {
     public AntivirusManager getAntivirusManager() {
         return antivirusManager;
     }
+    
+    
+    /**
+     * Monitors the states of essential system components and handles failures.
+     * <p>
+     * This method starts a thread to periodically check the operational states of components. 
+     * If a critical component fails, the system logs the error, stops related services, 
+     * and shuts down the VPN for the selected peer.
+     * </p>
+     *
+     * <h2>Functionality:</h2>
+     * <ul>
+     *   <li>Checks if the interface is up and the connection is active.</li>
+     *   <li>Handles failures by stopping downloads, AV services, or the VPN as needed.</li>
+     *   <li>Runs every 200ms until the guardian state changes from {@code runningStates.UP}.</li>
+     * </ul>
+     *
+     * <h2>Thread Management:</h2>
+     * The thread terminates gracefully when interrupted or when the guardian state changes.
+     */
+    public void statesGuardian() {
+    	Runnable task = () -> {
+            while (guardianState == runningStates.UP) { // Check interface is up
+            	if(wireguardManager.getConnectionStatus() == connectionStates.CONNECTED) {
+            		if(antivirusManager.getScannerStatus() == runningStates.DOWN || downloadManager.getMonitorStatus() == runningStates.DOWN) {
+            			
+            			logger.error("An essential component has encountered an error - Shutting down services...");
+            			
+            			if(antivirusManager.getScannerStatus() == runningStates.DOWN && downloadManager.getMonitorStatus() == runningStates.UP) {
+            				manageDownload(runningStates.DOWN);
+            			} else if(downloadManager.getMonitorStatus() == runningStates.DOWN && antivirusManager.getScannerStatus() == runningStates.UP) {
+            				manageAV(runningStates.DOWN);
+            			}
+            			
+            			manageVPN(vpnOperations.STOP,null);
+            		}
+            	}
+            	
+            	logger.info("componentStatesGuardian: " + wireguardManager.getConnectionStatus() + antivirusManager.getScannerStatus() + downloadManager.getMonitorStatus());
+                try {
+                    Thread.sleep(200); // wait
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    logger.error("startComponentStatesGuardian() thread unexpecly interrupted");
+                    break;
+                }
+            }
+            logger.info("startComponentStatesGuardian() thread stopped");
+        };
+        
+        Thread thread = new Thread(task);
+        guardianState = runningStates.UP;
+        thread.start();
+    }
+    
+    /**
+     * Sets guardianState.
+     *
+     * @param enum runningStates object.
+     */
+    public void setGuardianState(runningStates s) {
+    	guardianState = s;
+    }
+    
+    /**
+     * Retrieves guardianState.
+     *
+     * @return enum runningStates object.
+     */
+    public runningStates getGuardianState() {
+    	return guardianState;
+    }
+    
 }

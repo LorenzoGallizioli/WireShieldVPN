@@ -99,6 +99,12 @@ public class AntivirusManager {
 		while (scannerStatus == runningStates.UP) {
 			File fileToScan;
 
+			if (clamAV == null) {
+				logger.error("ClamAV object not exists - Shutting down scanner"); 
+				scannerStatus = runningStates.DOWN;
+				Thread.currentThread().interrupt();
+			}
+
 			// Retrieve the next file to scan from the buffer
 			synchronized (scanBuffer) {
 				fileToScan = scanBuffer.poll();
@@ -124,22 +130,24 @@ public class AntivirusManager {
 			ScanReport finalReport = new ScanReport();
 			finalReport.setFile(fileToScan);
 
-			if (clamAV != null) {
-				clamAV.analyze(fileToScan);
-				ScanReport clamAVReport = clamAV.getReport();
-				if (clamAVReport != null) {
-					mergeReports(finalReport, clamAVReport);
-				}
+			// Perform ClamAV analysis
+			clamAV.analyze(fileToScan);
+			ScanReport clamAVReport = clamAV.getReport();
+			if (clamAVReport != null) {
+				mergeReports(finalReport, clamAVReport);
 			}
 
-			if (finalReport.isThreatDetected() && virusTotal != null && fileToScan.length() <= MAX_FILE_SIZE) {
-				virusTotal.analyze(fileToScan);
-				ScanReport virusTotalReport = virusTotal.getReport();
-				if (virusTotalReport != null) {
-					mergeReports(finalReport, virusTotalReport);
+			// Perform VirusTotal analysis
+			if(virusTotal != null) {
+				if (finalReport.isThreatDetected() && fileToScan.length() <= MAX_FILE_SIZE) {
+					virusTotal.analyze(fileToScan);
+					ScanReport virusTotalReport = virusTotal.getReport();
+					if (virusTotalReport != null) {
+						mergeReports(finalReport, virusTotalReport);
+					}
+				} else if (fileToScan.length() > MAX_FILE_SIZE) {
+					logger.warn("File is too large for VirusTotal analysis: {}", fileToScan.getName());
 				}
-			} else if (fileToScan.length() > MAX_FILE_SIZE) {
-				logger.warn("File is too large for VirusTotal analysis: {}", fileToScan.getName());
 			}
 
 			// Add the report to final results
@@ -159,14 +167,14 @@ public class AntivirusManager {
 		}
 	}
 
-	/*
-	 * Stops the ongoing antivirus scan process gracefully.
-	 */
-	public void stopScan() {
-		if (scannerStatus == runningStates.DOWN) {
-			logger.warn("No scan process is running.");
-			return;
-		}
+    /*
+     * Stops the ongoing antivirus scan process gracefully.
+     */
+    public void stopScan() {
+        if (scannerStatus == runningStates.DOWN) {
+            logger.warn("No scan process is running.");
+            return;
+        }
 
 		scannerStatus = runningStates.DOWN;
 

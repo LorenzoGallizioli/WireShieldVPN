@@ -212,41 +212,147 @@ I seguenti diagrammi UML sono stati utilizzati per progettare il sistema:
 
 #### ***Diagramma dei Casi d’Uso***
 ---
-[image]
-
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/UseCaseDiagram/UseCaseWireShield.png)
 
 #### ***Diagramma delle Classi***
 ---
-[image]
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/ClassDiagram/ClassDiagram.png)
 
 #### ***Diagramma delle Macchine a Stati***
 ---
-[image]
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/StateMachineDiagram/StateMachineWireShield.png)
 
 #### ***Diagramma di Sequenza***
 ---
-[image]
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/sequenceDiagram/sequenceDiagram.png)
 
 #### ***Diagramma di Comunicazione***
 ---
-[image]
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/CommunicationDiagram/CommunicationWireShield.png)
 
 #### ***Diagramma di Attività***
 ---
-[image]
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/activityDiagram/activityDiagram.png)
 
 #### ***Diagramma dei Componenti***
 ---
-[image]
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/ComponentDiagram/ComponentDiagram.png)
 
 
 &nbsp;
 ## 8. 🏛️ **Software Architecture**
-      
-    DEVE contenere la descrizione dell’architettura con almeno un paio di architectural views (per differenti punti di vista)
-    DOVREBBE avere almeno una vista con connettori e componenti con la descrizione dello stile architetturale (11.4)
-    DEVE utilizzare almeno una libreria esterna con maven.
-    Ad esempio l’uso di log4j è molto consigliata.
+
+### **Descrizione dell'Architettura**
+L'architettura utilizza un approccio a **strati**, che riflette una separazione delle responsabilità tra i componenti chiave, seguendo lo stile **MVC**. Questo permette di isolare la logica applicativa (Model), l'interfaccia utente (View), e il controllo e orchestrazione (Controller).
+
+### **Composizione Architetturale**
+
+#### **1. Model (Gestione della Logica e dei Dati)**
+- Contiene le classi che gestiscono la logica e il trattamento dei dati. Include il supporto per antivirus, file locali, e connessioni VPN.
+- **Package**:
+  - `com.wireshield.av`: Gestisce i processi antivirus e le comunicazioni con servizi esterni (es. VirusTotal).
+  - `com.wireshield.localfileutils`: Si occupa di operazioni sui file locali, come download e orchestrazione.
+  - `com.wireshield.wireguard`: Controlla le connessioni VPN utilizzando il protocollo WireGuard.
+- **Esempi di classi**:
+  - `AntivirusManager`: Coordina le scansioni antivirus.
+  - `WireguardManager`: Gestisce le connessioni VPN.
+
+#### **2. View (Interfaccia Utente)**
+- Contiene la rappresentazione grafica con cui l'utente interagisce.
+- **Package**:
+  - `com.wireshield.ui`: Contiene la classe `UserInterface`, che gestisce l'interfaccia grafica basata su **JavaFX**.
+- Utilizza componenti di **JavaFX** per creare un'interfaccia responsiva e intuitiva.
+
+#### **3. Controller (Orchestrazione e Coordinazione)**
+- Coordina la comunicazione tra il Model e la View, gestendo gli eventi generati dall'utente.
+- **Package**:
+  - `com.wireshield.localfileutils`: La classe `SystemOrchestrator` agisce come controller principale, orchestrando l'interazione tra l'interfaccia utente e i servizi di backend.
+- **Ruolo**:
+  - Gestione delle azioni dell'utente (es. avviare una scansione, stabilire una connessione VPN).
+  - Comunicazione con servizi remoti e locali tramite librerie come **HTTPComponents** e **JSON Simple**.
+
+### **Architectural Views**
+
+#### **1. Vista dei moduli**
+Questo diagramma rappresenta la struttura logica dell'applicazione, evidenziando la separazione dei moduli.
+Questo diagramma rappresenta le **relazioni d'uso** tra le componenti del sistema.
+
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/ComponentDiagram/ComponentDiagram.png)
+
+#### **2. Vista Componenti e Connettori**
+Questa vista illustra i componenti principali e le loro interazioni, descrivendo come comunicano tramite connettori come richieste API o invocazioni di metodi. In questo può venirci in aiuto il Diagramma di sequenza precedentemente illustrato che rappresenta i **processi** che, sommati tra loro vanno a rappresentare la **vista dinamica** del sistema.
+
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/sequenceDiagram/sequenceDiagram.png)
+
+Componenti principali:
+   - **UserInterface**: Responsabile per l'interazione con l'utente.
+   - **WireguardManager**: Gestisce le operazioni VPN interfacciandosi con WireGuard.
+   - **AntivirusManager**: Gestisce gli antivirus e lo smistamento dei file.
+   - **DownloadManager**: Analizza continuamente il download dei file e si coordina con AntivirusManager.
+   - **FileManager**: Contiene una serie di metodi per operare sui file locali.
+   - **SystemOrchestrator**: Orchestratore principale, collega i moduli e garantisce il flusso operativo.
+
+Connettori:
+   - **Chiamate di procedura**: Comunicazione tra SystemOrchestrator e i moduli (es. AntivirusManager, WireguardManager).
+   - **Invocazione implicita**: Utilizzati eventi e listeners per notificare cambiamenti di stato della UserInterface e lo scaricamento di file.
+   - **Passaggio di messaggio**: Chiamate API utilizzate per chiamate nella classe VirusTotal.
+
+### Librerie
+#### Gestione librerie
+Il progetto utilizza **Maven** come strumento per la gestione delle dipendenze. La gestione delle dipendenze si basa sul file pom.xml che descrive il progetto, le sue configurazioni e le dipendenze.
+
+#### Librerie utilizzate
+Il progetto utilizza diverse librerie, tra le quali:
+1. #### Apache Log4j
+
+    - **Scopo**: Gestione avanzata dei log dell'applicazione.
+        - _log4j-api_: fornisce l'API di logging.
+        - _log4j-core_: contiene l'implementazione effettiva del sistema di logging.
+    - **Utilizzo nel progetto**:
+        Tracciamento degli eventi applicativi (informazioni, warning, errori).
+        Monitoraggio del comportamento del sistema per debug e audit.
+
+2. #### JSON Simple
+
+    - **Scopo**: Manipolazione di dati in formato JSON.
+    - **Utilizzo nel progetto**:
+        - Parsing e generazione di file JSON per rappresentare configurazioni, dati di connessione o risultati di scansioni antivirus.
+
+3. #### OpenJFX
+
+    - **Scopo**: Creazione dell'interfaccia grafica utente (GUI).
+        - _javafx-controls_: Include componenti GUI come pulsanti, finestre di dialogo e layout.
+        - _javafx-fxml_: Permette di definire l'interfaccia tramite file FXML.
+    - **Utilizzo nel progetto**:
+        - Creazione di un'interfaccia user-friendly per gestire connessioni VPN e scansioni antivirus.
+
+4. #### Apache HTTPComponents
+
+    - **Scopo**: Gestione delle comunicazioni HTTP.
+        - _httpclient_: Invio e gestione delle richieste HTTP (GET, POST, ecc.).
+        - _httpcore_: Fornisce funzionalità a basso livello per le comunicazioni HTTP.
+        - _httpmime_: Supporto per multipart (es. caricamento di file).
+    - **Utilizzo nel progetto**:
+        - Invio di richieste API per VirusTotal e altri servizi remoti.
+
+5. #### Jackson Databind
+
+    - **Scopo**: Serializzazione e deserializzazione di oggetti Java in/da JSON.
+    - **Utilizzo nel progetto**:
+        - Conversione di oggetti complessi in formato JSON per il salvataggio o la trasmissione di dati.
+        - Parsing di risposte API per ottenere dati strutturati.
+
+6. #### JUnit
+
+    - **Scopo**: Test unitari del codice.
+    - **Utilizzo nel progetto**:
+        - Creazione e gestione di test automatizzati per verificare il corretto funzionamento dei moduli principali.
+
+7. #### Mockito
+
+    - **Scopo**: Framework per il mocking nei test.
+    - **Utilizzo nel progetto**:
+        - Simulazione di comportamenti di componenti o servizi esterni per testare i moduli in isolamento.
 
 
 &nbsp;
@@ -288,16 +394,38 @@ La superclasse `ScanReport` stabilisce i passi comuni per la creazione di un rep
 
 &nbsp;
 ## 10. 🔍 **Software Testing**
+### Metodologia di Testing del Software
 
-    PUO’ avere un documento di plan per l’attività di test
-    DEVE contenere dei casi di test di unità implementati con la loro descrizione nel documento
-    DOVREBBE avere qualche misura di copertura per i casi di test
+Abbiamo implementato una strategia di testing mirata a garantire un’elevata qualità del codice e una copertura dei test il più ampia possibile. Di seguito, vengono descritte le principali attività svolte:
+
+#### Sviluppo del Codice di Test
+
+- Per ciascun metodo implementato nel progetto, è stato creato un corrispondente codice di test, ad eccezione di alcuni metodi contenenti thread. Questi ultimi si sono rivelati difficili da testare singolarmente senza eseguire l’intero codice del programma, rendendo impraticabile una verifica isolata.
+
+#### Strumenti Utilizzati
+
+- **JUnit**: È stato utilizzato come framework principale per scrivere e organizzare i test unitari.
+- **EclEmma**: Lo strumento è stato impiegato per misurare la copertura del codice durante l’esecuzione dei test, con l’obiettivo di raggiungere una copertura del 100%.
+- **SonarLint**: Questo strumento è stato utilizzato per identificare i "code smells" all’interno del codice. Le problematiche rilevate sono state analizzate in modo granulare e risolte manualmente.
+
+#### Descrizione dei Casi di Test
+
+- Ogni caso di test è stato accompagnato da una breve descrizione per migliorarne la comprensibilità, fornita attraverso commenti Javadoc o direttamente nel nome del metodo di test. Ciò ha facilitato la tracciabilità e la comprensione dei test stessi.
+
+#### Test Avanzati con Mockito
+
+- Per garantire una verifica più approfondita di alcuni comportamenti, è stato utilizzato **Mockito**, un framework per la simulazione di componenti e dipendenze. Questo ha permesso di isolare i metodi testati e di verificare scenari specifici.
+
+L’approccio adottato ha permesso di mantenere un elevato livello di affidabilità del software, assicurandosi che il codice fosse robusto, privo di anomalie evidenti e ben documentato.
 
 &nbsp;
 ## 11. 🔧 **Software Maintenance**
+### Manutenzione del Progetto
 
-    POTREBBE contenere un di attività di reverse engineering (se si è partiti da codice esistente)
-    DOVREBBE documentare alcune attività di refactoring che sono state fatte.
+Per garantire la longevità, l'efficienza e la qualità del progetto, intendiamo manutenere il codice mantenendo un monitoraggio continuo per l'individuazione di bug. Continueremo ad utilizzare GitHub per  versioning e segnalazioni basate sulla priorità, in modo da risolvere tempestivamente i problemi più critici. L'obiettivo è realizzare aggiornamenti costanti che introducano maggiore stabilità, una grafica migliorata e funzionalità sempre più avanzate.
 
+Vogliamo adattare il codice alle continue mutazioni delle esigenze degli utenti, raccogliendo feedback e implementando estensioni mirate, con un'attenzione particolare alla sicurezza informatica. Inoltre, applicheremo una manutenzione preventiva, che consisterà in verifiche complete del codice per assicurarci che, durante le continue trasformazioni, non siano stati introdotti difetti. 
+
+Con questa strategia di manutenzione, intendiamo garantire un software affidabile, aggiornato e capace di rispondere alle sfide future, mantenendo al contempo un alto livello di soddisfazione degli utenti.
 &nbsp;
 
