@@ -26,7 +26,7 @@ import org.junit.Test;
  * including: 
  * - File creation, reading, writing, and deletion. 
  * - Handling configuration files in JSON format. 
- * - Utility methods such as calculating SHA-256 hashes. 
+ * - Utility methods such as calculating SHA-256 hashes.
  * - Detection and handling of temporary and unstable files.
  */
 public class FileManagerTest {

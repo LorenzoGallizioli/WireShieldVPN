@@ -35,10 +35,11 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 
 /**
- * The main user interface class for the Wireshield application, implemented using JavaFX.
- * This class handles the initialization, layout, and interaction of UI components such as
- * buttons, labels, and panes. It also provides methods for managing the VPN state, updating logs,
- * and interacting with peer configuration files.
+ * The main user interface class for the Wireshield application, implemented
+ * using JavaFX. This class handles the initialization, layout, and interaction
+ * of UI components such as buttons, labels, and panes. It also provides methods
+ * for managing the VPN state, updating logs, and interacting with peer
+ * configuration files.
  */
 public class UserInterface extends Application {
 
@@ -58,7 +59,7 @@ public class UserInterface extends Application {
 	protected Label avStatusLabel;
 	@FXML
 	protected Label connLabel;
-	
+
 	// JavaFX AnchorPanes.
 	@FXML
 	protected AnchorPane homePane;
@@ -139,7 +140,10 @@ public class UserInterface extends Application {
 
 		// Monitor selection changes in the peer list
 		peerListView.setItems(peerList);
-		peerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> { // Store the selected file
+		peerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> { // Store
+																													// the
+																													// selected
+																													// file
 			if (newValue != null) {
 				selectedPeerFile = newValue; // Store the selected file
 				if (vpnButton.getText().equals("Start VPN")) {
@@ -149,7 +153,8 @@ public class UserInterface extends Application {
 				logger.info("File selezionato nella peer list: {}", selectedPeerFile);
 			} else {
 				if (vpnButton.getText().equals("Start VPN")) {
-					vpnButton.setDisable(true); // Disable the button only if there is no selection and the text is "Start VPN"
+					vpnButton.setDisable(true); // Disable the button only if there is no selection and the text is
+												// "Start VPN"
 				}
 				logger.info("Nessun file selezionato.");
 			}

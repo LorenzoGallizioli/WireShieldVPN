@@ -184,17 +184,18 @@ public class AntivirusManagerTest {
 		// Verify that there are exactly 2 reports for the files being tested
 		assertEquals("There should be exactly 4 reports", 3, finalReports.size());
 
-        // Verify the report for file1.exe, file2.txt, and file3.com
+		// Verify the report for file1.exe, file2.txt, and file3.com
 		boolean foundFile1 = false;
 		boolean foundFile2 = false;
 		boolean foundFile3 = false;
 
-        // Iterate over the reports and check for the presence of file1.exe, file2.txt, file3.com
+		// Iterate over the reports and check for the presence of file1.exe, file2.txt,
+		// file3.com
 		for (ScanReport report : finalReports) {
 			String fileName = report.getFile().getName();
 			System.out.println("Report file: '" + fileName + "'"); // Debugging: Print file name
 
-            // Check for file1.exe
+			// Check for file1.exe
 			if ("file1.exe".equals(fileName)) {
 				foundFile1 = true;
 				System.out.println("foundFile1 set to true for file1.exe");
@@ -203,7 +204,7 @@ public class AntivirusManagerTest {
 						report.getWarningClass());
 			}
 
-            // Check for file2.txt
+			// Check for file2.txt
 			if ("file2.txt".equals(fileName)) {
 				foundFile2 = true;
 				System.out.println("foundFile2 set to true for file2.txt");
@@ -212,7 +213,7 @@ public class AntivirusManagerTest {
 						report.getWarningClass());
 			}
 
-            // Check for file3.com
+			// Check for file3.com
 			if ("file3.com".equals(fileName)) {
 				foundFile3 = true;
 				System.out.println("foundFile3 set to true for file3.com");
@@ -222,7 +223,7 @@ public class AntivirusManagerTest {
 			}
 		}
 
-        // Output debug information for found files
+		// Output debug information for found files
 		System.out.println("foundFile1: " + foundFile1);
 		System.out.println("foundFile2: " + foundFile2);
 		System.out.println("foundFile3: " + foundFile3);
@@ -233,20 +234,22 @@ public class AntivirusManagerTest {
 		assertTrue(foundFile3);
 	}
 
-    /**
-     * Test to verify that large files are excluded from VirusTotal scanning. This
-     * ensures that files exceeding the MAX_FILE_SIZE are not processed by
-     * VirusTotal.
-     * 
-     * @throws IOException If an I/O error occurs during file creation.
-     */
+	/**
+	 * Test to verify that large files are excluded from VirusTotal scanning. This
+	 * ensures that files exceeding the MAX_FILE_SIZE are not processed by
+	 * VirusTotal.
+	 * 
+	 * @throws IOException If an I/O error occurs during file creation.
+	 */
 	@Test
 	public void testLargeFileExclusionFromVirusTotal() throws IOException, InterruptedException {
 
-        // Define a large file size exceeding the limit (e.g., 20 MB if MAX_FILE_SIZE is 10 MB)
+		// Define a large file size exceeding the limit (e.g., 20 MB if MAX_FILE_SIZE is
+		// 10 MB)
 		final long LARGE_FILE_SIZE = 20 * 1024 * 1024; // 20 MB
 
-        // Generate a large string content to simulate a large file (filling with repetitive characters)
+		// Generate a large string content to simulate a large file (filling with
+		// repetitive characters)
 		StringBuilder largeContentBuilder = new StringBuilder((int) LARGE_FILE_SIZE);
 		for (int i = 0; i < LARGE_FILE_SIZE; i++) {
 			largeContentBuilder.append('A'); // Fill with repetitive characters
@@ -270,11 +273,11 @@ public class AntivirusManagerTest {
 			Thread.sleep(1000); // Wait briefly before checking again
 		}
 
-        // Verify that the large file is removed from the scan buffer after processing
+		// Verify that the large file is removed from the scan buffer after processing
 		assertFalse("The large file should be removed from the scan buffer after processing",
 				antivirusManager.getScanBuffer().contains(largeFile));
 
-        // Verify that no VirusTotal analysis was performed for the large file
+		// Verify that no VirusTotal analysis was performed for the large file
 		boolean virusTotalNotCalled = true;
 		for (ScanReport report : antivirusManager.getFinalReports()) {
 			if (report.getFile().equals(largeFile.getName()) && report.getThreatDetails().contains("VirusTotal")) {
@@ -282,47 +285,47 @@ public class AntivirusManagerTest {
 			}
 		}
 
-        // Assert that VirusTotal was not called for the large file
+		// Assert that VirusTotal was not called for the large file
 		assertTrue("Large file should not be marked as scanned by VirusTotal", virusTotalNotCalled);
 	}
 
-    /**
-     * Test the stopPerformScan method. This test checks whether the scan can be
-     * stopped correctly, and verifies the scan status is updated.
-     * 
-     * @throws InterruptedException If the thread is interrupted during the scan.
-     * @throws IOException          If an I/O error occurs during file creation.
-     */
+	/**
+	 * Test the stopPerformScan method. This test checks whether the scan can be
+	 * stopped correctly, and verifies the scan status is updated.
+	 * 
+	 * @throws InterruptedException If the thread is interrupted during the scan.
+	 * @throws IOException          If an I/O error occurs during file creation.
+	 */
 	@Test
 	public void testStopScan() throws InterruptedException, IOException {
 
 		antivirusManager.stopScan();
 		antivirusManager.stopScan();
 
-        // Create a file to add to the scan buffer
+		// Create a file to add to the scan buffer
 		File file4 = createFileWithContent("file4.pdf");
 		antivirusManager.addFileToScanBuffer(file4);
 		System.out.println("File added to scan buffer: file4.pdf");
 
-        // Start the scan in a separate thread
+		// Start the scan in a separate thread
 		Thread scanThread = new Thread(() -> {
 			antivirusManager.startScan();
 		});
 		scanThread.start();
 
-        // Add a brief delay to allow the thread to start
+		// Add a brief delay to allow the thread to start
 		Thread.sleep(500); // Wait 500 ms to allow the scan to start
 
 		System.out.println("Scanner status is UP, now stopping the scan.");
 
-        // Stop the scan
+		// Stop the scan
 		antivirusManager.stopScan();
 
-        // Verify that the scan status is DOWN (indicating the scan has stopped)
+		// Verify that the scan status is DOWN (indicating the scan has stopped)
 		assertEquals("Lo stato della scansione dovrebbe essere DOWN", runningStates.DOWN,
 				antivirusManager.getScannerStatus());
 
-        // Ensure the scan thread terminates properly
+		// Ensure the scan thread terminates properly
 		scanThread.join(); // Wait for the scan thread to finish before continuing the test
 
 		System.out.println("Scan thread stopped successfully.");

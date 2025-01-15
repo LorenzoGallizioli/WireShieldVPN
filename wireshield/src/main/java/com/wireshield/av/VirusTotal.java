@@ -21,9 +21,10 @@ import java.util.Queue;
 import java.util.LinkedList;
 
 /**
- * The VirusTotal class interacts with the VirusTotal API for file threat analysis.
- * It provides methods to upload files for analysis, retrieve reports, and manage API rate limits.
- * The class is implemented as a Singleton to ensure only one instance exists.
+ * The VirusTotal class interacts with the VirusTotal API for file threat
+ * analysis. It provides methods to upload files for analysis, retrieve reports,
+ * and manage API rate limits. The class is implemented as a Singleton to ensure
+ * only one instance exists.
  */
 public class VirusTotal implements AVInterface {
 

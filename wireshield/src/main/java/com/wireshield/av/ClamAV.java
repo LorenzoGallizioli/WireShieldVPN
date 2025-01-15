@@ -11,12 +11,11 @@ import org.apache.logging.log4j.Logger;
 import com.wireshield.enums.warningClass;
 
 /**
- * Implements antivirus scanning functionality using ClamAV.
- * This class uses the ClamAV command-line tool (`clamscan.exe`) to analyze files
- * for potential threats. It processes the output from ClamAV to generate detailed
- * scan reports.
- * This class follows the Singleton design pattern to ensure a single instance is used
- * throughout the application.
+ * Implements antivirus scanning functionality using ClamAV. This class uses the
+ * ClamAV command-line tool (`clamscan.exe`) to analyze files for potential
+ * threats. It processes the output from ClamAV to generate detailed scan
+ * reports. This class follows the Singleton design pattern to ensure a single
+ * instance is used throughout the application.
  */
 public class ClamAV implements AVInterface {
 

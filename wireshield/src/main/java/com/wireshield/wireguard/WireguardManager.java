@@ -166,9 +166,9 @@ public class WireguardManager {
 	}
 
 	/**
-	 * Updates connection statistics in a synchronized manner.
-	 * This method waits until the active interface of the connection is available,
-	 * then updates the active interface, traffic, and last handshake time.
+	 * Updates connection statistics in a synchronized manner. This method waits
+	 * until the active interface of the connection is available, then updates the
+	 * active interface, traffic, and last handshake time.
 	 */
 	private synchronized void updateConnectionStats() {
 
@@ -183,17 +183,18 @@ public class WireguardManager {
 		// Update traffic
 		connection.updateTraffic();
 
-        // Update last handshake time
+		// Update last handshake time
 		connection.updateLastHandshakeTime();
 
 	}
 
-    /**
-     * Starts a thread to continuously update connection statistics.
-     * The method runs a background task that calls {@link #updateConnectionStats()} as long as
-     * the connection status is {@code CONNECTED}. After each update, it logs the current 
-     * state of the connection and sleeps for 1 second before the next iteration.
-     */
+	/**
+	 * Starts a thread to continuously update connection statistics. The method runs
+	 * a background task that calls {@link #updateConnectionStats()} as long as the
+	 * connection status is {@code CONNECTED}. After each update, it logs the
+	 * current state of the connection and sleeps for 1 second before the next
+	 * iteration.
+	 */
 	public void startUpdateConnectionStats() {
 		Runnable task = () -> {
 			while (connection.getStatus() == connectionStates.CONNECTED) { // Check interface is up
@@ -214,13 +215,13 @@ public class WireguardManager {
 		thread.start();
 	}
 
-    /**
-     * Starts a thread to continuously update WireGuard logs.
-     * This method executes a background task that periodically dumps WireGuard logs
-     * into a specified file using a {@link ProcessBuilder}. The logs are read into memory
-     * and stored. The task runs indefinitely, with a 1-second sleep between iterations.
-     * If the thread is interrupted, it stops and logs an error.
-     */
+	/**
+	 * Starts a thread to continuously update WireGuard logs. This method executes a
+	 * background task that periodically dumps WireGuard logs into a specified file
+	 * using a {@link ProcessBuilder}. The logs are read into memory and stored. The
+	 * task runs indefinitely, with a 1-second sleep between iterations. If the
+	 * thread is interrupted, it stops and logs an error.
+	 */
 	public void startUpdateWireguardLogs() {
 		Runnable task = () -> {
 			while (true) {
@@ -252,11 +253,11 @@ public class WireguardManager {
 		thread.start();
 	}
 
-    /**
-     * Returns the current connection logs.
-     * 
-     * @return A string containing the connection logs.
-     */
+	/**
+	 * Returns the current connection logs.
+	 * 
+	 * @return A string containing the connection logs.
+	 */
 	public String getConnectionLogs() {
 		connection.updateActiveInterface();
 		connection.updateTraffic();
@@ -264,38 +265,38 @@ public class WireguardManager {
 		return connection.toString();
 	}
 
-    /**
-     * Returns the current connection status.
-     * 
-     * @return The current connection status.
-     */
+	/**
+	 * Returns the current connection status.
+	 * 
+	 * @return The current connection status.
+	 */
 	public connectionStates getConnectionStatus() {
 		return connection.getStatus();
 	}
 
-    /**
-     * Returns the PeerManager instance.
-     * 
-     * @return The PeerManager instance.
-     */
+	/**
+	 * Returns the PeerManager instance.
+	 * 
+	 * @return The PeerManager instance.
+	 */
 	public PeerManager getPeerManager() {
 		return this.peerManager;
 	}
 
-    /**
-     * Returns the current connection object.
-     * 
-     * @return The current Connection object.
-     */
+	/**
+	 * Returns the current connection object.
+	 * 
+	 * @return The current Connection object.
+	 */
 	protected Connection getConnection() {
 		return this.connection;
 	}
 
-    /**
-     * Returns the WireGuard logs.
-     * 
-     * @return The WireGuard logs.
-     */
+	/**
+	 * Returns the WireGuard logs.
+	 * 
+	 * @return The WireGuard logs.
+	 */
 	public String getLog() {
 		return this.logs;
 	}

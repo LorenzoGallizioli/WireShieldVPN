@@ -4,7 +4,8 @@ import java.io.File;
 import com.wireshield.enums.warningClass;
 
 /**
- * Represents the scan report for a file, including threat detection results and details.
+ * Represents the scan report for a file, including threat detection results and
+ * details.
  */
 public class ScanReport {
 

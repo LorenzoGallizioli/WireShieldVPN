@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * The DownloadManager class is responsible for:
+ * The DownloadManager class is responsible for: 
  * - Monitoring a download directory for new files.
  * - Detecting and processing new downloads.
  * - Adding detected files to the antivirus scanning queue.
@@ -33,11 +33,11 @@ public class DownloadManager {
 	private WatchService watchService; // Monitors file system events
 	private Thread monitorThread; // Runs the monitoring process
 
-    /**
-     * Private constructor to initialize the DownloadManager instance.
-     *
-     * @param antivirusManager The AntivirusManager instance for file scanning.
-     */
+	/**
+	 * Private constructor to initialize the DownloadManager instance.
+	 *
+	 * @param antivirusManager The AntivirusManager instance for file scanning.
+	 */
 	private DownloadManager(AntivirusManager antivirusManager) {
 		this.downloadPath = getDefaultDownloadPath(); // Automatically set default download path
 		this.monitorStatus = runningStates.DOWN; // Initially not monitoring
@@ -45,12 +45,13 @@ public class DownloadManager {
 		logger.info("DownloadManager initialized with path: {}", getDownloadPath());
 	}
 
-    /**
-     * Returns the singleton instance of DownloadManager.
-     *
-     * @param antivirusManager The AntivirusManager instance (only required for first initialization).
-     * @return The single instance of DownloadManager.
-     */
+	/**
+	 * Returns the singleton instance of DownloadManager.
+	 *
+	 * @param antivirusManager The AntivirusManager instance (only required for
+	 *                         first initialization).
+	 * @return The single instance of DownloadManager.
+	 */
 	public static synchronized DownloadManager getInstance(AntivirusManager antivirusManager) {
 		if (instance == null) {
 			instance = new DownloadManager(antivirusManager);
@@ -58,11 +59,12 @@ public class DownloadManager {
 		return instance;
 	}
 
-    /**
-     * Determines the default download directory path based on the user's operating system.
-     *
-     * @return The default download directory path as a String.
-     */
+	/**
+	 * Determines the default download directory path based on the user's operating
+	 * system.
+	 *
+	 * @return The default download directory path as a String.
+	 */
 	public String getDefaultDownloadPath() {
 		String userHome = System.getProperty("user.home");
 		String downloadFolder = "Downloads";
@@ -74,12 +76,12 @@ public class DownloadManager {
 		}
 	}
 
-    /**
-     * Starts monitoring the download directory for new files.
-     * Detected files will be added to the antivirus scanning queue.
-     *
-     * @throws IOException If an error occurs while setting up the WatchService.
-     */
+	/**
+	 * Starts monitoring the download directory for new files. Detected files will
+	 * be added to the antivirus scanning queue.
+	 *
+	 * @throws IOException If an error occurs while setting up the WatchService.
+	 */
 	public void startMonitoring() throws IOException {
 		if (monitorStatus == runningStates.UP) {
 			logger.warn("Already monitoring the download directory.");
@@ -94,7 +96,7 @@ public class DownloadManager {
 			watchService = FileSystems.getDefault().newWatchService();
 			Path path = Paths.get(getDownloadPath());
 
-            // Register the directory for creation events
+			// Register the directory for creation events
 			path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE);
 
 			// Start monitoring in a new thread
@@ -104,7 +106,7 @@ public class DownloadManager {
 					try {
 						WatchKey key = watchService.take(); // Wait for events
 
-                        // Process events
+						// Process events
 						for (WatchEvent<?> event : key.pollEvents()) {
 							if (event.kind() == StandardWatchEventKinds.ENTRY_CREATE) {
 								Path newFilePath = path.resolve((Path) event.context());
@@ -142,9 +144,9 @@ public class DownloadManager {
 		}
 	}
 
-    /**
-     * Stops monitoring the download directory and shuts down the monitoring thread.
-     */
+	/**
+	 * Stops monitoring the download directory and shuts down the monitoring thread.
+	 */
 	public void stopMonitoring() {
 		if (monitorStatus == runningStates.DOWN) {
 			logger.warn("Monitoring is already stopped.");
@@ -172,20 +174,20 @@ public class DownloadManager {
 		}
 	}
 
-    /**
-     * Returns the current monitoring status (UP or DOWN).
-     *
-     * @return The current monitoring status.
-     */
+	/**
+	 * Returns the current monitoring status (UP or DOWN).
+	 *
+	 * @return The current monitoring status.
+	 */
 	public runningStates getMonitorStatus() {
 		return monitorStatus;
 	}
 
-    /**
-     * Retrieves the path to the download directory being monitored.
-     *
-     * @return The monitored download directory path.
-     */
+	/**
+	 * Retrieves the path to the download directory being monitored.
+	 *
+	 * @return The monitored download directory path.
+	 */
 	public String getDownloadPath() {
 		return downloadPath;
 	}
