@@ -30,7 +30,7 @@ public class VirusTotal implements AVInterface {
 
 	private static final Logger logger = LogManager.getLogger(VirusTotal.class);
 
-	private static VirusTotal instance; // Singleton instance
+	private static VirusTotal instance = null; // Singleton instance
 	private String apiKey; // API Key for accessing the VirusTotal API
 	private String virustotalUri; // URI for VirusTotal API
 	static final int REQUEST_LIMIT = 4; // Maximum requests allowed per minute
@@ -56,9 +56,16 @@ public class VirusTotal implements AVInterface {
 	 * @return The singleton VirusTotal instance.
 	 */
 	public static synchronized VirusTotal getInstance() {
+		
+		if(FileManager.getConfigValue("api_key").isEmpty() || FileManager.getConfigValue("api_key").length() != 64) {
+			return null;
+		}
+		
 		if (instance == null) {
+			logger.info("Run VirusTotal costructor");
 			instance = new VirusTotal();
 		}
+		
 		return instance;
 	}
 

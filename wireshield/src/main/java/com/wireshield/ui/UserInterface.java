@@ -211,18 +211,25 @@ public class UserInterface extends Application {
 	public void changeVPNState() {
 
 		if (so.getConnectionStatus() == connectionStates.CONNECTED) {
+			// Stop execution componentStatesGuardian thread
+        	so.setGuardianState(runningStates.DOWN);
+
 			so.manageDownload(runningStates.DOWN);
 			so.manageAV(runningStates.DOWN);
 			so.manageVPN(vpnOperations.STOP, null);
 			vpnButton.setText("Start VPN");
-			peerListView.setDisable(false); // Stop VPN and related services
+			peerListView.setDisable(false); // Enable the peer list when the VPN is disconnected
 			logger.info("All services are stopped.");
 		} else {
 			so.manageVPN(vpnOperations.START, selectedPeerFile);
 			so.manageAV(runningStates.UP);
 			so.manageDownload(runningStates.UP);
+			
+			// Start execution componentStatesGuardian thread
+			so.statesGuardian();
+
 			vpnButton.setText("Stop VPN");
-			peerListView.setDisable(true); // Start VPN and related services
+			peerListView.setDisable(true); // Disable the peer list while the VPN is connected
 			logger.info("All services started successfully.");
 		}
 	}
@@ -276,8 +283,7 @@ public class UserInterface extends Application {
 		String defaultPeerPath = FileManager.getProjectFolder() + FileManager.getConfigValue("PEER_STD_PATH");
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Select a File");
-		fileChooser.getExtensionFilters()
-				.add(new FileChooser.ExtensionFilter("WireGuard Config Files (*.conf)", "*.conf"));
+		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("WireGuard Config Files (*.conf)", "*.conf"));
 
 		Stage stage = new Stage();
 		File selectedFile = fileChooser.showOpenDialog(stage);
@@ -335,8 +341,10 @@ public class UserInterface extends Application {
 					String logs = wg.getLog();
 					// Update logsArea on the JavaFX thread
 					Platform.runLater(() -> {
+						double scrollPosition = logsArea.getScrollTop();
 						logsArea.clear();
 						logsArea.setText(logs);
+						logsArea.setScrollTop(scrollPosition);
 					});
 					Thread.sleep(1000); // Wait one second before updating again
 				} catch (InterruptedException e) {
@@ -349,9 +357,9 @@ public class UserInterface extends Application {
 			}
 		};
 
-		Thread logUpdateThread = new Thread(task);
-		logUpdateThread.setDaemon(true); // Ensure the thread stops with the application
-		logUpdateThread.start();
+		Thread Thread = new Thread(task);
+		//logUpdateThread.setDaemon(true); // Ensure the thread stops with the application
+		Thread.start();
 	}
 
 	/**

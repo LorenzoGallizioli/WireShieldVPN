@@ -212,41 +212,147 @@ I seguenti diagrammi UML sono stati utilizzati per progettare il sistema:
 
 #### ***Diagramma dei Casi d’Uso***
 ---
-[image]
-
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/UseCaseDiagram/UseCaseWireShield.png)
 
 #### ***Diagramma delle Classi***
 ---
-[image]
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/ClassDiagram/ClassDiagram.png)
 
 #### ***Diagramma delle Macchine a Stati***
 ---
-[image]
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/StateMachineDiagram/StateMachineWireShield.png)
 
 #### ***Diagramma di Sequenza***
 ---
-[image]
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/sequenceDiagram/sequenceDiagram.png)
 
 #### ***Diagramma di Comunicazione***
 ---
-[image]
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/CommunicationDiagram/CommunicationWireShield.png)
 
 #### ***Diagramma di Attività***
 ---
-[image]
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/activityDiagram/activityDiagram.png)
 
 #### ***Diagramma dei Componenti***
 ---
-[image]
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/ComponentDiagram/ComponentDiagram.png)
 
 
 &nbsp;
 ## 8. 🏛️ **Software Architecture**
-      
-    DEVE contenere la descrizione dell’architettura con almeno un paio di architectural views (per differenti punti di vista)
-    DOVREBBE avere almeno una vista con connettori e componenti con la descrizione dello stile architetturale (11.4)
-    DEVE utilizzare almeno una libreria esterna con maven.
-    Ad esempio l’uso di log4j è molto consigliata.
+
+### **Descrizione dell'Architettura**
+L'architettura utilizza un approccio a **strati**, che riflette una separazione delle responsabilità tra i componenti chiave, seguendo lo stile **MVC**. Questo permette di isolare la logica applicativa (Model), l'interfaccia utente (View), e il controllo e orchestrazione (Controller).
+
+### **Composizione Architetturale**
+
+#### **1. Model (Gestione della Logica e dei Dati)**
+- Contiene le classi che gestiscono la logica e il trattamento dei dati. Include il supporto per antivirus, file locali, e connessioni VPN.
+- **Package**:
+  - `com.wireshield.av`: Gestisce i processi antivirus e le comunicazioni con servizi esterni (es. VirusTotal).
+  - `com.wireshield.localfileutils`: Si occupa di operazioni sui file locali, come download e orchestrazione.
+  - `com.wireshield.wireguard`: Controlla le connessioni VPN utilizzando il protocollo WireGuard.
+- **Esempi di classi**:
+  - `AntivirusManager`: Coordina le scansioni antivirus.
+  - `WireguardManager`: Gestisce le connessioni VPN.
+
+#### **2. View (Interfaccia Utente)**
+- Contiene la rappresentazione grafica con cui l'utente interagisce.
+- **Package**:
+  - `com.wireshield.ui`: Contiene la classe `UserInterface`, che gestisce l'interfaccia grafica basata su **JavaFX**.
+- Utilizza componenti di **JavaFX** per creare un'interfaccia responsiva e intuitiva.
+
+#### **3. Controller (Orchestrazione e Coordinazione)**
+- Coordina la comunicazione tra il Model e la View, gestendo gli eventi generati dall'utente.
+- **Package**:
+  - `com.wireshield.localfileutils`: La classe `SystemOrchestrator` agisce come controller principale, orchestrando l'interazione tra l'interfaccia utente e i servizi di backend.
+- **Ruolo**:
+  - Gestione delle azioni dell'utente (es. avviare una scansione, stabilire una connessione VPN).
+  - Comunicazione con servizi remoti e locali tramite librerie come **HTTPComponents** e **JSON Simple**.
+
+### **Architectural Views**
+
+#### **1. Vista dei moduli**
+Questo diagramma rappresenta la struttura logica dell'applicazione, evidenziando la separazione dei moduli.
+Questo diagramma rappresenta le **relazioni d'uso** tra le componenti del sistema.
+
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/ComponentDiagram/ComponentDiagram.png)
+
+#### **2. Vista Componenti e Connettori**
+Questa vista illustra i componenti principali e le loro interazioni, descrivendo come comunicano tramite connettori come richieste API o invocazioni di metodi. In questo può venirci in aiuto il Diagramma di sequenza precedentemente illustrato che rappresenta i **processi** che, sommati tra loro vanno a rappresentare la **vista dinamica** del sistema.
+
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/sequenceDiagram/sequenceDiagram.png)
+
+Componenti principali:
+   - **UserInterface**: Responsabile per l'interazione con l'utente.
+   - **WireguardManager**: Gestisce le operazioni VPN interfacciandosi con WireGuard.
+   - **AntivirusManager**: Gestisce gli antivirus e lo smistamento dei file.
+   - **DownloadManager**: Analizza continuamente il download dei file e si coordina con AntivirusManager.
+   - **FileManager**: Contiene una serie di metodi per operare sui file locali.
+   - **SystemOrchestrator**: Orchestratore principale, collega i moduli e garantisce il flusso operativo.
+
+Connettori:
+   - **Chiamate di procedura**: Comunicazione tra SystemOrchestrator e i moduli (es. AntivirusManager, WireguardManager).
+   - **Invocazione implicita**: Utilizzati eventi e listeners per notificare cambiamenti di stato della UserInterface e lo scaricamento di file.
+   - **Passaggio di messaggio**: Chiamate API utilizzate per chiamate nella classe VirusTotal.
+
+### Librerie
+#### Gestione librerie
+Il progetto utilizza **Maven** come strumento per la gestione delle dipendenze. La gestione delle dipendenze si basa sul file pom.xml che descrive il progetto, le sue configurazioni e le dipendenze.
+
+#### Librerie utilizzate
+Il progetto utilizza diverse librerie, tra le quali:
+1. #### Apache Log4j
+
+    - **Scopo**: Gestione avanzata dei log dell'applicazione.
+        - _log4j-api_: fornisce l'API di logging.
+        - _log4j-core_: contiene l'implementazione effettiva del sistema di logging.
+    - **Utilizzo nel progetto**:
+        Tracciamento degli eventi applicativi (informazioni, warning, errori).
+        Monitoraggio del comportamento del sistema per debug e audit.
+
+2. #### JSON Simple
+
+    - **Scopo**: Manipolazione di dati in formato JSON.
+    - **Utilizzo nel progetto**:
+        - Parsing e generazione di file JSON per rappresentare configurazioni, dati di connessione o risultati di scansioni antivirus.
+
+3. #### OpenJFX
+
+    - **Scopo**: Creazione dell'interfaccia grafica utente (GUI).
+        - _javafx-controls_: Include componenti GUI come pulsanti, finestre di dialogo e layout.
+        - _javafx-fxml_: Permette di definire l'interfaccia tramite file FXML.
+    - **Utilizzo nel progetto**:
+        - Creazione di un'interfaccia user-friendly per gestire connessioni VPN e scansioni antivirus.
+
+4. #### Apache HTTPComponents
+
+    - **Scopo**: Gestione delle comunicazioni HTTP.
+        - _httpclient_: Invio e gestione delle richieste HTTP (GET, POST, ecc.).
+        - _httpcore_: Fornisce funzionalità a basso livello per le comunicazioni HTTP.
+        - _httpmime_: Supporto per multipart (es. caricamento di file).
+    - **Utilizzo nel progetto**:
+        - Invio di richieste API per VirusTotal e altri servizi remoti.
+
+5. #### Jackson Databind
+
+    - **Scopo**: Serializzazione e deserializzazione di oggetti Java in/da JSON.
+    - **Utilizzo nel progetto**:
+        - Conversione di oggetti complessi in formato JSON per il salvataggio o la trasmissione di dati.
+        - Parsing di risposte API per ottenere dati strutturati.
+
+6. #### JUnit
+
+    - **Scopo**: Test unitari del codice.
+    - **Utilizzo nel progetto**:
+        - Creazione e gestione di test automatizzati per verificare il corretto funzionamento dei moduli principali.
+
+7. #### Mockito
+
+    - **Scopo**: Framework per il mocking nei test.
+    - **Utilizzo nel progetto**:
+        - Simulazione di comportamenti di componenti o servizi esterni per testare i moduli in isolamento.
 
 
 &nbsp;
@@ -278,26 +384,117 @@ Il Template Method Pattern definisce la struttura di un algoritmo nella supercla
 
 La superclasse `ScanReport` stabilisce i passi comuni per la creazione di un report, mentre le sottoclassi possono personalizzare aspetti come il formato o il contenuto del documento. Questo pattern promuove il riutilizzo del codice e garantisce coerenza nella struttura degli antivirus.
 
-      
-    DEVE contenere una descrizione del design (mediante i diagrammi UML va bene)
-    POTREBBE contenere un calcolo di complessità (ad esempio con McCabe) di una piccola parte
-    DOVREBBE contenere qualche misurazione del codice, (con qualche metrica che abbiamo visto).
-    Alcuni tools che vedremo a lezione: stanide, jdepend, struture101, sonarlint, PMD ...
-    DEVE applicare un paio di design pattern visti a lezione
+### Analisi e metriche
   
+#### Analisi statica del codice
+Abbiamo utilizzato il tool **Sonarlint** per condurre un analisi statica del codice e sistemare le rilevazioni. 
 
+Questo tipo di analisi permette di identificare:
+   - **Bug**: Problemi che possono causare errori o malfunzionamenti in fase di esecuzione.
+       - _Esempio_: utilizzo di variabili non inizializzate, errori di logica.
+
+   - **Code Smells**: Problemi che non sono errori, ma che indicano cattive pratiche di codifica.
+       - _Esempio_: metodi troppo lunghi, nomi di variabili poco descrittivi.
+
+   - **Vulnerabilità di Sicurezza**: Potenziali falle di sicurezza che possono essere sfruttate da un attaccante.
+       - _Esempio_: input non validati, utilizzo di algoritmi crittografici deprecati.
+
+   - **Debito Tecnico**: Problemi che aumentano la complessità del codice e richiedono interventi per migliorare la manutenzione futura.
+       - _Esempio_: duplicazione del codice, mancanza di commenti significativi.
+
+#### Analisi strutturale del codice
+Utilizzando il tool di analisi strutturale **STAN IDE** durante tutta la fase di sviluppo abbiamo condotto un'analisi per identificare le dipendenze tra package ed scongiurare il rischio di creazione di cicli di dipendenze.
+
+Analisi strutturale di WireShield:
+
+![STAN_Analyze](https://github.com/user-attachments/assets/bd2fd5f9-c0ee-40e5-9569-f36be6ededbb)
+
+#### Complessità ciclomatica di McCabe
+Ragionando in maniera pessimistica abbiamo considerato la funzione che, dopo un attenta analisi, pare come la più complessa del programma, ovvero la funzione _startMonitoring()_ di **DownloadManager**.
+
+1. Analizziamo il codice riga per riga per individuare i costrutti che aggiungono percorsi.
+
+2. Percorsi identificati:
+
+    `if (monitorStatus == runningStates.UP)` → 1
+   
+    `while (monitorStatus == runningStates.UP)` → 1
+   
+    `if (event.kind() == StandardWatchEventKinds.ENTRY_CREATE)` → 1
+   
+    `if (!FileManager.isTemporaryFile(newFile) && FileManager.isFileStable(newFile))` → 2
+   
+    `if (!detectedFiles.contains(fileName))` → 1
+   
+    `if (monitorStatus == runningStates.UP)` (try/catch) → 1
+
+Totale = `7` percorsi.
+
+3. Complessità ciclomatica
+
+`M=7+1=8`
+
+4. Interpretazione
+
+Valore di `8`: Indica che la funzione è complessa e richiede test case complessi per coprire tutti i percorsi logici.
+
+    
 &nbsp;
 ## 10. 🔍 **Software Testing**
 
-    PUO’ avere un documento di plan per l’attività di test
-    DEVE contenere dei casi di test di unità implementati con la loro descrizione nel documento
-    DOVREBBE avere qualche misura di copertura per i casi di test
+### Metodologia di Testing del Software
+
+Abbiamo adottato una strategia strutturata e orientata alla qualità per il testing del software, con l’obiettivo di garantire una copertura ampia e una verifica approfondita del codice. Di seguito, vengono illustrate le principali attività svolte:
+
+#### Codice di Test
+
+Ogni metodo implementato nel progetto è stato associato a un corrispondente codice di test, con l’eccezione dei metodi che includono thread. La complessità legata al testing isolato di questi ultimi ha richiesto di eseguirli nel contesto dell’intero programma per verificarne il funzionamento.
+
+#### Strumenti
+
+- **JUnit**: Framework principale per la scrittura e l’organizzazione dei test unitari.
+- **EclEmma**: Utilizzato per monitorare la copertura del codice durante i test, con l’obiettivo di raggiungere il 100%.
+- **SonarLint**: Strumento per individuare e risolvere i "code smells", analizzando ogni problematica in modo dettagliato e intervenendo manualmente.
+
+#### Documentazione dei Test
+
+Ogni caso di test è stato corredato da una breve descrizione per migliorarne la comprensibilità. Tali descrizioni sono state fornite tramite commenti Javadoc o direttamente nel nome del metodo di test, rendendo chiari gli obiettivi e il funzionamento dei test.
+
+#### Test Avanzati
+
+Abbiamo utilizzato **Mockito** per simulare componenti e dipendenze, consentendo di isolare i metodi testati e verificare scenari specifici. Questa pratica ha migliorato la copertura e l’efficacia del testing.
+
+#### Standardizzazione per i Contributori Esterni
+
+Per facilitare l’integrazione di nuovi contributori, intendiamo introdurre un file standard che definisca le linee guida per la creazione delle classi. Questo file includerà:
+
+- Struttura base di una classe, comprendente intestazioni, costruttori, metodi e commenti Javadoc.
+- Requisiti minimi per i test unitari associati a ciascun metodo.
+- Convenzioni di denominazione per metodi, variabili e file.
+- Linee guida per la gestione delle eccezioni e la documentazione dei casi d’uso.
+
+Questa iniziativa contribuirà a garantire coerenza nel codice, facilitando la collaborazione e mantenendo elevati standard qualitativi.
+
 
 &nbsp;
-## 11. 🔧 **Software Maintenance**
+## Manutenzione del Progetto
 
-    POTREBBE contenere un di attività di reverse engineering (se si è partiti da codice esistente)
-    DOVREBBE documentare alcune attività di refactoring che sono state fatte.
+Per garantire la longevità, l'efficienza e la qualità del progetto, intendiamo manutenere il codice mantenendo un monitoraggio continuo per l'individuazione di bug. Continueremo ad utilizzare GitHub per versioning e segnalazioni basate sulla priorità, in modo da risolvere tempestivamente i problemi più critici. L'obiettivo è realizzare aggiornamenti costanti che introducano maggiore stabilità, una grafica migliorata e funzionalità sempre più avanzate.
+
+Vogliamo adattare il codice alle continue mutazioni delle esigenze degli utenti, raccogliendo feedback e implementando estensioni mirate. Per garantire standard di qualita' elevati, inoltre, applicheremo una manutenzione preventiva, che consisterà in verifiche complete del codice per assicurarci che, durante le continue trasformazioni, non siano stati introdotti difetti.
+
+Con questa strategia di manutenzione, intendiamo garantire un software affidabile, aggiornato e capace di rispondere alle sfide future, mantenendo al contempo un alto livello di soddisfazione degli utenti.
+
+### Standardizzazione per i Contributori Esterni
+
+Per facilitare il coinvolgimento di nuovi contributori al progetto, introdurremo un file guida che fornisca istruzioni chiare su come contribuire efficacemente. Questo file includerà:
+
+- Procedure per il fork del repository, la creazione di branch e la gestione delle pull request.
+- Linee guida per la scrittura del codice, incluse convenzioni di denominazione e requisiti per i commenti.
+- Indicazioni su come scrivere test unitari e integrare nuove funzionalità senza introdurre regressioni.
+- Regole per la segnalazione di bug e la proposta di nuove funzionalità.
+
+L’obiettivo è creare un ambiente collaborativo e accessibile, in cui ogni contributo sia valorizzato e risponda agli standard qualitativi del progetto.
 
 &nbsp;
 

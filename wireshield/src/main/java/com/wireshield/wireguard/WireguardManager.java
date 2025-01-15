@@ -3,10 +3,13 @@ package com.wireshield.wireguard;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.parser.ParseException;
-import java.io.IOException;
 import com.wireshield.av.FileManager;
 import com.wireshield.enums.connectionStates;
 
@@ -198,8 +201,10 @@ public class WireguardManager {
 	public void startUpdateConnectionStats() {
 		Runnable task = () -> {
 			while (connection.getStatus() == connectionStates.CONNECTED) { // Check interface is up
+				
+				// Update connection stats
 				updateConnectionStats();
-				logger.info(connection.toString());
+				
 				try {
 					Thread.sleep(1000); // wait
 				} catch (InterruptedException e) {
@@ -214,6 +219,37 @@ public class WireguardManager {
 		Thread thread = new Thread(task);
 		thread.start();
 	}
+	
+	private void updateWireguardLogs(String[] command) {
+		try {
+			File logFile = new File(logDumpPath);
+	        if (logFile.exists() && logFile.isFile()) {
+	        	
+	        	ProcessBuilder processBuilder = new ProcessBuilder(command);
+				processBuilder.redirectErrorStream(true);
+				
+		        try {
+		        	Process process = processBuilder.start();
+					process.waitFor();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+	        	
+	            String logDump = FileManager.readFile(logDumpPath);
+	            this.logs = logDump;
+	        } else {
+	        	logger.error(logDumpPath + " not exits - Creating... ");
+	        	if(FileManager.createFile(logDumpPath)) {
+	        		logger.info(logDumpPath + " created.");
+	        	} else {
+	        		logger.error("Error occured during " + logDumpPath + " creation.");	        		
+	        	}
+	        }
+	        
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Starts a thread to continuously update WireGuard logs. This method executes a
@@ -225,45 +261,33 @@ public class WireguardManager {
 	public void startUpdateWireguardLogs() {
 		Runnable task = () -> {
 			while (true) {
+				String[] command = {"cmd.exe", "/c", wireguardPath + " /dumplog > " + logDumpPath};
+				updateWireguardLogs(command);
 				try {
-					ProcessBuilder processBuilder = new ProcessBuilder();
-					processBuilder.command(wireguardPath, "/dumplog > " + this.logDumpPath);
-					processBuilder.redirectErrorStream(true);
-					processBuilder.start();
-
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-				String logDump = FileManager.readFile(this.logDumpPath);
-				this.logs = logDump;
-
-				try {
-					Thread.sleep(1000); // wait
+					Thread.sleep(500);
 				} catch (InterruptedException e) {
 					Thread.currentThread().interrupt();
 					logger.error("startUpdateWireguardLogs() thread unexpecly interrupted");
 					break;
 				}
 			}
-			// Code
 		};
 
 		Thread thread = new Thread(task);
 		thread.start();
 	}
-
+	
 	/**
 	 * Returns the current connection logs.
 	 * 
 	 * @return A string containing the connection logs.
 	 */
-	public String getConnectionLogs() {
-		connection.updateActiveInterface();
-		connection.updateTraffic();
-		connection.updateLastHandshakeTime();
-		return connection.toString();
-	}
+    public String getConnectionLogs(){
+        connection.updateActiveInterface();
+        connection.updateTraffic();
+        connection.updateLastHandshakeTime();
+        return connection.toString();
+    }
 
 	/**
 	 * Returns the current connection status.
@@ -293,11 +317,14 @@ public class WireguardManager {
 	}
 
 	/**
-	 * Returns the WireGuard logs.
+	 * Returns reversed WireGuard logs.
 	 * 
 	 * @return The WireGuard logs.
 	 */
 	public String getLog() {
+    	String[] lines = this.logs.split("\n");
+    	Collections.reverse(Arrays.asList(lines));
+    	this.logs = String.join("\n", lines);
 		return this.logs;
 	}
 }

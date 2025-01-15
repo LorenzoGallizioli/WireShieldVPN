@@ -1,8 +1,6 @@
 # Project custom files
-testPeer.conf
-/connection-configurations/
-/target/
-!.mvn/wrapper/maven-wrapper.jar
+wireshield/config/connection-configurations/*
+wireshield/config/logDump.txt
 
 ### STS ###
 .apt_generated
@@ -12,13 +10,8 @@ testPeer.conf
 .springBeans
 .sts4-cache
 
-
-# Created by https://www.gitignore.io/api/git,java,maven,eclipse,windows
-
 ### Eclipse ###
-
 .metadata
-#bin/
 tmp/
 *.tmp
 *.bak

@@ -131,6 +131,8 @@ public class DownloadManager {
 						// Handle interruption gracefully, but don't stop the monitoring thread
 						if (monitorStatus == runningStates.UP) {
 							logger.info("Monitoring interrupted, but continuing...");
+							
+							monitorStatus = runningStates.DOWN;
 							Thread.currentThread().interrupt(); // Preserve interruption flag
 						}
 					}
@@ -141,19 +143,21 @@ public class DownloadManager {
 
 		} catch (IOException e) {
 			logger.error("Error creating WatchService: {}", e.getMessage(), e);
+			monitorStatus = runningStates.DOWN;
 		}
 	}
 
 	/**
 	 * Stops monitoring the download directory and shuts down the monitoring thread.
 	 */
-	public void stopMonitoring() {
+	public void forceStopMonitoring() {
 		if (monitorStatus == runningStates.DOWN) {
 			logger.warn("Monitoring is already stopped.");
 			return; // Already stopped
 		}
 
 		monitorStatus = runningStates.DOWN; // Set status to inactive
+		
 		try {
 			if (monitorThread != null && monitorThread.isAlive()) {
 				monitorThread.interrupt(); // Interrupt monitoring thread

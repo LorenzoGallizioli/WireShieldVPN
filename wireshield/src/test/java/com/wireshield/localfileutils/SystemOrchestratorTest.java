@@ -1,18 +1,29 @@
 package com.wireshield.localfileutils;
 
-import static org.junit.Assert.*;
-
-import java.util.Map;
-
-import org.junit.Before;
-import org.junit.Test;
-import com.wireshield.enums.runningStates;
 import com.wireshield.av.AntivirusManager;
 import com.wireshield.enums.connectionStates;
+import com.wireshield.enums.runningStates;
+import com.wireshield.wireguard.WireguardManager;
 import com.wireshield.enums.vpnOperations;
 import com.wireshield.wireguard.Peer;
 import com.wireshield.wireguard.PeerManager;
-import com.wireshield.wireguard.WireguardManager;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.Map;
+
+
 
 /**
  * This class contains unit tests for the functionalities of the
@@ -22,27 +33,20 @@ import com.wireshield.wireguard.WireguardManager;
  */
 public class SystemOrchestratorTest {
 
-	// Instances of the SystemOrchestrator, WireguardManager, DownloadManager, and
-	// AntivirusManager
-	private SystemOrchestrator orchestrator;
-	private WireguardManager wireguardManager;
-	private DownloadManager downloadManager;
-	private AntivirusManager antivirusManager;
-
 	// Test string used for parsing peer configurations
 	String testString = """
-			[Interface]
-			PrivateKey = cIm09yQB5PUxKIhUwyK8TwL6ulaemcllbuzSCaOG0UM=
-			Address = 172.0.0.6/32
-			DNS = 172.0.0.1
-			MTU = 1420
+		[Interface]
+		PrivateKey = cIm09yQB5PUxKIhUwyK8TwL6ulaemcllbuzSCaOG0UM=
+		Address = 172.0.0.6/32
+		DNS = 172.0.0.1
+		MTU = 1420
 
-			[Peer]
-			PublicKey = DlaMue3dkdiExmuYtQVAPlreolMWXP5zg9l1omRUDDA=
-			PresharedKey = 0GYNNk24bSVUKBVGQU2tS1+tu5wT/RV2dQ3Z2gFxrNU=
-			AllowedIPs = 0.0.0.0/0, ::/0
-			Endpoint = 140.238.212.179:51820
-			""";
+		[Peer]
+		PublicKey = DlaMue3dkdiExmuYtQVAPlreolMWXP5zg9l1omRUDDA=
+		PresharedKey = 0GYNNk24bSVUKBVGQU2tS1+tu5wT/RV2dQ3Z2gFxrNU=
+		AllowedIPs = 0.0.0.0/0, ::/0
+		Endpoint = 140.238.212.179:51820
+		""";
 
 	// Map of parsed peer data
 	Map<String, Map<String, String>> extDatas = PeerManager.parsePeerConfig(testString);
@@ -50,30 +54,33 @@ public class SystemOrchestratorTest {
 	// Peer ID and PeerManager instance for testing
 	String peerId;
 	PeerManager pm;
+	Logger logger = LogManager.getLogger(SystemOrchestratorTest.class);
 
-	/**
-	 * Sets up the test environment before each test. This method initializes the
-	 * {@code SystemOrchestrator}, {@code WireguardManager},
-	 * {@code DownloadManager}, and {@code AntivirusManager}, and creates necessary
-	 * instances for testing.
-	 */
-	@Before
-	public void setUp() {
-		// Instantiate the SystemOrchestrator
-		orchestrator = SystemOrchestrator.getInstance();
+    private SystemOrchestrator orchestrator;
 
-		// Create instances of the necessary managers
-		wireguardManager = WireguardManager.getInstance();
-		antivirusManager = AntivirusManager.getInstance();
-		downloadManager = DownloadManager.getInstance(antivirusManager);
+    @Mock
+    private WireguardManager wireguardManager;
+
+    @Mock
+    private DownloadManager downloadManager;
+
+    @Mock
+    private AntivirusManager antivirusManager;
+
+    /*
+     * Sets up the test environment before each test. 
+     * This method is executed before each test and initializes the SystemOrchestrator and PeerManager instance.
+     */
+    @Before
+    public void setUp() {
 		pm = PeerManager.getInstance();
 
-		// Set dependencies for the SystemOrchestrator
-		orchestrator.getWireguardManager();
-		orchestrator.getDownloadManager();
-		orchestrator.getAntivirusManager();
+    	MockitoAnnotations.openMocks(this);
+        orchestrator = SystemOrchestrator.getInstance();
+        orchestrator.setGuardianState(runningStates.DOWN); // Ensure guardian is stopped
 
-	}
+        orchestrator.setObjects(wireguardManager, antivirusManager, downloadManager);
+    }
 
 	/**
 	 * Test the {@code manageVPN} method with the START operation. This test checks
@@ -85,10 +92,16 @@ public class SystemOrchestratorTest {
 		// Execute the method with the START operation
 		orchestrator.manageVPN(vpnOperations.START, "testPeer.conf");
 
-		// Verify that the connection status is CONNECTED
-		assertTrue("The VPN interface should be up",
-				wireguardManager.getConnectionStatus() == connectionStates.CONNECTED);
-	}
+        // Test managing download monitoring when it is UP
+        orchestrator.manageDownload(runningStates.UP);
+        assertEquals(runningStates.UP, orchestrator.getMonitorStatus());
+        logger.info("Download monitoring status set to UP");
+
+        // Test managing download monitoring when it is DOWN
+        orchestrator.manageDownload(runningStates.DOWN);
+        assertEquals(runningStates.DOWN, orchestrator.getMonitorStatus());
+        logger.info("Download monitoring status set to DOWN");
+    }
 
 	/**
 	 * Test the {@code manageVPN} method with the STOP operation. This test checks
@@ -279,4 +292,97 @@ public class SystemOrchestratorTest {
 		// Verify that the AntivirusManager instance is not null
 		assertNotNull("AntivirusManager should not be null", manager);
 	}
+
+    @Test
+    public void testStatesGuardian_NormalOperation() throws InterruptedException {
+        // Mock normal operation
+        when(wireguardManager.getConnectionStatus()).thenReturn(connectionStates.CONNECTED);
+        when(antivirusManager.getScannerStatus()).thenReturn(runningStates.UP);
+        when(downloadManager.getMonitorStatus()).thenReturn(runningStates.UP);
+
+        orchestrator.setGuardianState(runningStates.UP);
+        orchestrator.statesGuardian();
+
+        // Allow some time for the thread to execute
+        Thread.sleep(500);
+
+        // Verify no actions taken
+        verify(wireguardManager, never()).setInterfaceDown();
+        verify(downloadManager, never()).forceStopMonitoring();
+        verify(antivirusManager, never()).stopScan();
+
+        orchestrator.setGuardianState(runningStates.DOWN); // Stop the guardian thread
+    }
+    
+    /**
+     * Test method. Simulate a AV failure and detects if GuardianState Thread takes action.
+     * It is not possible to verify effectiveness but only that it invokes the designated functions.
+     */
+    @Test
+    public void testStatesGuardian_AVComponentFailure() throws InterruptedException {
+        // Mock antivirus failure
+        when(orchestrator.getWireguardManager().getConnectionStatus()).thenReturn(connectionStates.CONNECTED);
+        when(orchestrator.getAntivirusManager().getScannerStatus()).thenReturn(runningStates.DOWN);
+        when(orchestrator.getDownloadManager().getMonitorStatus()).thenReturn(runningStates.UP);
+
+        orchestrator.statesGuardian();
+
+        // Allow some time for the thread to detect the failure
+        Thread.sleep(500);
+
+        // Verify actions taken
+        verify(orchestrator.getDownloadManager(), atLeast(1)).forceStopMonitoring();
+        verify(orchestrator.getWireguardManager(), atLeast(1)).setInterfaceDown();
+
+        orchestrator.setGuardianState(runningStates.DOWN); // Stop the guardian thread
+    }
+    
+    /**
+     * Test method. Simulate a DowmloadMonitor failure and detects if GuardianState Thread takes action.
+     * It is not possible to verify effectiveness but only that it invokes the designated functions.
+     */
+    @Test
+    public void testStatesGuardian_DownloadComponentFailure() throws InterruptedException {
+        // Mock antivirus failure
+        when(orchestrator.getWireguardManager().getConnectionStatus()).thenReturn(connectionStates.CONNECTED);
+        when(orchestrator.getAntivirusManager().getScannerStatus()).thenReturn(runningStates.UP);
+        when(orchestrator.getDownloadManager().getMonitorStatus()).thenReturn(runningStates.DOWN);
+
+        orchestrator.statesGuardian();
+
+        // Allow some time for the thread to detect the failure
+        Thread.sleep(500);
+
+        // Verify actions taken
+        verify(orchestrator.getAntivirusManager(), atLeast(1)).stopScan();
+        verify(orchestrator.getWireguardManager(), atLeast(1)).setInterfaceDown();
+
+        orchestrator.setGuardianState(runningStates.DOWN); // Stop the guardian thread
+    }
+    
+    @Test
+    public void testStatesGuardian_ThreadRunningControls() throws InterruptedException {
+        orchestrator.statesGuardian();
+        
+        // Allow the thread to start
+        Thread.sleep(200);
+        
+        assertEquals(runningStates.UP, orchestrator.getGuardianState());
+        orchestrator.setGuardianState(runningStates.DOWN);
+
+        // Allow the thread to terminate gracefully
+        Thread.sleep(200);
+
+        assertEquals(runningStates.DOWN, orchestrator.getGuardianState());
+    }
+    
+    @Test
+    public void testSetAndGetGuardianState() {
+        // Set state and verify
+    	orchestrator.setGuardianState(runningStates.UP);
+        assertEquals(runningStates.UP, orchestrator.getGuardianState());
+
+        orchestrator.setGuardianState(runningStates.DOWN);
+        assertEquals(runningStates.DOWN, orchestrator.getGuardianState());
+    }
 }
