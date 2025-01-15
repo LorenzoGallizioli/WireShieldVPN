@@ -437,41 +437,64 @@ Totale = `7` percorsi.
 4. Interpretazione
 
 Valore di `8`: Indica che la funzione è complessa e richiede test case complessi per coprire tutti i percorsi logici.
+
     
 &nbsp;
 ## 10. 🔍 **Software Testing**
+
 ### Metodologia di Testing del Software
 
-Abbiamo implementato una strategia di testing mirata a garantire un’elevata qualità del codice e una copertura dei test il più ampia possibile. Di seguito, vengono descritte le principali attività svolte:
+Abbiamo adottato una strategia strutturata e orientata alla qualità per il testing del software, con l’obiettivo di garantire una copertura ampia e una verifica approfondita del codice. Di seguito, vengono illustrate le principali attività svolte:
 
-#### Sviluppo del Codice di Test
+#### Codice di Test
 
-- Per ciascun metodo implementato nel progetto, è stato creato un corrispondente codice di test, ad eccezione di alcuni metodi contenenti thread. Questi ultimi si sono rivelati difficili da testare singolarmente senza eseguire l’intero codice del programma, rendendo impraticabile una verifica isolata.
+Ogni metodo implementato nel progetto è stato associato a un corrispondente codice di test, con l’eccezione dei metodi che includono thread. La complessità legata al testing isolato di questi ultimi ha richiesto di eseguirli nel contesto dell’intero programma per verificarne il funzionamento.
 
-#### Strumenti Utilizzati
+#### Strumenti
 
-- **JUnit**: È stato utilizzato come framework principale per scrivere e organizzare i test unitari.
-- **EclEmma**: Lo strumento è stato impiegato per misurare la copertura del codice durante l’esecuzione dei test, con l’obiettivo di raggiungere una copertura del 100%.
-- **SonarLint**: Questo strumento è stato utilizzato per identificare i "code smells" all’interno del codice. Le problematiche rilevate sono state analizzate in modo granulare e risolte manualmente.
+- **JUnit**: Framework principale per la scrittura e l’organizzazione dei test unitari.
+- **EclEmma**: Utilizzato per monitorare la copertura del codice durante i test, con l’obiettivo di raggiungere il 100%.
+- **SonarLint**: Strumento per individuare e risolvere i "code smells", analizzando ogni problematica in modo dettagliato e intervenendo manualmente.
 
-#### Descrizione dei Casi di Test
+#### Documentazione dei Test
 
-- Ogni caso di test è stato accompagnato da una breve descrizione per migliorarne la comprensibilità, fornita attraverso commenti Javadoc o direttamente nel nome del metodo di test. Ciò ha facilitato la tracciabilità e la comprensione dei test stessi.
+Ogni caso di test è stato corredato da una breve descrizione per migliorarne la comprensibilità. Tali descrizioni sono state fornite tramite commenti Javadoc o direttamente nel nome del metodo di test, rendendo chiari gli obiettivi e il funzionamento dei test.
 
-#### Test Avanzati con Mockito
+#### Test Avanzati
 
-- Per garantire una verifica più approfondita di alcuni comportamenti, è stato utilizzato **Mockito**, un framework per la simulazione di componenti e dipendenze. Questo ha permesso di isolare i metodi testati e di verificare scenari specifici.
+Abbiamo utilizzato **Mockito** per simulare componenti e dipendenze, consentendo di isolare i metodi testati e verificare scenari specifici. Questa pratica ha migliorato la copertura e l’efficacia del testing.
 
-L’approccio adottato ha permesso di mantenere un elevato livello di affidabilità del software, assicurandosi che il codice fosse robusto, privo di anomalie evidenti e ben documentato.
+#### Standardizzazione per i Contributori Esterni
+
+Per facilitare l’integrazione di nuovi contributori, intendiamo introdurre un file standard che definisca le linee guida per la creazione delle classi. Questo file includerà:
+
+- Struttura base di una classe, comprendente intestazioni, costruttori, metodi e commenti Javadoc.
+- Requisiti minimi per i test unitari associati a ciascun metodo.
+- Convenzioni di denominazione per metodi, variabili e file.
+- Linee guida per la gestione delle eccezioni e la documentazione dei casi d’uso.
+
+Questa iniziativa contribuirà a garantire coerenza nel codice, facilitando la collaborazione e mantenendo elevati standard qualitativi.
+
 
 &nbsp;
-## 11. 🔧 **Software Maintenance**
-### Manutenzione del Progetto
+## Manutenzione del Progetto
 
-Per garantire la longevità, l'efficienza e la qualità del progetto, intendiamo manutenere il codice mantenendo un monitoraggio continuo per l'individuazione di bug. Continueremo ad utilizzare GitHub per  versioning e segnalazioni basate sulla priorità, in modo da risolvere tempestivamente i problemi più critici. L'obiettivo è realizzare aggiornamenti costanti che introducano maggiore stabilità, una grafica migliorata e funzionalità sempre più avanzate.
+Per garantire la longevità, l'efficienza e la qualità del progetto, intendiamo manutenere il codice mantenendo un monitoraggio continuo per l'individuazione di bug. Continueremo ad utilizzare GitHub per versioning e segnalazioni basate sulla priorità, in modo da risolvere tempestivamente i problemi più critici. L'obiettivo è realizzare aggiornamenti costanti che introducano maggiore stabilità, una grafica migliorata e funzionalità sempre più avanzate.
 
-Vogliamo adattare il codice alle continue mutazioni delle esigenze degli utenti, raccogliendo feedback e implementando estensioni mirate, con un'attenzione particolare alla sicurezza informatica. Inoltre, applicheremo una manutenzione preventiva, che consisterà in verifiche complete del codice per assicurarci che, durante le continue trasformazioni, non siano stati introdotti difetti. 
+Vogliamo adattare il codice alle continue mutazioni delle esigenze degli utenti, raccogliendo feedback e implementando estensioni mirate. Per garantire standard di qualita' elevati, inoltre, applicheremo una manutenzione preventiva, che consisterà in verifiche complete del codice per assicurarci che, durante le continue trasformazioni, non siano stati introdotti difetti.
 
 Con questa strategia di manutenzione, intendiamo garantire un software affidabile, aggiornato e capace di rispondere alle sfide future, mantenendo al contempo un alto livello di soddisfazione degli utenti.
+
+### Standardizzazione per i Contributori Esterni
+
+Per facilitare il coinvolgimento di nuovi contributori al progetto, introdurremo un file guida che fornisca istruzioni chiare su come contribuire efficacemente. Questo file includerà:
+
+- Procedure per il fork del repository, la creazione di branch e la gestione delle pull request.
+- Linee guida per la scrittura del codice, incluse convenzioni di denominazione e requisiti per i commenti.
+- Indicazioni su come scrivere test unitari e integrare nuove funzionalità senza introdurre regressioni.
+- Regole per la segnalazione di bug e la proposta di nuove funzionalità.
+
+L’obiettivo è creare un ambiente collaborativo e accessibile, in cui ogni contributo sia valorizzato e risponda agli standard qualitativi del progetto.
+
 &nbsp;
 
