@@ -384,14 +384,60 @@ Il Template Method Pattern definisce la struttura di un algoritmo nella supercla
 
 La superclasse `ScanReport` stabilisce i passi comuni per la creazione di un report, mentre le sottoclassi possono personalizzare aspetti come il formato o il contenuto del documento. Questo pattern promuove il riutilizzo del codice e garantisce coerenza nella struttura degli antivirus.
 
-      
-    DEVE contenere una descrizione del design (mediante i diagrammi UML va bene)
-    POTREBBE contenere un calcolo di complessità (ad esempio con McCabe) di una piccola parte
-    DOVREBBE contenere qualche misurazione del codice, (con qualche metrica che abbiamo visto).
-    Alcuni tools che vedremo a lezione: stanide, jdepend, struture101, sonarlint, PMD ...
-    DEVE applicare un paio di design pattern visti a lezione
+### Analisi e metriche
   
+#### Analisi statica del codice
+Abbiamo utilizzato il tool **Sonarlint** per condurre un analisi statica del codice e sistemare le rilevazioni. 
 
+Questo tipo di analisi permette di identificare:
+   - **Bug**: Problemi che possono causare errori o malfunzionamenti in fase di esecuzione.
+       - _Esempio_: utilizzo di variabili non inizializzate, errori di logica.
+
+   - **Code Smells**: Problemi che non sono errori, ma che indicano cattive pratiche di codifica.
+       - _Esempio_: metodi troppo lunghi, nomi di variabili poco descrittivi.
+
+   - **Vulnerabilità di Sicurezza**: Potenziali falle di sicurezza che possono essere sfruttate da un attaccante.
+       - _Esempio_: input non validati, utilizzo di algoritmi crittografici deprecati.
+
+   - **Debito Tecnico**: Problemi che aumentano la complessità del codice e richiedono interventi per migliorare la manutenzione futura.
+       - _Esempio_: duplicazione del codice, mancanza di commenti significativi.
+
+#### Analisi strutturale del codice
+Utilizzando il tool di analisi strutturale **STAN IDE** durante tutta la fase di sviluppo abbiamo condotto un'analisi per identificare le dipendenze tra package ed scongiurare il rischio di creazione di cicli di dipendenze.
+
+Analisi strutturale di WireShield:
+
+    TODO inserire immagine analisi STAN
+
+#### Complessità ciclomatica di McCabe
+Ragionando in maniera pessimistica abbiamo considerato la funzione che, dopo un attenta analisi, pare come la più complessa del programma, ovvero la funzione _startMonitoring()_ di **DownloadManager**.
+
+1. Analizziamo il codice riga per riga per individuare i costrutti che aggiungono percorsi.
+
+2. Percorsi identificati:
+
+    `if (monitorStatus == runningStates.UP)` → 1
+   
+    `while (monitorStatus == runningStates.UP)` → 1
+   
+    `if (event.kind() == StandardWatchEventKinds.ENTRY_CREATE)` → 1
+   
+    `if (!FileManager.isTemporaryFile(newFile) && FileManager.isFileStable(newFile))` → 2
+   
+    `if (!detectedFiles.contains(fileName))` → 1
+   
+    `if (monitorStatus == runningStates.UP)` (try/catch) → 1
+
+Totale = `7` percorsi.
+
+3. Complessità ciclomatica
+
+`M=7+1=8`
+
+4. Interpretazione
+
+Valore di `8`: Indica che la funzione è complessa e richiede test case complessi per coprire tutti i percorsi logici.
+    
 &nbsp;
 ## 10. 🔍 **Software Testing**
 ### Metodologia di Testing del Software
