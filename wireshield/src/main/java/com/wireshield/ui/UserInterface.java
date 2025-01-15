@@ -33,6 +33,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 
+/**
+ * The UserInterface class controls the UI of the application using JavaFX.
+ */
 public class UserInterface extends Application {
 
     private static final Logger logger = LogManager.getLogger(UserInterface.class);
@@ -86,7 +89,9 @@ public class UserInterface extends Application {
     @FXML
     protected ListView<String> avFilesListView;
     protected ObservableList<String> avFilesList = FXCollections.observableArrayList();
-    protected String selectedPeerFile; // Variabile per memorizzare il file selezionato.
+    protected String selectedPeerFile; // Memorize the selected peer file.
+    private static double xOffset = 0;
+    private static double yOffset = 0;
 
     /**
      * Start the application.
@@ -102,6 +107,15 @@ public class UserInterface extends Application {
             primaryStage.setTitle("Wireshield");
             primaryStage.setScene(scene);
             primaryStage.show();
+            // Aggiungi eventi per trascinare la finestra
+            root.setOnMousePressed(event -> {
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+            });
+            root.setOnMouseDragged(event -> {
+                primaryStage.setX(event.getScreenX() - xOffset);
+                primaryStage.setY(event.getScreenY() - yOffset);
+            });
             logger.info("Main view loaded successfully.");
         } catch (IOException e) {
             e.printStackTrace();
@@ -118,10 +132,10 @@ public class UserInterface extends Application {
         updatePeerList();
         startDynamicConnectionLogsUpdate();
         startDynamicLogUpdate();
-        // Imposta lo stato iniziale della ListView in base allo stato della VPN
+        // Set the disable property of the peerListView based on the connection status.
         peerListView.setDisable(so.getConnectionStatus() == connectionStates.CONNECTED);
 
-        // Disabilita il pulsante solo se il testo è "Start VPN" e non è selezionato alcun file
+        // Set the disable property of the peerListView based on the connection status.
         if (vpnButton.getText().equals("Start VPN")) {
             vpnButton.setDisable(true);
         }
@@ -129,14 +143,14 @@ public class UserInterface extends Application {
         peerListView.setItems(peerList);
         peerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                selectedPeerFile = newValue; // Memorizza il file selezionato
+                selectedPeerFile = newValue;
                 if (vpnButton.getText().equals("Start VPN")) {
-                    vpnButton.setDisable(false); // Abilita il pulsante solo se il testo è "Start VPN"
+                    vpnButton.setDisable(false); // Enable the button when the text is "Start VPN" and a file is selected.
                 }
                 logger.info("File selezionato nella peer list: {}", selectedPeerFile);
             } else {
                 if (vpnButton.getText().equals("Start VPN")) {
-                    vpnButton.setDisable(true); // Disabilita il pulsante solo se non c'è selezione e il testo è "Start VPN"
+                    vpnButton.setDisable(true); // Disable the button when the text is "Start VPN" and no file is selected.
                 }
                 logger.info("Nessun file selezionato.");
             }
@@ -199,7 +213,7 @@ public class UserInterface extends Application {
             so.manageAV(runningStates.DOWN);
             so.manageVPN(vpnOperations.STOP, null);
             vpnButton.setText("Start VPN");
-            peerListView.setDisable(false); // Rendi i peer selezionabili.
+            peerListView.setDisable(false); // Enable the selection of peers.
             if(selectedPeerFile == null) {
                 vpnButton.setDisable(true);
             }
@@ -213,7 +227,7 @@ public class UserInterface extends Application {
             so.statesGuardian();
             
             vpnButton.setText("Stop VPN");
-            peerListView.setDisable(true); // Disabilita la selezione dei peer.
+            peerListView.setDisable(true); // Disable the selection of peers.
             logger.info("All services started successfully.");
         }
     }
@@ -300,10 +314,10 @@ public class UserInterface extends Application {
         if (directory.exists() && directory.isDirectory()) {
             File[] files = directory.listFiles();
             if (files != null) {
-                peerList.clear(); // Svuota la lista attuale
+                peerList.clear(); // Empty the peer list.
                 for (File file : files) {
                     if (file.isFile() && file.length() > 0) {
-                        peerList.add(file.getName()); // Aggiungi il nome del file alla lista
+                        peerList.add(file.getName()); // Add the file name to the peer list.
                         logger.debug("File added to peer list: {}", file.getName());
                         logger.info("Peer list updated.");
                     }
@@ -340,7 +354,6 @@ public class UserInterface extends Application {
         };
 
         Thread Thread = new Thread(task);
-        //logUpdateThread.setDaemon(true); // Assicura che il thread si fermi con l'applicazione
         Thread.start();
     }
 
@@ -351,14 +364,14 @@ public class UserInterface extends Application {
         Runnable task = () -> {
             while (true) {
                 try {
-                    // Recupera i log aggiornati
+                    // Retrieve updated logs.
                     String logs = wg.getConnectionLogs();
-                    // Aggiorna logsArea sul thread JavaFX
+                    // Update logsArea on JavaFX thread.
                     Platform.runLater(() -> {
                         connLabel.setText("");;
                         connLabel.setText(logs);
                     });
-                    Thread.sleep(1000); // Attendi un secondo prima di aggiornare di nuovo
+                    Thread.sleep(1000); // Wait for 1 second before the next update.
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     logger.error("Dynamic connection logs update thread interrupted.");
