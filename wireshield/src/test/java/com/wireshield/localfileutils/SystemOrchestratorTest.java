@@ -25,8 +25,15 @@ import java.util.Map;
 
 
 
+/**
+ * This class contains unit tests for the functionalities of the
+ * {@code SystemOrchestrator} class. It tests various operations such as
+ * managing VPN, download, and antivirus, as well as retrieving statuses and
+ * reports.
+ */
 public class SystemOrchestratorTest {
 
+	// Test string used for parsing peer configurations
 	String testString = """
 		[Interface]
 		PrivateKey = cIm09yQB5PUxKIhUwyK8TwL6ulaemcllbuzSCaOG0UM=
@@ -41,8 +48,10 @@ public class SystemOrchestratorTest {
 		Endpoint = 140.238.212.179:51820
 		""";
 
+	// Map of parsed peer data
 	Map<String, Map<String, String>> extDatas = PeerManager.parsePeerConfig(testString);
 
+	// Peer ID and PeerManager instance for testing
 	String peerId;
 	PeerManager pm;
 	Logger logger = LogManager.getLogger(SystemOrchestratorTest.class);
@@ -59,8 +68,8 @@ public class SystemOrchestratorTest {
     private AntivirusManager antivirusManager;
 
     /*
-     * Sets up the test environment.
-     * This method is executed before each test and initializes the SystemOrchestrator instance.
+     * Sets up the test environment before each test. 
+     * This method is executed before each test and initializes the SystemOrchestrator and PeerManager instance.
      */
     @Before
     public void setUp() {
@@ -73,10 +82,14 @@ public class SystemOrchestratorTest {
         orchestrator.setObjects(wireguardManager, antivirusManager, downloadManager);
     }
 
-	// Test per il metodo manageVPN con operazione START
+	/**
+	 * Test the {@code manageVPN} method with the START operation. This test checks
+	 * if the VPN connection status is set to {@code CONNECTED} after starting the
+	 * VPN.
+	 */
 	@Test
 	public void testManageVPNStart() {
-		// Eseguiamo il metodo con l'operazione START
+		// Execute the method with the START operation
 		orchestrator.manageVPN(vpnOperations.START, "testPeer.conf");
 
         // Test managing download monitoring when it is UP
@@ -90,148 +103,193 @@ public class SystemOrchestratorTest {
         logger.info("Download monitoring status set to DOWN");
     }
 
-	// Test per il metodo manageVPN con operazione STOP
+	/**
+	 * Test the {@code manageVPN} method with the STOP operation. This test checks
+	 * if the VPN connection status is set to {@code DISCONNECTED} after stopping
+	 * the VPN.
+	 */
 	@Test
 	public void testManageVPNStop() {
-		// Eseguiamo il metodo con l'operazione STOP
+		// Execute the method with the STOP operation
 		orchestrator.manageVPN(vpnOperations.STOP, null);
 
-		// Verifica se il metodo setInterfaceDown è stato chiamato
+		// Verify that the connection status is DISCONNECTED
 		assertTrue("The VPN interface should be down",
 				wireguardManager.getConnectionStatus() == connectionStates.DISCONNECTED);
 	}
 
-	// Test per il metodo manageDownload con stato UP
+	/**
+	 * Test the {@code manageDownload} method with the UP state. This test verifies
+	 * that the download monitoring service is started successfully.
+	 */
 	@Test
 	public void testManageDownloadUp() {
-		// Eseguiamo il metodo per avviare il monitoraggio
+		// Execute the method to start the download monitoring
 		orchestrator.manageDownload(runningStates.UP);
 
-		// Verifica che il metodo startMonitoring sia stato chiamato correttamente
+		// Verify that the monitoring status is UP
 		assertTrue("The download monitoring service should be running",
 				downloadManager.getMonitorStatus() == runningStates.UP);
 	}
 
-	// Test per il metodo manageDownload con stato DOWN
+	/**
+	 * Test the {@code manageDownload} method with the DOWN state. This test
+	 * verifies that the download monitoring service is stopped successfully.
+	 */
 	@Test
 	public void testManageDownloadDown() {
-		// Eseguiamo il metodo per fermare il monitoraggio
+		// Execute the method to stop the download monitoring
 		orchestrator.manageDownload(runningStates.DOWN);
 
-		// Verifica che il metodo stopMonitoring sia stato chiamato correttamente
+		// Verify that the monitoring status is DOWN
 		assertTrue("The download monitoring service should be stopped",
 				downloadManager.getMonitorStatus() == runningStates.DOWN);
 	}
 
-	// Test per il metodo manageAV con stato UP
+	/**
+	 * Test the {@code manageAV} method with the UP state. This test verifies that
+	 * the antivirus scan is started successfully.
+	 */
 	@Test
 	public void testManageAVUp() {
-		// Eseguiamo il metodo per avviare l'antivirus
+		// Execute the method to start the antivirus scan
 		orchestrator.manageAV(runningStates.UP);
 
-		// Verifica che il metodo startScan sia stato chiamato correttamente
+		// Verify that the antivirus scan status is UP
 		assertTrue("The antivirus scan should be running", antivirusManager.getScannerStatus() == runningStates.UP);
 	}
 
-	// Test per il metodo manageAV con stato DOWN
+	/**
+	 * Test the {@code manageAV} method with the DOWN state. This test verifies that
+	 * the antivirus scan is stopped successfully.
+	 */
 	@Test
 	public void testManageAVDown() {
-		// Eseguiamo il metodo per fermare l'antivirus
+		// Execute the method to stop the antivirus scan
 		orchestrator.manageAV(runningStates.DOWN);
 
-		// Verifica che il metodo stopScan sia stato chiamato correttamente
+		// Verify that the antivirus scan status is DOWN
 		assertTrue("The antivirus scan should be stopped", antivirusManager.getScannerStatus() == runningStates.DOWN);
 	}
 
-	// Test per il metodo getConnectionStatus
+	/**
+	 * Test the {@code getConnectionStatus} method. This test verifies that the
+	 * correct connection status is returned.
+	 */
 	@Test
 	public void testGetConnectionStatus() {
 
 		orchestrator.manageVPN(vpnOperations.START, "testPeer.conf");
 
-		// Chiamata al metodo
+		// Call the method to get the connection status
 		connectionStates status = orchestrator.getConnectionStatus();
 
-		// Verifica che lo stato di connessione sia quello previsto
+		// Verify that the connection status is CONNECTED
 		assertEquals("The connection status should be CONNECTED", connectionStates.CONNECTED, status);
 	}
 
-	// Test per il metodo getMonitorStatus
+	/**
+	 * Test the {@code getMonitorStatus} method. This test verifies that the correct
+	 * monitoring status is returned.
+	 */
 	@Test
 	public void testGetMonitorStatus() {
 
 		orchestrator.manageDownload(runningStates.UP);
 
-		// Chiamata al metodo
+		// Call the method to get the monitoring status
 		runningStates status = orchestrator.getMonitorStatus();
 
-		// Verifica che lo stato di monitoraggio sia quello previsto
+		// Verify that the monitoring status is UP
 		assertEquals("The monitor status should be UP", runningStates.UP, status);
 	}
 
-	// Test per il metodo getAVStatus
+	/**
+	 * Test the {@code getAVStatus} method. This test verifies that the correct
+	 * antivirus status is returned.
+	 */
 	@Test
 	public void testGetAVStatus() {
 
 		orchestrator.manageAV(runningStates.UP);
 
-		// Chiamata al metodo
+		// Call the method to get the antivirus status
 		runningStates status = orchestrator.getAVStatus();
 
-		// Verifica che lo stato dell'antivirus sia quello previsto
+		// Verify that the antivirus status is UP
 		assertEquals("The antivirus status should be UP", runningStates.UP, status);
 	}
 
-	// Test per il metodo addPeer
+	/**
+	 * Test the {@code addPeer} method. This test verifies that a peer is
+	 * successfully added to the system.
+	 */
 	@Test
 	public void testAddPeer() {
+
+		// Add a peer and get the peer list
 		peerId = pm.createPeer(extDatas, "B");
 
 		Peer[] p = pm.getPeers();
 
+		// Verify that the peer list is not empty and the peer has been added
 		assertTrue("Peers list is empty", p.length > 0);
 		assertEquals(p[p.length - 1], pm.getPeerById(peerId));
-	} 
+	}
 
-	// Test per il metodo getReportInfo
+	/**
+	 * Test the {@code getReportInfo} method. This test verifies that the report
+	 * information is retrieved correctly.
+	 */
 	@Test
 	public void testGetReportInfo() {
 		String report = "SampleReport";
 
-		// Chiamata al metodo
+		// Call the method to get the report info
 		String result = orchestrator.getReportInfo(report);
 
-		// Verifica che la risposta non sia nulla
+		// Verify that the result is not null
 		assertNotNull("Report info should not be null", result);
 	}
 
-	// Test per il metodo getWireguardManager
+	/**
+	 * Test the {@code getWireguardManager} method. This test verifies that the
+	 * WireguardManager instance is returned.
+	 */
 	@Test
 	public void testGetWireguardManager() {
-		// Chiamata al metodo
+
+		// Call the method to get the WireguardManager instance
 		WireguardManager manager = orchestrator.getWireguardManager();
 
-		// Verifica che venga restituito il WireguardManager
+		// Verify that the WireguardManager instance is not null
 		assertNotNull("WireguardManager should not be null", manager);
 	}
 
-	// Test per il metodo getDownloadManager
+	/**
+	 * Test the {@code getDownloadManager} method. This test verifies that the
+	 * DownloadManager instance is returned.
+	 */
 	@Test
 	public void testGetDownloadManager() {
-		// Chiamata al metodo
+
+		// Call the method to get the DownloadManager instance
 		DownloadManager manager = orchestrator.getDownloadManager();
 
-		// Verifica che venga restituito il DownloadManager
+		// Verify that the DownloadManager instance is not null
 		assertNotNull("DownloadManager should not be null", manager);
 	}
 
-	// Test per il metodo getAntivirusManager
+	/**
+	 * Test the {@code getAntivirusManager} method. This test verifies that the
+	 * AntivirusManager instance is returned.
+	 */
 	@Test
 	public void testGetAntivirusManager() {
-		// Chiamata al metodo
+		// Call the method to get the AntivirusManager instance
 		AntivirusManager manager = orchestrator.getAntivirusManager();
 
-		// Verifica che venga restituito l'AntivirusManager
+		// Verify that the AntivirusManager instance is not null
 		assertNotNull("AntivirusManager should not be null", manager);
 	}
 
