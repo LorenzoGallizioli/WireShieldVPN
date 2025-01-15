@@ -46,7 +46,7 @@ public class ScanReportTest {
         assertEquals(0, scanReport.getUndetectedCount());  // Default undetected count should be 0
     }
 
-    /*
+    /**
      * Tests the setFile and getFile methods.
      * Verifies that the file can be correctly set and retrieved.
      */
@@ -57,7 +57,7 @@ public class ScanReportTest {
         assertEquals(file, scanReport.getFile());  // Verifies that the set file matches the get file
     }
 
-    /*
+    /**
      * Tests the setSha256 and getSha256 methods.
      * Verifies that the SHA-256 hash is correctly set and retrieved.
      */
@@ -68,7 +68,7 @@ public class ScanReportTest {
         assertEquals(sha256, scanReport.getSha256());  // Verifies that the SHA-256 value is updated correctly
     }
 
-    /*
+    /**
      * Tests the setThreatDetected and getThreatDetected methods.
      * Verifies that the threat detection status changes based on the warning class.
      */
@@ -87,7 +87,7 @@ public class ScanReportTest {
         assertTrue(scanReport.isThreatDetected());  // Threat should be detected with SUSPICIOUS
     }
 
-    /*
+    /**
      * Tests the setThreatDetails and getThreatDetails methods.
      * Verifies that threat details are correctly set and retrieved.
      */
@@ -97,7 +97,7 @@ public class ScanReportTest {
         assertEquals("Malware detected", scanReport.getThreatDetails());  // Verifies that threat details are updated correctly
     }
 
-    /*
+    /**
      * Tests the setWarningClass and getWarningClass methods.
      * Verifies that the warning class is correctly set and retrieved.
      */
@@ -110,7 +110,7 @@ public class ScanReportTest {
         assertEquals(warningClass.CLEAR, scanReport.getWarningClass());  // Verifies that the warning class is updated correctly
     }
 
-    /*
+    /**
      * Tests the setValid and isValidReport methods.
      * Verifies that the report's validity status is correctly set and retrieved.
      */
@@ -123,7 +123,7 @@ public class ScanReportTest {
         assertTrue(scanReport.isValidReport());  // Verifies that the report is marked as valid
     }
 
-    /*
+    /**
      * Tests the malicious, harmless, suspicious, and undetected counts.
      * Verifies that the respective counts are correctly updated and retrieved.
      */
@@ -140,7 +140,7 @@ public class ScanReportTest {
         assertEquals(4, scanReport.getUndetectedCount());  // Verifies the undetected count
     }
 
-    /*
+    /**
      * Tests the toString method of the ScanReport class.
      * Verifies that the toString method returns the correct string representation of the ScanReport object.
      */
@@ -160,10 +160,14 @@ public class ScanReportTest {
         assertEquals(expectedString, scanReport.toString());  // Verifies that toString() returns the correct string representation
     }
     
+    /**
+     * Tests the printReport method of the ScanReport class.
+     * Verifies that the print output contains the expected values.
+     */
     @Test
     public void testPrintReport() {
-        // Impostazione dei valori per il test
-        File file = new File("testfile.txt");
+        // Set values for the test
+    	File file = new File("testfile.txt");
         scanReport.setFile(file);
         scanReport.setSha256("1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef");
         scanReport.setThreatDetected(true);
@@ -175,21 +179,21 @@ public class ScanReportTest {
         scanReport.setSuspiciousCount(2);
         scanReport.setUndetectedCount(3);
 
-        // Crea un ByteArrayOutputStream per catturare l'output stampato
+        // Create a ByteArrayOutputStream to capture the printed output
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalSystemOut = System.out;
         System.setOut(new PrintStream(outputStream));
 
-        // Chiamata al metodo printReport
+        // Call the printReport method
         scanReport.printReport();
 
-        // Reset di System.out
+        // Reset System.out
         System.setOut(originalSystemOut);
 
-        // Verifica l'output stampato
+        // Verify the printed output
         String printedReport = outputStream.toString();
 
-        // Controlla che l'output contenga le informazioni previste
+        // Check that the output contains the expected information
         assertTrue(printedReport.contains("File                : testfile.txt"));
         assertTrue(printedReport.contains("SHA256 Hash         : 1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"));
         assertTrue(printedReport.contains("Threat Detected     : Yes"));
@@ -202,9 +206,12 @@ public class ScanReportTest {
         assertTrue(printedReport.contains("Undetected Count    : 3"));
     }
 
-    // Test for getScanId()
+    /**
+     * Tests the getScanId method of the ScanReport class.
+     * Verifies that the scanId is correctly retrieved.
+     */
     @Test
     public void testGetScanId() {
-        assertEquals("scan123", scanReport.getScanId());  // Verifica che scanId sia correttamente impostato
+        assertEquals("scan123", scanReport.getScanId());  // Verifies that scanId is correctly set
     }
 }

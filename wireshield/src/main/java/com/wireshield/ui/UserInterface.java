@@ -55,8 +55,10 @@ public class UserInterface extends Application {
 
 	// JavaFX Labels.
 	@FXML
-	protected Label avStatusLabel, connLabel;
-
+	protected Label avStatusLabel;
+	@FXML
+	protected Label connLabel;
+	
 	// JavaFX AnchorPanes.
 	@FXML
 	protected AnchorPane homePane;
@@ -305,10 +307,10 @@ public class UserInterface extends Application {
 		if (directory.exists() && directory.isDirectory()) {
 			File[] files = directory.listFiles();
 			if (files != null) {
-				peerList.clear(); // Svuota la lista attuale
+				peerList.clear(); // Clear the current list
 				for (File file : files) {
 					if (file.isFile() && file.length() > 0) {
-						peerList.add(file.getName()); // Aggiungi il nome del file alla lista
+						peerList.add(file.getName()); // Add the file name to the list
 						logger.debug("File added to peer list: {}", file.getName());
 						logger.info("Peer list updated.");
 					}
@@ -359,7 +361,6 @@ public class UserInterface extends Application {
 					// Update logsArea on the JavaFX thread
 					Platform.runLater(() -> {
 						connLabel.setText("");
-						;
 						connLabel.setText(logs);
 					});
 					Thread.sleep(1000); // Wait one second before updating again
