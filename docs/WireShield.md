@@ -407,7 +407,7 @@ Utilizzando il tool di analisi strutturale **STAN IDE** durante tutta la fase di
 
 Analisi strutturale di WireShield:
 
-![Analisi strutturale di WireShield](https://github.com/user-attachments/assets/bd2fd5f9-c0ee-40e5-9569-f36be6ededbb)
+![STAN_Analyze](https://github.com/user-attachments/assets/bd2fd5f9-c0ee-40e5-9569-f36be6ededbb)
 
 #### Complessità ciclomatica di McCabe
 Ragionando in maniera pessimistica abbiamo considerato la funzione che, dopo un attenta analisi, pare come la più complessa del programma, ovvero la funzione _startMonitoring()_ di **DownloadManager**.
