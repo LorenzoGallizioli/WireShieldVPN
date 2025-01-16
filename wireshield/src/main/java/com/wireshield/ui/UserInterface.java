@@ -1,5 +1,4 @@
 package com.wireshield.ui;
-
 import com.wireshield.av.FileManager;
 import com.wireshield.av.ScanReport;
 import com.wireshield.enums.connectionStates;
@@ -80,17 +79,18 @@ public class UserInterface extends Application {
 	@FXML
 	protected Button closeButton;
 
-	// Observable lists for UI updates
-	@FXML
-	protected ListView<String> peerListView;
-	protected ObservableList<String> peerList = FXCollections.observableArrayList();
-
-	@FXML
-	protected ListView<String> avFilesListView;
-	protected ObservableList<String> avFilesList = FXCollections.observableArrayList();
-
-	// Stores the file selected from the peer list
-	protected String selectedPeerFile;
+    /**
+     * JavaFX ListViews.
+     */
+    @FXML
+    protected ListView<String> peerListView;
+    protected ObservableList<String> peerList = FXCollections.observableArrayList();
+    @FXML
+    protected ListView<String> avFilesListView;
+    protected ObservableList<String> avFilesList = FXCollections.observableArrayList();
+    protected String selectedPeerFile; // Memorize the selected peer file.
+    private static double xOffset = 0;
+    private static double yOffset = 0;
 
 	/**
 	 * Entry point for launching the JavaFX application. This method loads the main
@@ -112,6 +112,15 @@ public class UserInterface extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.show();
 
+            // Aggiungi eventi per trascinare la finestra
+            root.setOnMousePressed(event -> {
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+            });
+            root.setOnMouseDragged(event -> {
+                primaryStage.setX(event.getScreenX() - xOffset);
+                primaryStage.setY(event.getScreenY() - yOffset);
+            });
 			logger.info("Main view loaded successfully.");
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -134,37 +143,33 @@ public class UserInterface extends Application {
 		// Disable the peer list if the VPN is currently connected
 		peerListView.setDisable(so.getConnectionStatus() == connectionStates.CONNECTED);
 
-		if (vpnButton.getText().equals("Start VPN")) {
-			vpnButton.setDisable(true);
-		}
+        // Disabilita il pulsante solo se il testo è "Start VPN" e non è selezionato alcun file
+        if (vpnButton.getText().equals("Start VPN")) {
+            vpnButton.setDisable(true);
+        }
 
-		// Monitor selection changes in the peer list
-		peerListView.setItems(peerList);
-		peerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> { // Store
-																													// the
-																													// selected
-																													// file
-			if (newValue != null) {
-				selectedPeerFile = newValue; // Store the selected file
-				if (vpnButton.getText().equals("Start VPN")) {
-					// Disable VPN button if no file is selected
-					vpnButton.setDisable(false);
-				}
-				logger.info("File selezionato nella peer list: {}", selectedPeerFile);
-			} else {
-				if (vpnButton.getText().equals("Start VPN")) {
-					vpnButton.setDisable(true); // Disable the button only if there is no selection and the text is
-												// "Start VPN"
-				}
-				logger.info("Nessun file selezionato.");
-			}
-		});
-
-		// Populate antivirus file list if the list view exists
-		if (avFilesListView != null) {
-			avFilesListView.setItems(avFilesList);
-		}
-	}
+        peerListView.setItems(peerList);
+        peerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                selectedPeerFile = newValue; // Memorizza il file selezionato
+                if (vpnButton.getText().equals("Start VPN")) {
+                    vpnButton.setDisable(false); // Abilita il pulsante solo se il testo è "Start VPN"
+                }
+                logger.info("File selezionato nella peer list: {}", selectedPeerFile);
+            } else {
+                if (vpnButton.getText().equals("Start VPN")) {
+                    vpnButton.setDisable(true); // Disabilita il pulsante solo se non c'è selezione e il testo è "Start VPN"
+                }
+                logger.info("Nessun file selezionato.");
+            }
+        });
+    
+    
+        if (avFilesListView != null) {
+            avFilesListView.setItems(avFilesList);
+        }
+    }
+    
 
 	/**
 	 * Launches the Wireshield application.
@@ -272,18 +277,20 @@ public class UserInterface extends Application {
 		avPane.toFront();
 	}
 
-	/**
-	 * Opens a file chooser to select a peer configuration file and copies it to the
-	 * peer directory.
-	 *
-	 * @param event the action event triggered by the file selection button.
-	 */
-	@FXML
-	public void handleFileSelection(ActionEvent event) {
-		String defaultPeerPath = FileManager.getProjectFolder() + FileManager.getConfigValue("PEER_STD_PATH");
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Select a File");
-		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("WireGuard Config Files (*.conf)", "*.conf"));
+    /**
+     * Handles the file selection event and copies the selected file to the peer directory.
+     * 
+     * @param event 
+     *   The action event triggered when a file is selected.
+     */
+    @FXML
+    public void handleFileSelection(ActionEvent event) {
+        String defaultPeerPath = FileManager.getProjectFolder() + FileManager.getConfigValue("PEER_STD_PATH");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select a File");
+        fileChooser.getExtensionFilters().add(
+            new FileChooser.ExtensionFilter("WireGuard Config Files (*.conf)", "*.conf")
+        );
 
 		Stage stage = new Stage();
 		File selectedFile = fileChooser.showOpenDialog(stage);
@@ -357,10 +364,9 @@ public class UserInterface extends Application {
 			}
 		};
 
-		Thread Thread = new Thread(task);
-		//logUpdateThread.setDaemon(true); // Ensure the thread stops with the application
-		Thread.start();
-	}
+        Thread Thread = new Thread(task);
+        Thread.start();
+    }
 
 	/**
 	 * Starts a background thread to dynamically update the logs area.
