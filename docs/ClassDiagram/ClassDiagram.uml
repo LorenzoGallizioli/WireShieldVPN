@@ -246,7 +246,7 @@
       </ownedOperation>
     </packagedElement>
   </packagedElement>
-  <packagedElement xmi:type="uml:Package" xmi:id="_DGTb4KwSEe-xgaz8Fc6Tmg" name="av">
+  <packagedElement xmi:type="uml:Package" xmi:id="_DGTb4KwSEe-xgaz8Fc6Tmg" name="av" visibility="public">
     <packagedElement xmi:type="uml:Class" xmi:id="_hiNPkKwQEe-xgaz8Fc6Tmg" name="AntivirusManager">
       <ownedAttribute xmi:type="uml:Property" xmi:id="_BnPmAKyYEe-sEdR3uXJgNg" name="clamAV" visibility="private" type="_wzVQQKwQEe-xgaz8Fc6Tmg"/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_B__dMKyYEe-sEdR3uXJgNg" name="virusTotal" visibility="private" type="_2Rp6IKwQEe-xgaz8Fc6Tmg"/>
@@ -258,20 +258,24 @@
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_knvCwKzkEe-DLrB2YWdSlA"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_koKgkKzkEe-DLrB2YWdSlA" value="*"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_4HeHwK16Ee-r0tXGBdOuIw" name="scanBuffer" visibility="private" type="_qzL00KyWEe-sEdR3uXJgNg">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_4HeHwK16Ee-r0tXGBdOuIw" name="scanBuffer" visibility="private">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_8LuAUK16Ee-r0tXGBdOuIw"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_8MMhcK16Ee-r0tXGBdOuIw" value="*"/>
       </ownedAttribute>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_sS3PcK21Ee-r0tXGBdOuIw" name="scannerStatus" visibility="private" type="_vqZL8K21Ee-r0tXGBdOuIw"/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_iMv1YMT-Ee-Gd_JuCkNrIw" name="instance" visibility="private" isStatic="true" type="_hiNPkKwQEe-xgaz8Fc6Tmg"/>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_ou0l0MT_Ee-Gd_JuCkNrIw" name="filesToRemove" visibility="private" type="_qzL00KyWEe-sEdR3uXJgNg">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_ou0l0MT_Ee-Gd_JuCkNrIw" name="filesToRemove" visibility="private">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="__WHGUMUAEe-Gd_JuCkNrIw"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="__Wh9EMUAEe-Gd_JuCkNrIw" value="*"/>
       </ownedAttribute>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_MyQ1gMUZEe-Vsbu9EtnGjQ" name="ScanReport" type="_NqeuYKyYEe-sEdR3uXJgNg" association="_MyKH0MUZEe-Vsbu9EtnGjQ"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_HT_hotHgEe-CkfWN-R_sOg" name="virustotal" type="_2Rp6IKwQEe-xgaz8Fc6Tmg" association="_HT-TgNHgEe-CkfWN-R_sOg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_HUAIsNHgEe-CkfWN-R_sOg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_HUAIsdHgEe-CkfWN-R_sOg" value="1"/>
+      </ownedAttribute>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_KcZo0KyYEe-sEdR3uXJgNg" name="startPerformScan" visibility="public"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_kDoskK2nEe-r0tXGBdOuIw" name="addFileToScanBuffer">
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="_rXk0QK2nEe-r0tXGBdOuIw" type="_qzL00KyWEe-sEdR3uXJgNg"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_rXk0QK2nEe-r0tXGBdOuIw"/>
       </ownedOperation>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_9nYJEMT_Ee-Gd_JuCkNrIw" name="getInstance" isStatic="true">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_9nYJEcT_Ee-Gd_JuCkNrIw" type="_hiNPkKwQEe-xgaz8Fc6Tmg" direction="return"/>
@@ -290,7 +294,7 @@
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_I8wQccUBEe-Gd_JuCkNrIw" type="_NqeuYKyYEe-sEdR3uXJgNg" direction="return"/>
       </ownedOperation>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_VUd0AMUBEe-Gd_JuCkNrIw" name="getScanBuffer">
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="_VUd0AcUBEe-Gd_JuCkNrIw" type="_qzL00KyWEe-sEdR3uXJgNg" direction="return"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_VUd0AcUBEe-Gd_JuCkNrIw" direction="return"/>
       </ownedOperation>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_ji5BkMUBEe-Gd_JuCkNrIw" name="mergeReports" visibility="package">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_ji5BkcUBEe-Gd_JuCkNrIw" name="target" type="_NqeuYKyYEe-sEdR3uXJgNg"/>
@@ -353,7 +357,7 @@
       <ownedAttribute xmi:type="uml:Property" xmi:id="_2HQpwKyZEe-sEdR3uXJgNg" name="threatDetails" visibility="private">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_W2qqIKzlEe-DLrB2YWdSlA" name="file" visibility="private" type="_qzL00KyWEe-sEdR3uXJgNg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_W2qqIKzlEe-DLrB2YWdSlA" name="file" visibility="private"/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_kI5VMKzlEe-DLrB2YWdSlA" name="warningState" visibility="private" type="_zVvkwKzjEe-DLrB2YWdSlA"/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_h-Hj0K2iEe-r0tXGBdOuIw" name="isValid" visibility="private">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
@@ -395,7 +399,7 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_9-in4K8yEe-WFOzjazvNcA" name="getFile">
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="_QqXN0K8zEe-WFOzjazvNcA" type="_qzL00KyWEe-sEdR3uXJgNg" direction="return"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_QqXN0K8zEe-WFOzjazvNcA" direction="return"/>
       </ownedOperation>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_-SO_8K8yEe-WFOzjazvNcA" name="getWarningClass">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_UI2t8K8zEe-WFOzjazvNcA" type="_zVvkwKzjEe-DLrB2YWdSlA" direction="return"/>
@@ -436,7 +440,7 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_0mKPIMUeEe-bNoUAJwWYIg" name="setFile">
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="_0mKPIcUeEe-bNoUAJwWYIg" type="_qzL00KyWEe-sEdR3uXJgNg"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_0mKPIcUeEe-bNoUAJwWYIg"/>
       </ownedOperation>
       <ownedOperation xmi:type="uml:Operation" xmi:id="__YhlgMUeEe-bNoUAJwWYIg" name="setWarningClass">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="__YhlgcUeEe-bNoUAJwWYIg" type="_zVvkwKzjEe-DLrB2YWdSlA"/>
@@ -490,18 +494,14 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Interface" xmi:id="_ZjZ5oK8IEe-WFOzjazvNcA" name="AVInterface">
       <ownedOperation xmi:type="uml:Operation" xmi:id="_DqLHEK8JEe-WFOzjazvNcA" name="analyze" visibility="public">
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="_jNHJYK8JEe-WFOzjazvNcA" type="_qzL00KyWEe-sEdR3uXJgNg"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_jNHJYK8JEe-WFOzjazvNcA"/>
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Dependency" xmi:id="_SfPd4K8JEe-WFOzjazvNcA" client="_wzVQQKwQEe-xgaz8Fc6Tmg" supplier="_ZjZ5oK8IEe-WFOzjazvNcA"/>
     <packagedElement xmi:type="uml:Dependency" xmi:id="_S9NMQK8JEe-WFOzjazvNcA" client="_2Rp6IKwQEe-xgaz8Fc6Tmg" supplier="_ZjZ5oK8IEe-WFOzjazvNcA"/>
-    <packagedElement xmi:type="uml:Class" xmi:id="_PBB3wLhjEe-TKtIZasLrnQ" name="FileManager">
+    <packagedElement xmi:type="uml:Class" xmi:id="_PBB3wLhjEe-TKtIZasLrnQ" name="FileManager &lt;&lt;Utility>>">
       <ownedAttribute xmi:type="uml:Property" xmi:id="_lELSUMT6Ee-Gd_JuCkNrIw" name="configPath" visibility="private" isStatic="true">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_bw4PQMUsEe-VL4h3Q-mAHQ" name="file" type="_qzL00KyWEe-sEdR3uXJgNg" association="_bw2aEMUsEe-VL4h3Q-mAHQ">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_bw4PQcUsEe-VL4h3Q-mAHQ"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_bw4PQsUsEe-VL4h3Q-mAHQ" value="*"/>
       </ownedAttribute>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_fuU7gLhjEe-TKtIZasLrnQ" name="writeFile" isStatic="true">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_BG4UQLhnEe-TKtIZasLrnQ">
@@ -544,19 +544,19 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_QApqoMT5Ee-Gd_JuCkNrIw" name="isTemporaryFile" isStatic="true">
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="_QApqocT5Ee-Gd_JuCkNrIw" type="_qzL00KyWEe-sEdR3uXJgNg"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_QApqocT5Ee-Gd_JuCkNrIw"/>
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_PNBG4MT8Ee-Gd_JuCkNrIw" direction="return">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:type="uml:Operation" xmi:id="__uNsAMT6Ee-Gd_JuCkNrIw" name="isFileStable" isStatic="true">
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="__uNsAcT6Ee-Gd_JuCkNrIw" type="_qzL00KyWEe-sEdR3uXJgNg"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="__uNsAcT6Ee-Gd_JuCkNrIw"/>
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_RqFmQMT8Ee-Gd_JuCkNrIw" direction="return">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_J53AoMT7Ee-Gd_JuCkNrIw" name="calculateSHA256" isStatic="true">
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="_J53AocT7Ee-Gd_JuCkNrIw" type="_qzL00KyWEe-sEdR3uXJgNg"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_J53AocT7Ee-Gd_JuCkNrIw"/>
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_WMCugMT8Ee-Gd_JuCkNrIw" direction="return">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </ownedParameter>
@@ -615,29 +615,6 @@
         </ownedParameter>
       </ownedOperation>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_qzL00KyWEe-sEdR3uXJgNg" name="File" visibility="package">
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_ToQJ0KyXEe-sEdR3uXJgNg" name="name" visibility="private">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_a7UHwKyXEe-sEdR3uXJgNg" name="size" visibility="private">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELong"/>
-      </ownedAttribute>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_fW8lkKyXEe-sEdR3uXJgNg" name="isValid" visibility="package">
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="_k0ZswKyXEe-sEdR3uXJgNg" direction="return">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_CczgwK8kEe-WFOzjazvNcA" name="getName" visibility="package">
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="_FD8iIK8kEe-WFOzjazvNcA" direction="return">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:type="uml:Operation" xmi:id="_GFHEMK8kEe-WFOzjazvNcA" name="getSize" visibility="package">
-        <ownedParameter xmi:type="uml:Parameter" xmi:id="_N5JBMK8kEe-WFOzjazvNcA" direction="return">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELong"/>
-        </ownedParameter>
-      </ownedOperation>
-    </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_15Yg4KwMEe-xgaz8Fc6Tmg" name="SystemOrchestrator">
       <ownedAttribute xmi:type="uml:Property" xmi:id="_rxLdoKwTEe-xgaz8Fc6Tmg" name="wireguardManager" visibility="private" type="_eLSXEKwQEe-xgaz8Fc6Tmg"/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_8LpE8KwTEe-xgaz8Fc6Tmg" name="downloadMonitor" visibility="private" type="_YqMPIKyWEe-sEdR3uXJgNg"/>
@@ -648,6 +625,12 @@
       <ownedAttribute xmi:type="uml:Property" xmi:id="_loXcUMUtEe-VL4h3Q-mAHQ" name="instance" visibility="private" isStatic="true" type="_15Yg4KwMEe-xgaz8Fc6Tmg"/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_rGfR4MUtEe-VL4h3Q-mAHQ" name="clamAV" visibility="private" type="_wzVQQKwQEe-xgaz8Fc6Tmg"/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_xwg54MUtEe-VL4h3Q-mAHQ" name="virusTotal" visibility="private" type="_2Rp6IKwQEe-xgaz8Fc6Tmg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_8mhHwNHeEe-CkfWN-R_sOg" name="downloadmanager" type="_YqMPIKyWEe-sEdR3uXJgNg" association="_8mYk4NHeEe-CkfWN-R_sOg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_8mhu0NHeEe-CkfWN-R_sOg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_8miV4NHeEe-CkfWN-R_sOg" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_KUJ8ctHfEe-CkfWN-R_sOg" name="antivirusmanager" type="_hiNPkKwQEe-xgaz8Fc6Tmg" association="_KUIuUNHfEe-CkfWN-R_sOg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XYeHUdHfEe-CkfWN-R_sOg" name="wireguardmanager" type="_eLSXEKwQEe-xgaz8Fc6Tmg" association="_XYcSINHfEe-CkfWN-R_sOg"/>
       <ownedOperation xmi:type="uml:Operation" xmi:id="_HN7OAKwREe-xgaz8Fc6Tmg" name="manageVPN" visibility="public" concurrency="concurrent">
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_fzW-oK2xEe-r0tXGBdOuIw" type="_UbK-YK2xEe-r0tXGBdOuIw"/>
         <ownedParameter xmi:type="uml:Parameter" xmi:id="_Eb3iYK8MEe-WFOzjazvNcA" type="_upjjgKwUEe-xgaz8Fc6Tmg" direction="inout"/>
@@ -798,10 +781,28 @@
     </eAnnotations>
     <ownedEnd xmi:type="uml:Property" xmi:id="_MygGEMUZEe-Vsbu9EtnGjQ" name="AntivirusManager" type="_hiNPkKwQEe-xgaz8Fc6Tmg" association="_MyKH0MUZEe-Vsbu9EtnGjQ"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_bw2aEMUsEe-VL4h3Q-mAHQ" memberEnd="_bw4PQMUsEe-VL4h3Q-mAHQ _bw4PQ8UsEe-VL4h3Q-mAHQ">
-    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_bw3oMMUsEe-VL4h3Q-mAHQ" source="org.eclipse.papyrus">
-      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_bw3oMcUsEe-VL4h3Q-mAHQ" key="nature" value="UML_Nature"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_8mYk4NHeEe-CkfWN-R_sOg" memberEnd="_8mhHwNHeEe-CkfWN-R_sOg _8mi88NHeEe-CkfWN-R_sOg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_8mf5oNHeEe-CkfWN-R_sOg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_8mggsNHeEe-CkfWN-R_sOg" key="nature" value="UML_Nature"/>
     </eAnnotations>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_bw4PQ8UsEe-VL4h3Q-mAHQ" name="filemanager" type="_PBB3wLhjEe-TKtIZasLrnQ" association="_bw2aEMUsEe-VL4h3Q-mAHQ"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_8mi88NHeEe-CkfWN-R_sOg" name="systemorchestrator" type="_15Yg4KwMEe-xgaz8Fc6Tmg" association="_8mYk4NHeEe-CkfWN-R_sOg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_KUIuUNHfEe-CkfWN-R_sOg" memberEnd="_KUJ8ctHfEe-CkfWN-R_sOg _KUKjgtHfEe-CkfWN-R_sOg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_KUJ8cNHfEe-CkfWN-R_sOg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_KUJ8cdHfEe-CkfWN-R_sOg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_KUKjgtHfEe-CkfWN-R_sOg" name="systemorchestrator" type="_15Yg4KwMEe-xgaz8Fc6Tmg" association="_KUIuUNHfEe-CkfWN-R_sOg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_XYcSINHfEe-CkfWN-R_sOg" memberEnd="_XYeHUdHfEe-CkfWN-R_sOg _XYeuYtHfEe-CkfWN-R_sOg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_XYdgQNHfEe-CkfWN-R_sOg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_XYeHUNHfEe-CkfWN-R_sOg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_XYeuYtHfEe-CkfWN-R_sOg" name="systemorchestrator" type="_15Yg4KwMEe-xgaz8Fc6Tmg" association="_XYcSINHfEe-CkfWN-R_sOg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_HT-TgNHgEe-CkfWN-R_sOg" memberEnd="_HT_hotHgEe-CkfWN-R_sOg _HUAIstHgEe-CkfWN-R_sOg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_HT_hoNHgEe-CkfWN-R_sOg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_HT_hodHgEe-CkfWN-R_sOg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_HUAIstHgEe-CkfWN-R_sOg" name="antivirusmanager" type="_hiNPkKwQEe-xgaz8Fc6Tmg" association="_HT-TgNHgEe-CkfWN-R_sOg"/>
   </packagedElement>
 </uml:Model>

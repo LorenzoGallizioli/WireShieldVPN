@@ -32,85 +32,86 @@ import com.wireshield.localfileutils.SystemOrchestrator;
 import com.wireshield.wireguard.WireguardManager;
 
 public class UserInterfaceTest {
-    private static boolean isToolkitInitialized = false;
-    private UserInterface userInterface;
+	private static boolean isToolkitInitialized = false;
+	private UserInterface userInterface;
 
-    @Mock
-    private SystemOrchestrator mockSystemOrchestrator;
-    @Mock
-    private WireguardManager mockWireguardManager;
-    @Mock
-    private Button mockMinimizeButton, mockCloseButton;
-    @Mock
-    private Stage mockStage;
-    @Mock
-    private AntivirusManager mockAntivirusManager;
-    @Mock
-    private ObservableList<String> mockAvFilesList;
-    @Mock
-    private Label mockAvStatusLabel;
-    @Mock
-    private AnchorPane mockAvPane, mockLogsPane;
-    
-    private AutoCloseable closeable;
-    
-    @Before
-    public void setUp() {
-        // Initialize JavaFX toolkit only once.
-        if (!isToolkitInitialized) {
-            Platform.startup(() -> {});
-            isToolkitInitialized = true;
-        }        
-        userInterface = spy(new UserInterface());
-        closeable = MockitoAnnotations.openMocks(this);        
-        // Setup mocks.
-        Scene mockScene = mock(Scene.class);
-        mockStage = mock(Stage.class);
-        mockMinimizeButton = mock(Button.class);
-        mockCloseButton = mock(Button.class);
-        mockAntivirusManager = mock(AntivirusManager.class);
-        mockAvFilesList = mock(ObservableList.class);
-        mockAvStatusLabel = mock(Label.class);
-        mockAvPane = mock(AnchorPane.class);
-        mockLogsPane = mock(AnchorPane.class);
-        when(mockScene.getWindow()).thenReturn(mockStage);
-        when(mockMinimizeButton.getScene()).thenReturn(mockScene);
-        when(mockCloseButton.getScene()).thenReturn(mockScene);
-        when(mockSystemOrchestrator.getAntivirusManager()).thenReturn(mockAntivirusManager);
-        userInterface.minimizeButton = mockMinimizeButton;
-        userInterface.closeButton = mockCloseButton;
-        userInterface.logsPane = mockLogsPane;        
-        userInterface.avFilesList = mockAvFilesList;
-        userInterface.avStatusLabel = mockAvStatusLabel;
-        userInterface.avPane = mockAvPane;
-        UserInterface.so = mockSystemOrchestrator;
-        
-        // Initialize JavaFX components.
-        Platform.runLater(() -> {
-            userInterface.vpnButton = new Button("Start VPN");
-            userInterface.peerListView = new ListView<>();
-            userInterface.logsArea = new TextArea();
-            userInterface.avStatusLabel = new Label();
-            userInterface.homePane = new AnchorPane();
-        });
-    }
+	@Mock
+	private SystemOrchestrator mockSystemOrchestrator;
+	@Mock
+	private WireguardManager mockWireguardManager;
+	@Mock
+	private Button mockMinimizeButton, mockCloseButton;
+	@Mock
+	private Stage mockStage;
+	@Mock
+	private AntivirusManager mockAntivirusManager;
+	@Mock
+	private ObservableList<String> mockAvFilesList;
+	@Mock
+	private Label mockAvStatusLabel;
+	@Mock
+	private AnchorPane mockAvPane, mockLogsPane;
 
-    @After
-    public void tearDown() throws Exception {
-        // Resetta i mock dopo ogni test
-        reset(mockSystemOrchestrator, mockWireguardManager);
-        closeable.close();
-    }
+	private AutoCloseable closeable;
 
-    @Test
-    public void testMinimizeWindow() {
-        // Act: Call method.
-        userInterface.minimizeWindow();
-        // Assert: Verify if setIconified has been called.
-        verify(mockStage).setIconified(true);
-    }
-    
-    @Test
+	@Before
+	public void setUp() {
+		// Initialize JavaFX toolkit only once.
+		if (!isToolkitInitialized) {
+			Platform.startup(() -> {
+			});
+			isToolkitInitialized = true;
+		}
+		userInterface = spy(new UserInterface());
+		closeable = MockitoAnnotations.openMocks(this);
+		// Setup mocks.
+		Scene mockScene = mock(Scene.class);
+		mockStage = mock(Stage.class);
+		mockMinimizeButton = mock(Button.class);
+		mockCloseButton = mock(Button.class);
+		mockAntivirusManager = mock(AntivirusManager.class);
+		mockAvFilesList = mock(ObservableList.class);
+		mockAvStatusLabel = mock(Label.class);
+		mockAvPane = mock(AnchorPane.class);
+		mockLogsPane = mock(AnchorPane.class);
+		when(mockScene.getWindow()).thenReturn(mockStage);
+		when(mockMinimizeButton.getScene()).thenReturn(mockScene);
+		when(mockCloseButton.getScene()).thenReturn(mockScene);
+		when(mockSystemOrchestrator.getAntivirusManager()).thenReturn(mockAntivirusManager);
+		userInterface.minimizeButton = mockMinimizeButton;
+		userInterface.closeButton = mockCloseButton;
+		userInterface.logsPane = mockLogsPane;
+		userInterface.avFilesList = mockAvFilesList;
+		userInterface.avStatusLabel = mockAvStatusLabel;
+		userInterface.avPane = mockAvPane;
+		UserInterface.so = mockSystemOrchestrator;
+
+		// Initialize JavaFX components.
+		Platform.runLater(() -> {
+			userInterface.vpnButton = new Button("Start VPN");
+			userInterface.peerListView = new ListView<>();
+			userInterface.logsArea = new TextArea();
+			userInterface.avStatusLabel = new Label();
+			userInterface.homePane = new AnchorPane();
+		});
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		// Resetta i mock dopo ogni test
+		reset(mockSystemOrchestrator, mockWireguardManager);
+		closeable.close();
+	}
+
+	@Test
+	public void testMinimizeWindow() {
+		// Act: Call method.
+		userInterface.minimizeWindow();
+		// Assert: Verify if setIconified has been called.
+		verify(mockStage).setIconified(true);
+	}
+
+	@Test
     public void testInitialize_disablesPeerListWhenConnected() throws InterruptedException {
         when(mockSystemOrchestrator.getConnectionStatus()).thenReturn(connectionStates.CONNECTED);
         CountDownLatch latch = new CountDownLatch(1);
@@ -125,7 +126,7 @@ public class UserInterfaceTest {
         assertTrue("Timeout nel thread JavaFX", latch.await(5, java.util.concurrent.TimeUnit.SECONDS));
     }
 
-    @Test
+	@Test
     public void testChangeVPNState_startVPN() throws InterruptedException {
         when(mockSystemOrchestrator.getWireguardManager()).thenReturn(mockWireguardManager);
         when(mockSystemOrchestrator.getConnectionStatus()).thenReturn(connectionStates.DISCONNECTED);
@@ -145,7 +146,7 @@ public class UserInterfaceTest {
         assertTrue("Timeout nel thread JavaFX", latch.await(5, java.util.concurrent.TimeUnit.SECONDS));
     }
 
-    @Test
+	@Test
     public void testChangeVPNState_stopVPN() throws InterruptedException {
         when(mockSystemOrchestrator.getWireguardManager()).thenReturn(mockWireguardManager);
         when(mockSystemOrchestrator.getConnectionStatus()).thenReturn(connectionStates.CONNECTED);
@@ -163,87 +164,88 @@ public class UserInterfaceTest {
         assertTrue("Timeout nel thread JavaFX", latch.await(5, java.util.concurrent.TimeUnit.SECONDS));
     }
 
-    @Test
-    public void testViewHome_updatesPeerList() throws InterruptedException {
-        CountDownLatch latch = new CountDownLatch(1);
+	@Test
+	public void testViewHome_updatesPeerList() throws InterruptedException {
+		CountDownLatch latch = new CountDownLatch(1);
 
-        Platform.runLater(() -> {
-            userInterface.viewHome();
-            latch.countDown();
-        });
+		Platform.runLater(() -> {
+			userInterface.viewHome();
+			latch.countDown();
+		});
 
-        assertTrue("Timeout nel thread JavaFX", latch.await(5, java.util.concurrent.TimeUnit.SECONDS));
-    }
-    @Test
-    public void testViewAv_withAVUpStatus() {
-        // Set UP Status.
-        runningStates avStatus = runningStates.UP;
-        when(mockSystemOrchestrator.getAVStatus()).thenReturn(avStatus);
+		assertTrue("Timeout nel thread JavaFX", latch.await(5, java.util.concurrent.TimeUnit.SECONDS));
+	}
 
-        ScanReport report1 = mock(ScanReport.class);
-        when(report1.getFile()).thenReturn(new File("file1.txt"));
-        when(report1.getWarningClass()).thenReturn(warningClass.DANGEROUS);
+	@Test
+	public void testViewAv_withAVUpStatus() {
+		// Set UP Status.
+		runningStates avStatus = runningStates.UP;
+		when(mockSystemOrchestrator.getAVStatus()).thenReturn(avStatus);
 
-        ScanReport report2 = mock(ScanReport.class);
-        when(report2.getFile()).thenReturn(new File("file2.txt"));
-        when(report2.getWarningClass()).thenReturn(warningClass.CLEAR);
+		ScanReport report1 = mock(ScanReport.class);
+		when(report1.getFile()).thenReturn(new File("file1.txt"));
+		when(report1.getWarningClass()).thenReturn(warningClass.DANGEROUS);
 
-        List<ScanReport> reports = Arrays.asList(report1, report2);
-        when(mockAntivirusManager.getFinalReports()).thenReturn(reports);
+		ScanReport report2 = mock(ScanReport.class);
+		when(report2.getFile()).thenReturn(new File("file2.txt"));
+		when(report2.getWarningClass()).thenReturn(warningClass.CLEAR);
 
-        // Act: execcute viewAV function.
-        userInterface.viewAv();
+		List<ScanReport> reports = Arrays.asList(report1, report2);
+		when(mockAntivirusManager.getFinalReports()).thenReturn(reports);
 
-        // Assert
-        verify(mockAvStatusLabel).setText("UP");
-        verify(mockAvFilesList).clear();
+		// Act: execcute viewAV function.
+		userInterface.viewAv();
 
-    }
+		// Assert
+		verify(mockAvStatusLabel).setText("UP");
+		verify(mockAvFilesList).clear();
 
-    @Test
-    public void testViewAv_withAVDownStatus() {
-        // Arrange
-        runningStates avStatus = runningStates.DOWN;
-        when(mockSystemOrchestrator.getAVStatus()).thenReturn(avStatus);
+	}
 
-        // Act
-        userInterface.viewAv();
+	@Test
+	public void testViewAv_withAVDownStatus() {
+		// Arrange
+		runningStates avStatus = runningStates.DOWN;
+		when(mockSystemOrchestrator.getAVStatus()).thenReturn(avStatus);
 
-        // Assert
-        verify(mockAvStatusLabel).setText("DOWN");
-        verify(mockAvFilesList, never()).clear();
-        verify(mockAvFilesList, never()).addAll(anyList());
-        verify(mockAvPane).toFront();
-    }
-    
-    @Test
-    public void testHandleFileSelection_noFileSelected() throws InterruptedException {
-        CountDownLatch latch = new CountDownLatch(1);
+		// Act
+		userInterface.viewAv();
 
-        Platform.runLater(() -> {
-            userInterface.viewHome();
-            latch.countDown();
-        });
+		// Assert
+		verify(mockAvStatusLabel).setText("DOWN");
+		verify(mockAvFilesList, never()).clear();
+		verify(mockAvFilesList, never()).addAll(anyList());
+		verify(mockAvPane).toFront();
+	}
 
-        assertTrue("Timeout nel thread JavaFX", latch.await(5, java.util.concurrent.TimeUnit.SECONDS));
+	@Test
+	public void testHandleFileSelection_noFileSelected() throws InterruptedException {
+		CountDownLatch latch = new CountDownLatch(1);
 
-        Platform.runLater(() -> userInterface.handleFileSelection(null));
-    }
-    
-    @Test
-    public void testViewLogs() {
+		Platform.runLater(() -> {
+			userInterface.viewHome();
+			latch.countDown();
+		});
 
-        // Act
-        userInterface.viewLogs();
+		assertTrue("Timeout nel thread JavaFX", latch.await(5, java.util.concurrent.TimeUnit.SECONDS));
 
-        // Assert: Check if toFront() has been called.
-        verify(mockLogsPane).toFront();
+		Platform.runLater(() -> userInterface.handleFileSelection(null));
+	}
 
-        // Check if startDynamicLogUpdate has been called.
-        verify(userInterface).startDynamicLogUpdate();
-    }
-    
-    @Test
+	@Test
+	public void testViewLogs() {
+
+		// Act
+		userInterface.viewLogs();
+
+		// Assert: Check if toFront() has been called.
+		verify(mockLogsPane).toFront();
+
+		// Check if startDynamicLogUpdate has been called.
+		verify(userInterface).startDynamicLogUpdate();
+	}
+
+	@Test
     public void testStartDynamicLogUpdate_logsUpdated() throws InterruptedException {
         when(mockWireguardManager.getLog()).thenReturn("Test Log");
         when(mockSystemOrchestrator.getWireguardManager()).thenReturn(mockWireguardManager);
