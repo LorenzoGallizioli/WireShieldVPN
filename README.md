@@ -15,9 +15,9 @@
    - [4.4 Logging e Notifiche](#4-logging-e-notifiche)  
 5. [🚀 Guida all'Installazione](#-guida-allinstallazione)  
    - [5.1 Prerequisiti](#prerequisiti)  
-   - [5.2 Come Usare l'Applicazione](#-come-usare-lapplicazione)  
-6. [📚 Riferimenti e Approfondimenti](#-riferimenti-e-approfondimenti)  
-7. [📞 Contatti](#-contatti)
+6. [🛠️ Come Usare l'Applicazione](#%EF%B8%8F-come-usare-lapplicazione)  
+7. [📚 Riferimenti e Approfondimenti](#-riferimenti-e-approfondimenti)  
+8. [📞 Contatti](#-contatti)
 
 &nbsp;
 ## 🧑‍💻 Chi Siamo
