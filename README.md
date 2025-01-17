@@ -28,7 +28,7 @@ Siamo **Davide Bonsembiante**, **Lorenzo Gallizioli** e **Thomas Paganelli**, st
 &nbsp;
 ## 📝 Descrizione del Progetto
 
-Il nostro progetto consiste in un'applicazione **client Java** progettata per connettersi a una VPN tramite il protocollo **WireGuard** e integrare un sistema di **scansione antivirus** che analizzi i file scaricati o trasferiti attraverso la rete. 
+Il progetto consiste in un'applicazione **client Java** progettata per connettersi a una VPN tramite il protocollo **WireGuard** e integrare un sistema di **scansione antivirus** che analizzi i file scaricati attraverso la rete. 
 
 Con questo strumento, vogliamo offrire una soluzione che combini:
 
@@ -58,19 +58,19 @@ L’applicazione presenta un’interfaccia **JavaFX** che consente all’utente 
 ### 4. Logging e Notifiche
 L’applicazione tiene traccia di tutte le operazioni e fornisce notifiche in tempo reale:
    - **Logging completo**: tutti gli eventi, comprese le scansioni antivirus e i risultati delle analisi, vengono registrati in un file di log per una tracciabilità completa delle operazioni.
-   - **Notifiche di sicurezza**: notifiche automatiche vengono inviate all'utente se viene rilevato malware durante le scansioni antivirus, con dettagli sui file sospetti.
+   - **Notifiche di sicurezza**: notifiche automatiche vengono inviate all'utente se viene rilevato malware durante le scansioni antivirus.
 
 &nbsp;
 ## 🚀 Guida all'Installazione
 
 ### Prerequisiti
 
-1. **WireGuard**: Deve essere installato sulla macchina. Assicurati di avere i comandi* `wg` e `wg-quick` disponibili.
-2. **ClamAV**: Necessario per la scansione antivirus tramite `clamscan`.
-3. **Java 11** o versione successiva: L’applicazione è sviluppata in Java e utilizza funzionalità moderne come JavaFX.
-4. **API Key di VirusTotal** (opzionale): Per integrare le scansioni tramite l'API di VirusTotal, è necessaria una chiave API.
-
 > ⚠️ **Permessi Amministrativi**: Poiché l’applicazione interagisce con WireGuard, è necessario eseguire il programma con privilegi elevati (root/sudo) per gestire le connessioni di rete.
+
+1. **ClamAV**: Necessario per la scansione antivirus tramite `clamscan` ([Segui la guida per installare clamAV sul tuo PC](https://github.com/LorenzoGallizioli/WireShield/blob/7e6f6c54f63fd79cc4b99bfd91c4ab223ffa6286/wireshield/bin/ClamAV.md))
+.
+2. **Java 11** o versione successiva: L’applicazione è sviluppata in Java e utilizza funzionalità correlate come JavaFX.
+3. **API Key di VirusTotal** (opzionale): Per integrare le scansioni tramite l'API di VirusTotal, è necessaria una chiave API.
 
 &nbsp;
 ## 🛠️ Come Usare l'Applicazione
@@ -78,20 +78,20 @@ L’applicazione tiene traccia di tutte le operazioni e fornisce notifiche in te
 ### 1. Clona WireShield
 `git clone https://github.com/LorenzoGallizioli/WireShield.git`
 
-### 2. Segui la guida per installare ClamAV sul tuo PC
-[ClamAV.md](https://github.com/LorenzoGallizioli/WireShield/blob/7e6f6c54f63fd79cc4b99bfd91c4ab223ffa6286/wireshield/bin/ClamAV.md)
+### 2. Verifica di aver seguito tutti i passaggi indicati nei [prerequisiti](#prerequisiti).
 
 ### 3. Avvia l'applicazione
+> ⚠️ **Permessi Amministrativi**: Poiché l’applicazione interagisce con WireGuard, è necessario eseguire il programma con privilegi elevati (root/sudo) per gestire le connessioni di rete.
 Al primo avvio non sarà presente nessun peer.
 
 ### 4. Carica un peer
-Il peer deve essere caricando nella sezione settings e deve essere un file di configurazione wireguard (.conf).
+Il peer deve essere caricato cliccando sul bottone '+' nella **Home** di WireShield e deve essere un file di configurazione wireguard (.conf).
 
 ### 4. Avvia la connessione VPN
 Puoi avviare o interrompere la connessione VPN direttamente dalla scheda **Home** dell'interfaccia utente e controllare i log nella scehda **Logs**.
 
 ### 5. Esegui una scansione antivirus
-Una volta stabilita la connessione VPN, puoi scansionare i file scaricati tramite **ClamAV** e **VirusTotal** semplicemente scaricando un file dal web e attendendo che WireShield effettui la scansione. Il sistema ti notificherà immediatamente in caso di rilevamento di malware.
+Una volta stabilita la connessione VPN, puoi scansionare i file scaricati tramite **ClamAV** e **VirusTotal** semplicemente scaricando un file dal web e attendendo che WireShield effettui la scansione. Il sistema ti notificherà immediatamente in caso di rilevamento di malware e troverai il risultato della scansione, al termine della stessa, nella sezione **Antivirus**.
 
 &nbsp;
 ## 📚 Riferimenti e Approfondimenti
