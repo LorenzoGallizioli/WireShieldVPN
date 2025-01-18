@@ -116,6 +116,7 @@ public class AntivirusManager {
 						// TODO Auto-generated catch block
 						
 						// error occurred - Shut down service
+						System.out.println("sasso");
 						scannerStatus = runningStates.DOWN;
 						break;
 					}
@@ -155,11 +156,10 @@ public class AntivirusManager {
 			finalReports.add(finalReport);
 
 			// If the file is dangerous or suspicious, take action
-			if (finalReport.getWarningClass() == warningClass.DANGEROUS
-					|| finalReport.getWarningClass() == warningClass.SUSPICIOUS) {
+			if (finalReport.getWarningClass() == warningClass.DANGEROUS || finalReport.getWarningClass() == warningClass.SUSPICIOUS) {
 				logger.warn("Threat detected in file: {}", fileToScan.getName());
-				JOptionPane.showMessageDialog(null, "Threat detected in file: " + fileToScan.getName(),
-						"Threat Detected", JOptionPane.WARNING_MESSAGE); // Show warning dialog
+				
+				JOptionPane.showMessageDialog(null, "Threat detected in file: " + fileToScan.getName(), "Threat Detected", JOptionPane.WARNING_MESSAGE); // Show warning dialog
 				filesToRemove.add(fileToScan);
 			}
 		}
