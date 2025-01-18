@@ -77,32 +77,24 @@ public class AntivirusManager {
 		logger.info("Starting antivirus scan process...");
 
 		scanThread = new Thread(() -> {
-			try {
-				performScan();
-			} catch (InterruptedException e) {
-	            Thread.currentThread().interrupt();  // Ripristina l'interruzione
-	            logger.error("Scan process was interrupted.", e);
-	            return;  // Termina l'esecuzione del thread
+			
+			performScan();
 	            
-			} finally {
-				synchronized (this) {
-					scannerStatus = runningStates.DOWN;
-					notifyAll(); // Notify all threads waiting on this object
-				}
+			synchronized (this) {
+				notifyAll(); // Notify all threads waiting on this object
 			}
 		});
 
 		scanThread.start();
 	}
 
-	private void performScan() throws InterruptedException {
-		while (scannerStatus == runningStates.UP) {
+	private void performScan(){
+		while (scannerStatus != runningStates.DOWN) {
 			File fileToScan;
 
 			if (clamAV == null) {
 				logger.error("ClamAV object not exists - Shutting down scanner"); 
 				scannerStatus = runningStates.DOWN;
-				Thread.currentThread().interrupt();
 			}
 
 			// Retrieve the next file to scan from the buffer
@@ -114,12 +106,9 @@ public class AntivirusManager {
 			if (fileToScan == null) {
 				synchronized (this) {
 					try {
-						if (Thread.currentThread().isInterrupted()) {
-							break; // Exit if thread is interrupted
-						}
 						wait();
 					} catch (InterruptedException e) {
-						Thread.currentThread().interrupt(); // Restore interrupt status
+						// TODO Auto-generated catch block
 						break;
 					}
 				}
@@ -140,8 +129,17 @@ public class AntivirusManager {
 			// Perform VirusTotal analysis
 			if(virusTotal != null) {
 				if (finalReport.isThreatDetected() && fileToScan.length() <= MAX_FILE_SIZE) {
+					
 					virusTotal.analyze(fileToScan);
-					ScanReport virusTotalReport = virusTotal.getReport();
+					
+					ScanReport virusTotalReport = null;
+					try {
+						virusTotalReport = virusTotal.getReport();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
 					if (virusTotalReport != null) {
 						mergeReports(finalReport, virusTotalReport);
 					}
