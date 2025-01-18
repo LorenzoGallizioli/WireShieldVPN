@@ -20,55 +20,66 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-/*
- * Unit test class for the FileManager class. This class contains tests for
- * verifying the functionality of file management methods such as create, write,
- * read, delete, and utility methods like calculating SHA256 hashes and retrieving
- * the project folder.
+/**
+ * Unit tests for the {@code FileManager} class. This class provides
+ * comprehensive tests for file and configuration management functionalities,
+ * including: 
+ * - File creation, reading, writing, and deletion. 
+ * - Handling configuration files in JSON format. 
+ * - Utility methods such as calculating SHA-256 hashes.
+ * - Detection and handling of temporary and unstable files.
  */
 public class FileManagerTest {
 
-	private String testFilePath; // Path for the test file used in tests
-	private File validFile; // File object for a valid file
+	// Paths for test files and configuration files
+	private String testFilePath;
+	private File validFile;
 	private File stableFile;
 	private File emptyFile;
 	private File nonExistingFile;
 
+	// Paths for configuration file and its temporary backup
 	private static final String CONFIG_PATH = FileManager.getProjectFolder() + "\\config\\config.json";
-    private static final String TEMP_CONFIG_PATH = FileManager.getProjectFolder() + "\\config\\config_backup.json";
-	
-	/*
-	 * Setup method that initializes the test file path before each test. This
-	 * method is run before every test to ensure a clean setup.
+	private static final String TEMP_CONFIG_PATH = FileManager.getProjectFolder() + "\\config\\config_backup.json";
+
+	/**
+	 * Sets up the test environment before each test. Initializes file objects and
+	 * creates a backup of the configuration file.
+	 *
+	 * @throws IOException if an I/O error occurs during setup.
 	 */
 	@Before
 	public void setUp() throws IOException {
-		testFilePath = "testFile.txt"; // Initialize the test file path
-		// Crea un file che sarà utilizzato per i test
+		// Initialize test file paths
+		testFilePath = "testFile.txt";
 		stableFile = new File("stableFile.txt");
 		emptyFile = new File("emptyFile.txt");
 		nonExistingFile = new File("nonExistingFile.txt");
-		
-        // Crea una copia di backup del file config.json
-        File originalFile = new File(CONFIG_PATH);
-        File backupFile = new File(TEMP_CONFIG_PATH);
-        if (originalFile.exists()) {
-            try (FileInputStream fis = new FileInputStream(originalFile);
-                 FileOutputStream fos = new FileOutputStream(backupFile)) {
-                fos.write(fis.readAllBytes());
-            }
-        }
+
+		// Backup the configuration file if it exists
+		File originalFile = new File(CONFIG_PATH);
+		File backupFile = new File(TEMP_CONFIG_PATH);
+		if (originalFile.exists()) {
+			try (FileInputStream fis = new FileInputStream(originalFile);
+					FileOutputStream fos = new FileOutputStream(backupFile)) {
+				fos.write(fis.readAllBytes());
+			}
+		}
 	}
 
-	/*
-	 * Cleanup method that ensures the test file is deleted after each test. This is
-	 * run after every test to ensure that there are no leftover files.
+	/**
+	 * Cleans up the test environment after each test. Deletes temporary files and
+	 * restores the configuration file from its backup.
+	 *
+	 * @throws IOException if an I/O error occurs during cleanup.
 	 */
 	@After
 	public void tearDown() throws IOException {
+
+		// Delete test files if they exist
 		File file = new File(testFilePath);
 		if (file.exists()) {
-			file.delete(); // Delete the test file if it exists
+			file.delete();
 		}
 
 		if (stableFile.exists()) {
@@ -78,140 +89,157 @@ public class FileManagerTest {
 		if (emptyFile.exists()) {
 			emptyFile.delete();
 		}
-		
-        // Ripristina il file config.json dallo stato di backup
-        File originalFile = new File(CONFIG_PATH);
-        File backupFile = new File(TEMP_CONFIG_PATH);
-        if (backupFile.exists()) {
-            try (FileInputStream fis = new FileInputStream(backupFile);
-                 FileOutputStream fos = new FileOutputStream(originalFile)) {
-                fos.write(fis.readAllBytes());
-            }
-            // Elimina il backup per pulizia
-            backupFile.delete();
-        } else if (originalFile.exists()) {
-            originalFile.delete(); // Se il backup non esiste, elimina l'originale
-        }
+
+		// Restore the configuration file from the backup
+		File originalFile = new File(CONFIG_PATH);
+		File backupFile = new File(TEMP_CONFIG_PATH);
+		if (backupFile.exists()) {
+			// Restore the backup file to its original location
+			try (FileInputStream fis = new FileInputStream(backupFile);
+					FileOutputStream fos = new FileOutputStream(originalFile)) {
+				fos.write(fis.readAllBytes());
+			}
+
+			backupFile.delete();
+		} else if (originalFile.exists()) {
+			originalFile.delete();
+		}
 	}
 
-	/*
-	 * Test for the createFile() method. Verifies that a file is created
-	 * successfully when the method is called.
+	/**
+	 * Verifies that the {@code createFile} method handles invalid paths gracefully.
 	 */
 	@Test
 	public void testCreateFile() {
-		// Assert that the file is created successfully
+		// Test creating a new file
 		assertTrue("File should be created successfully.", FileManager.createFile(testFilePath));
 
-		// Assert that the file exists on the filesystem
+		// Verify the file exists
 		assertTrue("File should exist on the filesystem.", new File(testFilePath).exists());
 
-		// Assert that the file already exists on the filesystem
+		// Test creating the same file again (should return false)
 		assertFalse("File already exists.", FileManager.createFile(testFilePath));
 	}
 
+	/**
+	 * Verifies that the {@code createFile} method handles invalid paths gracefully.
+	 */
 	@Test
 	public void testCreateFileIOException() {
-		// Percorso di file non valido per forzare un'IOException
+
+		// Invalid file path to force IOException
 		String invalidFilePath = "invalid:/path/testFile.txt";
 
-		// Esegui il metodo createFile con il percorso non valido
+		// Execute the createFile method with an invalid path
 		boolean result = FileManager.createFile(invalidFilePath);
 
-		// Verifica che il risultato sia false
+		// Verify that the result is false
 		assertFalse("The method should return false when an IOException occurs.", result);
 	}
 
-	/*
-	 * Test for the writeFile() method. Verifies that content is written
-	 * successfully to a file.
+	/**
+	 * Verifies that content is correctly written to a file using the
+	 * {@code writeFile} method.
 	 */
 	@Test
 	public void testWriteFile() {
 		// Create the test file
 		FileManager.createFile(testFilePath);
 
-		// Define the content to be written to the file
+		// Define content to be written
 		String content = "Test content";
 
-		// Write the content to the file and assert success
+		// Write the content and verify success
 		assertTrue("Content should be written successfully.", FileManager.writeFile(testFilePath, content));
 
-		// Assert that the content written to the file matches the expected content
+		// Verify the content written matches the expected value
 		assertEquals("Content should match the written data.", content, FileManager.readFile(testFilePath).trim());
 	}
 
+	/**
+	 * Verifies that the {@code writeFile} method handles invalid paths gracefully.
+	 */
 	@Test
 	public void testWriteFileIOException() {
-		// Percorso di file non valido che causa un errore (ad esempio una directory
-		// inesistente)
+
+		// Define invalid path and content
 		String invalidFilePath = "/invalid/directory/testFile.txt";
 		String content = "Test content";
 
-		// Esegui il metodo writeFile con il percorso non valido
+		// Execute the writeFile method
 		boolean result = FileManager.writeFile(invalidFilePath, content);
 
-		// Verifica che il risultato sia false
+		// Verify that the result is false
 		assertFalse("The method should return false when an IOException occurs.", result);
 	}
 
-	/*
-	 * Test for the readFile() method. Verifies that content can be read correctly
-	 * from a file.
+	/**
+	 * Verifies that content is correctly read from a file using the
+	 * {@code readFile} method.
 	 */
 	@Test
 	public void testReadFile() {
-		// Create the test file and write content to it
+		// Create and write to the test file
 		FileManager.createFile(testFilePath);
 		String content = "Read test content.";
 		FileManager.writeFile(testFilePath, content);
 
-		// Assert that the content read from the file matches the expected content
+		// Verify the content read matches the expected value
 		assertEquals("Content read should match the written data.", content, FileManager.readFile(testFilePath).trim());
 	}
 
+	/**
+	 * Verifies that the {@code readFile} method handles non-existent files
+	 * gracefully.
+	 */
 	@Test
 	public void testReadFileIOException() {
-		// Percorso di file non valido che causa un errore (ad esempio un file che non
-		// esiste)
+		// Non-existent file path
 		String invalidFilePath = "/invalid/directory/nonexistentFile.txt";
 
-		// Esegui il metodo readFile con il percorso non valido
+		// Execute the readFile method
 		String result = FileManager.readFile(invalidFilePath);
 
-		// Verifica che il risultato sia null
+		// Verify that the result is null
 		assertNull("The method should return null when an IOException occurs.", result);
 	}
 
-	/*
-	 * Test for the deleteFile() method. Verifies that a file is deleted
-	 * successfully from the filesystem.
+	/**
+	 * Tests the `deleteFile` method to verify that files are deleted successfully.
 	 */
 	@Test
 	public void testDeleteFile() {
-		// Create the test file
+		// Create a test file
 		FileManager.createFile(testFilePath);
 
-		// Assert that the file is deleted successfully
+		// Verify the file is deleted successfully
 		assertTrue("File should be deleted successfully.", FileManager.deleteFile(testFilePath));
 
-		// Assert that the file no longer exists on the filesystem
+		// Verify the file no longer exists
 		assertFalse("File should not exist on the filesystem.", new File(testFilePath).exists());
 	}
 
+	/**
+	 * Tests the `deleteFile` method when trying to delete a file that does not
+	 * exist. Verifies that the method returns false when the file is not found.
+	 */
 	@Test
 	public void testDeleteFileFileNotExist() {
-		// Percorso di un file che non esiste
+		// Path to a file that does not exist
 		String nonExistentFilePath = "nonExistentFile.txt";
 
-		// Prova a eliminare il file che non esiste
+		// Attempt to delete the non-existent file
 		boolean result = FileManager.deleteFile(nonExistentFilePath);
 
-		// Verifica che il risultato sia false, dato che il file non esiste
+		// Assert that the deletion result is false since the file doesn't exist
 		assertFalse("The file deletion should return false if the file does not exist.", result);
 	}
 
-	// Test per i file temporanei con estensione .crdownload
+	/**
+	 * Tests the `isTemporaryFile` method for files with the `.crdownload`
+	 * extension. Verifies that files with this extension are correctly identified
+	 * as temporary.
+	 */
 	@Test
 	public void testIsTemporaryFile_Crdownload() {
 		File crdownloadFile = new File("file.crdownload");
@@ -219,7 +247,11 @@ public class FileManagerTest {
 				FileManager.isTemporaryFile(crdownloadFile));
 	}
 
-	// Test per i file temporanei con estensione .part
+	/**
+	 * Tests the `isTemporaryFile` method for files with the `.part` extension.
+	 * Verifies that files with this extension are correctly identified as
+	 * temporary.
+	 */
 	@Test
 	public void testIsTemporaryFile_Part() {
 		File partFile = new File("file.part");
@@ -227,7 +259,10 @@ public class FileManagerTest {
 				FileManager.isTemporaryFile(partFile));
 	}
 
-	// Test per i file temporanei che iniziano con un punto (file nascosti)
+	/**
+	 * Tests the `isTemporaryFile` method for hidden files (those starting with a
+	 * dot). Verifies that hidden files are correctly identified as temporary.
+	 */
 	@Test
 	public void testIsTemporaryFile_HiddenFile() {
 		File hiddenFile = new File(".hiddenFile");
@@ -235,7 +270,11 @@ public class FileManagerTest {
 				FileManager.isTemporaryFile(hiddenFile));
 	}
 
-	// Test per i file non temporanei (file con altre estensioni)
+	/**
+	 * Tests the `isTemporaryFile` method for non-temporary files (e.g., `.txt`,
+	 * `.jpg`). Verifies that files with these extensions are not considered
+	 * temporary.
+	 */
 	@Test
 	public void testIsTemporaryFile_NotTemporary() {
 		File normalFile = new File("file.txt");
@@ -247,66 +286,68 @@ public class FileManagerTest {
 				FileManager.isTemporaryFile(imageFile));
 	}
 
-	// Test del blocco try (quando il file è stabile)
+	/**
+	 * Tests the `isFileStable` method to verify that it correctly identifies stable
+	 * files. Ensures the method returns true for a file that has been written to
+	 * and is not being modified.
+	 */
 	@Test
 	public void testIsFileStable_Try() throws IOException {
-		// Crea e scrivi nel file stabile
+		// Create and write to the stable file
 		stableFile = new File("stableFile.txt");
 		stableFile.createNewFile();
 		FileManager.writeFile(stableFile.getAbsolutePath(), "Test content");
 
-		// Testa se il file è stabile
+		// Verify if the file is stable
 		assertTrue("Il file dovrebbe essere stabile", FileManager.isFileStable(stableFile));
 	}
 
 	/**
-	 * Questo test verifica che il metodo `isFileStable` gestisca correttamente
-	 * l'interruzione di un thread. In particolare, si verifica che, se il thread 
-	 * viene interrotto prima che `isFileStable` venga eseguito, l'interruzione 
-	 * venga correttamente gestita senza causare un blocco indefinito.
+	 * Tests the `isFileStable` method to check how it handles thread interruptions.
+	 * Verifies that the method handles interruptions properly without causing a
+	 * deadlock.
 	 */
 	@Test
 	public void testIsFileStable_Catch() throws IOException {
-		// Crea il file vuoto
+		// Create an empty file
 		emptyFile = new File("emptyFile.txt");
 		emptyFile.createNewFile();
 
-		// Interrompi il thread prima di chiamare isFileStable per forzare il blocco
-		// catch
+		// Interrupt the thread before calling isFileStable to force handling of
+		// interruption
 		Thread.currentThread().interrupt();
 
-		// Testa se il metodo gestisce l'interruzione del thread
+		// Verify that the method correctly handles the interruption
 		assertFalse("Il metodo dovrebbe gestire l'interruzione", FileManager.isFileStable(emptyFile));
 	}
-	
-	/*
-	 * Testa il comportamento del metodo calculateSHA256 quando viene passato un file che non esiste.
-	 * In particolare, questo test verifica che il metodo gestisca correttamente gli errori restituendo
-	 * null in caso di errore, come quando il file non può essere letto.
+
+	/**
+	 * Tests the `calculateSHA256` method when a non-existent file is passed.
+	 * Verifies that the method returns null if the file cannot be found or read.
 	 */
 	@Test
 	public void testCalculateSHA256_Catch() {
-		// Crea un file non esistente o che non può essere letto
+		// Create a non-existing file
 		nonExistingFile = new File("nonExistingFile.txt");
 
-		// Invoca calculateSHA256 con un file che non esiste
+		// Attempt to calculate SHA256 for the non-existent file
 		String result = FileManager.calculateSHA256(nonExistingFile);
 
-		// Verifica che il risultato sia null, il che indica che si è verificato un
-		// errore
+		// Assert that the result is null, indicating an error
 		assertNull("Il risultato dovrebbe essere null in caso di errore.", result);
 	}
 
-	/*
-	 * Test for the getProjectFolder() method. Verifies that the project folder path
-	 * is retrieved correctly.
+	/**
+	 * Tests the `getProjectFolder` method to verify that the project folder path is
+	 * correctly retrieved. Ensures that the method returns a valid path that exists
+	 * on the filesystem.
 	 */
 	@Test
 	public void testGetProjectFolder() {
 		// Create the test file
 		FileManager.createFile(testFilePath);
 
-		// Retrieve the project folder path and build the full file path
+		// Retrieve the project folder path and construct the full file path
 		String projectFolder = FileManager.getProjectFolder() + "\\" + testFilePath;
 
 		// Assert that the project folder path is not null
@@ -316,9 +357,10 @@ public class FileManagerTest {
 		assertTrue("Project folder path should exist.", new File(projectFolder).exists());
 	}
 
-	/*
-	 * Test for the correct SHA256 calculation of a file. Verifies that the SHA256
-	 * hash is calculated correctly for a file.
+	/**
+	 * Tests the `calculateSHA256` method to verify that it correctly calculates the
+	 * SHA256 hash of a file. Ensures that the hash is calculated correctly and has
+	 * the expected length of 64 characters.
 	 */
 	@Test
 	public void testCalculateSHA256() {
@@ -330,112 +372,126 @@ public class FileManagerTest {
 		// Initialize validFile with the created file
 		validFile = new File(testFilePath);
 
-		// Calculate SHA256 hash for the validFile
+		// Calculate the SHA256 hash for the validFile
 		String sha256Hash = FileManager.calculateSHA256(validFile);
 
-		// Assertions
-		// Ensure the SHA256 hash is not null
+		// Assertions Ensure the SHA256 hash is not null
 		assertNotNull("SHA256 hash should not be null", sha256Hash);
 
 		// Ensure the SHA256 hash has a length of 64 characters (expected for SHA256)
 		assertEquals("SHA256 hash should have 64 characters", 64, sha256Hash.length());
 	}
 
-	/*
-	 * Verifies that the method correctly retrieves the values for valid keys
-	 * present in the configuration file. Ensures that the returned values match the
-	 * expected results.
-	 *
+	/**
+	 * Verifies that the `getConfigValue` method returns the correct value for a
+	 * valid key. It checks that the returned value matches the expected value.
 	 */
 	@Test
 	public void testGetConfigValueValidKey() {
-				
 		String apiKey = FileManager.getConfigValue("api_key");
 		assertNull("895b6aece66d9a168c9822eb4254f2f44993e347c5ea0ddf90708982e857d613", apiKey);
-		
+
 	}
 
-	/*
-	 * Verifies that the method returns null when an invalid key is requested and
-	 * that no exceptions are thrown during the process.
-	 *
+	/**
+	 * Verifies that the `getConfigValue` method returns null when an invalid key is
+	 * requested. Ensures that no exception is thrown when a key does not exist in
+	 * the configuration.
 	 */
 	@Test
 	public void testGetConfigValueInvalidKey() {
 		String value = FileManager.getConfigValue("nonexistent_key");
 		assertNull(value);
-	}	
-	
+	}
+
+	/**
+	 * Tests the `writeConfigValue` method when the configuration file exists and is
+	 * valid. Verifies that new key-value pairs are correctly written to the
+	 * configuration file.
+	 */
 	@Test
 	public void testWriteConfigValue_FileExists_ValidJSON() throws Exception {
-        // Prepara un file JSON valido
-        JSONObject initialJson = new JSONObject();
-        initialJson.put("existingKey", "existingValue");
-        try (FileWriter writer = new FileWriter(CONFIG_PATH)) {
-            writer.write(initialJson.toJSONString());
-        }
+		// Prepare a valid JSON file
+		JSONObject initialJson = new JSONObject();
+		initialJson.put("existingKey", "existingValue");
+		try (FileWriter writer = new FileWriter(CONFIG_PATH)) {
+			writer.write(initialJson.toJSONString());
+		}
 
-        // Test della funzione
-        boolean result = FileManager.writeConfigValue("newKey", "newValue");
+		// Test the function
+		boolean result = FileManager.writeConfigValue("newKey", "newValue");
 
-        // Verifica del risultato
-        assertTrue(result);
+		// Verify the result
+		assertTrue(result);
 
-        // Controlla che il file sia stato aggiornato
-        JSONParser parser = new JSONParser();
-        try (FileReader reader = new FileReader(CONFIG_PATH)) {
-            JSONObject jsonObject = (JSONObject) parser.parse(reader);
-            assertEquals("newValue", jsonObject.get("newKey"));
-            assertEquals("existingValue", jsonObject.get("existingKey"));
-        }
-    }
+		// Check that the file has been updated
+		JSONParser parser = new JSONParser();
+		try (FileReader reader = new FileReader(CONFIG_PATH)) {
+			JSONObject jsonObject = (JSONObject) parser.parse(reader);
+			assertEquals("newValue", jsonObject.get("newKey"));
+			assertEquals("existingValue", jsonObject.get("existingKey"));
+		}
+	}
 
-    @Test
-    public void testWriteConfigValue_FileDoesNotExist() throws Exception {
-        // Elimina il file se esiste
-        File file = new File(CONFIG_PATH);
-        if (file.exists()) {
-            file.delete();
-        }
+	/**
+	 * Tests the `writeConfigValue` method when the configuration file does not
+	 * exist. Verifies that the method creates the file and writes the new key-value
+	 * pair correctly.
+	 */
+	@Test
+	public void testWriteConfigValue_FileDoesNotExist() throws Exception {
+		// Delete the file if it exists
+		File file = new File(CONFIG_PATH);
+		if (file.exists()) {
+			file.delete();
+		}
 
-        // Test della funzione
-        boolean result = FileManager.writeConfigValue("key", "value");
+		// Test the function
+		boolean result = FileManager.writeConfigValue("key", "value");
 
-        // Verifica del risultato
-        assertTrue(result);
+		// Verify the result
+		assertTrue(result);
 
-        // Controlla che il file sia stato creato e contenga il valore corretto
-        JSONParser parser = new JSONParser();
-        try (FileReader reader = new FileReader(CONFIG_PATH)) {
-            JSONObject jsonObject = (JSONObject) parser.parse(reader);
-            assertEquals("value", jsonObject.get("key"));
-        }
-    }
+		// Check that the file was created and contains the correct value
+		JSONParser parser = new JSONParser();
+		try (FileReader reader = new FileReader(CONFIG_PATH)) {
+			JSONObject jsonObject = (JSONObject) parser.parse(reader);
+			assertEquals("value", jsonObject.get("key"));
+		}
+	}
 
-    @Test
-    public void testWriteConfigValue_InvalidJSON() throws Exception {
-        // Prepara un file JSON non valido
-        try (FileWriter writer = new FileWriter(CONFIG_PATH)) {
-            writer.write("invalid JSON");
-        }
+	/**
+	 * Tests the `writeConfigValue` method with invalid JSON format. Verifies that
+	 * the method returns false when an invalid JSON format is encountered.
+	 */
+	@Test
+	public void testWriteConfigValue_InvalidJSON() throws Exception {
+		// Prepare an invalid JSON file
+		try (FileWriter writer = new FileWriter(CONFIG_PATH)) {
+			writer.write("invalid JSON");
+		}
 
-        // Test della funzione
-        boolean result = FileManager.writeConfigValue("key", "value");
+		// Test the function
+		boolean result = FileManager.writeConfigValue("key", "value");
 
-        // Verifica del risultato
-        assertFalse(result);
-    }
+		// Verify the result
+		assertFalse(result);
+	}
 
-    @Test
-    public void testWriteConfigValue_IOError() {
-        // Imposta un percorso non scrivibile
-        String invalidPath = "C:\\nonexistent\\config.json";
-        FileManager.configPath = invalidPath;
+	/**
+	 * Tests the `writeConfigValue` method when there is an I/O error (e.g., due to
+	 * invalid path). Verifies that the method returns false in such cases.
+	 */
+	@Test
+	public void testWriteConfigValue_IOError() {
+		// Set an unwritable path
+		String invalidPath = "C:\\nonexistent\\config.json";
+		FileManager.configPath = invalidPath;
 
-        // Test della funzione
-        boolean result = FileManager.writeConfigValue("key", "value");
+		// Test the function
+		boolean result = FileManager.writeConfigValue("key", "value");
 
-        // Verifica del risultato
-        assertFalse(result);
-    }
+		// Verify the result
+		assertFalse(result);
+	}
 }

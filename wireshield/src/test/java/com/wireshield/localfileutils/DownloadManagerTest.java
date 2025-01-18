@@ -13,21 +13,24 @@ import java.nio.file.*;
 
 import static org.junit.Assert.*;
 
-/*
- * This class tests various functionalities of the DownloadManager, including default path detection, 
- * handling of temporary files, file stability checks, and monitoring capabilities.
+/**
+ * This class tests various functionalities of the {@code DownloadManager},
+ * including default path detection, handling of temporary files, file stability
+ * checks, and monitoring capabilities.
  */
 public class DownloadManagerTest {
 
+	// Logger for logging test-related information
 	private static final Logger logger = LogManager.getLogger(DownloadManagerTest.class);
 
+	// Instances of the DownloadManager and AntivirusManager for testing
 	private DownloadManager downloadManager;
 	private AntivirusManager antivirusManager;
 
 	/**
 	 * Sets up the test environment before each test. This method initializes the
-	 * DownloadManager and AntivirusManager, and creates a temporary directory for
-	 * testing.
+	 * {@code DownloadManager} and {@code AntivirusManager}, and creates a temporary
+	 * directory for testing.
 	 * 
 	 * @throws IOException if an I/O error occurs during the setup.
 	 */
@@ -37,15 +40,18 @@ public class DownloadManagerTest {
 		downloadManager = DownloadManager.getInstance(antivirusManager);
 	}
 
-	/*
+	/**
 	 * Tests the default download path determination for Windows systems. This test
 	 * simulates a Windows environment and verifies that the default download path
 	 * is correctly set.
 	 */
 	@Test
 	public void testGetDefaultDownloadPathWindows() {
+
+		// Simulating a Windows environment
 		System.setProperty("os.name", "Windows 10");
 
+		// Get the default download path and expected path
 		String downloadPath = downloadManager.getDefaultDownloadPath();
 		String expectedPath = System.getProperty("user.home") + "\\Downloads";
 
@@ -53,15 +59,18 @@ public class DownloadManagerTest {
 		assertEquals("Default path for Windows should match", expectedPath, downloadPath);
 	}
 
-	/*
+	/**
 	 * Tests the default download path determination for Unix-based systems. This
 	 * test simulates a Unix/Linux environment and verifies that the default
 	 * download path is correctly set.
 	 */
 	@Test
 	public void testGetDefaultDownloadPathUnix() {
+
+		// Simulating a Unix/Linux environment
 		System.setProperty("os.name", "Linux");
 
+		// Get the default download path and expected path
 		String downloadPath = downloadManager.getDefaultDownloadPath();
 		String expectedPath = System.getProperty("user.home") + "/Downloads";
 
@@ -123,6 +132,7 @@ public class DownloadManagerTest {
 
 		// Stop the monitoring thread
 		downloadManager.forceStopMonitoring();
+		downloadManager.forceStopMonitoring(); // Testing for logger "Monitoring is already stopped."
 		assertFalse("Monitoring should be stopped", downloadManager.getMonitorStatus() == runningStates.UP);
 
 		// Ensure the monitoring thread is actually stopped

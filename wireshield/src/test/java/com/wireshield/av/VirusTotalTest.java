@@ -13,6 +13,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Field;
 
+/**
+ * Unit test class for the {@link VirusTotal} class. This class contains various
+ * test cases to validate the functionality of the VirusTotal class, including
+ * methods for analyzing files, retrieving reports, handling API keys, and
+ * respecting request limits.
+ */
 public class VirusTotalTest {
 
 	// VirusTotal object to test
@@ -26,37 +32,41 @@ public class VirusTotalTest {
 	private static final String TEST_API_KEY = "895b6aece66d9a168c9822eb4254f2f44993e347c5ea0ddf90708982e857d613";
 
 	// CONFIG PATH
-	private static final String CONFIG_PATH = "config/config.json"; // Percorso del file config.json
+	private static final String CONFIG_PATH = "config/config.json"; // Path to the config.json
 
-	/*
-	 * Setup method for tests. Creates temporary files to be used during tests. This
-	 * is run before each test.
+	/**
+	 * Setup method for initializing resources before each test. Creates a
+	 * VirusTotal instance and temporary files for testing purposes.
+	 *
+	 * @throws IOException if an error occurs while creating test files.
 	 */
 	@Before
 	public void setUp() throws IOException {
 
 		virusTotal = VirusTotal.getInstance(); // Initializes the VirusTotal object to be tested
 
-		// Creazione di un file valido per il test
+		// Create a valid test file
 		validFile = new File("validTestFile.txt");
 		try (FileWriter writer = new FileWriter(validFile)) {
 			writer.write("This is a valid file with no threats.");
 		}
 
-		// Creazione di un file pericoloso simulato (ad esempio, un file EICAR)
+		// Create a simulated dangerous test file (e.g., EICAR test file)
 		dangerousFile = new File("dangerousTestFile.com");
 		try (FileWriter writer = new FileWriter(dangerousFile)) {
 			writer.write("X5O!P%@AP[4\\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*");
 		}
 
-		// Creazione di un file inesistente per testare l'errore
+		// Create a non-existent test file to test error handling
 		invalidFile = new File("nonExistentTestFile.txt");
 
 	}
 
-	/*
-	 * Cleanup method after ach test. Deletes the temporary files created for tests.
-	 * This is run after each test.
+	/**
+	 * Cleanup method for releasing resources after each test. Deletes the temporary
+	 * files created during the tests.
+	 *
+	 * @throws IOException if an error occurs while deleting files.
 	 */
 	@After
 	public void tearDown() throws IOException {
@@ -68,36 +78,42 @@ public class VirusTotalTest {
 			dangerousFile.delete();
 		}
 
-		updateConfigWithValidApiKey();
+		updateConfigWithValidApiKey(); // Restore the valid API key after each test
 	}
 
-	// Testa il comportamento quando la API_KEY è vuota nel file config.json
+	/**
+	 * Tests the behavior when the API key is empty in the config.json file.
+	 * Validates that the VirusTotal instance handles invalid and valid API keys
+	 * correctly.
+	 *
+	 * @throws Exception if an error occurs during the test.
+	 */
 	@Test
 	public void testInvalidApiKey() throws Exception {
 
-		updateConfigWithEmptyApiKey(); // Imposta la API_KEY vuota nel file
+		updateConfigWithEmptyApiKey(); // Set an empty API key in the config file
 
-		// Reset l'istanza di VirusTotal per testare la creazione di una nuova istanza
+		// Reset the VirusTotal instance to test with the empty API key
 		resetVirusTotalInstance();
 
-		// Fase 2: Ora reinseriamo una API_KEY valida nel file config.json
+		// Restore a valid API key in the config file
 		updateConfigWithValidApiKey();
 
-		
-		resetVirusTotalInstance(); // Usa la riflessione per resettare l'istanza
+		resetVirusTotalInstance(); // Reset the instance again to test with the valid API key
 
-		// Eseguiamo di nuovo il costruttore VirusTotal con la API_KEY valida
+		// Create a new VirusTotal instance with a valid API key
 		VirusTotal validVirusTotal = VirusTotal.getInstance();
 
-		assertNotNull(validVirusTotal); // Assicuriamoci che l'oggetto VirusTotal sia stato creato correttamente
-		
+		assertNotNull(validVirusTotal); // Ensure that the VirusTotal object is created successfully
+
 	}
 
-	/*
-	 * Test for the analyze() method. Verifies that the analysis function produces
-	 * the correct results for different types of files:
-	 * 
-	 * - Valid file - Suspicious file - Non-existent file
+	/**
+	 * Tests the analyze() and getReport() methods. Verifies that the analysis and
+	 * reporting functionalities produce correct results for valid, dangerous, and
+	 * non-existent files.
+	 *
+	 * @throws InterruptedException if the test is interrupted during execution.
 	 */
 	@Test
 	public void testAnalyzeAndGetReport() throws InterruptedException {
@@ -116,19 +132,22 @@ public class VirusTotalTest {
 		assertTrue(dangerousReport.isThreatDetected()); // This should detect the EICAR test virus
 		assertEquals("High risk: high percentage of malicious detections.", dangerousReport.getThreatDetails()); // Correct
 																													// details
-		assertEquals(warningClass.DANGEROUS, dangerousReport.getWarningClass()); // Warning class should be suspicious
+		assertEquals(warningClass.DANGEROUS, dangerousReport.getWarningClass()); // Warning class should be DANGEROUS
 
-		// Esegui l'analisi
+		// Analyze a non-existent file
 		virusTotal.analyze(invalidFile);
 
-		// Recupera il report
+		// Retrieve the report
 		ScanReport invalidReport = virusTotal.getReport();
 		assertNull("The Report of invalidFile is null because file is empty", invalidReport);
 
 	}
 
-	/*
-	 * Test for uploading and receiving the scan ID via VirusTotal's API.
+	/**
+	 * Tests the upload and retrieval of the scan ID via VirusTotal's API. Ensures
+	 * that a scan ID is generated and retrieved correctly.
+	 *
+	 * @throws InterruptedException if the test is interrupted during execution.
 	 */
 	@Test
 	public void testUploadAndGetScanId() throws InterruptedException {
@@ -147,8 +166,8 @@ public class VirusTotalTest {
 		}
 	}
 
-	/*
-	 * Test the ensureApiKeyFileExists() method. Verifies that it correctly handles
+	/**
+	 * Tests the ensureApiKeyFileExists() method. Verifies that it correctly handles
 	 * file existence and creates a new API key file if necessary.
 	 */
 	@Test
@@ -164,42 +183,51 @@ public class VirusTotalTest {
 		String apiKey = virusTotal.getApiKey();
 		assertNotNull(apiKey); // The API key should exist
 	}
-	
-	/*
-	 * Test the getApiKey() method. Verifies that the API key is correctly read from
-	 * the file.
+
+	/**
+	 * Tests the getApiKey() method when the API key exists. Ensures the API key is
+	 * correctly read from the config.json file.
 	 */
 	@Test
 	public void testGetApiKeyExist() {
 		// Simulate reading an API key from the file
 		String apiKey = virusTotal.getApiKey();
 		assertNotNull(apiKey); // Ensure the API key is not null
-		assertEquals(TEST_API_KEY, apiKey); // Check if it matches the expected API key	
+		assertEquals(TEST_API_KEY, apiKey); // Check if it matches the expected API key
 	}
-	
-	/*
-	 * Test the getApiKey() method. Verifies that the API key is correctly read from
-	 * the file.
+
+	/**
+	 * Tests the getApiKey() method when the API key does not exist. Ensures the
+	 * method handles a missing or null API key correctly.
+	 *
+	 * @throws IOException if an error occurs while modifying the config file.
 	 */
 	@Test
 	public void testGetApiKeyNotExist() throws IOException {
-		
-		updateConfigWithNullApiKey(); // Imposta la API_KEY vuota nel file
+
+		updateConfigWithNullApiKey(); // Set a null API key in the config file
 
 		// Simulate reading an API key from the file
 		String apiKey = virusTotal.getApiKey();
-		assertNull(apiKey);
-		
-		updateConfigWithValidApiKey();
+		assertNull(apiKey); // Ensure the API key is null
+
+		updateConfigWithValidApiKey(); // Restore the valid API key
 	}
 
+	/**
+	 * Tests the behavior when an empty API key is provided in the config file.
+	 * Ensures that the logger and user input mechanism are triggered.
+	 *
+	 * @throws IOException if an error occurs while modifying the config file.
+	 */
 	@Test
 	public void testApiKeyFileInsertApiKey() throws IOException {
 
-		updateConfigWithEmptyApiKey(); // Imposta la API_KEY vuota nel file
+		updateConfigWithEmptyApiKey(); // Set an empty API key in the config file
 
-		System.out.println("\n 1) You must insert an empty API key to trigger the logger message: INVALID INPUT.\n 2) Then, you must enter the correct API key to proceed. \n");
-		
+		System.out.println(
+				"\n 1) You must insert an empty API key to trigger the logger message: INVALID INPUT.\n 2) Then, you must enter the correct API key to proceed. \n");
+
 		// Simulate the case where the API key file doesn't exist or is empty
 		virusTotal.ensureApiKeyFileExists();
 
@@ -208,39 +236,35 @@ public class VirusTotalTest {
 		assertNotNull(apiKey); // The API key should exist
 	}
 
-	/*
-	 * Test the canMakeRequest() method. Verifies that it respects the request limit
-	 * and returns true when the limit has not been reached.
+	/**
+	 * Tests the canMakeRequest() method. Verifies that it respects the request
+	 * limit and returns true or false based on whether the limit has been reached.
 	 */
 	@Test
 	public void testCanMakeRequest() {
 
 		// Simulate filling the queue with valid requests
 		long currentTime = System.currentTimeMillis();
-		System.out.println("Current time: " + currentTime); // Debug
+		System.out.println("Current time: " + currentTime);
 
 		for (int i = 0; i < VirusTotal.REQUEST_LIMIT; i++) {
 			virusTotal.requestTimestamps.add(currentTime - (i * 10)); // Adds requests with minimal intervals
-			System.out.println("Added timestamp: " + (currentTime - (i * 10))); // Debug
+			System.out.println("Added timestamp: " + (currentTime - (i * 10)));
 		}
 
 		// Now the limit should have been reached
-		boolean canRequest = virusTotal.canMakeRequest(); 
-		System.out.println("Can make request (before adding new): " + canRequest); // Debug
+		boolean canRequest = virusTotal.canMakeRequest();
+		System.out.println("Can make request (before adding new): " + canRequest);
+		assertFalse(canRequest); // It should return false
 
-		// It should return false, so the assertFalse assertion should pass
-		assertFalse(canRequest);
-
-		// Simulate the passing of time and adding a new request
-		virusTotal.requestTimestamps.poll(); // Removes an old request
-		System.out.println("Removed one old request. Current timestamps: " + virusTotal.requestTimestamps); // Debug
+		// Simulate removing an old request to free up space
+		virusTotal.requestTimestamps.poll();
+		System.out.println("Removed one old request. Current timestamps: " + virusTotal.requestTimestamps);
 
 		canRequest = virusTotal.canMakeRequest();
-		System.out.println("Can make request (after adding new): " + canRequest); // Debug
+		System.out.println("Can make request (after adding new): " + canRequest);
 
-		// Now it should be allowed to make a request, so the assertTrue assertion
-		// should pass
-		assertTrue(canRequest);
+		assertTrue(canRequest); // Now it should return true
 
 		// Adding sleep of 1 minute after this test
 		try {
@@ -250,6 +274,13 @@ public class VirusTotalTest {
 		}
 	}
 
+	/**
+	 * Tests the behavior when the request limit is exceeded during file analysis.
+	 * Ensures the system correctly handles the limit and resumes normal operation
+	 * once the limit is no longer exceeded.
+	 *
+	 * @throws InterruptedException if the test is interrupted during execution.
+	 */
 	@Test
 	public void testAnalyzeRequestLimitExceeded() throws InterruptedException {
 		// Simulate filling the request queue to reach the limit
@@ -268,7 +299,10 @@ public class VirusTotalTest {
 		// Verify that the scan report reflects the request limit exceeded scenario
 		ScanReport validFileReport = virusTotal.getReport();
 
-		assertNull("The Report of validFile is null because request limit exceeded", validFileReport);
+		assertNull("The Report of validFile is null because request limit exceeded", validFileReport); // Report should
+																										// be null due
+																										// to request
+																										// limit
 
 		// Simulate removing an old request to free up space
 		virusTotal.requestTimestamps.poll();
@@ -281,53 +315,79 @@ public class VirusTotalTest {
 		virusTotal.analyze(validFile);
 
 		// Verify that the scan report is now valid
-		validFileReport = virusTotal.getReport(); // Get the updated report
-		assertNotNull("Scan report should not be null after successful analysis.", validFileReport);
-		assertTrue("Scan report should be valid after successful analysis.", validFileReport.isValidReport());
-		assertEquals("SHA256 hash should match for the analyzed file.", FileManager.calculateSHA256(validFile),
+		validFileReport = virusTotal.getReport();
+		assertNotNull("Scan report should not be null after successful analysis.", validFileReport); // Scan report
+																										// should not be
+																										// null
+		assertTrue("Scan report should be valid after successful analysis.", validFileReport.isValidReport()); // Scan
+																												// report
+																												// should
+																												// be
+																												// valid
+		assertEquals("SHA256 hash should match for the analyzed file.", FileManager.calculateSHA256(validFile), // Check
+																												// hash
+																												// matches
 				validFileReport.getSha256());
 	}
 
-	// Metodo per aggiornare il file config.json con una API_KEY vuota
+	/**
+	 * Updates the config.json file with an empty API key.
+	 *
+	 * @throws IOException if an error occurs while updating the file.
+	 */
 	private void updateConfigWithEmptyApiKey() throws IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		JsonNode configNode = objectMapper.readTree(new File(CONFIG_PATH));
 
-		// Imposta la API_KEY vuota
+		// Set the API_KEY to empty
 		((com.fasterxml.jackson.databind.node.ObjectNode) configNode).put("api_key", "");
 
-		// Scrivi nuovamente nel file config.json
+		// Write back to the config.json file
 		objectMapper.writeValue(new File(CONFIG_PATH), configNode);
 	}
-	
-	// Metodo per aggiornare il file config.json con una API_KEY vuota
+
+	/**
+	 * Updates the config.json file with a null API key.
+	 *
+	 * @throws IOException if an error occurs while updating the file.
+	 */
 	private void updateConfigWithNullApiKey() throws IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		JsonNode configNode = objectMapper.readTree(new File(CONFIG_PATH));
 
-		// Imposta la API_KEY vuota
+		// Set the API_KEY to null
 		((com.fasterxml.jackson.databind.node.ObjectNode) configNode).putNull("api_key");
 
-		// Scrivi nuovamente nel file config.json
+		// Write back to the config.json file
 		objectMapper.writeValue(new File(CONFIG_PATH), configNode);
 	}
 
-	// Metodo per aggiornare il file config.json con una API_KEY valida
+	/**
+	 * Updates the config.json file with a valid API key.
+	 *
+	 * @throws IOException if an error occurs while updating the file.
+	 */
 	private void updateConfigWithValidApiKey() throws IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		JsonNode configNode = objectMapper.readTree(new File(CONFIG_PATH));
 
-		// Imposta la API_KEY valida
+		// Set the API_KEY to a valid value
 		((com.fasterxml.jackson.databind.node.ObjectNode) configNode).put("api_key", TEST_API_KEY);
 
-		// Scrivi nuovamente nel file config.json
+		// Write back to the config.json file
 		objectMapper.writeValue(new File(CONFIG_PATH), configNode);
 	}
 
+	/**
+	 * Resets the VirusTotal singleton instance for testing purposes.
+	 *
+	 * @throws NoSuchFieldException   if the instance field is not found.
+	 * @throws IllegalAccessException if the instance field is inaccessible.
+	 */
 	private void resetVirusTotalInstance() throws NoSuchFieldException, IllegalAccessException {
-		// Usa la riflessione per accedere al campo 'instance' e metterlo a null
+		// Use reflection to access the 'instance' field and set it to null
 		Field instanceField = VirusTotal.class.getDeclaredField("instance");
-		instanceField.setAccessible(true); // Permetti l'accesso a un campo privato
-		instanceField.set(null, null); // Imposta l'istanza a null
+		instanceField.setAccessible(true); // Allow access to a private field
+		instanceField.set(null, null); // Set the instance to null
 	}
 }

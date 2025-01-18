@@ -14,7 +14,9 @@ import com.wireshield.av.FileManager;
 import com.wireshield.enums.connectionStates;
 
 /**
- * The WireguardManager class is responsible for managing the wireguard VPN.
+ * The WireguardManager class is responsible for managing the WireGuard VPN,
+ * including starting and stopping the interface, updating connection
+ * statistics, and managing logs.
  */
 public class WireguardManager {
 	private static final Logger logger = LogManager.getLogger(WireguardManager.class);
@@ -27,6 +29,10 @@ public class WireguardManager {
 	private PeerManager peerManager;
 	private String logs;
 
+	/**
+	 * Private constructor for the WireguardManager class. Initializes paths and
+	 * starts log update thread.
+	 */
 	private WireguardManager() {
 		this.wireguardPath = FileManager.getProjectFolder() + FileManager.getConfigValue("WIREGUARDEXE_STD_PATH");
 		this.defaultPeerPath = FileManager.getProjectFolder() + FileManager.getConfigValue("PEER_STD_PATH");
@@ -58,8 +64,8 @@ public class WireguardManager {
 	 *
 	 * @param wgPath the path to the WireGuard executable.
 	 * @return the single instance of WireguardManager.
-	 * @throws ParseException
-	 * @throws IOException
+	 * @throws ParseException If there is an error parsing configuration.
+	 * @throws IOException    If an I/O error occurs.
 	 */
 	public static synchronized WireguardManager getInstance() {
 		if (instance == null) {
@@ -69,11 +75,11 @@ public class WireguardManager {
 	}
 
 	/**
-	 * Starts the wireguard inteface based on the configuration path.
+	 * Starts the WireGuard interface based on the given configuration file.
 	 * 
-	 * @param configFileName The configuration file name (Name).(extension) .
-	 * 
-	 * @return True if the interface is correctly up, false overwise.
+	 * @param configFileName The name of the configuration file (including
+	 *                       extension).
+	 * @return True if the interface is successfully started, false otherwise.
 	 */
 	public Boolean setInterfaceUp(String configFileName) {
 		String activeInterface = connection.getActiveInterface();
@@ -83,7 +89,7 @@ public class WireguardManager {
 		}
 
 		try {
-			// Command for wireguard interface start.
+			// Command to start WireGuard interface
 			ProcessBuilder processBuilder = new ProcessBuilder(wireguardPath, "/installtunnelservice",
 					defaultPeerPath + configFileName);
 
@@ -110,16 +116,16 @@ public class WireguardManager {
 			e.printStackTrace();
 			return false;
 		} catch (InterruptedException e) {
-			Thread.currentThread().interrupt(); // Reinterrompe il thread
+			Thread.currentThread().interrupt(); // Re-interrupt the thread
 			logger.error("Thread was interrupted while stopping the WireGuard interface.");
 			return false;
 		}
 	}
 
 	/**
-	 * Stops the active wireguard interface.
+	 * Stops the active WireGuard interface.
 	 * 
-	 * @return True if the interface has been stopped correctly, false overwise.
+	 * @return True if the interface was stopped successfully, false otherwise.
 	 */
 	public Boolean setInterfaceDown() {
 		String interfaceName = connection.getActiveInterface();
@@ -131,7 +137,7 @@ public class WireguardManager {
 		}
 
 		try {
-			// Command for wireguard interface stop.
+			// Command to stop WireGuard interface
 			ProcessBuilder processBuilder = new ProcessBuilder(wireguardPath, "/uninstalltunnelservice", interfaceName);
 			Process process = processBuilder.start();
 
@@ -156,29 +162,22 @@ public class WireguardManager {
 			e.printStackTrace();
 			return false;
 		} catch (InterruptedException e) {
-			Thread.currentThread().interrupt(); // Reinterrompe il thread
+			Thread.currentThread().interrupt(); // Re-interrupt the thread
 			logger.error("Thread was interrupted while stopping the WireGuard interface.");
 			return false;
 		}
 	}
 
 	/**
-	 * Updates connection statistics in a synchronized manner.
-	 * <p>
-	 * This method waits until the active interface of the connection is available,
-	 * then performs the following updates:
-	 * <ul>
-	 * <li>Updates the active interface.</li>
-	 * <li>Updates traffic statistics.</li>
-	 * <li>Updates the last handshake time.</li>
-	 * </ul>
-	 * </p>
+	 * Updates connection statistics in a synchronized manner. This method waits
+	 * until the active interface of the connection is available, then updates the
+	 * active interface, traffic, and last handshake time.
 	 */
 	private synchronized void updateConnectionStats() {
 
-		// Wait that while the interface is actually up
+		// Wait until the interface is active
 		while (connection.getActiveInterface() == null) {
-	        // Interfaccia non attiva, controlla di nuovo subito dopo
+			// Interface not active, check again shortly
 		}
 
 		// Update active interface
@@ -187,20 +186,17 @@ public class WireguardManager {
 		// Update traffic
 		connection.updateTraffic();
 
-		// Update last hand-shake
+		// Update last handshake time
 		connection.updateLastHandshakeTime();
 
 	}
 
 	/**
-	 * Starts a thread to continuously update connection statistics.
-	 * <p>
-	 * The method runs a background task that repeatedly calls
-	 * {@link #updateConnectionStats()} as long as the connection status is
-	 * {@code CONNECTED}. After each update, it logs the current state of the
-	 * connection and sleeps for 1 second before the next iteration. If the thread
-	 * is interrupted, it stops and logs an error.
-	 * </p>
+	 * Starts a thread to continuously update connection statistics. The method runs
+	 * a background task that calls {@link #updateConnectionStats()} as long as the
+	 * connection status is {@code CONNECTED}. After each update, it logs the
+	 * current state of the connection and sleeps for 1 second before the next
+	 * iteration.
 	 */
 	public void startUpdateConnectionStats() {
 		Runnable task = () -> {
@@ -256,13 +252,11 @@ public class WireguardManager {
 	}
 
 	/**
-	 * Starts a thread to continuously update WireGuard logs.
-	 * <p>
-	 * This method executes a background task that periodically dumps WireGuard logs
-	 * to a specified file using a {@link ProcessBuilder}. The logs are then read
-	 * into memory and stored. The task runs indefinitely, with a 1-second sleep
-	 * between iterations. If the thread is interrupted, it stops and logs an error.
-	 * </p>
+	 * Starts a thread to continuously update WireGuard logs. This method executes a
+	 * background task that periodically dumps WireGuard logs into a specified file
+	 * using a {@link ProcessBuilder}. The logs are read into memory and stored. The
+	 * task runs indefinitely, with a 1-second sleep between iterations. If the
+	 * thread is interrupted, it stops and logs an error.
 	 */
 	public void startUpdateWireguardLogs() {
 		Runnable task = () -> {
@@ -283,12 +277,11 @@ public class WireguardManager {
 		thread.start();
 	}
 	
-    /**
-     * Returns the connection logs.
-     * 
-     * @return String
-     *   The connection logs. 
-     */
+	/**
+	 * Returns the current connection logs.
+	 * 
+	 * @return A string containing the connection logs.
+	 */
     public String getConnectionLogs(){
         connection.updateActiveInterface();
         connection.updateTraffic();
@@ -297,36 +290,36 @@ public class WireguardManager {
     }
 
 	/**
-	 * Returns the connection.
+	 * Returns the current connection status.
 	 * 
-	 * @return Connection The connection.
+	 * @return The current connection status.
 	 */
 	public connectionStates getConnectionStatus() {
 		return connection.getStatus();
 	}
 
 	/**
-	 * Returns the peer manager.
+	 * Returns the PeerManager instance.
 	 * 
-	 * @return PeerManager The peer manager.
+	 * @return The PeerManager instance.
 	 */
 	public PeerManager getPeerManager() {
 		return this.peerManager;
 	}
 
 	/**
-	 * Returns the connection object.
+	 * Returns the current connection object.
 	 * 
-	 * @return Connection The connection.
+	 * @return The current Connection object.
 	 */
 	protected Connection getConnection() {
 		return this.connection;
 	}
 
 	/**
-	 * Returns reversed wg logs.
+	 * Returns reversed WireGuard logs.
 	 * 
-	 * @return String wireguard logs.
+	 * @return The WireGuard logs.
 	 */
 	public String getLog() {
     	String[] lines = this.logs.split("\n");
