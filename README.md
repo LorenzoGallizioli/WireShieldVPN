@@ -41,13 +41,13 @@ Con questo strumento, vogliamo offrire una soluzione che combini:
 
 ### 1. Connessione VPN con WireGuard
 L’applicazione permette la configurazione e la gestione di una connessione VPN attraverso WireGuard. Le funzionalità principali sono:
-   - **Configurazione con chiavi**: l'utente può configurare la connessione tramite chiavi pubbliche e private.
+ <!--  - **Configurazione con chiavi**: l'utente può configurare la connessione tramite chiavi pubbliche e private. -->
    - **Caricamento file di configurazione**: supporto per file `.conf` di WireGuard, che semplifica il setup della connessione.
 
 ### 2. Scansione Antivirus Integrata
 Per proteggere i file scaricati durante l’utilizzo della VPN, il client offre una doppia opzione per la scansione antivirus:
    - **Integrazione con ClamAV**: scansione antivirus open-source con ClamAV.
-   - **Integrazione con VirusTotal API**: verifica degli hash dei file (MD5/SHA256) tramite chiamate all’API di VirusTotal, che permette di esaminare file sospetti senza inviarli completamente, riducendo così il rischio di trasmissioni non sicure.
+   - **Integrazione con VirusTotal API**: verifica degli hash dei file (MD5/SHA256) tramite chiamate all’API di VirusTotal, che permette di esaminare file sospetti per scongiurare falsi positivi.
 
 ### 3. Interfaccia Utente (UI)
 L’applicazione presenta un’interfaccia **JavaFX** che consente all’utente di:
@@ -88,7 +88,7 @@ Al primo avvio non sarà presente nessun peer.
 Il peer deve essere caricato cliccando sul bottone '+' nella **Home** di WireShield e deve essere un file di configurazione wireguard (.conf).
 
 ### 4. Avvia la connessione VPN
-Puoi avviare o interrompere la connessione VPN direttamente dalla scheda **Home** dell'interfaccia utente e controllare i log nella scehda **Logs**.
+Puoi avviare o interrompere la connessione VPN direttamente dalla scheda **Home** dell'interfaccia utente e controllare i log nella scheda **Logs**.
 
 ### 5. Esegui una scansione antivirus
 Una volta stabilita la connessione VPN, puoi scansionare i file scaricati tramite **ClamAV** e **VirusTotal** semplicemente scaricando un file dal web e attendendo che WireShield effettui la scansione. Il sistema ti notificherà immediatamente in caso di rilevamento di malware e troverai il risultato della scansione, al termine della stessa, nella sezione **Antivirus**.
