@@ -47,7 +47,7 @@ L’applicazione permette la configurazione e la gestione di una connessione VPN
 ### 2. Scansione Antivirus Integrata
 Per proteggere i file scaricati durante l’utilizzo della VPN, il client offre una doppia opzione per la scansione antivirus:
    - **Integrazione con ClamAV**: scansione antivirus open-source con ClamAV.
-   - **Integrazione con VirusTotal API**: verifica degli hash dei file (MD5/SHA256) tramite chiamate all’API di VirusTotal, che permette di esaminare file sospetti per scongiurare falsi positivi.
+   - **Integrazione con VirusTotal API**: verifica dei files flaggati infetti da clamAV tramite chiamate all’API di VirusTotal, che permette di esaminare file sospetti per scongiurare falsi positivi.
 
 ### 3. Interfaccia Utente (UI)
 L’applicazione presenta un’interfaccia **JavaFX** che consente all’utente di:
