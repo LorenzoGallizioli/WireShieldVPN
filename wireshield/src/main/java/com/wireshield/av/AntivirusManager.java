@@ -114,6 +114,9 @@ public class AntivirusManager {
 						wait();
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
+						
+						// error occurred - Shut down service
+						scannerStatus = runningStates.DOWN;
 						break;
 					}
 				}
@@ -137,17 +140,12 @@ public class AntivirusManager {
 					
 					virusTotal.analyze(fileToScan);
 					
-					ScanReport virusTotalReport = null;
-					try {
-						virusTotalReport = virusTotal.getReport();
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					ScanReport virusTotalReport = virusTotal.getReport();
 					
 					if (virusTotalReport != null) {
 						mergeReports(finalReport, virusTotalReport);
 					}
+					
 				} else if (fileToScan.length() > MAX_FILE_SIZE) {
 					logger.warn("File is too large for VirusTotal analysis: {}", fileToScan.getName());
 				}
@@ -163,10 +161,6 @@ public class AntivirusManager {
 				JOptionPane.showMessageDialog(null, "Threat detected in file: " + fileToScan.getName(),
 						"Threat Detected", JOptionPane.WARNING_MESSAGE); // Show warning dialog
 				filesToRemove.add(fileToScan);
-			}
-
-			if (Thread.currentThread().isInterrupted()) {
-				break; // Exit loop if thread is interrupted
 			}
 		}
 	}

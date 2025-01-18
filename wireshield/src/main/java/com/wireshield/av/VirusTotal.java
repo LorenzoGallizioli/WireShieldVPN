@@ -162,7 +162,7 @@ public class VirusTotal implements AVInterface {
 	 * @throws InterruptedException if the thread is interrupted while waiting for
 	 *                              the report.
 	 */
-	public ScanReport getReport() throws InterruptedException {
+	public ScanReport getReport(){
 		// Ensure a valid scan report exists
 		if (scanReport == null || scanReport.getScanId() == null) {
 			logger.warn("No report available. Please perform an analysis first.");
@@ -170,9 +170,12 @@ public class VirusTotal implements AVInterface {
 		}
 
 		try (CloseableHttpClient client = HttpClients.createDefault()) {
+			
 			URI uri = new URIBuilder(virustotalUri + "/analyses/" + scanReport.getScanId()).build();
 			boolean isCompleted = false;
+			
 			logger.info("Waiting for the report...");
+			
 			while (!isCompleted) {
 				HttpGet get = new HttpGet(uri);
 				get.addHeader("x-apikey", apiKey);
@@ -207,6 +210,7 @@ public class VirusTotal implements AVInterface {
 
 						// Determine threat level
 						if (maliciousCount > 0) {
+							
 							double totalScans = (double) maliciousCount + harmlessCount + suspiciousCount
 									+ undetectedCount;
 							double maliciousPercentage = (maliciousCount / totalScans) * 100;
@@ -226,17 +230,21 @@ public class VirusTotal implements AVInterface {
 							scanReport.setThreatDetails("The file is clean: no threats detected.");
 						}
 						isCompleted = true;
+						
 					} else {
 						Thread.sleep(5000);
 					}
+					
 				} else {
 					logger.error("Error retrieving the report. HTTP Status Code: {}", statusCode);
 					return null;
 				}
 			}
+			
 		} catch (InterruptedException e) {
 			logger.error("Thread was interrupted while retrieving the report.", e);
-			throw e; // Rethrow the InterruptedException
+			return null;
+			
 		} catch (Exception e) {
 			logger.error("Exception while getting the analysis report.", e);
 		}
