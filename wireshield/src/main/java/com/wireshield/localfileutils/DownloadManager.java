@@ -102,40 +102,48 @@ public class DownloadManager {
 			// Start monitoring in a new thread
 			monitorThread = new Thread(() -> {
 				// Loop to monitor the directory as long as the status is UP
-				while (monitorStatus == runningStates.UP) {
+				while (monitorStatus == runningStates.UP && !Thread.currentThread().isInterrupted()) {
+					
+					WatchKey key;
+					
 					try {
-						WatchKey key = watchService.take(); // Wait for events
-
-						// Process events
-						for (WatchEvent<?> event : key.pollEvents()) {
-							if (event.kind() == StandardWatchEventKinds.ENTRY_CREATE) {
-								Path newFilePath = path.resolve((Path) event.context());
-								File newFile = newFilePath.toFile();
-
-								if (!FileManager.isTemporaryFile(newFile) && FileManager.isFileStable(newFile)) {
-									String fileName = newFile.getAbsolutePath();
-
-									// Check if file is already detected
-									if (!detectedFiles.contains(fileName)) {
-										detectedFiles.add(fileName);
-										logger.info("New file detected: {}", newFile.getName());
-										antivirusManager.addFileToScanBuffer(newFile); // Add to antivirus queue
-									}
-								}
-							}
-						}
-
-						key.reset(); // Continue watching for further events
-
+						
+						key = watchService.take(); // Wait for events
+						
 					} catch (InterruptedException e) {
 						// Handle interruption gracefully, but don't stop the monitoring thread
 						if (monitorStatus == runningStates.UP) {
-							logger.info("Monitoring interrupted, but continuing...");
+							logger.info("Download monitor unexpecly interrupted - Stopping Thread...");
 							
 							monitorStatus = runningStates.DOWN;
-							Thread.currentThread().interrupt(); // Preserve interruption flag
+						}
+						continue;
+					}
+
+					// Process events
+					for (WatchEvent<?> event : key.pollEvents()) {
+							
+						if (event.kind() == StandardWatchEventKinds.ENTRY_CREATE) {
+								
+							Path newFilePath = path.resolve((Path) event.context());
+							File newFile = newFilePath.toFile();
+
+							if (!FileManager.isTemporaryFile(newFile) && FileManager.isFileStable(newFile)) {
+								String fileName = newFile.getAbsolutePath();
+
+								// Check if file is already detected
+								if (!detectedFiles.contains(fileName)) {
+									detectedFiles.add(fileName);
+									logger.info("New file detected: {}", newFile.getName());
+										
+									antivirusManager.addFileToScanBuffer(newFile); // Add to antivirus queue
+								}
+							}
 						}
 					}
+
+					key.reset(); // Continue watching for further events
+					
 				}
 			});
 
@@ -172,9 +180,10 @@ public class DownloadManager {
 
 		} catch (IOException e) {
 			logger.error("Error stopping monitoring due to IO issue: {}", e.getMessage(), e);
+			
 		} catch (InterruptedException e) {
 			logger.error("Thread interrupted while stopping monitoring: {}", e.getMessage(), e);
-			Thread.currentThread().interrupt(); // Preserve interruption flag
+
 		}
 	}
 

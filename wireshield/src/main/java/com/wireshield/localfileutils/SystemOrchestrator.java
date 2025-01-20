@@ -120,9 +120,11 @@ public class SystemOrchestrator {
                 try {
                     downloadManager.startMonitoring(); // Start monitoring downloads
                     logger.info("Download monitoring service started successfully.");
+                    
                 } catch (IOException e) {
                     logger.error("Error starting the download monitoring service: {}", e.getMessage(), e);
                     this.monitorStatus = runningStates.DOWN;
+                    
                 }
             } else {
                 logger.info("Download monitoring service is already running.");
@@ -131,7 +133,7 @@ public class SystemOrchestrator {
             if (downloadManager.getMonitorStatus() != runningStates.DOWN) {
                 logger.info("Stopping download monitoring service...");
                 downloadManager.forceStopMonitoring(); // Stop monitoring downloads
-				logger.info("Download monitoring service stopped successfully.");
+
 			} else {
 				logger.info("Download monitoring service is already stopped.");
 			}
@@ -294,7 +296,7 @@ public class SystemOrchestrator {
      */
     public void statesGuardian() {
     	Runnable task = () -> {
-            while (guardianState == runningStates.UP) { // Check interface is up
+            while (guardianState == runningStates.UP && !Thread.currentThread().isInterrupted()) { // Check interface is up
             	if(wireguardManager.getConnectionStatus() == connectionStates.CONNECTED) {
             		if(antivirusManager.getScannerStatus() == runningStates.DOWN || downloadManager.getMonitorStatus() == runningStates.DOWN) {
             			
@@ -308,6 +310,14 @@ public class SystemOrchestrator {
             			
             			manageVPN(vpnOperations.STOP,null);
             		}
+            	} 
+            	else
+            	{
+            		if(downloadManager.getMonitorStatus() == runningStates.UP) {
+        				manageDownload(runningStates.DOWN);
+        			} else if(antivirusManager.getScannerStatus() == runningStates.UP) {
+        				manageAV(runningStates.DOWN);
+        			}
             	}
             	
             	logger.info("componentStatesGuardian: " + wireguardManager.getConnectionStatus() + antivirusManager.getScannerStatus() + downloadManager.getMonitorStatus());

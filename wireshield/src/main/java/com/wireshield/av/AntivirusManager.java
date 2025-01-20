@@ -63,6 +63,7 @@ public class AntivirusManager {
 			scanBuffer.add(file);
 			logger.info("File added to scan buffer: {}", file.getName());
 			notifyAll(); // Notify the scanning thread of new file
+			
 		} else {
 			logger.warn("File is already in the scan buffer: {}", file.getName());
 		}
@@ -94,11 +95,11 @@ public class AntivirusManager {
 	}
 
 	private void performScan(){
-		while (scannerStatus != runningStates.DOWN) {
+		while (scannerStatus == runningStates.UP) {
 			File fileToScan;
 
 			if (clamAV == null) {
-				logger.error("ClamAV object not exists - Shutting down scanner"); 
+				logger.error("ClamAV object not exists - Shutting down AV scanner"); 
 				scannerStatus = runningStates.DOWN;
 			}
 
@@ -113,10 +114,8 @@ public class AntivirusManager {
 					try {
 						wait();
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						
+
 						// error occurred - Shut down service
-						System.out.println("sasso");
 						scannerStatus = runningStates.DOWN;
 						break;
 					}
@@ -177,12 +176,12 @@ public class AntivirusManager {
 		scannerStatus = runningStates.DOWN;
 
 		if (scanThread != null && scanThread.isAlive()) {
+			
 			scanThread.interrupt();
+			
 			try {
 				scanThread.join(); // Wait for the thread to terminate
-			} catch (InterruptedException e) {
-				Thread.currentThread().interrupt(); // Restore interrupt status
-			}
+			} catch (InterruptedException e) {}
 		}
 	}
 
