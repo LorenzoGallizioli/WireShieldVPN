@@ -105,16 +105,12 @@ In questo modo, si garantisce che lo sviluppo non interferisca con la stabilità
 
 - **Statistiche del Repository GitHub**
 
-  Durante il progetto, abbiamo raccolto alcune statistiche chiave che riflettono il progresso e la gestione delle attività:
+Per le statistiche del repository invitiamo a consultare la pagina:
+ https://githubtracker.com/LorenzoGallizioli/WireShield 
 
-      Numero di commit totali: ??
-      Branch creati: ??
-      Pull Request aperte e completate: ??
-      Issues create: ??
-      Issues risolte: ??
-      Code Review effettuate: ??
+che ci permette di avere statistiche sempre aggiornate e mostrate in modo chiaro.
 
-  Queste metriche dimostrano l'impegno nella gestione strutturata e collaborativa del progetto, garantendo trasparenza e continuità nello sviluppo.
+Queste metriche dimostrano l'impegno nella gestione strutturata e collaborativa del progetto, garantendo trasparenza e continuità nello sviluppo.
 
 
 &nbsp;
