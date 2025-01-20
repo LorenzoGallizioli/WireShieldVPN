@@ -86,9 +86,6 @@ public class AntivirusManager {
 			
 			performScan();
 	            
-			synchronized (this) {
-				notifyAll(); // Notify all threads waiting on this object
-			}
 		});
 
 		scanThread.start();
@@ -122,7 +119,7 @@ public class AntivirusManager {
 				}
 				continue;
 			}
-
+						
 			// Create a new scan report for the file
 			ScanReport finalReport = new ScanReport();
 			finalReport.setFile(fileToScan);
