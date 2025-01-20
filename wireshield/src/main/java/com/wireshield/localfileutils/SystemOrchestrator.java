@@ -1,6 +1,5 @@
 package com.wireshield.localfileutils;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import org.apache.logging.log4j.LogManager;
@@ -36,7 +35,7 @@ public class SystemOrchestrator {
     private ClamAV clamAV;                     // Integrates ClamAV for file scanning
     private VirusTotal virusTotal;             // Integrates VirusTotal for file scanning
     private runningStates avStatus = runningStates.DOWN; // Current antivirus status
-    private runningStates monitorStatus;       // Current download monitoring status
+    private runningStates monitorStatus = runningStates.DOWN; // Current download monitoring status
     
     // Control variable for componentStatesGuardian thread --> runningStates.UP let the thread to continue running, runningStates.DOWN stops the thread execution
     private runningStates guardianState = runningStates.DOWN; 
@@ -368,6 +367,13 @@ public class SystemOrchestrator {
      */
     public runningStates getGuardianState() {
     	return guardianState;
+    }
+    
+    /*
+     * Only for test
+     */
+    protected void resetIstance() {
+    	instance = null;
     }
     
 }
