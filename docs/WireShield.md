@@ -238,6 +238,10 @@ I seguenti diagrammi UML sono stati utilizzati per progettare il sistema:
 ---
 ![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/ComponentDiagram/ComponentDiagram.png)
 
+#### ***Diagramma dei Package***
+---
+![image](https://github.com/LorenzoGallizioli/WireShield/blob/main/docs/PackageDiagram/PackageDiagram.png)
+
 
 &nbsp;
 ## 8. 🏛️ **Software Architecture**
