@@ -63,6 +63,7 @@ public class AntivirusManager {
 			scanBuffer.add(file);
 			logger.info("File added to scan buffer: {}", file.getName());
 			notifyAll(); // Notify the scanning thread of new file
+			
 		} else {
 			logger.warn("File is already in the scan buffer: {}", file.getName());
 		}
@@ -85,20 +86,17 @@ public class AntivirusManager {
 			
 			performScan();
 	            
-			synchronized (this) {
-				notifyAll(); // Notify all threads waiting on this object
-			}
 		});
 
 		scanThread.start();
 	}
 
 	private void performScan(){
-		while (scannerStatus != runningStates.DOWN) {
+		while (scannerStatus == runningStates.UP) {
 			File fileToScan;
 
 			if (clamAV == null) {
-				logger.error("ClamAV object not exists - Shutting down scanner"); 
+				logger.error("ClamAV object not exists - Shutting down AV scanner"); 
 				scannerStatus = runningStates.DOWN;
 			}
 
@@ -113,13 +111,15 @@ public class AntivirusManager {
 					try {
 						wait();
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
+
+						// error occurred - Shut down service
+						scannerStatus = runningStates.DOWN;
 						break;
 					}
 				}
 				continue;
 			}
-
+						
 			// Create a new scan report for the file
 			ScanReport finalReport = new ScanReport();
 			finalReport.setFile(fileToScan);
@@ -137,17 +137,12 @@ public class AntivirusManager {
 					
 					virusTotal.analyze(fileToScan);
 					
-					ScanReport virusTotalReport = null;
-					try {
-						virusTotalReport = virusTotal.getReport();
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					ScanReport virusTotalReport = virusTotal.getReport();
 					
 					if (virusTotalReport != null) {
 						mergeReports(finalReport, virusTotalReport);
 					}
+					
 				} else if (fileToScan.length() > MAX_FILE_SIZE) {
 					logger.warn("File is too large for VirusTotal analysis: {}", fileToScan.getName());
 				}
@@ -157,16 +152,11 @@ public class AntivirusManager {
 			finalReports.add(finalReport);
 
 			// If the file is dangerous or suspicious, take action
-			if (finalReport.getWarningClass() == warningClass.DANGEROUS
-					|| finalReport.getWarningClass() == warningClass.SUSPICIOUS) {
+			if (finalReport.getWarningClass() == warningClass.DANGEROUS || finalReport.getWarningClass() == warningClass.SUSPICIOUS) {
 				logger.warn("Threat detected in file: {}", fileToScan.getName());
-				JOptionPane.showMessageDialog(null, "Threat detected in file: " + fileToScan.getName(),
-						"Threat Detected", JOptionPane.WARNING_MESSAGE); // Show warning dialog
+				
+				JOptionPane.showMessageDialog(null, "Threat detected in file: " + fileToScan.getName(), "Threat Detected", JOptionPane.WARNING_MESSAGE); // Show warning dialog
 				filesToRemove.add(fileToScan);
-			}
-
-			if (Thread.currentThread().isInterrupted()) {
-				break; // Exit loop if thread is interrupted
 			}
 		}
 	}
@@ -183,12 +173,12 @@ public class AntivirusManager {
 		scannerStatus = runningStates.DOWN;
 
 		if (scanThread != null && scanThread.isAlive()) {
+			
 			scanThread.interrupt();
+			
 			try {
 				scanThread.join(); // Wait for the thread to terminate
-			} catch (InterruptedException e) {
-				Thread.currentThread().interrupt(); // Restore interrupt status
-			}
+			} catch (InterruptedException e) {}
 		}
 	}
 

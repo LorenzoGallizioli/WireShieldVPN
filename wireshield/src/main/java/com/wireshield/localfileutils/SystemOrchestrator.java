@@ -120,9 +120,11 @@ public class SystemOrchestrator {
                 try {
                     downloadManager.startMonitoring(); // Start monitoring downloads
                     logger.info("Download monitoring service started successfully.");
+                    
                 } catch (IOException e) {
                     logger.error("Error starting the download monitoring service: {}", e.getMessage(), e);
                     this.monitorStatus = runningStates.DOWN;
+                    
                 }
             } else {
                 logger.info("Download monitoring service is already running.");
@@ -131,7 +133,7 @@ public class SystemOrchestrator {
             if (downloadManager.getMonitorStatus() != runningStates.DOWN) {
                 logger.info("Stopping download monitoring service...");
                 downloadManager.forceStopMonitoring(); // Stop monitoring downloads
-				logger.info("Download monitoring service stopped successfully.");
+
 			} else {
 				logger.info("Download monitoring service is already stopped.");
 			}
@@ -144,7 +146,7 @@ public class SystemOrchestrator {
 	 * @param status The desired state of the antivirus service (UP or DOWN).
 	 */
 	public void manageAV(runningStates status) {
-		this.avStatus = status; // Update antivirus status
+		avStatus = status; // Update antivirus status
 		logger.info("Managing antivirus service. Desired state: {}", status);
 
 		if (avStatus == runningStates.UP) {
@@ -152,28 +154,34 @@ public class SystemOrchestrator {
 				logger.info("Starting antivirus service...");
 
                 // Starting antivirus scan and providing progress
-                try {
-                    antivirusManager.startScan(); // Start antivirus scan
-                    logger.info("Antivirus service started successfully.");
-                } catch (Exception e) {
-                    logger.error("Error while starting antivirus service: {}", e.getMessage(), e);
-                    this.avStatus = antivirusManager.getScannerStatus();
+                antivirusManager.startScan();
+                avStatus = antivirusManager.getScannerStatus();
+                
+                if(avStatus == runningStates.UP) {
+                	logger.info("Antivirus service started successfully.");
+                } else {
+                	logger.error("Error occurred during AV process starting.");
                 }
+                
             } else { 
                 logger.info("Antivirus service is already running.");
             }
-        } else {
+        } 
+		else 
+		{
             if (antivirusManager.getScannerStatus() != runningStates.DOWN) {
                 logger.info("Stopping antivirus service...");
                 
                 // Stopping the scan
-                try {
-                    antivirusManager.stopScan(); 
-                    logger.info("Antivirus service stopped successfully.");
-                } catch (Exception e) {
-                    logger.error("Error while stopping antivirus service: {}", e.getMessage(), e);
-                    this.avStatus = antivirusManager.getScannerStatus();
+                antivirusManager.stopScan(); 
+                avStatus = antivirusManager.getScannerStatus();
+                
+                if(avStatus == runningStates.DOWN) {
+                	logger.info("Antivirus service stopped successfully.");
+                } else {
+                	logger.error("Error occurred during AV process stopping.");
                 }
+
             } else {
                 logger.info("Antivirus service is already stopped.");
             }
@@ -294,7 +302,7 @@ public class SystemOrchestrator {
      */
     public void statesGuardian() {
     	Runnable task = () -> {
-            while (guardianState == runningStates.UP) { // Check interface is up
+            while (guardianState == runningStates.UP && !Thread.currentThread().isInterrupted()) { // Check interface is up
             	if(wireguardManager.getConnectionStatus() == connectionStates.CONNECTED) {
             		if(antivirusManager.getScannerStatus() == runningStates.DOWN || downloadManager.getMonitorStatus() == runningStates.DOWN) {
             			
@@ -308,15 +316,24 @@ public class SystemOrchestrator {
             			
             			manageVPN(vpnOperations.STOP,null);
             		}
+            	} 
+            	else
+            	{
+            		if(downloadManager.getMonitorStatus() == runningStates.UP) {
+        				manageDownload(runningStates.DOWN);
+        			} if(antivirusManager.getScannerStatus() == runningStates.UP) {
+        				manageAV(runningStates.DOWN);
+        			}
             	}
             	
             	logger.info("componentStatesGuardian: " + wireguardManager.getConnectionStatus() + antivirusManager.getScannerStatus() + downloadManager.getMonitorStatus());
                 try {
                     Thread.sleep(200); // wait
+                    
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     logger.error("startComponentStatesGuardian() thread unexpecly interrupted");
-                    break;
+                    
                 }
             }
             logger.info("startComponentStatesGuardian() thread stopped");

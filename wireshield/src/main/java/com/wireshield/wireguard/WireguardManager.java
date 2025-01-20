@@ -77,8 +77,7 @@ public class WireguardManager {
 	/**
 	 * Starts the WireGuard interface based on the given configuration file.
 	 * 
-	 * @param configFileName The name of the configuration file (including
-	 *                       extension).
+	 * @param configFileName The name of the configuration file (including extension).
 	 * @return True if the interface is successfully started, false otherwise.
 	 */
 	public Boolean setInterfaceUp(String configFileName) {
@@ -87,38 +86,44 @@ public class WireguardManager {
 			logger.warn("WireGuard interface is already up.");
 			return false; // Interface is up
 		}
-
+		
+		int exitCode;
+		
 		try {
 			// Command to start WireGuard interface
-			ProcessBuilder processBuilder = new ProcessBuilder(wireguardPath, "/installtunnelservice",
-					defaultPeerPath + configFileName);
-
+			ProcessBuilder processBuilder = new ProcessBuilder(wireguardPath, "/installtunnelservice", defaultPeerPath + configFileName);
 			Process process = processBuilder.start();
 
 			// Reads the output.
 			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			
 			String line;
 			while ((line = reader.readLine()) != null) {
 				logger.info(line);
 			}
 
 			// Checks the exit code of the process.
-			int exitCode = process.waitFor();
-			if (exitCode == 0) {
-				logger.info("WireGuard interface started.");
-				connection.setStatus(connectionStates.CONNECTED);
-				return true;
-			} else {
-				logger.error("Error starting WireGuard interface.");
-				return false;
-			}
+			exitCode = process.waitFor();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
+			
 		} catch (InterruptedException e) {
-			Thread.currentThread().interrupt(); // Re-interrupt the thread
 			logger.error("Thread was interrupted while stopping the WireGuard interface.");
 			return false;
+			
+		}
+		
+		if (exitCode == 0) {
+			connection.setStatus(connectionStates.CONNECTED);
+			logger.info("WireGuard interface started.");
+			return true;
+			
+		} else {
+			logger.error("Error starting WireGuard interface.");
+			return false;
+			
 		}
 	}
 
@@ -135,6 +140,8 @@ public class WireguardManager {
 			connection.setStatus(connectionStates.DISCONNECTED);
 			return false;
 		}
+		
+		int exitCode;
 
 		try {
 			// Command to stop WireGuard interface
@@ -147,24 +154,29 @@ public class WireguardManager {
 			while ((line = reader.readLine()) != null) {
 				logger.info(line);
 			}
-
+			
 			// Checks the exit code of the process.
-			int exitCode = process.waitFor();
-			if (exitCode == 0) {
-				logger.info("WireGuard interface stopped.");
-				connection.setStatus(connectionStates.DISCONNECTED);
-				return true;
-			} else {
-				logger.error("Error stopping WireGuard interface.");
-				return false;
-			}
+			exitCode = process.waitFor();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
+			
 		} catch (InterruptedException e) {
-			Thread.currentThread().interrupt(); // Re-interrupt the thread
 			logger.error("Thread was interrupted while stopping the WireGuard interface.");
 			return false;
+			
+		}
+		
+		if (exitCode == 0) {
+			connection.setStatus(connectionStates.DISCONNECTED);
+			logger.info("WireGuard interface stopped.");
+			return true;
+			
+		} else {
+			logger.error("Error stopping WireGuard interface.");
+			return false;
+			
 		}
 	}
 
@@ -177,6 +189,8 @@ public class WireguardManager {
 
 		// Wait until the interface is active
 		while (connection.getActiveInterface() == null) {
+			
+			logger.error("connection.getActiveInterface() returns NULL object");
 			// Interface not active, check again shortly
 		}
 
@@ -200,55 +214,53 @@ public class WireguardManager {
 	 */
 	public void startUpdateConnectionStats() {
 		Runnable task = () -> {
-			while (connection.getStatus() == connectionStates.CONNECTED) { // Check interface is up
-				
-				// Update connection stats
-				updateConnectionStats();
-				
+			while (connection.getStatus() == connectionStates.CONNECTED && !Thread.currentThread().isInterrupted()) { // Check interface is up
 				try {
+					
+					// Update connection stats
+					updateConnectionStats();
 					Thread.sleep(1000); // wait
+					
 				} catch (InterruptedException e) {
-					Thread.currentThread().interrupt();
-					logger.error("updateConnectionStats() thread unexpecly interrupted");
-					break;
+					logger.error("Log updater unexpecly interrupted - Stopping Thread...");
+					Thread.currentThread().interrupt();	
 				}
 			}
-			logger.info("updateConnectionStats() thread stopped");
+			logger.info("updateConnectionStats() thread stopped.");
 		};
 
 		Thread thread = new Thread(task);
 		thread.start();
 	}
 	
-	private void updateWireguardLogs(String[] command) {
-		try {
-			File logFile = new File(logDumpPath);
-	        if (logFile.exists() && logFile.isFile()) {
+	/**
+	 * Updates the WireGuard logs by executing the given command and reading the log file.
+	 * If the log file does not exist, it attempts to create it.
+	 *
+	 * @param command an array of strings representing the command to execute for updating logs
+	 * @throws InterruptedException if the process is interrupted while waiting for completion
+	 * @throws IOException if an I/O error occurs while reading or creating the log file
+	 */
+	private void updateWireguardLogs(String[] command) throws InterruptedException, IOException {
+		File logFile = new File(logDumpPath);
+	    if (logFile.exists() && logFile.isFile()) {
 	        	
-	        	ProcessBuilder processBuilder = new ProcessBuilder(command);
-				processBuilder.redirectErrorStream(true);
-				
-		        try {
-		        	Process process = processBuilder.start();
-					process.waitFor();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+	        ProcessBuilder processBuilder = new ProcessBuilder(command);
+			processBuilder.redirectErrorStream(true);
+
+		    Process process = processBuilder.start();
+			process.waitFor();
 	        	
-	            String logDump = FileManager.readFile(logDumpPath);
-	            this.logs = logDump;
+	        String logDump = FileManager.readFile(logDumpPath);
+	        this.logs = logDump;
+	    } else {
+	        logger.error(logDumpPath + " not exits - Creating... ");
+	        if(FileManager.createFile(logDumpPath)) {
+	        	logger.info(logDumpPath + " created.");
 	        } else {
-	        	logger.error(logDumpPath + " not exits - Creating... ");
-	        	if(FileManager.createFile(logDumpPath)) {
-	        		logger.info(logDumpPath + " created.");
-	        	} else {
-	        		logger.error("Error occured during " + logDumpPath + " creation.");	        		
-	        	}
+	        	logger.error("Error occured during " + logDumpPath + " creation.");	        		
 	        }
-	        
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	    }    
 	}
 
 	/**
@@ -260,17 +272,24 @@ public class WireguardManager {
 	 */
 	public void startUpdateWireguardLogs() {
 		Runnable task = () -> {
-			while (true) {
+			while (!Thread.currentThread().isInterrupted()) {
+				
 				String[] command = {"cmd.exe", "/c", wireguardPath + " /dumplog > " + logDumpPath};
-				updateWireguardLogs(command);
 				try {
+					
+					updateWireguardLogs(command);
 					Thread.sleep(500);
+					
 				} catch (InterruptedException e) {
-					Thread.currentThread().interrupt();
-					logger.error("startUpdateWireguardLogs() thread unexpecly interrupted");
-					break;
+					logger.error("Log updater unexpecly interrupted (InterruptedException) - Stopping Thread...");
+					Thread.currentThread().interrupt();	
+					
+				} catch (IOException e) {
+					logger.error("Log updater unexpecly interrupted (IOException) - Stopping Thread...");
+					Thread.currentThread().interrupt();	
 				}
 			}
+			logger.info("startUpdateWireguardLogs() thread interrupted.");
 		};
 
 		Thread thread = new Thread(task);
