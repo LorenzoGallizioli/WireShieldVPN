@@ -329,10 +329,11 @@ public class SystemOrchestrator {
             	logger.info("componentStatesGuardian: " + wireguardManager.getConnectionStatus() + antivirusManager.getScannerStatus() + downloadManager.getMonitorStatus());
                 try {
                     Thread.sleep(200); // wait
+                    
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     logger.error("startComponentStatesGuardian() thread unexpecly interrupted");
-                    break;
+                    
                 }
             }
             logger.info("startComponentStatesGuardian() thread stopped");
