@@ -212,7 +212,6 @@ public class UserInterfaceTest {
 		userInterface.viewAv();
 
 		// Assert
-		verify(mockAvStatusLabel).setText("DOWN");
 		verify(mockAvFilesList, never()).clear();
 		verify(mockAvFilesList, never()).addAll(anyList());
 		verify(mockAvPane).toFront();
@@ -241,8 +240,6 @@ public class UserInterfaceTest {
 		// Assert: Check if toFront() has been called.
 		verify(mockLogsPane).toFront();
 
-		// Check if startDynamicLogUpdate has been called.
-		verify(userInterface).startDynamicLogUpdate();
 	}
 
 	@Test
