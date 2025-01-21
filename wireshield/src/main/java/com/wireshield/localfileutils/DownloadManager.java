@@ -95,10 +95,9 @@ public class DownloadManager {
 		
 		// Create WatchService to monitor directory
 		try {
-			
 			// Register the directory for creation events
 			watchService = FileSystems.getDefault().newWatchService();
-		    path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE);
+		        path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE);
 		    
 		} catch (IOException e) {
 			monitorStatus = runningStates.DOWN;
