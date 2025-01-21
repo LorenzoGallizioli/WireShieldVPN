@@ -159,14 +159,14 @@ public class AntivirusManager {
 		scannerStatus = runningStates.DOWN;
 	}
 
-    /*
-     * Stops the ongoing antivirus scan process gracefully.
-     */
-    public void stopScan() {
-        if (scannerStatus == runningStates.DOWN) {
-            logger.warn("No scan process is running.");
-            return;
-        }
+        /*
+         * Stops the ongoing antivirus scan process gracefully.
+         */
+        public void stopScan() {
+        	if (scannerStatus == runningStates.DOWN) {
+            		logger.warn("No scan process is running.");
+            		return;
+        	}
 
 		if (scanThread != null && scanThread.isAlive()) {
 			scanThread.interrupt();
@@ -175,7 +175,7 @@ public class AntivirusManager {
 				scanThread.join(); // Wait for the thread to terminate
 			} catch (InterruptedException e) {}
 		}
-	}
+        }
 
 	/**
 	 * Sets the ClamAV engine for file analysis.
