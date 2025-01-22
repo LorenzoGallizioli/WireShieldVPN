@@ -372,12 +372,6 @@ Il Factory Pattern fornisce un'interfaccia per creare oggetti, delegando alle so
 
 Questo pattern centralizza la logica di creazione degli oggetti, migliorando la flessibilità e la manutenibilità del codice. Nel nostro caso viene utilizzato insieme al Singleton Pattern per garantire che ogni tipo di antivirus abbia un'unica istanza gestita centralmente.
 
-#### Strategy Pattern
-
-Il Strategy Pattern permette di definire una famiglia di algoritmi, incapsularli e renderli intercambiabili. La classe `AntivirusManager`, implementando le classi `ClamAV` e `VirusTotal` con interfaccia comune `AVInterface`, consentone di selezionare dinamicamente il metodo di scansione antivirus più appropriato.
-
-Grazie a questo pattern, la logica di selezione dell'antivirus è separata dalla logica di esecuzione, rendendo il codice più modulare e facilmente estendibile. Questo approccio garantisce flessibilità nella gestione delle operazioni di scansione.
-
 #### Template Method Pattern
 
 Il Template Method Pattern definisce la struttura di un algoritmo nella superclasse, lasciando alle sottoclassi l'implementazione di dettagli specifici. In Wireshield, per esempio, la classe `ScanReport` utilizza questo pattern per strutturare il processo di generazione dei report di scansione.
