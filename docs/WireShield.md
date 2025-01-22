@@ -44,7 +44,7 @@
 ### 1.1 **Project Plan**
 Il piano del progetto sarà descritto in questa sezione, evidenziando i 14 punti come indicato in sezione 2.1 del libro. Questo piano sarà sottoposto all'approvazione del professore prima dell'inizio dello sviluppo.
 
-- [**Project Plan**](../ProjectPlan.md)
+- [**Project Plan**](../docs/ProjectPlan.md)
 
 &nbsp;
 ## 2. 🔄 **Software Life Cycle**
@@ -363,20 +363,14 @@ Diversi design pattern sono stati adottati per migliorare la struttura e la manu
 
 #### Singleton Pattern
 
-Il Singleton Pattern viene utilizzato per garantire che una classe abbia una sola istanza e per fornire un punto di accesso globale a essa. Questo approccio è adottato in tutte le classi, tranne nella classe `Peer`. Questa decisione è stata presa per una ragione funzionale e dettata dalle caratterische specifiche del nostro sistema= abbiamo spesso avuto la necessità di implmentare classi che fornissero un servizo piu che uno scopo informativo, ad eccezione appunto della classe `Peer`.
+Il Singleton Pattern viene utilizzato per garantire che una classe abbia una sola istanza e per fornire un punto di accesso globale a essa. Questo approccio è adottato in tutte le classi, tranne nella classe `Peer`. Questa decisione è stata presa per una ragione funzionale e dettata dalle caratterische specifiche del nostro sistema = abbiamo spesso avuto la necessità di implementare classi che fornissero un servizio più che uno scopo informativo, ad eccezione appunto della classe `Peer`.
 In alcuni scenari, il Singleton Pattern può essere combinato con altri pattern per potenziare la funzionalità.
 
 #### Factory Pattern
 
 Il Factory Pattern fornisce un'interfaccia per creare oggetti, delegando alle sottoclassi la logica di definizione del tipo specifico di oggetto da istanziare. In Wireshield, per esempio, la classe `AntivirusManager` sfrutta questo pattern per creare istanze di `ClamAV` o `VirusTotal` in base a condizioni operative, come i parametri di configurazione.
 
-Questo pattern centralizza la logica di creazione degli oggetti, migliorando la flessibilità e la manutenibilità del codice. nel nostro caso viene utilizzato insieme al Singleton Pattern per garantire che ogni tipo di antivirus abbia un'unica istanza gestita centralmente.
-
-#### Strategy Pattern
-
-Il Strategy Pattern permette di definire una famiglia di algoritmi, incapsularli e renderli intercambiabili. La classe `AntivirusManager`, implementando le classi `ClamAV` e `VirusTotal` con interfaccia comune `AVInterface`, consentone di selezionare dinamicamente il metodo di scansione antivirus più appropriato.
-
-Grazie a questo pattern, la logica di selezione dell'antivirus è separata dalla logica di esecuzione, rendendo il codice più modulare e facilmente estendibile. Questo approccio garantisce flessibilità nella gestione delle operazioni di scansione.
+Questo pattern centralizza la logica di creazione degli oggetti, migliorando la flessibilità e la manutenibilità del codice. Nel nostro caso viene utilizzato insieme al Singleton Pattern per garantire che ogni tipo di antivirus abbia un'unica istanza gestita centralmente.
 
 #### Template Method Pattern
 
