@@ -12,14 +12,19 @@
 6. [**Sprint n°2**](#sprint-n2--18112024---9122024)
    - [Week Scrum n°1](#1-week-scrum-03-dicembre-2024)
    - [Week Scrum n°2](#2-week-scrum-10-dicembre-2024)
-   - [Week Scrum n°3](#3-week-scrum-17-dicembre-2024)
+7. [**Sprint n°3**](#sprint-n3--17122024---10012025)
+   - [Week Scrum n°1](#1-week-scrum-17-dicembre-2024)
+   - [Week Scrum n°2](#2-week-scrum-24-dicembre-2024)
+   - [Week Scrum n°3](#3-week-scrum-02-gennaio-2024)
+7. [**Sprint n°4**](#sprint-n4--10012025---17012025)
+   - [Week Scrum n°1](#1-week-scrum-10-gennaio-2025)
 
 &nbsp;
 
 ## **Sprint Planning**
 *Pianificazione generale delle attività.*
 
-- **Sprint Totali**: ??
+- **Sprint Totali**: 4
 
 - **Durata di uno Sprint**: 2 settimane
 
@@ -128,7 +133,7 @@
 
 &nbsp;
 ---
-# Sprint n°3: &nbsp;&nbsp; 17/12/2024 - 02/01/2025
+# Sprint n°3: &nbsp;&nbsp; 17/12/2024 - 10/01/2025
 ## **Ruoli del Team**
 
 - **Product Owner**: 
@@ -189,7 +194,7 @@
 
 &nbsp;
 ---
-# Sprint n°4: &nbsp;&nbsp; 10/01/2025 - 24/01/2025
+# Sprint n°4: &nbsp;&nbsp; 10/01/2025 - 17/01/2025
 ## **Ruoli del Team**
 
 - **Product Owner**: 
@@ -211,4 +216,10 @@
 # 1° Week Scrum 10 Gennaio 2025
 | **Titolo**                      | **Compiti**                                                                                       | **Sviluppatore**         |
 |----------------------------------|--------------------------------------------------------------------------------------------------|--------------------------|
-| Implementazione chiamate di Windows | Trovare il modo di implementare due chiamate su Windows. La prima deve consentire di effettuare l'accesso come amministratore nel caso in cui il programma venga avviato senza privilegi elevati, mostrando l'avviso di Windows per l'esecuzione come amministratore. La seconda deve consentire la cancellazione di un file dannoso | |
+| Creazione presentazione | Creare la presentazione per il progetto WireShield | Davide Bonsembiante |
+| Sistemazione commenti e javadoc | Sistemare i commenti, le javadoc e la formattazione di tutto il codice del progetto | Davide Bonsembiante |
+| Sistemazione errori/avvisi sottolineati da Sonarlint | Avviare SonarLint e risolvere tutti gli avvisi e gli errori sottolineati da questo software | Davide Bonsembiante |
+| Sistemazione documentazione | Ricontrollare la documentazione WireShield.md, implementare le parti non ancora completate e correggere le parti già implementate con le nuove decisioni prese durante gli sprint precedenti | Davide Bonsembiante - Lorenzo Gallizioli - Thomas Paganelli |
+| Correzione della gestione dei thread | Controllare la gestione dei thread nel progetto e sistemare nel caso di errata gestione dei thread | Thomas Paganelli |
+| Continuazione testing package UI | Continuare a implementare il file di testing per il package UI tenendo una copertura di testing soddisfacente | Lorenzo Gallizioli |
+| Sistemazione accorgimenti UI | Sistemare delle parti della UI per un miglioramento grafico e funzionale dell'app | Lorenzo Gallizioli |
