@@ -363,14 +363,14 @@ Diversi design pattern sono stati adottati per migliorare la struttura e la manu
 
 #### Singleton Pattern
 
-Il Singleton Pattern viene utilizzato per garantire che una classe abbia una sola istanza e per fornire un punto di accesso globale a essa. Questo approccio è adottato in tutte le classi, tranne nella classe `Peer`. Questa decisione è stata presa per una ragione funzionale e dettata dalle caratterische specifiche del nostro sistema= abbiamo spesso avuto la necessità di implmentare classi che fornissero un servizo piu che uno scopo informativo, ad eccezione appunto della classe `Peer`.
+Il Singleton Pattern viene utilizzato per garantire che una classe abbia una sola istanza e per fornire un punto di accesso globale a essa. Questo approccio è adottato in tutte le classi, tranne nella classe `Peer`. Questa decisione è stata presa per una ragione funzionale e dettata dalle caratterische specifiche del nostro sistema = abbiamo spesso avuto la necessità di implementare classi che fornissero un servizio più che uno scopo informativo, ad eccezione appunto della classe `Peer`.
 In alcuni scenari, il Singleton Pattern può essere combinato con altri pattern per potenziare la funzionalità.
 
 #### Factory Pattern
 
 Il Factory Pattern fornisce un'interfaccia per creare oggetti, delegando alle sottoclassi la logica di definizione del tipo specifico di oggetto da istanziare. In Wireshield, per esempio, la classe `AntivirusManager` sfrutta questo pattern per creare istanze di `ClamAV` o `VirusTotal` in base a condizioni operative, come i parametri di configurazione.
 
-Questo pattern centralizza la logica di creazione degli oggetti, migliorando la flessibilità e la manutenibilità del codice. nel nostro caso viene utilizzato insieme al Singleton Pattern per garantire che ogni tipo di antivirus abbia un'unica istanza gestita centralmente.
+Questo pattern centralizza la logica di creazione degli oggetti, migliorando la flessibilità e la manutenibilità del codice. Nel nostro caso viene utilizzato insieme al Singleton Pattern per garantire che ogni tipo di antivirus abbia un'unica istanza gestita centralmente.
 
 #### Strategy Pattern
 
