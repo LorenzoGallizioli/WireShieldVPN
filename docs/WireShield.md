@@ -44,7 +44,7 @@
 ### 1.1 **Project Plan**
 Il piano del progetto sarà descritto in questa sezione, evidenziando i 14 punti come indicato in sezione 2.1 del libro. Questo piano sarà sottoposto all'approvazione del professore prima dell'inizio dello sviluppo.
 
-- [**Project Plan**](../ProjectPlan.md)
+- [**Project Plan**](../docs/ProjectPlan.md)
 
 &nbsp;
 ## 2. 🔄 **Software Life Cycle**
